@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import com.scichart.scishowcase.databinding.ActivityMainBinding
 import com.scichart.scishowcase.views.HomePageFragment
 
+// The main activity 
 class MainActivity : AppCompatActivity() {
 
     private var activityBinding: ActivityMainBinding? = null
