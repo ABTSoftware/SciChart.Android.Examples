@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:scichart="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.scichart.scishowcase.viewModels.audioAnalyzer.AudioAnalyzerViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:id="@+id/sciChartSurface2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="2"
+            scichart:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+            scichart:layout_constraintHorizontal_bias="0.66"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toTopOf="parent"
+            scichart:viewModel="@{viewModel.audioStreamVM}" />
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintRight_toLeftOf="@+id/verticalGuideline"
+            scichart:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            scichart:viewModel="@{viewModel.fftVM}" />
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintLeft_toLeftOf="@+id/verticalGuideline"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toTopOf="@+id/horizontalGuideline"
+            scichart:viewModel="@{viewModel.spectrogramVM}" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/horizontalGuideline"
+            android:layout_width="384dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            scichart:layout_constraintGuide_percent="0.40388006"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="229dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/verticalGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            scichart:layout_constraintGuide_percent="0.5026042"
+            tools:layout_editor_absoluteX="193dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

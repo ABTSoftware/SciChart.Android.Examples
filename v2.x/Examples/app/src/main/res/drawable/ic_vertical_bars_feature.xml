@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_vertical_bars_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="22dp"
+    android:height="24dp"
+    android:viewportWidth="97.08"
+    android:viewportHeight="106">
+
+    <group>
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M5.09998,11.3 L65.6,11.3 L65.6,36.8 L92.6,36.8 L92.6,67.7 L70.7,67.7 L70.7,93.2
+L5.03998,93.2 L5.03998,101 L97.04,101 L97.04,106 L0.039978,106 L0.039978,0
+L5.03998,0 L5.03998,11.3 L5.13995,11.3 Z M34.5,88.4 L37.9,85 L37.9,78.7
+L28.2,88.4 L34.5,88.4 Z M37,88.4 L37.9,88.4 L37.9,87.5 Z M11.3,16.3
+L5.09998,22.5 L5.09998,28.8 L17.6,16.3 L11.3,16.3 Z M8.79999,16.3 L5.19995,16.3
+L5.19995,19.9 Z M20.2,16.3 L5.2,31.3 L5.2,36.6 L6.50005,36.6 L26.8,16.3
+L20.2,16.3 Z M49.8,55.4 L49.8,49.1 L36.04,62.9 L42.34,62.9 Z M44.9,62.8
+L49.8,62.8 L49.8,57.9 Z M48.1,41.9 L27.2,62.8 L33.5,62.8 L49.8,46.5 L49.8,41.9
+L48.1,41.9 Z M45.5,41.9 L39.2,41.9 L18.3,62.8 L24.6,62.8 Z M36.7,41.9 L30.4,41.9
+L9.5,62.8 L15.7,62.8 Z M5.09998,73.43 L10.5,68.03 L5.09998,68.03 L5.09998,73.43
+Z M6.89996,62.83 L27.8,41.93 L21.5,41.93 L5.1,58.33 L5.1,62.93 L6.89998,62.93
+L6.89998,62.83 Z M18.9,41.93 L12.6,41.93 L5.09998,49.43 L5.09998,55.73 Z
+M10.1,41.93 L5.19995,41.93 L5.19995,46.83 Z M26.7,36.73 L33.04,36.73
+L37.24,32.53 L37.24,26.23 Z M37.2,23.63 L37.2,17.33 L17.8,36.73 L24.1,36.73 Z
+M35.6,36.73 L37.3,36.73 L37.3,35.03 Z M29.3,16.33 L9.03998,36.6 L15.34,36.6
+L35.64,16.3 L29.34,16.3 Z M25.6,88.43 L37.9,76.13 L37.9,69.83 L19.3,88.43
+L25.6,88.43 Z M16.8,88.43 L37.1,68.13 L30.8,68.13 L10.5,88.43 L16.8,88.43 Z
+M7.89996,88.43 L28.2,68.13 L21.9,68.13 L5.1,84.93 L5.09998,88.43 L7.89996,88.43
+Z M19.4,68.03 L13.1,68.03 L5.19995,75.93 L5.19995,82.33 Z M60.6,36.73
+L60.6,16.33 L42.5,16.33 L42.5,36.63 L60.6,36.63 L60.6,36.73 Z M87.6,62.83
+L87.6,41.93 L54.8,41.93 L54.8,62.83 L87.6,62.83 Z M65.7,88.43 L65.7,68.13
+L42.9,68.13 L42.9,88.43 L65.7,88.43 Z" />
+    </group>
+</vector>

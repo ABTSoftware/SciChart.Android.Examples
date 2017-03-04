@@ -1,0 +1,167 @@
+//******************************************************************************
+// SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved.
+//
+// Web: http://www.scichart.com
+// Support: support@scichart.com
+// Sales:   sales@scichart.com
+//
+// build.gradle is part of the SCICHART® Examples. Permission is hereby granted
+// to modify, create derivative works, distribute and publish any part of this source
+// code whether for commercial, private or personal use.
+//
+// The SCICHART® examples are distributed in the hope that they will be useful, but
+// without any warranty. It is provided "AS IS" without warranty of any kind, either
+// expressed or implied.
+//******************************************************************************
+
+apply plugin: 'com.android.application'
+
+def mainFolder = "src/main"
+def assetsFolder = mainFolder + "/assets"
+def resFolder = mainFolder + "/res"
+def javaFolder = mainFolder + "/java"
+
+def examplesFolder = javaFolder + "/com/scichart/examples"
+def sciChartApp = "SciChartApp.java"
+
+def utilsFolder = examplesFolder + "/utils"
+def componentsFolder = examplesFolder + "/components"
+def dataFolder = examplesFolder + "/data"
+def exampleFragmentsFolder = examplesFolder + "/fragments"
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.scichart.examples"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibility
+        targetCompatibility rootProject.ext.sourceCompatibility
+    }
+    defaultConfig {
+        buildConfigField "String", "MAIN_FOLDER", "\"$mainFolder\""
+        buildConfigField "String", "ASSETS_FOLDER", "\"$assetsFolder\""
+        buildConfigField "String", "RES_FOLDER", "\"$resFolder\""
+        buildConfigField "String", "JAVA_FOLDER", "\"$javaFolder\""
+
+        buildConfigField "String", "EXAMPLE_FOLDER", "\"$examplesFolder\""
+        buildConfigField "String", "SCI_CHART_APP", "\"$sciChartApp\""
+
+        buildConfigField "String", "UTILS_FOLDER", "\"$utilsFolder\""
+        buildConfigField "String", "COMPONENTS_FOLDER", "\"$componentsFolder\""
+        buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
+        buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}
+
+task cleanExampleAssets(type: Delete) {
+    delete "src/main/assets/app"
+}
+
+task copySourceSciChartAppToAssets(type: Copy) {
+    from examplesFolder + "/" + sciChartApp
+    into assetsFolder + "/app/" + examplesFolder
+
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+
+task copySourceExampleFragmentsToAssets(type: Copy) {
+    from exampleFragmentsFolder
+    into assetsFolder + "/app/" + exampleFragmentsFolder
+
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+
+task copySourceExampleUtilsToAssets(type: Copy) {
+    from utilsFolder
+    into assetsFolder + "/app/" + utilsFolder
+
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+
+task copySourceExampleDataToAssets(type: Copy) {
+    from dataFolder
+    into assetsFolder + "/app/" + dataFolder
+
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+
+task copySourceExampleComponentsToAssets(type: Copy) {
+    from componentsFolder
+    into assetsFolder + "/app/" + componentsFolder
+
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+
+task copyResourceExamplesToAssets(type: Copy) {
+    from resFolder
+    into assetsFolder + "/app/" + resFolder
+
+    include '**/example_*.*'
+    include '**/license.xml'
+    include '**/values/*.xml'
+    includeEmptyDirs = false
+
+    rename { String fileName ->
+        fileName.replace("xml", "xml.txt")
+    }
+}
+
+project.afterEvaluate {
+    clean.dependsOn cleanExampleAssets
+    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    debugCompile project(path: ':core', configuration: 'debug')
+    debugCompile project(path: ':drawing', configuration: 'debug')
+    debugCompile project(path: ':data', configuration: 'debug')
+    debugCompile project(path: ':charting', configuration: 'debug')
+    debugCompile project(path: ':extensions', configuration: 'debug')
+
+    releaseCompile project(path: ':core', configuration: 'release')
+    releaseCompile project(path: ':drawing', configuration: 'release')
+    releaseCompile project(path: ':data', configuration: 'release')
+    releaseCompile project(path: ':charting', configuration: 'release')
+    releaseCompile project(path: ':extensions', configuration: 'release')
+
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.github.twalcari:java-prettify:1.2.2'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.android.support:support-v4:25.2.0'
+    compile 'com.android.support:design:25.2.0'
+}

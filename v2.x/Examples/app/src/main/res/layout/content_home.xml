@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- content_home.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:fitsSystemWindows="true"
+    tools:showIn="@layout/activity_home">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:background="@color/background_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:id="@+id/mainScreen"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <!--Example Selection Frame-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/menu_list_header_background"
+                    android:layout_marginBottom="3dp"
+                    android:paddingStart="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@android:color/white"
+                        android:text="SORT BY"/>
+
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/SciChart_ExampleSpinnerStyle"
+                        android:id="@+id/sortBy"/>
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="3dp" />
+
+            </LinearLayout>
+
+            <!--Search Result Frame-->
+            <com.scichart.examples.demo.components.SearchResultsDialog
+                android:id="@+id/search_results_dialog"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

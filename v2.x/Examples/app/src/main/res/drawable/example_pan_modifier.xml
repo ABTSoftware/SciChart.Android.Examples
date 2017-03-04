@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_pan_modifier.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="82.2dp"
+    android:height="82dp"
+    android:viewportWidth="82.2"
+    android:viewportHeight="82">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M72,33.3 L68.8,37.2 L71.2,39.1 L44.1,39.1 L44.1,11 L46,13.4 L49.9,10.2 L41.6,0
+L33.3,10.2 L37.2,13.4 L39.1,11 L39.1,39.1 L11.1,39.1 L13.4,37.2 L10.2,33.3
+L0,41.6 L10.2,49.8 L13.4,45.9 L11.1,44.1 L39.1,44.1 L39.1,71 L37.2,68.6
+L33.3,71.8 L41.6,82 L49.9,71.8 L46,68.6 L44.1,71 L44.1,44.1 L71.2,44.1
+L68.8,45.9 L72,49.8 L82.2,41.6 L72,33.3 Z" />
+</vector>

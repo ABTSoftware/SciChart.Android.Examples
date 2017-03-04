@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_toolbar_item.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_item_container"
+    android:layout_width="@dimen/sliding_menu_width"
+    android:layout_height="wrap_content"
+    android:background="@drawable/example_toolbar_item_selector"
+    android:paddingLeft="7dp"
+    android:paddingRight="7dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="7dp">
+
+</RelativeLayout>

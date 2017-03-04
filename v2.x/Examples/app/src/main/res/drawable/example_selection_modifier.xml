@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_selection_modifier.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="12dp"
+    android:height="24dp"
+    android:viewportWidth="49.9"
+    android:viewportHeight="97.9">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M49.9,62.9 L0,0 L0,84.3 L14.9,65 L27.8,97.9 L42.8,91 L29.9,59 Z M26.4,80.9
+L24.3,75.6 L29.1,70.8 L31.2,76 Z M32.1,78.1 L34.1,83.1 L29.2,88 L27.2,83 Z
+M23.6,73.6 L21.6,68.6 L26.3,63.9 L28.3,68.9 Z M20.8,66.5 L18.8,61.5 L23.5,56.8
+L25.5,61.8 Z M26.9,53.4 L32,48.3 L35.1,52.2 L32.8,54.5 Z M35.2,55 L36.4,53.8
+L37.7,55.4 Z M5.89999,15.5 L9,19.4 L5,23.4 L5,16.4 Z M10.2,21 L13.3,24.9 L5,33.2
+L5,26.2 Z M14.6,26.4 L17.7,30.3 L5,43 L5,36 Z M18.9,31.9 L22,35.8 L5,52.8
+L5,45.8 Z M23.3,37.4 L26.4,41.3 L5,62.7 L5,55.7 Z M5,69.7 L5,65.6 L27.6,43
+L30.7,46.9 L24.5,53.1 L21.7,52.6 L22.6,54.9 L17.9,59.6 L16.1,55.1 Z M30,90
+L34.9,85.1 L36.3,88.5 L30.5,91.2 Z" />
+</vector>

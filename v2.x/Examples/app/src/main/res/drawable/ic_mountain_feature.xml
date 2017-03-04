@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_mountain_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="134.8"
+    android:viewportHeight="134.8">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M123.5,129.8 L123.5,12.4 L118.5,12.6 A79.38,79.38,0,0,1,109.8,40.1
+C100.1,57.9,84.9,67,64.7,67 C41.5,67,22.9,78.3,11,99.7
+A89.17,89.17,0,0,0,5,112.9 L5,0 L0,0 L0,134.8 L134.8,134.8 L134.8,129.8
+L123.5,129.8 Z M117.8,129.8 L110.8,129.8 L118.5,122.1 L118.5,129.1 Z M108,129.8
+L101,129.8 L118.5,112.3 L118.5,119.3 Z M98.2,129.8 L91.2,129.8 L118.6,102.4
+L118.6,109.4 Z M88.3,129.8 L81,129.8 L118.5,92.3 L118.5,99.6 Z M78.2,129.8
+L71.2,129.8 L118.6,82.4 L118.6,89.4 L78.2,129.8 L78.2,129.8 Z M68.3,129.8
+L61.3,129.8 L118.5,72.6 L118.5,79.6 Z M58.5,129.8 L51.5,129.8 L118.5,62.8
+L118.5,69.8 Z M48.7,129.8 L41.7,129.8 L118.6,52.9 L118.6,59.9 L48.7,129.8
+L48.7,129.8 Z M38.9,129.8 L31.9,129.8 L118.6,43.1 L118.6,50.1 L38.9,129.8
+L38.9,129.8 Z M82.4,69.4 A53.65,53.65,0,0,0,95.4,63.4 L29,129.8 L22,129.8 Z
+M19.2,129.8 L12.2,129.8 L70.3,71.7 A64.53,64.53,0,0,0,78.5,70.5 L19.2,129.8
+L19.2,129.8 Z M111.08,47.73 C112.28,45.93,113.38,44.03,114.38,42.33
+A78.87,78.87,0,0,0,118.48,33.33 L118.58,33.23 L118.58,40.23 Z M56.88,72.43
+L7.28,122.03 A98.46,98.46,0,0,1,10.98,111.33 L48.08,74.23
+A62.33,62.33,0,0,1,56.88,72.43 L56.88,72.43 Z M43.78,75.73 L13.28,106.23
+C13.98,104.83,14.68,103.33,15.48,101.93 C22.7,89.1,32.2,80.3,43.8,75.73 Z
+M6.28,125.83 L59.98,72.13 C61.48,72.03,63.08,71.93,64.68,71.93 L67.18,71.93
+L9.28,129.83 L5.38,129.83 C5.68001,128.73,5.98,127.43,6.28,125.83 L6.28,125.83 Z" />
+</vector>

@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.scichart.scishowcase"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    debugCompile project(path: ':core', configuration: 'debug')
+    debugCompile project(path: ':drawing', configuration: 'debug')
+    debugCompile project(path: ':data', configuration: 'debug')
+    debugCompile project(path: ':charting', configuration: 'debug')
+
+    releaseCompile project(path: ':core', configuration: 'release')
+    releaseCompile project(path: ':drawing', configuration: 'release')
+    releaseCompile project(path: ':data', configuration: 'release')
+    releaseCompile project(path: ':charting', configuration: 'release')
+
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.android.support:recyclerview-v7:25.2.0'
+    compile 'com.android.support:design:25.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    compile'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile'io.reactivex.rxjava2:rxjava:2.0.1'
+
+    kapt "com.android.databinding:compiler:$android_plugin_version"
+}
+
+repositories {
+    mavenCentral()
+}

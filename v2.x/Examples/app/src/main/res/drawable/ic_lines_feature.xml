@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_lines_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106.1"
+    android:viewportHeight="106.1">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M6.4,101.1 L25.4,57.6 L37.7,81 L56.4,32.2 L71.6,65.4 L83.2,32 L99.3,10.2
+L95.3,7.2 L78.8,29.6 L71,52 L56,19.3 L37,68.9 L25,46 L5,91.6 L5,0 L0,0 L0,106.1
+L106.1,106.1 L106.1,101.1 L6.4,101.1 Z" />
+</vector>

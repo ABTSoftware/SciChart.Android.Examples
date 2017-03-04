@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_chart_legend_popup_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ExampleSettingsPopupStyle"
+    android:columnCount="2"
+    android:rowCount="5">
+
+    <TextView
+        android:layout_column="0"
+        android:layout_gravity="center_vertical"
+        android:layout_row="0"
+        android:text="@string/use_log_on" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/use_log_on_x_axis_checkbox"
+        style="@style/SwitchStyle"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="1"
+        android:text="@string/use_log_on_x_axis"
+        app:theme="@style/SwitchTheme" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/use_log_on_y_axis_checkbox"
+        style="@style/SwitchStyle"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="2"
+        android:text="@string/use_log_on_y_axis"
+        app:theme="@style/SwitchTheme" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_column="0"
+        android:layout_columnSpan="2"
+        android:layout_row="3"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:layout_column="0"
+        android:layout_gravity="center_vertical"
+        android:layout_row="4"
+        android:text="@string/log_base" />
+
+    <Spinner
+        android:id="@+id/log_base_spinner"
+        style="@style/PopupSpinnerStyle"
+        android:layout_column="1"
+        android:layout_row="4" />
+</GridLayout>

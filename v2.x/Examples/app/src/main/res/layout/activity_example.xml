@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- activity_example.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="com.scichart.examples.ExampleActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.AppBarLayout">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/appToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.AppBar" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.scichart.examples.components.CustomDrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/drawer_layout_example"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/content_example"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="@dimen/sliding_menu_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:scrollbarThumbVertical="@android:color/transparent">
+
+            <LinearLayout
+                android:id="@+id/right_drawer"
+                android:layout_width="@dimen/sliding_menu_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@android:color/transparent"
+                android:divider="@android:color/transparent"
+                android:orientation="vertical" />
+
+        </ScrollView>
+
+    </com.scichart.examples.components.CustomDrawerLayout>
+</LinearLayout>

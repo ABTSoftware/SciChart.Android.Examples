@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_stacked_columns_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106"
+    android:viewportHeight="106">
+
+    <group>
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M94.7,100.9 L94.7,40.4 L69.2,40.4 L69.2,13.4 L38.3,13.4 L38.3,35.3 L12.8,35.3
+L12.8,101 L5,101 L5,0 L0,0 L0,106 L106,106 L106,101 L94.7,101 L94.7,100.9 Z
+M17.6,71.5 L21,68.1 L27.3,68.1 L17.6,77.8 L17.6,71.5 Z M17.6,69 L17.6,68.1
+L18.5,68.1 Z M89.7,94.7 L83.5,100.9 L77.2,100.9 L89.7,88.4 L89.7,94.7 Z
+M89.7,97.2 L89.7,100.8 L86.1,100.8 Z M89.7,85.8 L74.7,100.8 L69.4,100.8
+L69.4,99.5 L89.7,79.2 L89.7,85.8 Z M50.6,56.2 L56.9,56.2 L43.1,70 L43.1,63.7 Z
+M43.2,61.1 L43.2,56.2 L48.1,56.2 Z M64.1,57.9 L43.2,78.8 L43.2,72.5 L59.5,56.2
+L64.1,56.2 L64.1,57.9 L64.1,57.9 Z M64.1,60.5 L64.1,66.8 L43.2,87.7 L43.2,81.4 Z
+M64.1,69.3 L64.1,75.6 L43.2,96.5 L43.2,90.3 Z M32.6,100.9 L38,95.5 L38,100.9
+L32.6,100.9 Z M43.2,99.1 L64.1,78.2 L64.1,84.5 L47.7,100.9 L43.1,100.9
+L43.1,99.1 L43.2,99.1 Z M64.1,87.1 L64.1,93.4 L56.6,100.9 L50.3,100.9 Z
+M64.1,95.9 L64.1,100.8 L59.2,100.8 Z M69.3,79.3 L69.3,73 L73.5,68.8 L79.8,68.8 Z
+M82.4,68.8 L88.7,68.8 L69.3,88.2 L69.3,81.9 Z M69.3,70.4 L69.3,68.7 L71,68.7 Z
+M89.7,76.7 L69.4,97 L69.4,90.7 L89.7,70.4 L89.7,76.7 Z M17.6,80.4 L29.9,68.1
+L36.2,68.1 L17.6,86.7 L17.6,80.4 Z M17.6,89.2 L37.9,68.9 L37.9,75.2 L17.6,95.5
+L17.6,89.2 Z M17.6,98.1 L37.9,77.8 L37.9,84.1 L21.1,100.9 L17.6,100.9 L17.6,98.1
+Z M38,86.6 L38,92.9 L30.1,100.8 L23.7,100.8 Z M69.3,45.4 L89.7,45.4 L89.7,63.5
+L69.4,63.5 L69.4,45.4 L69.3,45.4 Z M43.2,18.4 L64.1,18.4 L64.1,51.2 L43.2,51.2
+L43.2,18.4 Z M17.6,40.3 L37.9,40.3 L37.9,63.1 L17.6,63.1 L17.6,40.3 Z" />
+    </group>
+</vector>
