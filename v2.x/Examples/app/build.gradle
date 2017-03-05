@@ -13,21 +13,17 @@
 // without any warranty. It is provided "AS IS" without warranty of any kind, either
 // expressed or implied.
 //******************************************************************************
-
 apply plugin: 'com.android.application'
-
 def mainFolder = "src/main"
 def assetsFolder = mainFolder + "/assets"
 def resFolder = mainFolder + "/res"
 def javaFolder = mainFolder + "/java"
-
 def examplesFolder = javaFolder + "/com/scichart/examples"
 def sciChartApp = "SciChartApp.java"
-
 def utilsFolder = examplesFolder + "/utils"
 def componentsFolder = examplesFolder + "/components"
+def dataFolder = examplesFolder + "/data"
 def exampleFragmentsFolder = examplesFolder + "/fragments"
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -47,15 +43,13 @@ android {
         buildConfigField "String", "ASSETS_FOLDER", "\"$assetsFolder\""
         buildConfigField "String", "RES_FOLDER", "\"$resFolder\""
         buildConfigField "String", "JAVA_FOLDER", "\"$javaFolder\""
-
         buildConfigField "String", "EXAMPLE_FOLDER", "\"$examplesFolder\""
         buildConfigField "String", "SCI_CHART_APP", "\"$sciChartApp\""
-
         buildConfigField "String", "UTILS_FOLDER", "\"$utilsFolder\""
         buildConfigField "String", "COMPONENTS_FOLDER", "\"$componentsFolder\""
+        buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
         buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
     }
-
     buildTypes {
         debug {
             minifyEnabled false
@@ -67,84 +61,75 @@ android {
     }
     productFlavors {
     }
-
     lintOptions {
         checkReleaseBuilds false
     }
 }
-
 task cleanExampleAssets(type: Delete) {
     delete "src/main/assets/app"
 }
-
 task copySourceSciChartAppToAssets(type: Copy) {
     from examplesFolder + "/" + sciChartApp
     into assetsFolder + "/app/" + examplesFolder
-
     rename { String fileName ->
         fileName.replace("java", "java.txt")
     }
 }
-
 task copySourceExampleFragmentsToAssets(type: Copy) {
     from exampleFragmentsFolder
     into assetsFolder + "/app/" + exampleFragmentsFolder
-
     rename { String fileName ->
         fileName.replace("java", "java.txt")
     }
 }
-
 task copySourceExampleUtilsToAssets(type: Copy) {
     from utilsFolder
     into assetsFolder + "/app/" + utilsFolder
-
     rename { String fileName ->
         fileName.replace("java", "java.txt")
     }
 }
-
+task copySourceExampleDataToAssets(type: Copy) {
+    from dataFolder
+    into assetsFolder + "/app/" + dataFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
 task copySourceExampleComponentsToAssets(type: Copy) {
     from componentsFolder
     into assetsFolder + "/app/" + componentsFolder
-
     rename { String fileName ->
         fileName.replace("java", "java.txt")
     }
 }
-
 task copyResourceExamplesToAssets(type: Copy) {
     from resFolder
     into assetsFolder + "/app/" + resFolder
-
     include '**/example_*.*'
     include '**/license.xml'
     include '**/values/*.xml'
     includeEmptyDirs = false
-
     rename { String fileName ->
         fileName.replace("xml", "xml.txt")
     }
 }
-
 project.afterEvaluate {
     clean.dependsOn cleanExampleAssets
-    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
+    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
 }
-
 repositories {
+    mavenLocal()
+    mavenCentral()
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
-
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
     compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1654', ext: 'aar')
     compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1654', ext: 'aar')
     compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1654', ext: 'aar')
     compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1654', ext: 'aar')
     compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1654', ext: 'aar')
-
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.twalcari:java-prettify:1.2.2'
