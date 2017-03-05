@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- a2d_charts.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="134.8"
+    android:viewportHeight="134.8">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M120.3,129.8 L120.3,88.7 L91.4,88.7 L91.4,129.8 L82.9,129.8 L82.9,17.3
+L54.1,17.3 L54.1,129.8 L43.9,129.8 L43.9,48.6 L15,48.6 L15,129.8 L5,129.8 L5,0
+L0,0 L0,134.8 L134.8,134.8 L134.8,129.8 L120.3,129.8 Z M38.9,129.8 L20,129.8
+L20,53.6 L38.9,53.6 L38.9,129.8 Z M59.1,115.6 L59.1,108.6 L78,89.7 L78,96.7 Z
+M78,99.6 L78,106.6 L59.1,125.5 L59.1,118.5 Z M59.1,105.8 L59.1,98.8 L78,79.9
+L78,86.9 Z M59.1,96 L59.1,89 L78,70.1 L78,77.1 Z M59.1,86.1 L59.1,78.8 L78,59.9
+L78,67.2 Z M59.1,76 L59.1,69 L78,50.1 L78,57.1 Z M59.1,66.2 L59.1,59.2 L78,40.3
+L78,47.3 Z M59.1,56.3 L59.1,49.3 L78,30.4 L78,37.4 Z M59.1,46.5 L59.1,39.5
+L76.3,22.3 L78,22.3 L78,27.6 Z M66.5,22.3 L73.5,22.3 L59.1,36.7 L59.1,29.7 Z
+M59.1,26.8 L59.1,22.3 L63.6,22.3 Z M59.1,128.3 L78,109.4 L78,116.4 L64.6,129.8
+L59.1,129.8 L59.1,128.3 Z M78,119.3 L78,126.3 L74.5,129.8 L67.5,129.8 Z
+M77.3,129.8 L78,129.1 L78,129.8 L77.3,129.8 Z M115.3,129.8 L96.4,129.8
+L96.4,93.7 L115.3,93.7 L115.3,129.8 Z" />
+</vector>

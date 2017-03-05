@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_modify_axes_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="112.5"
+    android:viewportHeight="105.4">
+
+    <group>
+        <group>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M49.5,15.6 A4.25,4.25,0,0,0,50.6,15.8 A1.88,1.88,0,0,0,52.5,14.7 L53.1,13.2
+L47.8,0 L50.8,0 L54.6,9.79999 L58.4,0 L61.5,0 L55.2,15.4
+A4.36,4.36,0,0,1,50.7,18.3 A8.75,8.75,0,0,1,49.1,18.1 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M0,105.3 L0,103.2 L6.5,94.8 L0,94.8 L0,92.3 L10.2,92.3 L10.2,94.4 L3.7,102.9
+L10.3,102.9 L10.3,105.4 L0,105.4 L0,105.3 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M109.3,105.3 L105.9,100.5 L102.5,105.3 L99.3,105.3 L104.1,98.6 L99.6,92.3
+L102.8,92.3 L105.9,96.7 L109,92.3 L112.2,92.3 L107.7,98.6 L112.5,105.3
+L109.3,105.3 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M49.5,15.6 A4.25,4.25,0,0,0,50.6,15.8 A1.88,1.88,0,0,0,52.5,14.7 L53.1,13.2
+L47.8,0 L50.8,0 L54.6,9.79999 L58.4,0 L61.5,0 L55.2,15.4
+A4.36,4.36,0,0,1,50.7,18.3 A8.75,8.75,0,0,1,49.1,18.1 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M0,105.3 L0,103.2 L6.5,94.8 L0,94.8 L0,92.3 L10.2,92.3 L10.2,94.4 L3.7,102.9
+L10.3,102.9 L10.3,105.4 L0,105.4 L0,105.3 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffff"
+                android:pathData="M109.3,105.3 L105.9,100.5 L102.5,105.3 L99.3,105.3 L104.1,98.6 L99.6,92.3
+L102.8,92.3 L105.9,96.7 L109,92.3 L112.2,92.3 L107.7,98.6 L112.5,105.3
+L109.3,105.3 Z" />
+        </group>
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M91.8,82.3 L87.1,84.1 L88.3,87 L57.4,69.2 L57.4,33.8 L59.1,35.9 L63,32.8
+L54.7,22.6 L46.5,32.8 L50.4,35.9 L52.4,33.5 L52.4,69.2 L21.7,86.9 L22.7,84.3
+L18,82.5 L13.3,94.7 L26.3,96.8 L27.1,91.8 L23.9,91.4 L54.9,73.5 L85.5,91.2
+L82.8,91.6 L83.6,96.6 L96.5,94.5 L91.8,82.3 Z" />
+    </group>
+</vector>

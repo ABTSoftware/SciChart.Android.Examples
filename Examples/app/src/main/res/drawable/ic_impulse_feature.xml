@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_impulse_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106"
+    android:viewportHeight="106">
+
+    <group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M5,0 L0,0 L0,106 L106,106 L106,101 L5,101 L5,0 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M27.7,102.4 L22.8,101.4 L25.3,101.9 L22.8,101.5 C23,99.4,22.9,69,22.8,49
+L27.8,49 C27.9,68.2,28,100.7,27.7,102.4 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M53.9,44.3 L58.9,44.3 L58.9,102.6 L53.9,102.6 L53.9,44.3 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M24.9,53.2 C31.5,53.2,36.9,47.8,36.9,41.2 S31.5,29.2,24.9,29.2
+S12.9,34.6,12.9,41.2 S18.3,53.2,24.9,53.2 Z M24.9,34.2
+C28.8,34.2,31.9,37.3,31.9,41.2 S28.8,48.2,24.9,48.2 S17.9,45.1,17.9,41.2
+L17.9,41.2 C17.9,37.3,21,34.2,24.9,34.2 L24.9,34.2 L24.9,34.2 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M55.9,47.7 C62.5,47.7,67.9,42.3,67.9,35.7 S62.5,23.7,55.9,23.7
+S43.9,29.1,43.9,35.7 S49.3,47.7,55.9,47.7 Z M55.9,28.7
+C59.8,28.7,62.9,31.8,62.9,35.7 S59.8,42.7,55.9,42.7 S48.9,39.6,48.9,35.7
+S52.1,28.7,55.9,28.7 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M85,27.8 L90,27.8 L90,102.3 L85,102.3 L85,27.8 Z" />
+        </group>
+        <group>
+            <path
+                android:fillColor="#ffffffff"
+                android:pathData="M87,32.3 C93.6,32.3,99,26.9,99,20.3 S93.6,8.3,87,8.3 S75,13.7,75,20.3
+S80.4,32.3,87,32.3 Z M87,13.3 C90.9,13.3,94,16.4,94,20.3 S90.9,27.3,87,27.3
+S80,24.2,80,20.3 L80,20.3 C80,16.4,83.1,13.3,87,13.3 Z" />
+        </group>
+    </group>
+</vector>

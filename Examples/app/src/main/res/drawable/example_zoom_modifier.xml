@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_zoom_modifier.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="85.2"
+    android:viewportHeight="87.6">
+
+    <group>
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M85.2,84.1 L55.7,54.6 A32.64,32.64,0,1,0,52,57.9 L81.7,87.6 Z M5.1,32.4
+A27.3,27.3,0,1,1,32.4,59.7 A27.34,27.34,0,0,1,5.10001,32.4 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M24.3,16.7 L19.3,16.7 L19.3,22.4 L13.5,22.4 L13.5,27.4 L19.3,27.4 L19.3,33.1
+L24.3,33.1 L24.3,27.4 L30,27.4 L30,22.4 L24.3,22.4 L24.3,16.7 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M34.3,41.5 L50.8,41.5 L50.8,46.5 L34.3,46.5 L34.3,41.5 Z" />
+    </group>
+</vector>

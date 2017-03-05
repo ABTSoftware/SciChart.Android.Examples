@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_ohlc_series_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106.1"
+    android:viewportHeight="106">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M5,101 L5,0 L0,0 L0,106 L106.1,106 L106.1,101 L5,101 Z" />
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M19.1,45.6 L24.1,45.6 L24.1,42.3 L29.5,42.3 L29.5,37.3 L24.1,37.3 L24.1,9.9
+L19.1,9.9 L19.1,15.5 L13.6,15.5 L13.6,20.5 L19.1,20.5 L19.1,45.6 Z" />
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M60,77.7 L65,77.7 L65,71.7 L70.2,71.7 L70.2,66.7 L65,66.7 L65,18 L60,18 L60,27.6
+L54.3,27.6 L54.3,32.6 L60,32.6 L60,77.7 Z" />
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M40,69 L45,69 L45,50.4 L49.3,50.4 L49.3,45.4 L45,45.4 L45,26.8 L40,26.8 L40,54.7
+L34.5,54.7 L34.5,59.7 L40,59.7 L40,69 Z" />
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M82.5,95.2 L87.5,95.2 L87.5,59.7 L93.4,59.7 L93.4,54.7 L87.5,54.7 L87.5,42.7
+L82.5,42.7 L82.5,85.5 L76.8,85.5 L76.8,90.5 L82.5,90.5 L82.5,95.2 Z" />
+</vector>
