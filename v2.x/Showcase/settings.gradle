@@ -1,6 +1,1 @@
-include ':app', ':core', ':data', ':drawing', ':charting'
-
-project(':core').projectDir = new File(settingsDir, '../Examples/core')
-project(':data').projectDir = new File(settingsDir, '../Examples/data')
-project(':drawing').projectDir = new File(settingsDir, '../Examples/drawing')
-project(':charting').projectDir = new File(settingsDir, '../Examples/charting')
+include ':app' 

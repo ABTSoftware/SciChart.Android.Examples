@@ -1,10 +1,7 @@
 package com.scichart.scishowcase.viewModels.ecg
 
 import android.content.Context
-import android.graphics.Color
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.SubscriptSpan
+import android.support.v4.content.ContextCompat
 import android.view.View
 import com.scichart.charting.layoutManagers.ChartLayoutState
 import com.scichart.charting.layoutManagers.IAxisLayoutStrategy
@@ -26,6 +23,7 @@ import com.scichart.core.model.IntegerValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.common.SolidPenStyle
 import com.scichart.drawing.utility.ColorUtil
+import com.scichart.scishowcase.R
 import com.scichart.scishowcase.model.ecg.EcgData
 import com.scichart.scishowcase.model.ecg.IEcgDataProvider
 import com.scichart.scishowcase.model.ecg.TraceAOrB
@@ -36,6 +34,7 @@ import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -43,21 +42,28 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
 
     private val FIFO_CAPACITY = 7850
 
+    private val heartRateColor = ContextCompat.getColor(context, R.color.heart_rate_color)
+    private val bloodPressureColor = ContextCompat.getColor(context, R.color.blood_pressure_color)
+    private val bloodVolumeColor = ContextCompat.getColor(context, R.color.blood_volume_color)
+    private val bloodOxygenation = ContextCompat.getColor(context, R.color.blood_oxygenation_color)
+
     val xAxes: AxisCollection = AxisCollection()
     val yAxes: AxisCollection = AxisCollection()
     val yAxisLayoutStrategy: IAxisLayoutStrategy = LeftAlignedOuterVerticallyStackedYAxisLayoutStrategy()
     val renderableSeries: RenderableSeriesCollection = RenderableSeriesCollection()
 
-    var hrVM = EcgDataViewModel("BPM", "HR\n120\n50", ColorUtil.Cyan)
-    var spoVM = EcgDataViewModel("%", SpannableString("SPO2\n100\n90").init { setSpan(SubscriptSpan(), 3, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }, ColorUtil.CornflowerBlue)
-    var rrVM = EcgDataViewModel("BrPM", "RR\n30\n80", ColorUtil.Yellow)
-    var temperatureVM = EcgDataViewModel("\u00b0C", "Temp\n39.0\n35.0", ColorUtil.White)
+    val hrVM = EcgHeartRateViewModel()
+    val bloodPressureVM = EcgBloodPressureViewModel()
+    val bloodVolumeVM = EcgBloodVolumeViewModel()
+    val bloodOxygenationVM = EcgBloodOxygenationViewModel()
 
     private val random = Random()
     private val hrValues = arrayOf("67", "69", "72", "74")
-    private val spoValues = arrayOf("93", "95", "96", "97")
-    private val rrValues = arrayOf("15", "17", "19", "22")
-    private val temperatureValues = arrayOf("36.0", "36.3", "36.6", "36.8")
+    private val bloodPressureValues = arrayOf("120/70", "115/70", "115/75", "120/75")
+    private val bloodPresssureBarValues = arrayOf(5, 6, 7)
+    private val bloodVolumeValues = arrayOf("13.1", "13.2", "13.3", "13.0")
+    private val bloodVolumeBarValues = arrayOf(9, 10, 11)
+    private val bloodOxygenationValues = arrayOf("93", "95", "96", "97")
 
     private val ecgDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
     private val ecgSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
@@ -71,6 +77,8 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
     private val dataBatch = EcgDataBatch()
     private var dataSeriesSubscription: Disposable? = null
     private var labelsUpdateSubscription: Disposable? = null
+    private var heartRateSubscription: Disposable? = null
+    private val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
     init {
         xAxes.add(NumericAxis(context).init {
@@ -88,14 +96,14 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
 
         val lineThickness = context.dip(1f)
 
-        renderableSeries.add(generateRenderableSeries("ecgId", ecgDataSeries, SolidPenStyle(Color.GREEN, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("ecgId", ecgSweepDataSeries, SolidPenStyle(Color.GREEN, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodPressureId", bloodPressureDataSeries, SolidPenStyle(Color.YELLOW, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodPressureId", bloodPressureSweepDataSeries, SolidPenStyle(Color.YELLOW, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodVolumeId", bloodVolumeDataSeries, SolidPenStyle(Color.GRAY, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodVolumeId", bloodVolumeSweepDataSeries, SolidPenStyle(Color.GRAY, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationDataSeries, SolidPenStyle(Color.BLUE, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationSweepDataSeries, SolidPenStyle(Color.BLUE, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("ecgId", ecgDataSeries, SolidPenStyle(heartRateColor, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("ecgId", ecgSweepDataSeries, SolidPenStyle(heartRateColor, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("bloodPressureId", bloodPressureDataSeries, SolidPenStyle(bloodPressureColor, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("bloodPressureId", bloodPressureSweepDataSeries, SolidPenStyle(bloodPressureColor, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("bloodVolumeId", bloodVolumeDataSeries, SolidPenStyle(bloodVolumeColor, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("bloodVolumeId", bloodVolumeSweepDataSeries, SolidPenStyle(bloodVolumeColor, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
+        renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationSweepDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
     }
 
     override fun onResume() {
@@ -123,8 +131,14 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
         }.subscribe()
 
         labelsUpdateSubscription = Observable.interval(0, 5, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
-                .doOnNext { updateLabels() }
+                .doOnNext { updateVMValues() }
                 .subscribe()
+
+        heartRateSubscription = Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread()).doOnNext {
+            val isVisible = hrVM.heartRateIconVisibility.get() == View.VISIBLE
+            val visibility = if (isVisible) View.INVISIBLE else View.VISIBLE
+            hrVM.heartRateIconVisibility.set(visibility)
+        }.subscribe()
     }
 
 
@@ -132,6 +146,7 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
         return NumericAxis(context).init {
             axisId = id
             autoRange = AutoRange.Always
+            growBy = DoubleRange(.05, .05)
             axisAlignment = AxisAlignment.Left
             drawMajorGridLines = false
             drawMinorGridLines = false
@@ -149,12 +164,19 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
         }
     }
 
-    private fun updateLabels() {
-        hrVM.value.set(hrValues[random.nextInt(hrValues.size)])
-        spoVM.value.set(spoValues[random.nextInt(spoValues.size)])
-        rrVM.value.set(rrValues[random.nextInt(rrValues.size)])
-        temperatureVM.value.set(temperatureValues[random.nextInt(temperatureValues.size)])
+    private fun updateVMValues() {
+        hrVM.bpmValue.set(hrValues[random.nextInt(hrValues.size)])
+        bloodPressureVM.bloodPressure.set(bloodPressureValues[random.nextInt(bloodPressureValues.size)])
+        bloodVolumeVM.bloodVolumeValue.set(bloodVolumeValues[random.nextInt(bloodVolumeValues.size)])
+        bloodOxygenationVM.spoValue.set(bloodOxygenationValues[random.nextInt(bloodOxygenationValues.size)])
+
+        bloodPressureVM.bloodPressureBarValue.set(bloodPresssureBarValues[random.nextInt(bloodPresssureBarValues.size)])
+        bloodVolumeVM.svBar1Value.set(bloodVolumeBarValues[random.nextInt(bloodVolumeBarValues.size)])
+        bloodVolumeVM.svBar2Value.set(bloodVolumeBarValues[random.nextInt(bloodVolumeBarValues.size)])
+        bloodOxygenationVM.spoClockValue.set(getTimeString())
     }
+
+    private fun getTimeString(): String = timeFormat.format(Calendar.getInstance().time)
 
     override fun onPause() {
         super.onPause()
@@ -166,6 +188,9 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
 
         labelsUpdateSubscription?.dispose()
         labelsUpdateSubscription = null
+
+        heartRateSubscription?.dispose()
+        heartRateSubscription = null
     }
 
     private class LeftAlignedOuterVerticallyStackedYAxisLayoutStrategy : VerticalAxisLayoutStrategy() {

@@ -8,4 +8,7 @@
 
     <dimen name="ecg_surface_margin">12dp</dimen>
 
+    <dimen name="intro_headers_text_size">24dp</dimen>
+    <dimen name="intro_margin">8dp</dimen>
+
 </resources>

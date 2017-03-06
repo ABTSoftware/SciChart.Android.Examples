@@ -26,6 +26,7 @@ class SpectrogramViewModel(context: Context, fftSize: Int, batchSize: Int) : Cha
             drawMinorGridLines = false
             drawMajorGridLines = false
             axisAlignment = AxisAlignment.Left
+            flipCoordinates = true
         })
 
         yAxes.add(NumericAxis(context).init {
