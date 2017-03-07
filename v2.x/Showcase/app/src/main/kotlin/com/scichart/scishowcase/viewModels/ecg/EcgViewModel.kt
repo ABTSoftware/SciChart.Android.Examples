@@ -1,8 +1,23 @@
+//******************************************************************************
+// SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved.
+//
+// Web: http://www.scichart.com
+// Support: support@scichart.com
+// Sales:   sales@scichart.com
+//
+// EcgViewModel.kt is part of the SCICHART® Showcases. Permission is hereby granted
+// to modify, create derivative works, distribute and publish any part of this source
+// code whether for commercial, private or personal use.
+//
+// The SCICHART® examples are distributed in the hope that they will be useful, but
+// without any warranty. It is provided "AS IS" without warranty of any kind, either
+// expressed or implied.
+//******************************************************************************
+
 package com.scichart.scishowcase.viewModels.ecg
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.View
 import com.scichart.charting.layoutManagers.ChartLayoutState
 import com.scichart.charting.layoutManagers.IAxisLayoutStrategy
@@ -16,6 +31,7 @@ import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.XyRenderableSeriesBase
+import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IPointMarkerPaletteProvider
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase
@@ -68,7 +84,7 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
     private val random = Random()
     private val hrValues = arrayOf("67", "69", "72", "74")
     private val bloodPressureValues = arrayOf("120/70", "115/70", "115/75", "120/75")
-    private val bloodPresssureBarValues = arrayOf(5, 6, 7)
+    private val bloodPressureBarValues = arrayOf(5, 6, 7)
     private val bloodVolumeValues = arrayOf("13.1", "13.2", "13.3", "13.0")
     private val bloodVolumeBarValues = arrayOf(9, 10, 11)
     private val bloodOxygenationValues = arrayOf("93", "95", "96", "97")
@@ -81,6 +97,11 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
     private val bloodVolumeSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
     private val bloodOxygenationDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
     private val bloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
+
+    private val lastEcgSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
+    private val lastBloodPressureDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
+    private val lastBloodVolumeDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
+    private val lastBloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
 
     private val dataBatch = EcgDataBatch()
     private val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -101,14 +122,18 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
 
         val lineThickness = context.dip(1f)
 
-        renderableSeries.add(generateRenderableSeries("ecgId", ecgDataSeries, SolidPenStyle(heartRateColor, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("ecgId", ecgSweepDataSeries, SolidPenStyle(heartRateColor, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodPressureId", bloodPressureDataSeries, SolidPenStyle(bloodPressureColor, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodPressureId", bloodPressureSweepDataSeries, SolidPenStyle(bloodPressureColor, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodVolumeId", bloodVolumeDataSeries, SolidPenStyle(bloodVolumeColor, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodVolumeId", bloodVolumeSweepDataSeries, SolidPenStyle(bloodVolumeColor, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
-        renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationSweepDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
+        renderableSeries.add(generateLineRenderableSeries("ecgId", ecgDataSeries, SolidPenStyle(heartRateColor, true, lineThickness, null)))
+        renderableSeries.add(generateLineRenderableSeries("ecgId", ecgSweepDataSeries, SolidPenStyle(heartRateColor, true, lineThickness, null)))
+        renderableSeries.add(generateScatterRenderableSeriesForLastAppendedPoint("ecgId", lastEcgSweepDataSeries))
+        renderableSeries.add(generateLineRenderableSeries("bloodPressureId", bloodPressureDataSeries, SolidPenStyle(bloodPressureColor, true, lineThickness, null)))
+        renderableSeries.add(generateLineRenderableSeries("bloodPressureId", bloodPressureSweepDataSeries, SolidPenStyle(bloodPressureColor, true, lineThickness, null)))
+        renderableSeries.add(generateScatterRenderableSeriesForLastAppendedPoint("bloodPressureId", lastBloodPressureDataSeries))
+        renderableSeries.add(generateLineRenderableSeries("bloodVolumeId", bloodVolumeDataSeries, SolidPenStyle(bloodVolumeColor, true, lineThickness, null)))
+        renderableSeries.add(generateLineRenderableSeries("bloodVolumeId", bloodVolumeSweepDataSeries, SolidPenStyle(bloodVolumeColor, true, lineThickness, null)))
+        renderableSeries.add(generateScatterRenderableSeriesForLastAppendedPoint("bloodVolumeId", lastBloodVolumeDataSeries))
+        renderableSeries.add(generateLineRenderableSeries("bloodOxygenationId", bloodOxygenationDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
+        renderableSeries.add(generateLineRenderableSeries("bloodOxygenationId", bloodOxygenationSweepDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
+        renderableSeries.add(generateScatterRenderableSeriesForLastAppendedPoint("bloodOxygenationId", lastBloodOxygenationSweepDataSeries))
     }
 
     override fun subscribe(lifecycleProvider: LifecycleProvider<*>) {
@@ -131,6 +156,13 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
 
                 bloodOxygenationDataSeries.append(xValues, dataBatch.bloodOxygenationA)
                 bloodOxygenationSweepDataSeries.append(xValues, dataBatch.bloodOxygenationB)
+
+                val (xValue, ecgHeartRate, bloodPressure, bloodVolume, bloodOxygenation, _) = dataBatch.lastEcgData
+
+                lastEcgSweepDataSeries.append(xValue, ecgHeartRate)
+                lastBloodPressureDataSeries.append(xValue, bloodPressure)
+                lastBloodVolumeDataSeries.append(xValue, bloodVolume)
+                lastBloodOxygenationSweepDataSeries.append(xValue, bloodOxygenation)
             })
         }.bindToLifecycle(lifecycleProvider).subscribe()
 
@@ -159,18 +191,25 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
         }
     }
 
-    private fun generateRenderableSeries(yAxisId: String, dataSeries: IDataSeries<*, *>, strokeStyle: SolidPenStyle): FastLineRenderableSeries {
+    private fun generateLineRenderableSeries(yAxisId: String, dataSeries: IDataSeries<*, *>, strokeStyle: SolidPenStyle): FastLineRenderableSeries {
         return FastLineRenderableSeries().init {
             this.dataSeries = dataSeries
             this.strokeStyle = strokeStyle
             this.yAxisId = yAxisId
             this.paletteProvider = DimTracePaletteProvider()
-            this.pointMarker = EllipsePointMarker().init {
-                this.setSize(pmSize, pmSize)
-                this.fillStyle = SolidBrushStyle(pmColor)
-                this.strokeStyle = SolidPenStyle(pmColor, true, 1f, null)
-            }
         }
+    }
+
+    private fun generateScatterRenderableSeriesForLastAppendedPoint(yAxisId: String, dataSeries: IDataSeries<*, *>): XyScatterRenderableSeries {
+       return XyScatterRenderableSeries().init {
+           this.dataSeries = dataSeries
+           this.yAxisId = yAxisId
+           this.pointMarker = EllipsePointMarker().init {
+               this.setSize(pmSize, pmSize)
+               this.fillStyle = SolidBrushStyle(pmColor)
+               this.strokeStyle = SolidPenStyle(pmColor, true, 1f, null)
+           }
+       }
     }
 
     private fun updateVMValues() {
@@ -179,7 +218,7 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
         bloodVolumeVM.bloodVolumeValue.set(bloodVolumeValues[random.nextInt(bloodVolumeValues.size)])
         bloodOxygenationVM.spoValue.set(bloodOxygenationValues[random.nextInt(bloodOxygenationValues.size)])
 
-        bloodPressureVM.bloodPressureBarValue.set(bloodPresssureBarValues[random.nextInt(bloodPresssureBarValues.size)])
+        bloodPressureVM.bloodPressureBarValue.set(bloodPressureBarValues[random.nextInt(bloodPressureBarValues.size)])
         bloodVolumeVM.svBar1Value.set(bloodVolumeBarValues[random.nextInt(bloodVolumeBarValues.size)])
         bloodVolumeVM.svBar2Value.set(bloodVolumeBarValues[random.nextInt(bloodVolumeBarValues.size)])
         bloodOxygenationVM.spoClockValue.set(getTimeString())
@@ -211,9 +250,8 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
         }
     }
 
-    private class DimTracePaletteProvider : PaletteProviderBase<XyRenderableSeriesBase>(XyRenderableSeriesBase::class.javaObjectType), IStrokePaletteProvider, IPointMarkerPaletteProvider {
+    private class DimTracePaletteProvider : PaletteProviderBase<XyRenderableSeriesBase>(XyRenderableSeriesBase::class.javaObjectType), IStrokePaletteProvider {
         private val colors = IntegerValues()
-        private val pmColors = IntegerValues()
 
         private val startOpacity = 0.2 // fade out start opacity
         private val endOpacity = 1.0 // fade out end opacity
@@ -221,16 +259,12 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
 
         override fun getStrokeColors(): IntegerValues = colors
 
-        override fun getPointMarkerColors(): IntegerValues = pmColors
-
         override fun update() {
             val size = renderableSeries.currentRenderPassData.pointsCount()
             colors.setSize(size)
-            pmColors.setSize(size)
 
             val defaultColor = renderableSeries.strokeStyle.color
             val colorsArray = colors.itemsArray
-            val pmColorsArray = pmColors.itemsArray
 
             val doubleSize = size.toDouble()
             val lastIndex = size - 1
@@ -240,11 +274,7 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
                 val opacity = (startOpacity + fraction * opacityDiff).toFloat()
 
                 colorsArray[i] = ColorUtil.argb(defaultColor, opacity)
-                pmColorsArray[i] = ColorUtil.Transparent
             }
-
-            // make the last point marker visible
-            pmColorsArray[lastIndex] = DEFAULT_COLOR
         }
     }
 
@@ -260,6 +290,8 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
         val bloodPressureValuesB = DoubleValues()
         val bloodVolumeValuesB = DoubleValues()
         val bloodOxygenationB = DoubleValues()
+
+        lateinit var lastEcgData: EcgData
 
         fun updateData(ecgDataList: List<EcgData>) {
             xValues.clear()
@@ -297,6 +329,8 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
                     bloodOxygenationB.add(bloodOxygenation)
                 }
             }
+
+            this.lastEcgData = ecgDataList.last()
         }
     }
 }
