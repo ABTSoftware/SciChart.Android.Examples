@@ -7,6 +7,8 @@ import com.scichart.core.utility.DoubleUtil
 import com.scichart.scishowcase.model.audioAnalyzer.IAudioAnalyzerDataProvider
 import com.scichart.scishowcase.utils.Radix2FFT
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
+import com.trello.rxlifecycle2.LifecycleProvider
+import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.disposables.Disposable
 
 class AudioAnalyzerViewModel(context: Context, private val dataProvider: IAudioAnalyzerDataProvider) : FragmentViewModelBase(context) {
@@ -20,32 +22,19 @@ class AudioAnalyzerViewModel(context: Context, private val dataProvider: IAudioA
     val fftVM = FFTViewModel(context, fftSize)
     val spectrogramVM = SpectrogramViewModel(context, fftSize, audioStreamBufferSize / bufferSize)
 
-    private var dataProviderSubscription: Disposable? = null
     private val fftData = DoubleValues()
 
-    override fun onResume() {
-        super.onResume()
+    override fun subscribe(lifecycleProvider: LifecycleProvider<*>) {
+        super.subscribe(lifecycleProvider)
 
-        dataProvider.start()
-
-        dataProviderSubscription = dataProvider.getAudioData().doOnNext {
+        dataProvider.getData().doOnNext {
             audioStreamVM.onNextAudioData(it)
 
             fft.run(it.yData, fftData)
 
             fftVM.onNextFFT(fftData)
             spectrogramVM.onNextFFT(fftData)
-
-        }.doOnError { Log.e("AudioAnalyzerVM", "append", it) }.subscribe()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        dataProvider.stop()
-
-        dataProviderSubscription?.dispose()
-        dataProviderSubscription = null
+        }.bindToLifecycle(lifecycleProvider).subscribe()
     }
 }
 

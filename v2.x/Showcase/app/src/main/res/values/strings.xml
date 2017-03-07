@@ -32,6 +32,7 @@
         If you want to include it in your apps you will need to purchase a developer license. However, for now, check out our demos and showcase apps and see what SciChart can do!
     </string>
 
+    <string name="don_t_show_this_again">Don\'t show this again</string>
     <string name="skip">SKIP ></string>
 
 </resources>

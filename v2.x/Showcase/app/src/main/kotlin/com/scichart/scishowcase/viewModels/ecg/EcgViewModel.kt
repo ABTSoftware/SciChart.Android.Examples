@@ -2,6 +2,7 @@ package com.scichart.scishowcase.viewModels.ecg
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.View
 import com.scichart.charting.layoutManagers.ChartLayoutState
 import com.scichart.charting.layoutManagers.IAxisLayoutStrategy
@@ -12,8 +13,10 @@ import com.scichart.charting.model.dataSeries.IDataSeries
 import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.charting.visuals.axes.AxisAlignment
 import com.scichart.charting.visuals.axes.NumericAxis
+import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.XyRenderableSeriesBase
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IPointMarkerPaletteProvider
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase
 import com.scichart.core.framework.ISuspendable
@@ -21,24 +24,26 @@ import com.scichart.core.framework.UpdateSuspender
 import com.scichart.core.model.DoubleValues
 import com.scichart.core.model.IntegerValues
 import com.scichart.data.model.DoubleRange
+import com.scichart.drawing.common.SolidBrushStyle
 import com.scichart.drawing.common.SolidPenStyle
 import com.scichart.drawing.utility.ColorUtil
 import com.scichart.scishowcase.R
+import com.scichart.scishowcase.model.IDataProvider
 import com.scichart.scishowcase.model.ecg.EcgData
-import com.scichart.scishowcase.model.ecg.IEcgDataProvider
 import com.scichart.scishowcase.model.ecg.TraceAOrB
 import com.scichart.scishowcase.utils.XyDataSeries
 import com.scichart.scishowcase.utils.dip
 import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
+import com.trello.rxlifecycle2.LifecycleProvider
+import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider, private val suspendable: ISuspendable) : FragmentViewModelBase(context) {
+class EcgViewModel(context: Context, private val dataProvider: IDataProvider<EcgData>, private val suspendable: ISuspendable) : FragmentViewModelBase(context) {
 
     private val FIFO_CAPACITY = 7850
 
@@ -46,6 +51,9 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
     private val bloodPressureColor = ContextCompat.getColor(context, R.color.blood_pressure_color)
     private val bloodVolumeColor = ContextCompat.getColor(context, R.color.blood_volume_color)
     private val bloodOxygenation = ContextCompat.getColor(context, R.color.blood_oxygenation_color)
+
+    private val pmColor = ColorUtil.White
+    private val pmSize = context.dip(4f).toInt()
 
     val xAxes: AxisCollection = AxisCollection()
     val yAxes: AxisCollection = AxisCollection()
@@ -75,9 +83,6 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
     private val bloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
 
     private val dataBatch = EcgDataBatch()
-    private var dataSeriesSubscription: Disposable? = null
-    private var labelsUpdateSubscription: Disposable? = null
-    private var heartRateSubscription: Disposable? = null
     private val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
     init {
@@ -106,11 +111,10 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
         renderableSeries.add(generateRenderableSeries("bloodOxygenationId", bloodOxygenationSweepDataSeries, SolidPenStyle(bloodOxygenation, true, lineThickness, null)))
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun subscribe(lifecycleProvider: LifecycleProvider<*>) {
+        super.subscribe(lifecycleProvider)
 
-        dataProvider.start()
-        dataSeriesSubscription = dataProvider.getEcgData().buffer(50, TimeUnit.MILLISECONDS).doOnNext {
+        dataProvider.getData().buffer(50, TimeUnit.MILLISECONDS).doOnNext {
             dataBatch.updateData(it)
 
             UpdateSuspender.using(suspendable, {
@@ -128,19 +132,19 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
                 bloodOxygenationDataSeries.append(xValues, dataBatch.bloodOxygenationA)
                 bloodOxygenationSweepDataSeries.append(xValues, dataBatch.bloodOxygenationB)
             })
-        }.subscribe()
+        }.bindToLifecycle(lifecycleProvider).subscribe()
 
-        labelsUpdateSubscription = Observable.interval(0, 5, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+        Observable.interval(0, 5, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
                 .doOnNext { updateVMValues() }
+                .bindToLifecycle(lifecycleProvider)
                 .subscribe()
 
-        heartRateSubscription = Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread()).doOnNext {
+        Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread()).doOnNext {
             val isVisible = hrVM.heartRateIconVisibility.get() == View.VISIBLE
             val visibility = if (isVisible) View.INVISIBLE else View.VISIBLE
             hrVM.heartRateIconVisibility.set(visibility)
-        }.subscribe()
+        }.bindToLifecycle(lifecycleProvider).subscribe()
     }
-
 
     private fun generateAxis(context: Context, id: String): NumericAxis {
         return NumericAxis(context).init {
@@ -161,6 +165,11 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
             this.strokeStyle = strokeStyle
             this.yAxisId = yAxisId
             this.paletteProvider = DimTracePaletteProvider()
+            this.pointMarker = EllipsePointMarker().init {
+                this.setSize(pmSize, pmSize)
+                this.fillStyle = SolidBrushStyle(pmColor)
+                this.strokeStyle = SolidPenStyle(pmColor, true, 1f, null)
+            }
         }
     }
 
@@ -177,21 +186,6 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
     }
 
     private fun getTimeString(): String = timeFormat.format(Calendar.getInstance().time)
-
-    override fun onPause() {
-        super.onPause()
-
-        dataProvider.stop()
-
-        dataSeriesSubscription?.dispose()
-        dataSeriesSubscription = null
-
-        labelsUpdateSubscription?.dispose()
-        labelsUpdateSubscription = null
-
-        heartRateSubscription?.dispose()
-        heartRateSubscription = null
-    }
 
     private class LeftAlignedOuterVerticallyStackedYAxisLayoutStrategy : VerticalAxisLayoutStrategy() {
         override fun measureAxes(availableWidth: Int, availableHeight: Int, chartLayoutState: ChartLayoutState) {
@@ -217,8 +211,9 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
         }
     }
 
-    private class DimTracePaletteProvider : PaletteProviderBase<XyRenderableSeriesBase>(XyRenderableSeriesBase::class.javaObjectType), IStrokePaletteProvider {
+    private class DimTracePaletteProvider : PaletteProviderBase<XyRenderableSeriesBase>(XyRenderableSeriesBase::class.javaObjectType), IStrokePaletteProvider, IPointMarkerPaletteProvider {
         private val colors = IntegerValues()
+        private val pmColors = IntegerValues()
 
         private val startOpacity = 0.2 // fade out start opacity
         private val endOpacity = 1.0 // fade out end opacity
@@ -226,22 +221,30 @@ class EcgViewModel(context: Context, private val dataProvider: IEcgDataProvider,
 
         override fun getStrokeColors(): IntegerValues = colors
 
+        override fun getPointMarkerColors(): IntegerValues = pmColors
+
         override fun update() {
             val size = renderableSeries.currentRenderPassData.pointsCount()
             colors.setSize(size)
+            pmColors.setSize(size)
 
             val defaultColor = renderableSeries.strokeStyle.color
             val colorsArray = colors.itemsArray
+            val pmColorsArray = pmColors.itemsArray
 
             val doubleSize = size.toDouble()
-
-            for (i in 0..size - 1) {
+            val lastIndex = size - 1
+            for (i in 0..lastIndex) {
                 val fraction = i / doubleSize
 
                 val opacity = (startOpacity + fraction * opacityDiff).toFloat()
 
                 colorsArray[i] = ColorUtil.argb(defaultColor, opacity)
+                pmColorsArray[i] = ColorUtil.Transparent
             }
+
+            // make the last point marker visible
+            pmColorsArray[lastIndex] = DEFAULT_COLOR
         }
     }
 

@@ -1,12 +1,8 @@
 package com.scichart.scishowcase.model.audioAnalyzer
 
-import io.reactivex.Flowable
+import com.scichart.scishowcase.model.IDataProvider
 
-interface IAudioAnalyzerDataProvider {
-    fun start()
-    fun stop()
-
-    fun getAudioData(): Flowable<AudioData>
+interface IAudioAnalyzerDataProvider : IDataProvider<AudioData>{
     fun getBufferSize(): Int
 }
 

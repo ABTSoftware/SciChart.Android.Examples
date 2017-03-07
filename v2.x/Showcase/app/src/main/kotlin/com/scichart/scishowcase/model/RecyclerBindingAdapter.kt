@@ -1,6 +1,5 @@
 package com.scichart.scishowcase.model
 
-import android.databinding.BindingAdapter
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.IdRes
@@ -8,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.scichart.scishowcase.utils.RecyclerConfiguration
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.subjects.PublishSubject

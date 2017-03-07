@@ -1,22 +1,11 @@
 package com.scichart.scishowcase.model.audioAnalyzer
 
-import android.util.Log
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
+import com.scichart.scishowcase.model.DataProviderBase
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class StubAudioAnalyzerDataProvider : IAudioAnalyzerDataProvider {
-    val bufferSizeInShorts = 2048
-    val interval = 20L
+class StubAudioAnalyzerDataProvider(private val bufferSizeInShorts: Int = 2048) : DataProviderBase<AudioData>(20L, TimeUnit.MILLISECONDS), IAudioAnalyzerDataProvider {
 
-    val audioDataPublisher: PublishSubject<AudioData> = PublishSubject.create<AudioData>()
-
-    var subscription: Disposable? = null
     var time = 0L
 
     val audioData = AudioData(bufferSizeInShorts)
@@ -28,16 +17,7 @@ class StubAudioAnalyzerDataProvider : IAudioAnalyzerDataProvider {
             NoisySinewaveYValueProvider(4000.0, 0.0, 0.000064, 100.0)
     ))
 
-    override fun start() {
-        subscription = Observable
-                .interval(interval, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.computation())
-                .doOnNext { sample() }
-                .doOnError { Log.e("AudioDataProvider", "publish", it) }
-                .subscribe()
-    }
-
-    private fun sample() {
+    override fun onNext(): AudioData {
         val xItemsArray = audioData.xData.itemsArray
         val yItemsArray = audioData.yData.itemsArray
 
@@ -46,17 +26,8 @@ class StubAudioAnalyzerDataProvider : IAudioAnalyzerDataProvider {
             yItemsArray[index] = provider.getYValueForIndex(time)
         }
 
-        audioDataPublisher.onNext(audioData)
+        return audioData
     }
-
-    override fun stop() {
-        audioDataPublisher.onComplete()
-
-        subscription?.dispose()
-        subscription = null
-    }
-
-    override fun getAudioData(): Flowable<AudioData> = audioDataPublisher.toFlowable(BackpressureStrategy.BUFFER)
 
     override fun getBufferSize(): Int = bufferSizeInShorts
 
