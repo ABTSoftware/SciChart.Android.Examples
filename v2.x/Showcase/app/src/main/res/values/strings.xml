@@ -1,38 +1,3 @@
 <resources>
     <string name="app_name">SciChart Showcase</string>
-    <string name="bpm">BPM</string>
-    <string name="ecg">ECG</string>
-    <string name="heartRateInfo">V1- 1.4MM \nST |+ 0.6 ||+ 0.9</string>
-    <string name="nibp">NIBP</string>
-    <string name="nibpInfo">AUTO\n145\n95</string>
-    <string name="sv">SV</string>
-    <string name="svInfo">ML\t\t100\n%*****\t55</string>
-    <string name="spo2">SPO<sub><small><small><small>2</small></small></small></sub></string>
-    <string name="spoInfo">71-\nRESP</string>
-
-    <string name="what_is_scichart">What is SciChart?</string>
-    <string name="what_is_scichart_text">
-        SciChart is a developer tool to allow iOS, Android and Windows software developers to include super high-performance,
-        realtime, interactive charts in their applications. If you are an app developer, SciChart can be used wherever you need a realtime or static chart in your application.
-        With X chart types out of the box, and loads of API endpoints, SciChart is a powerful and flexible chart control which will delight your users.
-    </string>
-
-    <string name="what_makes_it_so_awesome">What makes it so awesome?</string>
-    <string name="what_makes_it_so_awesome_text">
-        SciChart is fast! If you want to show big data or show real-time data, you can with SciChart. It won\'t slow down and cause your app to stutter.
-        You can zoom and pan smoothly with 10 points or 100,000 data-points without any impact on application performance.
-        SciChart is flexible. You can use our build-in chart types or create your own.
-        You can customize any aspect of our charts in your application, such as themes, colour, fonts, axis positions and more.
-        Finally, SciChart is well supported. As a commercial iOS &amp; Android chart controls, it is backed by world-class tech support, so we can help you create applications faster, and with less fuss.
-    </string>
-
-    <string name="where_can_i_get_it">Where can I get it?</string>
-    <string name="where_can_i_get_it_text">
-        SciChart is a \'Software Developer Kit\' intended for iOS and Android Application developers. You can get a free trial from the scichart website: www.scichart.com
-        If you want to include it in your apps you will need to purchase a developer license. However, for now, check out our demos and showcase apps and see what SciChart can do!
-    </string>
-
-    <string name="don_t_show_this_again">Don\'t show this again</string>
-    <string name="skip">SKIP ></string>
-
 </resources>

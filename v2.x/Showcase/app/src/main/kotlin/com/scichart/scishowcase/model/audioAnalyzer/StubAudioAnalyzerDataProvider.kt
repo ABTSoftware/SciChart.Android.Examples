@@ -1,27 +1,22 @@
-//******************************************************************************
-// SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved.
-//
-// Web: http://www.scichart.com
-// Support: support@scichart.com
-// Sales:   sales@scichart.com
-//
-// StubAudioAnalyzerDataProvider.kt is part of the SCICHART® Showcases. Permission is hereby granted
-// to modify, create derivative works, distribute and publish any part of this source
-// code whether for commercial, private or personal use.
-//
-// The SCICHART® examples are distributed in the hope that they will be useful, but
-// without any warranty. It is provided "AS IS" without warranty of any kind, either
-// expressed or implied.
-//******************************************************************************
-
 package com.scichart.scishowcase.model.audioAnalyzer
 
-import com.scichart.scishowcase.model.DataProviderBase
+import android.util.Log
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class StubAudioAnalyzerDataProvider(private val bufferSizeInShorts: Int = 2048) : DataProviderBase<AudioData>(20L, TimeUnit.MILLISECONDS), IAudioAnalyzerDataProvider {
+class StubAudioAnalyzerDataProvider : IAudioAnalyzerDataProvider {
+    val bufferSizeInShorts = 2048
+    val interval = 20L
 
+    val audioDataPublisher: PublishSubject<AudioData> = PublishSubject.create<AudioData>()
+
+    var subscription: Disposable? = null
     var time = 0L
 
     val audioData = AudioData(bufferSizeInShorts)
@@ -33,7 +28,16 @@ class StubAudioAnalyzerDataProvider(private val bufferSizeInShorts: Int = 2048) 
             NoisySinewaveYValueProvider(4000.0, 0.0, 0.000064, 100.0)
     ))
 
-    override fun onNext(): AudioData {
+    override fun start() {
+        subscription = Observable
+                .interval(interval, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.computation())
+                .doOnNext { sample() }
+                .doOnError { Log.e("AudioDataProvider", "publish", it) }
+                .subscribe()
+    }
+
+    private fun sample() {
         val xItemsArray = audioData.xData.itemsArray
         val yItemsArray = audioData.yData.itemsArray
 
@@ -42,8 +46,17 @@ class StubAudioAnalyzerDataProvider(private val bufferSizeInShorts: Int = 2048) 
             yItemsArray[index] = provider.getYValueForIndex(time)
         }
 
-        return audioData
+        audioDataPublisher.onNext(audioData)
     }
+
+    override fun stop() {
+        audioDataPublisher.onComplete()
+
+        subscription?.dispose()
+        subscription = null
+    }
+
+    override fun getAudioData(): Flowable<AudioData> = audioDataPublisher.toFlowable(BackpressureStrategy.BUFFER)
 
     override fun getBufferSize(): Int = bufferSizeInShorts
 

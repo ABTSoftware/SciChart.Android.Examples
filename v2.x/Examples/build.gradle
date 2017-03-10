@@ -13,22 +13,9 @@
 // without any warranty. It is provided "AS IS" without warranty of any kind, either
 // expressed or implied.
 //******************************************************************************
-
 apply plugin: 'java'
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-//@BEGINDELETE
-apply plugin: 'com.jfrog.artifactory'
-apply plugin: 'maven-publish'
-
-def artifactoryVersion = project.hasProperty('artifactoryVersion') ? project.property('artifactoryVersion') : System.getenv('artifactory_VERSION')
-def artifactoryUser = project.hasProperty('artifactoryUser') ? project.property('artifactoryUser') : System.getenv('artifactory_USER')
-def artifactoryPassword = project.hasProperty('artifactoryPassword') ? project.property('artifactoryPassword') : System.getenv('artifactory_PASSWORD')
-
-def artifactoryRepo = artifactoryVersion.endsWith('SNAPSHOT') ? 'libs-snapshot-local' : 'libs-release-local'
-//@ENDDELETE
-
 import org.apache.tools.ant.taskdefs.condition.Os
-
 buildscript {
     repositories {
         jcenter()
@@ -37,37 +24,23 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
-        //@BEGINDELETE
-        //classpath 'com.github.dcendents:android-maven-plugin:1.2'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.1.1"
-        //@ENDDELETE
-
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
-
 ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 19
     compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 25
     buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '25.0.2'
-
     sourceCompatibility = JavaVersion.VERSION_1_7
-    //@BEGINDELETE
-    minifyEnabled = true
-    /* //@ENDDELETE
     minifyEnabled = false
-    */ //@DELETELINE
-
     versionCode = 1
     versionName = "1.0"
     documentationFolder = "${rootDir}/outputJavadoc/"
 }
-
 task deleteExistingZip(type: Delete) {
     delete file("outputAar/sciChart.zip")
 }
-
 gradle.projectsEvaluated {
     deleteExistingZip.dependsOn "" +
             ":core:testReleaseUnitTest",
@@ -76,7 +49,6 @@ gradle.projectsEvaluated {
             ":charting:testReleaseUnitTest",
             ":extensions:testReleaseUnitTest"
 }
-
 task zip(type: Zip, dependsOn: deleteExistingZip) {
     from ('charting/build/outputs/aar') {
         include 'charting-release.aar'
@@ -96,12 +68,9 @@ task zip(type: Zip, dependsOn: deleteExistingZip) {
     destinationDir file("${rootDir}/outputAar/")
     baseName = 'sciChart'
 }
-
-
 task deleteExistingJavadocZip(type: Delete) {
     delete file("outputAar/sciChartJavadocs.zip")
 }
-
 gradle.projectsEvaluated {
     deleteExistingJavadocZip.dependsOn "" +
             ":core:generateReleaseJavadocJar",
@@ -109,7 +78,6 @@ gradle.projectsEvaluated {
             ":drawing:generateReleaseJavadocJar",
             ":charting:generateReleaseJavadocJar"
 }
-
 task zipJavadocs(type: Zip, dependsOn: deleteExistingJavadocZip) {
     from (rootProject.ext.documentationFolder) {
         include 'charting-release-javadoc.jar'
@@ -123,18 +91,15 @@ task zipJavadocs(type: Zip, dependsOn: deleteExistingJavadocZip) {
     from (rootProject.ext.documentationFolder) {
         include 'core-release-javadoc.jar'
     }
-
     destinationDir file("${rootDir}/outputAar/")
     baseName = 'sciChartJavadocs'
 }
-
 allprojects {
     repositories {
         jcenter()
         mavenLocal()
         mavenCentral()
     }
-
     task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
         def ndkDir = System.getenv("ANDROID_NDK_HOME")
         def ndkBuildPath = Os.isFamily(Os.FAMILY_WINDOWS) ? "$ndkDir\\ndk-build.cmd" : "$ndkDir/ndk-build"
@@ -143,7 +108,6 @@ allprojects {
                 '-j', Runtime.runtime.availableProcessors(),
                 'NDK_DEBUG=0' // Force a release build
     }
-
     task cleanNative(type: Exec, description: 'Clean JNI object files') {
         def ndkDir = System.getenv("ANDROID_NDK_HOME")
         def ndkBuildPath = Os.isFamily(Os.FAMILY_WINDOWS) ? "$ndkDir\\ndk-build.cmd" : "$ndkDir/ndk-build"
@@ -152,39 +116,3 @@ allprojects {
                 'clean'
     }
 }
-
-//@BEGINDELETE
-artifactoryPublish.skip = true
-
-artifactory {
-    contextUrl = 'http://licensing.scichart.com:8081/artifactory'
-    publish {
-        repository {
-            // The Artifactory repository key to publish to
-            repoKey = "${artifactoryRepo}"
-            maven = true
-            username = "${artifactoryUser}"
-            password = "${artifactoryPassword}"
-        }
-        defaults {
-            // Tell the Artifactory Plugin which artifacts should be published to Artifactory.
-            publications ('aar')
-            publishArtifacts = true
-
-            // Properties to be attached to the published artifacts.
-            properties = ['qa.level': 'basic', 'dev.team': 'core']
-            // Publish generated POM files to Artifactory (true by default)
-            publishPom = true
-            publishIvy = false
-        }
-        resolve {
-            repository {
-                repoKey = 'jcenter' // The Artifactory (preferably virtual) repository key to resolve from
-                //username = "${artifactoryUser}" // Optional resolver user name (leave out to use anonymous resolution)
-                //password = "${artifactoryPassword}" // The resolver password
-                maven = true
-            }
-        }
-    }
-}
-//@ENDDELETE
