@@ -48,7 +48,7 @@ public class LineChartFragment extends ExampleBaseFragment {
         final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
         dataSeries.append(fourierSeries.xValues, fourierSeries.yValues);
 
-        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).withVisibleRange(1.1, 2.7).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
 
         final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xFF279B27).build();

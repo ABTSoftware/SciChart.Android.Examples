@@ -62,9 +62,9 @@ public class StackedBarChartFragment extends ExampleBaseFragment {
             ds3.append(xValue, yValues3[i]);
         }
 
-        final StackedColumnRenderableSeries series1 = sciChartBuilder.newStackedColumn().withDataPointWidth(0.8).withDataSeries(ds1).withLinearGradientColors(0xff567893, 0xff3D5568).withStrokeStyle(0xff567893).build();
-        final StackedColumnRenderableSeries series2 = sciChartBuilder.newStackedColumn().withDataPointWidth(0.8).withDataSeries(ds2).withLinearGradientColors(0xffACBCCA, 0xff439AAF).withStrokeStyle(0xffACBCCA).build();
-        final StackedColumnRenderableSeries series3 = sciChartBuilder.newStackedColumn().withDataPointWidth(0.8).withDataSeries(ds3).withLinearGradientColors(0xffDBE0E1, 0xffB6C1C3).withStrokeStyle(0xffDBE0E1).build();
+        final StackedColumnRenderableSeries series1 = sciChartBuilder.newStackedColumn().withDataPointWidth(0.8).withDataSeries(ds1).withLinearGradientColors(0xff567893, 0xff3D5568).withStrokeStyle(0xff567893, 0f).build();
+        final StackedColumnRenderableSeries series2 = sciChartBuilder.newStackedColumn().withDataPointWidth(0.8).withDataSeries(ds2).withLinearGradientColors(0xffACBCCA, 0xff439AAF).withStrokeStyle(0xffACBCCA, 0f).build();
+        final StackedColumnRenderableSeries series3 = sciChartBuilder.newStackedColumn().withDataPointWidth(0.8).withDataSeries(ds3).withLinearGradientColors(0xffDBE0E1, 0xffB6C1C3).withStrokeStyle(0xffDBE0E1, 0f).build();
 
         final VerticallyStackedColumnsCollection verticalCollection = new VerticallyStackedColumnsCollection();
         verticalCollection.add(series1);

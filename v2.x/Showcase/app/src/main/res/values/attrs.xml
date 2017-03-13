@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StepProgressBar">
+        <attr name="progressColor" format="color" />
+        <attr name="progressBackgroundColor" format="color" />
+        <attr name="progress" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="isVertical" format="boolean"/>
+        <attr name="spacing" format="dimension"/>
+        <attr name="barSize" format="dimension"/>
+    </declare-styleable>
+</resources>

@@ -69,11 +69,11 @@ public class StackedColumnChartFragment extends ExampleBaseFragment {
             ds5.append(xValue, pepperData[i]);
         }
 
-        final StackedColumnRenderableSeries porkSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds1).withFillColor(0xff226fb7).withStrokeStyle(0xff22579D).build();
-        final StackedColumnRenderableSeries vealSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds2).withFillColor(0xffff9a2e).withStrokeStyle(0xffBE642D).build();
-        final StackedColumnRenderableSeries tomatoSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds3).withFillColor(0xffdc443f).withStrokeStyle(0xffA33631).build();
-        final StackedColumnRenderableSeries cucumberSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds4).withFillColor(0xffaad34f).withStrokeStyle(0xff73953D).build();
-        final StackedColumnRenderableSeries pepperSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds5).withFillColor(0xff8562b4).withStrokeStyle(0xff64458A).build();
+        final StackedColumnRenderableSeries porkSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds1).withFillColor(0xff226fb7).withStrokeStyle(0xff22579D, 0f).build();
+        final StackedColumnRenderableSeries vealSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds2).withFillColor(0xffff9a2e).withStrokeStyle(0xffBE642D, 0f).build();
+        final StackedColumnRenderableSeries tomatoSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds3).withFillColor(0xffdc443f).withStrokeStyle(0xffA33631, 0f).build();
+        final StackedColumnRenderableSeries cucumberSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds4).withFillColor(0xffaad34f).withStrokeStyle(0xff73953D, 0f).build();
+        final StackedColumnRenderableSeries pepperSeries = sciChartBuilder.newStackedColumn().withDataSeries(ds5).withFillColor(0xff8562b4).withStrokeStyle(0xff64458A, 0f).build();
 
         final VerticallyStackedColumnsCollection verticalCollection1 = new VerticallyStackedColumnsCollection();
         verticalCollection1.add(porkSeries);
@@ -85,6 +85,8 @@ public class StackedColumnChartFragment extends ExampleBaseFragment {
         verticalCollection2.add(pepperSeries);
 
         final HorizontallyStackedColumnsCollection columnsCollection = new HorizontallyStackedColumnsCollection();
+        columnsCollection.setSpacing(0f);
+
         columnsCollection.add(verticalCollection1);
         columnsCollection.add(verticalCollection2);
 

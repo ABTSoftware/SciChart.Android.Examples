@@ -16,8 +16,9 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.Gravity;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
-import com.scichart.charting.modifiers.TooltipModifier;
 import com.scichart.charting.numerics.labelProviders.FormatterLabelProviderBase;
 import com.scichart.charting.numerics.labelProviders.ILabelFormatter;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -97,19 +98,17 @@ public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAutoTicks(false).withMajorDelta(1d).withMinorDelta(0.5).withDrawMajorBands(true).withLabelProvider(new YearsLabelProvider()).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withAxisTitle("billions of People").withGrowBy(0, 0.1).withDrawMajorBands(true).build();
 
-        final StackedColumnRenderableSeries s1 = sciChartBuilder.newStackedColumn().withDataSeries(chinaDataSeries).withFillColor(0xff3399ff).withStrokeStyle(0xff2D68BC).build();
-        final StackedColumnRenderableSeries s2 = sciChartBuilder.newStackedColumn().withDataSeries(indiaDataSeries).withFillColor(0xff014358).withStrokeStyle(0xff013547).build();
-        final StackedColumnRenderableSeries s3 = sciChartBuilder.newStackedColumn().withDataSeries(usaDataSeries).withFillColor(0xff1f8a71).withStrokeStyle(0xff1B5D46).build();
-        final StackedColumnRenderableSeries s4 = sciChartBuilder.newStackedColumn().withDataSeries(indonesiaDataSeries).withFillColor(0xffbdd63b).withStrokeStyle(0xff7E952B).build();
-        final StackedColumnRenderableSeries s5 = sciChartBuilder.newStackedColumn().withDataSeries(brazilDataSeries).withFillColor(0xffffe00b).withStrokeStyle(0xffAA8F0B).build();
-        final StackedColumnRenderableSeries s6 = sciChartBuilder.newStackedColumn().withDataSeries(pakistanDataSeries).withFillColor(0xfff27421).withStrokeStyle(0xffA95419).build();
-        final StackedColumnRenderableSeries s7 = sciChartBuilder.newStackedColumn().withDataSeries(nigeriaDataSeries).withFillColor(0xffbb0000).withStrokeStyle(0xff840000).build();
-        final StackedColumnRenderableSeries s8 = sciChartBuilder.newStackedColumn().withDataSeries(bangladeshDataSeries).withFillColor(0xff550033).withStrokeStyle(0xff370018).build();
-        final StackedColumnRenderableSeries s9 = sciChartBuilder.newStackedColumn().withDataSeries(russiaDataSeries).withFillColor(0xff339933).withStrokeStyle(0xff2D732D).build();
-        final StackedColumnRenderableSeries s10 = sciChartBuilder.newStackedColumn().withDataSeries(japanDataSeries).withFillColor(0xff00aba9).withStrokeStyle(0xff006C6A).build();
-        final StackedColumnRenderableSeries s11 = sciChartBuilder.newStackedColumn().withDataSeries(restOfTheWorldDataSeries).withFillColor(0xff560068).withStrokeStyle(0xff3D0049).build();
-
-//        final StackedColumnRenderableSeries s12 = sciChartBuilder.newStackedColumn().withDataSeries(totalDataSeries).withFillColor(0xffaad34f).withStrokeStyle(0xff69893A).build();
+        final StackedColumnRenderableSeries s1 = sciChartBuilder.newStackedColumn().withDataSeries(chinaDataSeries).withFillColor(0xff3399ff).withStrokeStyle(0xff2D68BC, 0f).build();
+        final StackedColumnRenderableSeries s2 = sciChartBuilder.newStackedColumn().withDataSeries(indiaDataSeries).withFillColor(0xff014358).withStrokeStyle(0xff013547, 0f).build();
+        final StackedColumnRenderableSeries s3 = sciChartBuilder.newStackedColumn().withDataSeries(usaDataSeries).withFillColor(0xff1f8a71).withStrokeStyle(0xff1B5D46, 0f).build();
+        final StackedColumnRenderableSeries s4 = sciChartBuilder.newStackedColumn().withDataSeries(indonesiaDataSeries).withFillColor(0xffbdd63b).withStrokeStyle(0xff7E952B, 0f).build();
+        final StackedColumnRenderableSeries s5 = sciChartBuilder.newStackedColumn().withDataSeries(brazilDataSeries).withFillColor(0xffffe00b).withStrokeStyle(0xffAA8F0B, 0f).build();
+        final StackedColumnRenderableSeries s6 = sciChartBuilder.newStackedColumn().withDataSeries(pakistanDataSeries).withFillColor(0xfff27421).withStrokeStyle(0xffA95419, 0f).build();
+        final StackedColumnRenderableSeries s7 = sciChartBuilder.newStackedColumn().withDataSeries(nigeriaDataSeries).withFillColor(0xffbb0000).withStrokeStyle(0xff840000, 0f).build();
+        final StackedColumnRenderableSeries s8 = sciChartBuilder.newStackedColumn().withDataSeries(bangladeshDataSeries).withFillColor(0xff550033).withStrokeStyle(0xff370018, 0f).build();
+        final StackedColumnRenderableSeries s9 = sciChartBuilder.newStackedColumn().withDataSeries(russiaDataSeries).withFillColor(0xff339933).withStrokeStyle(0xff2D732D, 0f).build();
+        final StackedColumnRenderableSeries s10 = sciChartBuilder.newStackedColumn().withDataSeries(japanDataSeries).withFillColor(0xff00aba9).withStrokeStyle(0xff006C6A, 0f).build();
+        final StackedColumnRenderableSeries s11 = sciChartBuilder.newStackedColumn().withDataSeries(restOfTheWorldDataSeries).withFillColor(0xff560068).withStrokeStyle(0xff3D0049, 0f).build();
 
         final HorizontallyStackedColumnsCollection columnsCollection = new HorizontallyStackedColumnsCollection();
         columnsCollection.add(s1);
@@ -130,7 +129,9 @@ public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getRenderableSeries(), columnsCollection);
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withTooltipModifier().build()
+                        .build());
             }
         });
     }

@@ -16,13 +16,14 @@
 
 package com.scichart.examples.fragments;
 
-
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
+import com.scichart.core.model.IntegerValues;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
@@ -43,21 +44,22 @@ public class ColumnChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        IXyDataSeries<Integer, Double> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Double.class).build();
-        final double[] yValues = {0.1, 0.2, 0.4, 0.8, 1.1, 1.5, 2.4, 4.6, 8.1, 11.7, 14.4, 16.0, 13.7, 10.1, 6.4, 3.5, 2.5, 1.4, 0.4, 0.1};
+        IXyDataSeries<Integer, Integer> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Integer.class).build();
+        final int[] yValues = {50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60};
 
         for (int i = 0; i < yValues.length; i++) {
             dataSeries.append(i, yValues[i]);
         }
 
-        final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0d, 0.1d)).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0, 0.1).build();
 
         final FastColumnRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
-                .withStrokeStyle(0xA99A8A)
-                .withDataPointWidth(1)
+                .withStrokeStyle(0xFF232323, 0.4f)
+                .withDataPointWidth(0.7)
                 .withLinearGradientColors(ColorUtil.LightSteelBlue, ColorUtil.SteelBlue)
                 .withDataSeries(dataSeries)
+                .withPaletteProvider(new ColumnsPaletteProvider())
                 .build();
 
         surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
@@ -70,5 +72,36 @@ public class ColumnChartFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getRenderableSeries(), columnSeries);
             }
         });
+    }
+
+    private class ColumnsPaletteProvider extends PaletteProviderBase<FastColumnRenderableSeries> implements IFillPaletteProvider {
+        /*
+            Gradients as in iOS, we don't support gradient palette provider yet
+            #1 start: 0xFFa9d34f; finish: 0xFF93b944; PEN 0xFF232323
+            #2 start: 0xFFfc9930; finish: 0xFFd17f28; PEN 0xFF232323
+            #3 start: 0xFFd63b3f; finish: 0xFFbc3337; PEN 0xFF232323
+         */
+        private final IntegerValues colors = new IntegerValues();
+        private final int[] desiredColors = new int[]{0xFFa9d34f, 0xFFfc9930, 0xFFd63b3f};
+
+        protected ColumnsPaletteProvider() {
+            super(FastColumnRenderableSeries.class);
+        }
+
+        @Override
+        public void update() {
+            final int size = this.renderableSeries.getCurrentRenderPassData().pointsCount();
+            colors.setSize(size);
+
+            final int[] colorsArray = colors.getItemsArray();
+            for (int i = 0; i < size; i++) {
+                colorsArray[i] = desiredColors[i % 3];
+            }
+        }
+
+        @Override
+        public IntegerValues getFillColors() {
+            return colors;
+        }
     }
 }

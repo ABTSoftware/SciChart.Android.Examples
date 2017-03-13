@@ -52,7 +52,7 @@ public class CandlestickChartFragment extends ExampleBaseFragment {
 
         int size = priceSeries.size();
         final IAxis xAxis = sciChartBuilder.newCategoryDateAxis().withVisibleRange(size - 30, size).withGrowBy(0, 0.1).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0d, 0.1d)).withAutoRangeMode(AutoRange.Always).withIsCenterAxis(true).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0d, 0.1d)).withAutoRangeMode(AutoRange.Always).build();
 
         final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
                 .withStrokeUp(0xFF00AA00)

@@ -30,7 +30,7 @@ import com.scichart.charting.visuals.renderableSeries.FastBubbleRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
-import com.scichart.drawing.common.RadialGradientBrushStyle;
+import com.scichart.drawing.common.SolidBrushStyle;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.TradeData;
@@ -86,12 +86,15 @@ public class BubbleChartFragment extends ExampleBaseFragment {
             dataSeries.append(tradeData.getTradeDate(), tradeData.getTradePrice(), tradeData.getTradeSize());
         }
 
-        final float[] stops = new float[]{0, 0.95f, 1};
-        final int[] colors = new int[]{Color.TRANSPARENT, getResources().getColor(R.color.color_primary), Color.TRANSPARENT};
-        final RadialGradientBrushStyle gradientFill = new RadialGradientBrushStyle(0.5f, 0.5f, 0.5f, 0.5f, colors, stops);
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xffff3333, 2f).build();
 
-        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xffff3333, 1).build();
-        final FastBubbleRenderableSeries bubbleSeries = sciChartBuilder.newBubbleSeries().withDataSeries(dataSeries).withZScaleFactor(zScaleFactor / 10f).withBubbleBrushStyle(gradientFill).withAutoZRange(false).build();
+        final FastBubbleRenderableSeries bubbleSeries = sciChartBuilder.newBubbleSeries()
+                .withDataSeries(dataSeries)
+                .withZScaleFactor(zScaleFactor / 10f)
+                .withBubbleBrushStyle(new SolidBrushStyle(0x77CCCCCC))
+                .withStrokeStyle(0xFFCCCCCC, 2f, true)
+                .withAutoZRange(false)
+                .build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -116,10 +119,12 @@ public class BubbleChartFragment extends ExampleBaseFragment {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         dialog.show();

@@ -116,3 +116,5 @@ allprojects {
                 'clean'
     }
 }
+subprojects {
+}

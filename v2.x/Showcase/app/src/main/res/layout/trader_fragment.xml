@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- trader_fragment.xml is part of the SCICHART® Showcases. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® Showcases are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:scichart="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.scichart.scishowcase.viewModels.trader.TraderViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Spinner
+            android:id="@+id/stockSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            scichart:layout_anchor="@+id/stockChart"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/interval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            scichart:layout_constraintHorizontal_bias="0.0"
+            scichart:layout_constraintLeft_toRightOf="@+id/period"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toTopOf="parent" />
+
+
+        <Spinner
+            android:id="@+id/period"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            scichart:layout_constraintLeft_toRightOf="@id/stockSymbol"
+            scichart:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:id="@+id/stockChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintHorizontal_bias="0.0"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toBottomOf="@+id/stockSymbol"
+            scichart:viewModel="@{viewModel.stockVM}" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>
