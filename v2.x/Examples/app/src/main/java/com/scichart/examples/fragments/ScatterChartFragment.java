@@ -16,20 +16,26 @@
 
 package com.scichart.examples.fragments;
 
+import android.support.annotation.ColorInt;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
+import com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
+import com.scichart.charting.visuals.pointmarkers.SpritePointMarker;
+import com.scichart.charting.visuals.pointmarkers.SquarePointMarker;
+import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
-import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
+import java.util.Random;
 
 import butterknife.Bind;
 
@@ -39,6 +45,7 @@ public class ScatterChartFragment extends ExampleBaseFragment {
     SciChartSurface surface;
 
     private final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
+    private final Random random = new Random();
 
     @Override
     protected int getLayoutId() {
@@ -50,38 +57,53 @@ public class ScatterChartFragment extends ExampleBaseFragment {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-
                 final DoubleSeries ds1Points = DataManager.getInstance().getDampedSinewave(1.0, 0.02, 150, 5);
-
                 dataSeries.append(ds1Points.xValues, ds1Points.yValues);
 
-                final IAxis xBottomAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .build();
+                final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+                final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
 
-                final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .build();
+                final IRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFFFEB01, false);
+                final IRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffA300, false);
+                final IRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFff6501, true);
+                final IRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffa300, true);
 
-                final EllipsePointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker())
-                        .withSize(15, 15)
-                        .withStroke(ColorUtil.argb(255, 176, 196, 222), 2)
-                        .withFill(ColorUtil.argb(255, 70, 130, 180))
-                        .build();
-
-                final IRenderableSeries rs1 = sciChartBuilder.newScatterSeries()
-                        .withDataSeries(dataSeries)
-                        .withPointMarker(pointMarker)
-                        .withXAxisId(xBottomAxis.getAxisId())
-                        .withYAxisId(yRightAxis.getAxisId())
-                        .withStrokeStyle(ColorUtil.argb(0xFF, 0x27, 0x9B, 0x27))
-                        .build();
-
-                Collections.addAll(surface.getXAxes(), xBottomAxis);
-                Collections.addAll(surface.getYAxes(), yRightAxis);
-                Collections.addAll(surface.getRenderableSeries(), rs1);
-                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), rSeries1, rSeries2, rSeries3, rSeries4);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withZoomExtentsModifier().build()
+                        .withPinchZoomModifier().build()
+                        .withCursorModifier().withReceiveHandledEvents(true).build()
+                        .withXAxisDragModifier().withReceiveHandledEvents(true).build()
+                        .withYAxisDragModifier().withDragMode(AxisDragMode.Pan).build()
+                        .build());
             }
         });
+    }
+
+    private XyScatterRenderableSeries getScatterRenderableSeries(SpritePointMarker pointMarker, @ColorInt int color, boolean negative) {
+        final String seriesName = pointMarker instanceof EllipsePointMarker ?
+                negative ? "Negative Ellipse" : "Positive Ellipse" :
+                negative ? "Negative" : "Positive";
+
+        final IXyDataSeries<Integer, Double> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Double.class).withSeriesName(seriesName).build();
+
+        for (int i = 0; i < 200; i++) {
+            final double time = (i < 100) ? getRandom(random, 0, i + 10) / 100 : getRandom(random, 0, 200 - i + 10) / 100;
+            final double y = negative ? -time * time * time : time * time * time;
+
+            dataSeries.append(i, y);
+        }
+
+        return sciChartBuilder.newScatterSeries()
+                .withDataSeries(dataSeries)
+                .withStrokeStyle(color)
+                .withPointMarker(sciChartBuilder.newPointMarker(pointMarker).withSize(6, 6).withStroke(0xFFFFFFFF, 0.1f).withFill(color).build())
+                .build();
+    }
+
+    private double getRandom(Random random, double min, double max) {
+        return min + (max - min) * random.nextDouble();
     }
 }
