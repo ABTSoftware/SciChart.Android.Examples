@@ -130,13 +130,14 @@ public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withLegendModifier().withPosition(Gravity.TOP | Gravity.LEFT, 10).build()
                         .withTooltipModifier().build()
                         .build());
             }
         });
     }
 
-    class YearsLabelFormatter implements ILabelFormatter<NumericAxis> {
+    private static class YearsLabelFormatter implements ILabelFormatter<NumericAxis> {
         private final String[] _xLabels = {"2000", "2010", "2014", "2050"};
 
         @Override
@@ -169,7 +170,7 @@ public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
         }
     }
 
-    class YearsLabelProvider extends FormatterLabelProviderBase<NumericAxis> {
+    private static class YearsLabelProvider extends FormatterLabelProviderBase<NumericAxis> {
         public YearsLabelProvider() {
             super(NumericAxis.class, new YearsLabelFormatter());
         }

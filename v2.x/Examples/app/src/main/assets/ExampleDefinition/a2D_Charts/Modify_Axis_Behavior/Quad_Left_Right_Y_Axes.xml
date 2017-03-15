@@ -27,5 +27,5 @@
     <Features>
         <Features>MultipleAxis</Features>
     </Features>
-    <IsVisible>true</IsVisible>
+    <IsVisible>false</IsVisible>
 </ExampleDefinition>

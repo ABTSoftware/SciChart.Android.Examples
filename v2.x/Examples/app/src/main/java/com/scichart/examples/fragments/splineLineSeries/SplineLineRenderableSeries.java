@@ -19,7 +19,6 @@ package com.scichart.examples.fragments.splineLineSeries;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-import com.scichart.extensions.builders.PenStyleBuilder.SolidPenStyleBuilder;
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
@@ -46,6 +45,7 @@ import com.scichart.drawing.common.IDrawingContext;
 import com.scichart.drawing.common.IPen2D;
 import com.scichart.drawing.common.IRenderContext2D;
 import com.scichart.drawing.common.PenStyle;
+import com.scichart.extensions.builders.PenStyleBuilder.SolidPenStyleBuilder;
 
 /**
  * A CustomRenderableSeries example which uses a Cubic Spline algorithm to smooth the points in a FastLineRenderableSeries

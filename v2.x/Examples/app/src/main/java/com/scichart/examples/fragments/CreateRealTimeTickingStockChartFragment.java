@@ -24,17 +24,19 @@ import android.view.View;
 import com.scichart.charting.Direction2D;
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
-import com.scichart.charting.modifiers.SourceMode;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.AxisMarkerAnnotation;
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.CategoryDateAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastOhlcRenderableSeries;
 import com.scichart.core.annotations.Orientation;
 import com.scichart.core.common.Action1;
 import com.scichart.core.framework.UpdateSuspender;
+import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.IRange;
 import com.scichart.examples.R;
 import com.scichart.examples.data.IMarketDataService;
@@ -64,6 +66,9 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
     private final IOhlcDataSeries<Date, Double> ohlcDataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).withSeriesName("Price Series").withAcceptsUnsortedData().build();
     private final IXyDataSeries<Date, Double> xyDataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).withSeriesName("50-Period SMA").withAcceptsUnsortedData().build();
+    private final IXyDataSeries<Date, Double> overviewDataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).withSeriesName("50-Period SMA").withAcceptsUnsortedData().build();
+
+    private IRange sharedXRange = new DoubleRange();
 
     private AxisMarkerAnnotation smaAxisMarker = sciChartBuilder.newAxisMarkerAnnotation().withY1(0d).withBackgroundColor(SMA_SERIES_COLOR).build();
     private AxisMarkerAnnotation ohlcAxisMarker = sciChartBuilder.newAxisMarkerAnnotation().withY1(0d).withBackgroundColor(STOKE_UP_COLOR).build();
@@ -74,6 +79,9 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
     @Bind(R.id.chart)
     SciChartSurface surface;
+
+    @Bind(R.id.overviewChart)
+    SciChartSurface overviewSurface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -97,53 +105,82 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
     @Override
     protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
+        return R.layout.example_real_time_ticking_stock_chart_fragment;
     }
 
     @Override
     protected void initExample() {
         // Market data service simulates live ticks. We want to load the chart with 150 historical bars then later do real-time ticking as new data comes in
         this.marketDataService = new MarketDataService(new Date(2000, 8, 1, 12, 0, 0), 5, 20);
-
         initChart();
     }
 
     private void initChart() {
+        initializeMainChart(surface);
+        initializeOverview(overviewSurface);
+    }
+
+    private void initializeMainChart(final SciChartSurface surface) {
         final CategoryDateAxis xAxis = sciChartBuilder.newCategoryDateAxis()
                 .withBarTimeFrame(SECONDS_IN_FIVE_MINUTES)
+                .withVisibleRange(sharedXRange)
                 .withDrawMinorGridLines(false)
                 .withGrowBy(0, 0.1)
                 .build();
-        surface.getXAxes().add(xAxis);
-
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
-        surface.getYAxes().add(yAxis);
 
-        surface.getChartModifiers().add(sciChartBuilder.newModifierGroup()
-                .withXAxisDragModifier().build()
-                .withZoomPanModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
-                .withZoomExtentsModifier().build()
-                .withLegendModifier().withShowCheckBoxes(true).withSourceMode(SourceMode.AllSeries).withOrientation(Orientation.HORIZONTAL).withPosition(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 20).withReceiveHandledEvents(true).build()
-                .build());
+        final FastOhlcRenderableSeries ohlc = sciChartBuilder.newOhlcSeries()
+                .withStrokeUp(STOKE_UP_COLOR, STROKE_THICKNESS)
+                .withStrokeDown(STROKE_DOWN_COLOR, STROKE_THICKNESS)
+                .withStrokeStyle(STOKE_UP_COLOR)
+                .withDataSeries(ohlcDataSeries)
+                .build();
+
+        final FastLineRenderableSeries line = sciChartBuilder.newLineSeries().withStrokeStyle(SMA_SERIES_COLOR, STROKE_THICKNESS).withDataSeries(xyDataSeries).build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public synchronized void run() {
-                final FastOhlcRenderableSeries ohlc = sciChartBuilder.newOhlcSeries()
-                        .withStrokeUp(STOKE_UP_COLOR, STROKE_THICKNESS)
-                        .withStrokeDown(STROKE_DOWN_COLOR, STROKE_THICKNESS)
-                        .withStrokeStyle(STOKE_UP_COLOR)
-                        .withDataSeries(ohlcDataSeries)
-                        .build();
-                surface.getRenderableSeries().add(ohlc);
-
-                final FastLineRenderableSeries line = sciChartBuilder.newLineSeries()
-                        .withStrokeStyle(SMA_SERIES_COLOR, STROKE_THICKNESS)
-                        .withDataSeries(xyDataSeries)
-                        .build();
-                surface.getRenderableSeries().add(line);
-
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), ohlc, line);
                 Collections.addAll(surface.getAnnotations(), smaAxisMarker, ohlcAxisMarker);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                        .withXAxisDragModifier().build()
+                        .withZoomPanModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
+                        .withZoomExtentsModifier().build()
+                        .withLegendModifier().withOrientation(Orientation.HORIZONTAL).withPosition(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 20).withReceiveHandledEvents(true).build()
+                        .build());
+            }
+        });
+    }
+
+    private void initializeOverview(final SciChartSurface surface) {
+        surface.setRenderableSeriesAreaBorderStyle(null);
+
+        final CategoryDateAxis xAxis = sciChartBuilder.newCategoryDateAxis()
+                .withBarTimeFrame(SECONDS_IN_FIVE_MINUTES)
+                .withAutoRangeMode(AutoRange.Always)
+                .withDrawMinorGridLines(false)
+                .withVisibility(View.GONE)
+                .withGrowBy(0, 0.1)
+                .build();
+        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withVisibility(View.INVISIBLE).build();
+        removeAxisGridLines(xAxis, yAxis);
+
+        final FastMountainRenderableSeries mountain = sciChartBuilder.newMountainSeries().withDataSeries(overviewDataSeries).build();
+
+        UpdateSuspender.using(surface, new Runnable() {
+            @Override
+            public synchronized void run() {
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), mountain);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                        .withZoomPanModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
+                        .build());
             }
         });
     }
@@ -180,6 +217,8 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
                 ohlcDataSeries.append(prices.getDateData(), prices.getOpenData(), prices.getHighData(), prices.getLowData(), prices.getCloseData());
                 xyDataSeries.append(prices.getDateData(), getSmaCurrentValues(prices));
 
+                overviewDataSeries.append(prices.getDateData(), prices.getCloseData());
+
                 marketDataService.subscribePriceUpdate(onNewPrice());
             }
         });
@@ -203,26 +242,26 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
             @Override
             public void execute(final PriceBar price) {
                 // Update the last price, or append?
-                IOhlcDataSeries<Date, Double> ohlcSeries = (IOhlcDataSeries<Date, Double>) surface.getRenderableSeries().get(0).getDataSeries();
-                IXyDataSeries<Date, Double> lineSeries = (IXyDataSeries<Date, Double>) surface.getRenderableSeries().get(1).getDataSeries();
-
                 double smaLastValue;
                 if (lastPrice != null && lastPrice.getDate() == price.getDate()) {
-                    ohlcSeries.update(ohlcSeries.getCount() - 1, price.getOpen(), price.getHigh(), price.getLow(), price.getClose());
+                    ohlcDataSeries.update(ohlcDataSeries.getCount() - 1, price.getOpen(), price.getHigh(), price.getLow(), price.getClose());
 
                     smaLastValue = sma50.update(price.getClose()).getCurrent();
-                    lineSeries.updateYAt(lineSeries.getCount() - 1, smaLastValue);
+                    xyDataSeries.updateYAt(xyDataSeries.getCount() - 1, smaLastValue);
+
+                    overviewDataSeries.updateYAt(overviewDataSeries.getCount() - 1, price.getClose());
                 } else {
-                    ohlcSeries.append(price.getDate(), price.getOpen(), price.getHigh(), price.getLow(), price.getClose());
+                    ohlcDataSeries.append(price.getDate(), price.getOpen(), price.getHigh(), price.getLow(), price.getClose());
 
                     smaLastValue = sma50.push(price.getClose()).getCurrent();
-                    lineSeries.append(price.getDate(), smaLastValue);
+                    xyDataSeries.append(price.getDate(), smaLastValue);
+
+                    overviewDataSeries.append(price.getDate(), price.getClose());
 
                     // If the latest appending point is inside the viewport (i.e. not off the edge of the screen)
                     // then scroll the viewport 1 bar, to keep the latest bar at the same place
-                    IRange visibleRange = surface.getXAxes().get(0).getVisibleRange();
-                    if (visibleRange.getMaxAsDouble() > ohlcSeries.getCount()) {
-                        visibleRange.setMinMaxDouble(visibleRange.getMinAsDouble() + 1, visibleRange.getMaxAsDouble() + 1);
+                    if (sharedXRange.getMaxAsDouble() > ohlcDataSeries.getCount()) {
+                        sharedXRange.setMinMaxDouble(sharedXRange.getMinAsDouble() + 1, sharedXRange.getMaxAsDouble() + 1);
                     }
                 }
 
@@ -246,5 +285,15 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
         super.onDestroyView();
 
         marketDataService.stopGenerator();
+    }
+
+    private void removeAxisGridLines(IAxis... axes) {
+        for (IAxis axis : axes) {
+            axis.setDrawMajorGridLines(false);
+            axis.setDrawMajorTicks(false);
+            axis.setDrawMajorBands(false);
+            axis.setDrawMinorGridLines(false);
+            axis.setDrawMinorTicks(false);
+        }
     }
 }

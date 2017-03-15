@@ -16,7 +16,6 @@
 
 package com.scichart.examples.fragments;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -55,6 +54,8 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
 public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
+    private static final int POINT_COUNT = 500;
+
     private static final List<SourceMode> sourceModeValues = unmodifiableList(asList(SourceMode.values()));
     private CursorModifier cursorModifier;
 
@@ -81,32 +82,28 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withVisibleRange(new DoubleRange(3d, 6d)).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0d, 0.1d)).build();
-
-        cursorModifier = new CursorModifier();
-        cursorModifier.setShowTooltip(showTooltip);
-        cursorModifier.setShowAxisLabels(showAxisLabels);
+        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(new DoubleRange(3d, 6d)).build();
+        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withGrowBy(0.05d, 0.05d).build();
 
         final XyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Green Series").build();
         final XyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Red Series").build();
         final XyDataSeries<Double, Double> ds3 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Grey Series").build();
         final XyDataSeries<Double, Double> ds4 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Gold Series").build();
 
-        final DoubleSeries data1 = DataManager.getInstance().getNoisySinewave(300, 1.0d, 300, 0.25);
-        final DoubleSeries data2 = DataManager.getInstance().getSinewave(100, 2, 300);
-        final DoubleSeries data3 = DataManager.getInstance().getSinewave(200, 1.5d, 300);
-        final DoubleSeries data4 = DataManager.getInstance().getSinewave(50, 0.1d, 300);
+        final DoubleSeries data1 = DataManager.getInstance().getNoisySinewave(300, 1.0d, POINT_COUNT, 0.25);
+        final DoubleSeries data2 = DataManager.getInstance().getSinewave(100, 2, POINT_COUNT);
+        final DoubleSeries data3 = DataManager.getInstance().getSinewave(200, 1.5d, POINT_COUNT);
+        final DoubleSeries data4 = DataManager.getInstance().getSinewave(50, 0.1d, POINT_COUNT);
 
         ds1.append(data1.xValues, data1.yValues);
         ds2.append(data2.xValues, data2.yValues);
         ds3.append(data3.xValues, data3.yValues);
         ds4.append(data4.xValues, data4.yValues);
 
-        final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFF177B17, 2).build();
-        final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFFDD0909, 4).build();
-        final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withStrokeStyle(ColorUtil.Grey, 7).build();
-        final FastLineRenderableSeries rs4 = sciChartBuilder.newLineSeries().withDataSeries(ds4).withStrokeStyle(ColorUtil.Gold, 1).withIsVisible(false).build();
+        final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFF177B17, 2, true).build();
+        final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFFDD0909, 2, true).build();
+        final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withStrokeStyle(ColorUtil.Grey, 2, true).build();
+        final FastLineRenderableSeries rs4 = sciChartBuilder.newLineSeries().withDataSeries(ds4).withStrokeStyle(ColorUtil.Gold, 2, true).withIsVisible(false).build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -114,8 +111,10 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3, rs4);
-
-                surface.getChartModifiers().add(cursorModifier);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withCursorModifier().withShowTooltip(showTooltip).withShowAxisLabels(showAxisLabels).build()
+                        .build());
+                cursorModifier = (CursorModifier) surface.getChartModifiers().get(0);
             }
         });
     }

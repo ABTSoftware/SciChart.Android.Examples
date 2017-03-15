@@ -20,12 +20,14 @@ import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
 import com.scichart.charting.visuals.SciChartSurface;
+import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
+import com.scichart.charting.visuals.annotations.HorizontalAnchorPoint;
+import com.scichart.charting.visuals.annotations.TextAnnotation;
+import com.scichart.charting.visuals.annotations.VerticalAnchorPoint;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
-import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
@@ -51,27 +53,34 @@ public class SplineChartExampleFragment extends ExampleBaseFragment {
         final IXyDataSeries<Double, Double> originalData = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Original").build();
         final IXyDataSeries<Double, Double> splineData = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Spline").build();
 
-        final DoubleSeries sineWave = DataManager.getInstance().getSinewave(1.0, 0.0, 100, 25);
+        final DoubleSeries sineWave = DataManager.getInstance().getSinewave(1.0, 0.0, 28, 7);
 
         originalData.append(sineWave.xValues, sineWave.yValues);
         splineData.append(sineWave.xValues, sineWave.yValues);
 
-        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.2d, 0.2d).build();
 
         final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(originalData)
-                .withStrokeStyle(0xFF4282B4, 1)
+                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF006400, 1).withFill(0xFFFFFFFF).build())
+                .withStrokeStyle(0xFF4282B4, 1f, true)
                 .build();
-
-        IPointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5, 5).withStroke(0xFF006400, 1).withFill(0xFF006400).build();
 
         final SplineLineRenderableSeries splineSeries = new SplineLineRenderableSeriesBuilder(getActivity())
                 .withDataSeries(splineData)
-                .withStrokeStyle(0xFF006400, 1, false)
-                .withPointMarker(pointMarker)
+                .withStrokeStyle(0xFF006400, 2f, true)
                 .withIsSplineEnabled(true)
-                .withUpSampleFactor(20)
+                .withUpSampleFactor(10)
+                .build();
+
+        final TextAnnotation textAnnotation = sciChartBuilder.newTextAnnotation()
+                .withText("Custom Spline Chart")
+                .withHorizontalAnchorPoint(HorizontalAnchorPoint.Center)
+                .withVerticalAnchorPoint(VerticalAnchorPoint.Top)
+                .withCoordinateMode(AnnotationCoordinateMode.Relative)
+                .withX1(0.5)
+                .withY1(0.01)
                 .build();
 
         UpdateSuspender.using(surface, new Runnable() {
@@ -79,8 +88,9 @@ public class SplineChartExampleFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), lineSeries, splineSeries);
+                Collections.addAll(surface.getRenderableSeries(), splineSeries, lineSeries);
                 Collections.addAll(surface.getChartModifiers(), new RubberBandXyZoomModifier(), new ZoomExtentsModifier());
+                Collections.addAll(surface.getAnnotations(), textAnnotation);
             }
         });
     }

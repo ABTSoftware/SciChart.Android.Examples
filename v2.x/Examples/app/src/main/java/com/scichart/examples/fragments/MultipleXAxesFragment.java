@@ -43,7 +43,7 @@ public class MultipleXAxesFragment extends ExampleBaseFragment {
     private final static String Y_LEFT_AXIS = "yLeftAxis";
     private final static String Y_RIGHT_AXIS = "yRightAxis";
 
-    private final static int COUNT = 2000;
+    private final static int COUNT = 150;
 
     // Used to generate Random Walk
     private final Random random = new Random(251916);
@@ -59,14 +59,12 @@ public class MultipleXAxesFragment extends ExampleBaseFragment {
     @Override
     protected void initExample() {
         final IAxis xTopAxis = sciChartBuilder.newNumericAxis()
-                .withGrowBy(new DoubleRange(0.1d, 0.1d))
                 .withAxisAlignment(AxisAlignment.Top)
                 .withAxisId(X_TOP_AXIS)
                 .withTextColor(0xFF279B27)
                 .build();
 
         final IAxis xBottomAxis = sciChartBuilder.newNumericAxis()
-                .withGrowBy(new DoubleRange(0.1d, 0.1d))
                 .withAxisAlignment(AxisAlignment.Bottom)
                 .withAxisId(X_BOTTOM_AXIS)
                 .withTextColor(0xFFFF1919)
@@ -107,28 +105,28 @@ public class MultipleXAxesFragment extends ExampleBaseFragment {
                 .withDataSeries(ds1)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
-                .withStrokeStyle(0xFFFF1919, 1f)
+                .withStrokeStyle(0xFFFF1919, 1f, true)
                 .build();
 
         final IRenderableSeries rs2 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds2)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
-                .withStrokeStyle(0xFF279B27, 1f)
+                .withStrokeStyle(0xFF279B27, 1f, true)
                 .build();
 
         final IRenderableSeries rs3 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds3)
                 .withXAxisId(X_TOP_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
-                .withStrokeStyle(0xFFFC9C29, 1f)
+                .withStrokeStyle(0xFFFC9C29, 1f, true)
                 .build();
 
         final IRenderableSeries rs4 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds4)
                 .withXAxisId(X_TOP_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
-                .withStrokeStyle(0xFF4083B7, 1f)
+                .withStrokeStyle(0xFF4083B7, 1f, true)
                 .build();
 
         UpdateSuspender.using(surface, new Runnable() {
