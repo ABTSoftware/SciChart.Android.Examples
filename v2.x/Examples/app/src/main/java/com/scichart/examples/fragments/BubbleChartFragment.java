@@ -35,6 +35,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.TradeData;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.utils.SeekBarChangeListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
@@ -111,19 +112,11 @@ public class BubbleChartFragment extends ExampleBaseFragment {
     private void openSettingsDialog() {
         final Dialog dialog = ViewSettingsUtil.createSettingsPopup(getActivity(), R.layout.example_bubble_chart_popop_layout);
 
-        ViewSettingsUtil.setUpSeekBar(dialog, R.id.z_scale_seek_bar, zScaleFactor, new SeekBar.OnSeekBarChangeListener() {
+        ViewSettingsUtil.setUpSeekBar(dialog, R.id.z_scale_seek_bar, zScaleFactor, new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 zScaleFactor = progress + minSeekBarValue;
                 onZScaleFactorChanged();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
 

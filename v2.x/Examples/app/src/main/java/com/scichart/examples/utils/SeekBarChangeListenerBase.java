@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// ItemSelectedListenerBase.java is part of the SCICHART® Examples. Permission is hereby granted
+// SeekBarChangeListenerBase.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -16,10 +16,14 @@
 
 package com.scichart.examples.utils;
 
-import android.widget.AdapterView;
+import android.widget.SeekBar;
 
-public abstract class ItemSelectedListenerBase implements AdapterView.OnItemSelectedListener {
+public abstract class SeekBarChangeListenerBase implements SeekBar.OnSeekBarChangeListener {
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onStartTrackingTouch(SeekBar seekBar) {
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
     }
 }

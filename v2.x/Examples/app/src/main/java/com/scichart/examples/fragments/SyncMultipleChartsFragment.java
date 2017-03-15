@@ -34,7 +34,7 @@ import butterknife.Bind;
 
 public class SyncMultipleChartsFragment extends ExampleBaseFragment {
 
-    private final static int POINTS_COUNT = 1000;
+    private final static int POINTS_COUNT = 500;
 
     private IRange sharedXRange = new DoubleRange(0d, 1d);
     private IRange sharedYRange = new DoubleRange(0d, 1d);
@@ -57,59 +57,36 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis0 = sciChartBuilder.newNumericAxis()
-                .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                .withVisibleRange(sharedXRange)
-                .withDrawMajorBands(true)
-                .build();
-
-        final NumericAxis yAxis0 = sciChartBuilder.newNumericAxis()
-                .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                .withVisibleRange(sharedYRange)
-                .build();
-
-        final FastLineRenderableSeries line0 = sciChartBuilder.newLineSeries()
-                .withDataSeries(createDataSeries())
-                .withStrokeStyle(ColorUtil.Green)
-                .build();
-
-        Collections.addAll(chart0.getXAxes(), xAxis0);
-        Collections.addAll(chart0.getYAxes(), yAxis0);
-        Collections.addAll(chart0.getRenderableSeries(), line0);
-        Collections.addAll(chart0.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
-
-        chart0.zoomExtents();
-
-        final NumericAxis xAxis1 = sciChartBuilder.newNumericAxis()
-                .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                .withVisibleRange(sharedXRange)
-                .withDrawMajorBands(true)
-                .build();
-
-        final NumericAxis yAxis1 = sciChartBuilder.newNumericAxis()
-                .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                .withVisibleRange(sharedYRange)
-                .build();
-
-        final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries()
-                .withDataSeries(createDataSeries())
-                .withStrokeStyle(ColorUtil.Green)
-                .build();
-
-
-        Collections.addAll(chart1.getXAxes(), xAxis1);
-        Collections.addAll(chart1.getYAxes(), yAxis1);
-        Collections.addAll(chart1.getRenderableSeries(), line1);
-        Collections.addAll(chart1.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
-
-        chart1.zoomExtents();
+        initChart(chart0);
+        initChart(chart1);
     }
 
-    private IDataSeries createDataSeries(){
+    private void initChart(SciChartSurface surface) {
+        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedXRange).build();
+        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedYRange).build();
+
+        final FastLineRenderableSeries line = sciChartBuilder.newLineSeries().withDataSeries(createDataSeries()).withStrokeStyle(ColorUtil.Green, 1f, true).build();
+
+        Collections.addAll(surface.getXAxes(), xAxis);
+        Collections.addAll(surface.getYAxes(), yAxis);
+        Collections.addAll(surface.getRenderableSeries(), line);
+        Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                .withZoomExtentsModifier().build()
+                .withPinchZoomModifier().build()
+                .withRolloverModifier().withReceiveHandledEvents(true).build()
+                .withXAxisDragModifier().withReceiveHandledEvents(true).build()
+                .withYAxisDragModifier().withReceiveHandledEvents(true).build()
+                .build());
+
+        surface.zoomExtents();
+    }
+
+    private IDataSeries createDataSeries() {
         IXyDataSeries<Double, Double> dataSeries = new XyDataSeries<>(Double.class, Double.class);
 
         for (int i = 0; i < POINTS_COUNT; i++) {
-            dataSeries.append((double)i, POINTS_COUNT * Math.sin(i * Math.PI * 0.1)/ i);
+            dataSeries.append((double) i, POINTS_COUNT * Math.sin(i * Math.PI * 0.1) / i);
         }
 
         return dataSeries;

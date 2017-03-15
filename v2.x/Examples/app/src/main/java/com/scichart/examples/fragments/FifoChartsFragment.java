@@ -27,7 +27,6 @@ import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.ISciList;
-import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -46,8 +45,8 @@ import butterknife.Bind;
 
 public class FifoChartsFragment extends ExampleBaseFragment {
 
-    private final static int FIFO_CAPACITY = 200;
-    private final static long TIME_INTERVAL = 10;
+    private final static int FIFO_CAPACITY = 50;
+    private final static long TIME_INTERVAL = 30;
     private final static double ONE_OVER_TIME_INTERVAL = 1.0 / TIME_INTERVAL;
     private final static double VISIBLE_RANGE_MAX = FIFO_CAPACITY * ONE_OVER_TIME_INTERVAL;
     private final static double GROW_BY = VISIBLE_RANGE_MAX * 0.1;
@@ -102,34 +101,16 @@ public class FifoChartsFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(xVisibleRange).withAutoRangeMode(AutoRange.Never).build();
+        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
+
+        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFF4083B7, 2f, true).build();
+        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFFFFA500, 2f, true).build();
+        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withStrokeStyle(0xFFE13219, 2f, true).build();
+
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
-                        .withVisibleRange(xVisibleRange)
-                        .withAutoRangeMode(AutoRange.Never)
-                        .build();
-
-                final NumericAxis yAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .withAutoRangeMode(AutoRange.Always)
-                        .build();
-
-                final IRenderableSeries rs1 = sciChartBuilder.newLineSeries()
-                        .withDataSeries(ds1)
-                        .withStrokeStyle(ColorUtil.argb(0xFF, 0x40, 0x83, 0xB7))
-                        .build();
-
-                final IRenderableSeries rs2 = sciChartBuilder.newLineSeries()
-                        .withDataSeries(ds2)
-                        .withStrokeStyle(ColorUtil.argb(0xFF, 0xFF, 0xA5, 0x00))
-                        .build();
-
-                final IRenderableSeries rs3 = sciChartBuilder.newLineSeries()
-                        .withDataSeries(ds3)
-                        .withStrokeStyle(ColorUtil.argb(0xFF, 0xE1, 0x32, 0x19))
-                        .build();
-
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3);
@@ -180,7 +161,6 @@ public class FifoChartsFragment extends ExampleBaseFragment {
 
     double t = 0;
     private final Runnable insertRunnable = new Runnable() {
-
         @Override
         public void run() {
             double y1 = 3.0 * Math.sin(((2 * Math.PI) * 1.4) * t) + random.nextDouble() * 0.5;
@@ -193,9 +173,9 @@ public class FifoChartsFragment extends ExampleBaseFragment {
 
             t += ONE_OVER_TIME_INTERVAL;
 
-            if(t > VISIBLE_RANGE_MAX)
+            if (t > VISIBLE_RANGE_MAX) {
                 xVisibleRange.setMinMax(xVisibleRange.getMin() + ONE_OVER_TIME_INTERVAL, xVisibleRange.getMax() + ONE_OVER_TIME_INTERVAL);
-
+            }
         }
     };
 
@@ -203,8 +183,9 @@ public class FifoChartsFragment extends ExampleBaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        if (schedule != null)
+        if (schedule != null) {
             schedule.cancel(true);
+        }
     }
 
     private void resetChart() {

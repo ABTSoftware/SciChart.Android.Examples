@@ -69,10 +69,10 @@ public class FanChartFragment extends ExampleBaseFragment {
         final DateAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(0.1, 0.1).build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
 
-        final FastBandRenderableSeries projectedVar3 = sciChartBuilder.newBandSeries().withDataSeries(var3DataSeries).withStrokeStyle(ColorUtil.Transparent).build();
-        final FastBandRenderableSeries projectedVar2 = sciChartBuilder.newBandSeries().withDataSeries(var2DataSeries).withStrokeStyle(ColorUtil.Transparent).build();
-        final FastBandRenderableSeries projectedVar = sciChartBuilder.newBandSeries().withDataSeries(var1DataSeries).withStrokeStyle(ColorUtil.Transparent).build();
-        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(actualDataSeries).withStrokeStyle(ColorUtil.Red).build();
+        final FastBandRenderableSeries projectedVar3 = sciChartBuilder.newBandSeries().withDataSeries(var3DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
+        final FastBandRenderableSeries projectedVar2 = sciChartBuilder.newBandSeries().withDataSeries(var2DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
+        final FastBandRenderableSeries projectedVar = sciChartBuilder.newBandSeries().withDataSeries(var1DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(actualDataSeries).withStrokeStyle(ColorUtil.Red, 1f).build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -84,7 +84,6 @@ public class FanChartFragment extends ExampleBaseFragment {
             }
         });
     }
-
 
     // Create a table of Variance data. Each row in the table consists of
     //

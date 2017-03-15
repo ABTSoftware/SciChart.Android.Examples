@@ -23,11 +23,8 @@ import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
 import com.scichart.charting.visuals.annotations.BoxAnnotation;
 import com.scichart.charting.visuals.annotations.IAnnotation;
 import com.scichart.charting.visuals.annotations.OnAnnotationDragListener;
+import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.NumericAxis;
-import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
-import com.scichart.charting.visuals.renderableSeries.paletteProviders.IPointMarkerPaletteProvider;
-import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider;
-import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.pointmarkers.SquarePointMarker;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
@@ -35,6 +32,10 @@ import com.scichart.charting.visuals.renderableSeries.OhlcRenderableSeriesBase;
 import com.scichart.charting.visuals.renderableSeries.XyRenderableSeriesBase;
 import com.scichart.charting.visuals.renderableSeries.data.OhlcRenderPassData;
 import com.scichart.charting.visuals.renderableSeries.data.XyRenderPassData;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IPointMarkerPaletteProvider;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IntegerValues;
 import com.scichart.drawing.utility.ColorUtil;
@@ -42,6 +43,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.utils.ThousandsLabelProvider;
 
 import java.util.Collections;
 
@@ -58,39 +60,32 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
-                .withAxisTitle("Time")
-                .build();
-
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis()
-                .withAxisTitle("Value")
-                .withTextFormatting("#.0")
-                .withGrowBy(0.1, 0.1)
-                .build();
+        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(150d, 165d).build();
+        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withLabelProvider(new ThousandsLabelProvider()).withGrowBy(0, 0.1).withAutoRangeMode(AutoRange.Always).build();
 
         final DataManager dataManager = DataManager.getInstance();
         final PriceSeries priceBars = dataManager.getPriceDataIndu(getActivity());
         final double dataOffset = -1000;
 
-        final IXyDataSeries<Double, Double> mountainSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Mountain Series").build();
-        final IXyDataSeries<Double, Double> lineSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line Series").build();
-        final IXyDataSeries<Double, Double> columnSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Column Series").build();
-        final IXyDataSeries<Double, Double> xyScatterSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Scatter Series").build();
-        final IOhlcDataSeries<Double, Double> candlestickSeries = sciChartBuilder.newOhlcDataSeries(Double.class, Double.class).withSeriesName("Candlestick Series").build();
-        final IOhlcDataSeries<Double, Double> ohlcSeries = sciChartBuilder.newOhlcDataSeries(Double.class, Double.class).withSeriesName("OHLC Series").build();
+        final IXyDataSeries<Double, Double> mountainDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Mountain Series").build();
+        final IXyDataSeries<Double, Double> lineDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line Series").build();
+        final IXyDataSeries<Double, Double> columnDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Column Series").build();
+        final IXyDataSeries<Double, Double> xyScatterDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Scatter Series").build();
+        final IOhlcDataSeries<Double, Double> candlestickDataSeries = sciChartBuilder.newOhlcDataSeries(Double.class, Double.class).withSeriesName("Candlestick Series").build();
+        final IOhlcDataSeries<Double, Double> ohlcDataSeries = sciChartBuilder.newOhlcDataSeries(Double.class, Double.class).withSeriesName("OHLC Series").build();
 
-        mountainSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getLowData(), dataOffset * 2));
-        lineSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getCloseData(), -dataOffset));
-        ohlcSeries.append(priceBars.getIndexesAsDouble(), priceBars.getOpenData(), priceBars.getHighData(), priceBars.getLowData(), priceBars.getCloseData());
-        candlestickSeries.append(priceBars.getIndexesAsDouble(),
+        mountainDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getLowData(), dataOffset * 2));
+        lineDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getCloseData(), -dataOffset));
+        ohlcDataSeries.append(priceBars.getIndexesAsDouble(), priceBars.getOpenData(), priceBars.getHighData(), priceBars.getLowData(), priceBars.getCloseData());
+        candlestickDataSeries.append(priceBars.getIndexesAsDouble(),
                 dataManager.offset(priceBars.getOpenData(), dataOffset),
                 dataManager.offset(priceBars.getHighData(), dataOffset),
                 dataManager.offset(priceBars.getLowData(), dataOffset),
                 dataManager.offset(priceBars.getCloseData(), dataOffset));
-        columnSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getCloseData(), dataOffset * 3));
-        xyScatterSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getOpenData(), dataOffset * 2.5));
+        columnDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getCloseData(), dataOffset * 3));
+        xyScatterDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getOpenData(), dataOffset * 2.5));
 
-        final BoxAnnotation annotation = sciChartBuilder.newBoxAnnotation().withPosition(50d, 0, 100d, 1).withBackgroundDrawableId(R.drawable.example_box_annotation_background_1).withIsEditable(true).withCoordinateMode(AnnotationCoordinateMode.RelativeY).build();
+        final BoxAnnotation annotation = sciChartBuilder.newBoxAnnotation().withPosition(152d, 0, 158d, 1).withBackgroundDrawableId(R.drawable.example_box_annotation_background_1).withIsEditable(true).withCoordinateMode(AnnotationCoordinateMode.RelativeY).build();
         annotation.setOnAnnotationDragListener(new OnAnnotationDragListener() {
             @Override
             public void onDragStarted(IAnnotation annotation) {
@@ -114,41 +109,41 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
             }
         });
 
-        final IRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries()
+        final IRenderableSeries mountainSeries = sciChartBuilder.newMountainSeries()
                 .withAreaFillColor(0x9787CEEB)
                 .withStrokeStyle(ColorUtil.Magenta)
-                .withDataSeries(mountainSeries)
+                .withDataSeries(mountainDataSeries)
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.Red, annotation))
                 .build();
 
-        final IRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries()
+        final IRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withStrokeStyle(ColorUtil.Blue)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withFill(ColorUtil.Red).withStroke(ColorUtil.Orange, 2f).withSize(10, 10).build())
-                .withDataSeries(lineSeries)
+                .withDataSeries(lineDataSeries)
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.Red, annotation))
                 .build();
 
-        final IRenderableSeries ohlcRenderableSeries = sciChartBuilder.newOhlcSeries()
-                .withDataSeries(ohlcSeries)
+        final IRenderableSeries ohlcSeries = sciChartBuilder.newOhlcSeries()
+                .withDataSeries(ohlcDataSeries)
                 .withPaletteProvider(new OhlcCustomPaletteProvider(ColorUtil.CornflowerBlue, annotation))
                 .build();
 
-        final IRenderableSeries candlestickRenderableSeries = sciChartBuilder.newCandlestickSeries()
-                .withDataSeries(candlestickSeries)
+        final IRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
+                .withDataSeries(candlestickDataSeries)
                 .withPaletteProvider(new OhlcCustomPaletteProvider(ColorUtil.Green, annotation))
                 .build();
 
-        final IRenderableSeries columnRenderableSeries = sciChartBuilder.newColumnSeries()
+        final IRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
                 .withStrokeStyle(ColorUtil.Blue)
                 .withZeroLine(6000)
                 .withDataPointWidth(0.8d)
                 .withFillColor(ColorUtil.Blue)
-                .withDataSeries(columnSeries)
+                .withDataSeries(columnDataSeries)
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.Purple, annotation))
                 .build();
 
-        final IRenderableSeries xyScatterRenderableSeries = sciChartBuilder.newScatterSeries()
-                .withDataSeries(xyScatterSeries)
+        final IRenderableSeries xyScatterSeries = sciChartBuilder.newScatterSeries()
+                .withDataSeries(xyScatterDataSeries)
                 .withPointMarker(sciChartBuilder.newPointMarker(new SquarePointMarker()).withFill(ColorUtil.Red).withStroke(ColorUtil.Orange, 2f).withSize(7, 7).build())
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.LimeGreen, annotation))
                 .build();
@@ -156,7 +151,7 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
         Collections.addAll(chart.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
         Collections.addAll(chart.getXAxes(), xAxis);
         Collections.addAll(chart.getYAxes(), yAxis);
-        Collections.addAll(chart.getRenderableSeries(), mountainRenderableSeries, lineRenderableSeries, ohlcRenderableSeries, candlestickRenderableSeries, columnRenderableSeries, xyScatterRenderableSeries);
+        Collections.addAll(chart.getRenderableSeries(), mountainSeries, lineSeries, ohlcSeries, candlestickSeries, columnSeries, xyScatterSeries);
         Collections.addAll(chart.getAnnotations(), annotation);
     }
 
@@ -181,8 +176,8 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
             final int size = currentRenderPassData.pointsCount();
             colors.setSize(size);
 
-            final double x1 = (Double)annotation.getX1();
-            final double x2 = (Double)annotation.getX2();
+            final double x1 = (Double) annotation.getX1();
+            final double x2 = (Double) annotation.getX2();
 
             final double min = Math.min(x1, x2);
             final double max = Math.max(x1, x2);
@@ -236,8 +231,8 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
             final int size = currentRenderPassData.pointsCount();
             colors.setSize(size);
 
-            final double x1 = (Double)annotation.getX1();
-            final double x2 = (Double)annotation.getX2();
+            final double x1 = (Double) annotation.getX1();
+            final double x2 = (Double) annotation.getX2();
 
             final double min = Math.min(x1, x2);
             final double max = Math.max(x1, x2);

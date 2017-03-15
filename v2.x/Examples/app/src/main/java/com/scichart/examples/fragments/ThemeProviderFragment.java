@@ -29,17 +29,19 @@ import com.scichart.charting.modifiers.PinchZoomModifier;
 import com.scichart.charting.modifiers.ZoomPanModifier;
 import com.scichart.charting.themes.ThemeManager;
 import com.scichart.charting.visuals.SciChartSurface;
+import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.utils.BillionsLabelProvider;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
+import com.scichart.examples.utils.ThousandsLabelProvider;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
@@ -74,7 +76,7 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
     @Override
     protected void initExample() {
         themeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.style_list));
-        themeSelector.setSelection(0);
+        themeSelector.setSelection(7);
         themeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -82,82 +84,67 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
             }
         });
 
+        final IAxis xBottomAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(150, 180).build();
+
+        final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
+                .withGrowBy(0.1d, 0.1d)
+                .withAxisAlignment(AxisAlignment.Right)
+                .withAutoRangeMode(AutoRange.Always)
+                .withAxisId("PrimaryAxisId")
+                .withDrawMajorTicks(false)
+                .withDrawMinorTicks(false)
+                .withLabelProvider(new ThousandsLabelProvider())
+                .build();
+
+        final IAxis yLeftAxis = sciChartBuilder.newNumericAxis()
+                .withGrowBy(0, 3d)
+                .withAxisAlignment(AxisAlignment.Left)
+                .withAutoRangeMode(AutoRange.Always)
+                .withAxisId("SecondaryAxisId")
+                .withDrawMajorTicks(false)
+                .withDrawMinorTicks(false)
+                .withLabelProvider(new BillionsLabelProvider())
+                .build();
+
+        final DataManager dataManager = DataManager.getInstance();
+        final PriceSeries priceBars = dataManager.getPriceDataIndu(getActivity());
+
+        final IXyDataSeries<Double, Double> mountainDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Mountain Series").build();
+        final IXyDataSeries<Double, Double> lineDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line Series").build();
+        final IXyDataSeries<Double, Long> columnDataSeries = sciChartBuilder.newXyDataSeries(Double.class, Long.class).withSeriesName("Column Series").build();
+        final IOhlcDataSeries<Double, Double> candlestickDataSeries = sciChartBuilder.newOhlcDataSeries(Double.class, Double.class).withSeriesName("Candlestick Series").build();
+
+        mountainDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getLowData(), -1000));
+        candlestickDataSeries.append(priceBars.getIndexesAsDouble(), priceBars.getOpenData(), priceBars.getHighData(), priceBars.getLowData(), priceBars.getCloseData());
+        lineDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.computeMovingAverage(priceBars.getCloseData(), 50));
+        columnDataSeries.append(priceBars.getIndexesAsDouble(), priceBars.getVolumeData());
+
+        final IRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDataSeries).withYAxisId("PrimaryAxisId").build();
+        final IRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDataSeries).withYAxisId("PrimaryAxisId").build();
+        final IRenderableSeries columnRenderableSeries = sciChartBuilder.newColumnSeries().withDataSeries(columnDataSeries).withYAxisId("SecondaryAxisId").build();
+        final IRenderableSeries candlestickRenderableSeries = sciChartBuilder.newCandlestickSeries().withDataSeries(candlestickDataSeries).withYAxisId("PrimaryAxisId").build();
+
+        PinchZoomModifier pinchZoomModifier = new PinchZoomModifier();
+        pinchZoomModifier.setReceiveHandledEvents(true);
+
+        ZoomPanModifier zoomPanModifier = new ZoomPanModifier();
+        zoomPanModifier.setReceiveHandledEvents(true);
+
+        zoomingModifiers = new ModifierGroup();
+        Collections.addAll(zoomingModifiers.getChildModifiers(), pinchZoomModifier, zoomPanModifier);
+        zoomingModifiers.setIsEnabled(false);
+
+        cursorModifier = new CursorModifier();
+        final ModifierGroup modifiers = sciChartBuilder.newModifierGroup()
+                .withLegendModifier().withShowCheckBoxes(false).build()
+                .withModifier(cursorModifier)
+                .withModifier(zoomingModifiers)
+                .withZoomExtentsModifier().build()
+                .build();
+
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                final IAxis xBottomAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .withAxisAlignment(AxisAlignment.Bottom)
-                        .withAxisTitle("Axis Bottom Title")
-                        .build();
-
-                final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(0.1d, 0.1d)
-                        .withAxisAlignment(AxisAlignment.Right)
-                        .withDrawMajorBands(true)
-                        .withAxisTitle("Axis Right Title")
-                        .withAxisId("PrimaryAxisId")
-                        .withTextFormatting("#.0")
-                        .build();
-
-                final IAxis yLeftAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(0, 3d)
-                        .withAxisAlignment(AxisAlignment.Left)
-                        .withAxisTitle("Axis Left Title")
-                        .withAxisId("SecondaryAxisId")
-                        .withTextFormatting("###E+0")
-                        .build();
-
-                final DataManager dataManager = DataManager.getInstance();
-                final PriceSeries priceBars = dataManager.getPriceDataIndu(getActivity());
-                final IXyDataSeries<Double, Double> mountainSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Mountain Series").build();
-                final IXyDataSeries<Double, Double> lineSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line Series").build();
-                final IXyDataSeries<Double, Long> columnSeries = sciChartBuilder.newXyDataSeries(Double.class, Long.class).withSeriesName("Column Series").build();
-                final IOhlcDataSeries<Double, Double> candlestickSeries = sciChartBuilder.newOhlcDataSeries(Double.class, Double.class).withSeriesName("Candlestick Series").build();
-
-                mountainSeries.append(priceBars.getIndexesAsDouble(), dataManager.offset(priceBars.getLowData(), -1000));
-                candlestickSeries.append(priceBars.getIndexesAsDouble(), priceBars.getOpenData(), priceBars.getHighData(), priceBars.getLowData(), priceBars.getCloseData());
-                lineSeries.append(priceBars.getIndexesAsDouble(), dataManager.computeMovingAverage(priceBars.getCloseData(), 50));
-                columnSeries.append(priceBars.getIndexesAsDouble(), priceBars.getVolumeData());
-
-                final IRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries()
-                        .withDataSeries(mountainSeries)
-                        .withYAxisId("PrimaryAxisId")
-                        .build();
-
-                final IRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries()
-                        .withDataSeries(lineSeries)
-                        .withYAxisId("PrimaryAxisId")
-                        .build();
-
-                final IRenderableSeries columnRenderableSeries = sciChartBuilder.newColumnSeries()
-                        .withDataSeries(columnSeries)
-                        .withYAxisId("SecondaryAxisId")
-                        .build();
-
-                final IRenderableSeries candlestickRenderableSeries = sciChartBuilder.newCandlestickSeries()
-                        .withDataSeries(candlestickSeries)
-                        .withYAxisId("PrimaryAxisId")
-                        .build();
-
-                PinchZoomModifier pinchZoomModifier =  new PinchZoomModifier();
-                pinchZoomModifier.setReceiveHandledEvents(true);
-
-                ZoomPanModifier zoomPanModifier = new ZoomPanModifier();
-                zoomPanModifier.setReceiveHandledEvents(true);
-
-                zoomingModifiers = new ModifierGroup();
-                Collections.addAll(zoomingModifiers.getChildModifiers(), pinchZoomModifier, zoomPanModifier);
-                zoomingModifiers.setIsEnabled(false);
-
-                cursorModifier = new CursorModifier();
-                ModifierGroup modifiers = sciChartBuilder.newModifierGroup()
-                        .withLegendModifier().withShowCheckBoxes(false).build()
-                        .withModifier(cursorModifier)
-                        .withModifier(zoomingModifiers)
-                        .withZoomExtentsModifier().build()
-                        .build();
-
                 Collections.addAll(surface.getChartModifiers(), modifiers);
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis, yLeftAxis);

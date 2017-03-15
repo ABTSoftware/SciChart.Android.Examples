@@ -21,15 +21,9 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
-import com.scichart.charting.model.dataSeries.XyDataSeries;
-import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier;
-import com.scichart.charting.modifiers.ZoomExtentsModifier;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.AutoRange;
-import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
@@ -91,15 +85,19 @@ public class DragAreaToZoomFragment extends ExampleBaseFragment {
 
         final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(ColorUtil.argb(255, 9, 68, 27)).build();
 
+        rubberBandXyZoomModifier = new RubberBandXyZoomModifier();
+        rubberBandXyZoomModifier.setIsXAxisOnly(true);
+        rubberBandXyZoomModifier.setReceiveHandledEvents(true);
+
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), lineSeries);
-                Collections.addAll(surface.getChartModifiers(), sciChartBuilder
-                        .newModifierGroupWithDefaultModifiers()
-                        .withRubberBandXyZoomModifier().withIsXAxisOnly(true).build()
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withZoomExtentsModifier().build()
+                        .withModifier(rubberBandXyZoomModifier)
                         .build());
             }
         });

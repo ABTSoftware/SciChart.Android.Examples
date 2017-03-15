@@ -18,6 +18,7 @@ package com.scichart.examples.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
@@ -62,7 +63,7 @@ public class LegendFragment extends ExampleBaseFragment {
     private LegendModifier legendModifier;
 
     private int selectedOrientation = Orientation.VERTICAL;
-    private int selectedSourceMode = 1;    //1 = SourceMode.AllVisibleSeries
+    private int selectedSourceMode = 0;    //1 = SourceMode.AllVisibleSeries
     private boolean showLegend = true;
     private boolean showCheckBoxes = true;
     private boolean showSeriesMarkers = true;
@@ -114,25 +115,10 @@ public class LegendFragment extends ExampleBaseFragment {
         final int line3Color = ColorUtil.argb(0xFF, 0xFF, 0x19, 0x19);
         final int line4Color = ColorUtil.argb(0xFF, 0x19, 0x64, 0xFF);
 
-        final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(line1Color)
-                .withDataSeries(dataSeries1)
-                .build();
-        final FastLineRenderableSeries line2 = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(line2Color)
-                .withDataSeries(dataSeries2)
-                .build();
-
-        final FastLineRenderableSeries line3 = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(line3Color)
-                .withDataSeries(dataSeries3)
-                .build();
-
-        final FastLineRenderableSeries line4 = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(line4Color)
-                .withDataSeries(dataSeries4)
-                .withIsVisible(false)
-                .build();
+        final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries().withStrokeStyle(line1Color, 1f, true).withDataSeries(dataSeries1).build();
+        final FastLineRenderableSeries line2 = sciChartBuilder.newLineSeries().withStrokeStyle(line2Color, 1f, true).withDataSeries(dataSeries2).build();
+        final FastLineRenderableSeries line3 = sciChartBuilder.newLineSeries().withStrokeStyle(line3Color, 1f, true).withDataSeries(dataSeries3).build();
+        final FastLineRenderableSeries line4 = sciChartBuilder.newLineSeries().withStrokeStyle(line4Color, 1f, true).withDataSeries(dataSeries4).withIsVisible(false).build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -160,7 +146,7 @@ public class LegendFragment extends ExampleBaseFragment {
                 });
 
                 ModifierGroup modifierGroup = sciChartBuilder.newModifierGroup()
-                        .withLegendModifier().withOrientation(selectedOrientation).build()
+                        .withLegendModifier().withPosition(Gravity.TOP | Gravity.START, 16).withSourceMode(sourceModeValues.get(selectedSourceMode)).withOrientation(selectedOrientation).build()
                         .withModifier(seriesSelectionModifier)
                         .build();
                 legendModifier = (LegendModifier) modifierGroup.getChildModifiers().get(0);

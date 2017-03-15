@@ -203,6 +203,8 @@
 
     <string name="toolbar_drawer_open">Open the toolbar</string>
     <string name="toolbar_drawer_close">Close the toolbar</string>
+    <string name="change_error_bars_data_point_width">Change ErrorBars dataPointWidth</string>
+    <string name="change_error_bars_stroke_thickness">Change ErrorBars strokeThickness</string>
 
     <!-- end: ALL -->
 

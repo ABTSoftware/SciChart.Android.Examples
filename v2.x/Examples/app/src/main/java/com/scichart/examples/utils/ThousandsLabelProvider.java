@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// ItemSelectedListenerBase.java is part of the SCICHART® Examples. Permission is hereby granted
+// ThousandsLabelProvider.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -16,10 +16,12 @@
 
 package com.scichart.examples.utils;
 
-import android.widget.AdapterView;
+import com.scichart.charting.numerics.labelProviders.NumericLabelProvider;
+import com.scichart.core.utility.ComparableUtil;
 
-public abstract class ItemSelectedListenerBase implements AdapterView.OnItemSelectedListener {
+public class ThousandsLabelProvider extends NumericLabelProvider {
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public CharSequence formatLabel(Comparable dataValue) {
+        return super.formatLabel(ComparableUtil.toDouble(dataValue) / 1000) + "k";
     }
 }

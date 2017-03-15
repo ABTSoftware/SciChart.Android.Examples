@@ -96,12 +96,12 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
 
         surface.getRenderableSeries().addAll(model.renderableSeries);
 
-        surface.getChartModifiers().add(sciChartBuilder
-                .newModifierGroup().withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
-                    .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
-                    .withRolloverModifier().withReceiveHandledEvents(true).build()
-                    .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
-                    .withLegendModifier().withShowCheckBoxes(false).build()
+        surface.getChartModifiers().add(sciChartBuilder.newModifierGroup()
+                .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
+                .withRolloverModifier().withReceiveHandledEvents(true).build()
+                .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
+                .withLegendModifier().withShowCheckBoxes(false).build()
                 .build());
 
         surface.setAnnotations(model.annotations);
@@ -132,9 +132,8 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
                     .build();
         }
 
-        protected final void addRenderableSeries(BaseRenderableSeries renderableSeries) {
+        final void addRenderableSeries(BaseRenderableSeries renderableSeries) {
             renderableSeries.setClipToBounds(true);
-
             this.renderableSeries.add(renderableSeries);
         }
     }
@@ -145,17 +144,17 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
             super(builder, PRICES, "$0.0000", true);
 
             // Add the main OHLC chart
-            final OhlcDataSeries<Date, Double> stockPrices = builder.newOhlcDataSeries(Date.class, Double.class).withSeriesName("OHLC").build();
+            final OhlcDataSeries<Date, Double> stockPrices = builder.newOhlcDataSeries(Date.class, Double.class).withSeriesName("EUR/USD").build();
             stockPrices.append(prices.getDateData(), prices.getOpenData(), prices.getHighData(), prices.getLowData(), prices.getCloseData());
             addRenderableSeries(builder.newCandlestickSeries().withDataSeries(stockPrices).withYAxisId(PRICES).build());
 
             final XyDataSeries<Date, Double> maLow = builder.newXyDataSeries(Date.class, Double.class).withSeriesName("Low Line").build();
             maLow.append(prices.getDateData(), MovingAverage.movingAverage(prices.getCloseData(), 50));
-            addRenderableSeries(builder.newLineSeries().withDataSeries(maLow).withStrokeStyle(0xFFFF3333, 2f).withYAxisId(PRICES).build());
+            addRenderableSeries(builder.newLineSeries().withDataSeries(maLow).withStrokeStyle(0xFFFF3333, 1f).withYAxisId(PRICES).build());
 
             final XyDataSeries<Date, Double> maHigh = builder.newXyDataSeries(Date.class, Double.class).withSeriesName("High Line").build();
             maHigh.append(prices.getDateData(), MovingAverage.movingAverage(prices.getCloseData(), 200));
-            addRenderableSeries(builder.newLineSeries().withDataSeries(maHigh).withStrokeStyle(0xFF33DD33, 2f).withYAxisId(PRICES).build());
+            addRenderableSeries(builder.newLineSeries().withDataSeries(maHigh).withStrokeStyle(0xFF33DD33, 1f).withYAxisId(PRICES).build());
 
             Collections.addAll(annotations,
                     builder.newAxisMarkerAnnotation().withY1(stockPrices.getYValues().get(stockPrices.getCount() - 1)).withBackgroundColor(0xFFFF3333).withYAxisId(PRICES).build(),
@@ -165,7 +164,6 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
     }
 
     private static class VolumePaneModel extends BasePaneModel {
-
         public VolumePaneModel(SciChartBuilder builder, PriceSeries prices) {
             super(builder, VOLUME, "###E+0", false);
 
@@ -189,7 +187,7 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
 
             final XyDataSeries<Date, Double> rsiSeries = builder.newXyDataSeries(Date.class, Double.class).withSeriesName("RSI").build();
             rsiSeries.append(prices.getDateData(), MovingAverage.rsi(prices, 14));
-            addRenderableSeries(builder.newLineSeries().withDataSeries(rsiSeries).withYAxisId(RSI).build());
+            addRenderableSeries(builder.newLineSeries().withDataSeries(rsiSeries).withStrokeStyle(0xFFC6E6FF, 1f).withYAxisId(RSI).build());
 
             Collections.addAll(annotations,
                     builder.newAxisMarkerAnnotation().withY1(rsiSeries.getYValues().get(rsiSeries.getCount() - 1)).withYAxisId(RSI).build());

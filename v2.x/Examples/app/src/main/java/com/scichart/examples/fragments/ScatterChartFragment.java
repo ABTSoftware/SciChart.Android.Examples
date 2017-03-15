@@ -24,7 +24,6 @@ import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.pointmarkers.SpritePointMarker;
-import com.scichart.charting.visuals.pointmarkers.SquarePointMarker;
 import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;

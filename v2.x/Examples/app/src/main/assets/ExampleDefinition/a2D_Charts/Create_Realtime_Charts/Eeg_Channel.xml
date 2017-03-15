@@ -29,5 +29,5 @@
         <Features>Realtime</Features>
         <Features>Performance</Features>
     </Features>
-    <IsVisible>true</IsVisible>
+    <IsVisible>false</IsVisible>
 </ExampleDefinition>

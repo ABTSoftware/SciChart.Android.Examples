@@ -21,6 +21,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.scichart.core.model.DoubleValues;
+import com.scichart.data.model.SciListUtil;
+import com.scichart.data.numerics.SearchMode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -96,10 +98,9 @@ public class DataManager {
         double y;
 
         final double fudgeFactor = 1.4;
-        for(int i = 0; i < pointCount; i++)
-        {
+        for (int i = 0; i < pointCount; i++) {
             x *= fudgeFactor;
-            y = Math.pow((double)i + 1, exponent);
+            y = Math.pow((double) i + 1, exponent);
 
             doubleSeries.add(x, y);
         }
@@ -131,6 +132,28 @@ public class DataManager {
         final DoubleSeries doubleSeries = new DoubleSeries(count);
 
         setFourierSeries(doubleSeries.xValues, doubleSeries.yValues, amplitude, phaseShift, count);
+
+        return doubleSeries;
+    }
+
+    public void setFourierSeriesZoomed(DoubleValues xValues, DoubleValues yValues, double amplitude, double phaseShift, double xStart, double xEnd, int count) {
+        setFourierSeries(xValues, yValues, amplitude, phaseShift, count);
+
+        int startIndex = SciListUtil.instance().findIndex(xValues.getItemsArray(), 0, count, true, xStart, SearchMode.RoundDown);
+        int endIndex = SciListUtil.instance().findIndex(xValues.getItemsArray(), startIndex, count - startIndex, true, xEnd, SearchMode.RoundUp);
+
+        int size = endIndex - startIndex;
+        System.arraycopy(xValues.getItemsArray(), startIndex, xValues.getItemsArray(), 0, size);
+        System.arraycopy(yValues.getItemsArray(), startIndex, yValues.getItemsArray(), 0, size);
+
+        xValues.setSize(size);
+        yValues.setSize(size);
+    }
+
+    public DoubleSeries getFourierSeries(double amplitude, double phaseShift, double xStart, double xEnd, int count) {
+        final DoubleSeries doubleSeries = new DoubleSeries(count);
+
+        setFourierSeriesZoomed(doubleSeries.xValues, doubleSeries.yValues, amplitude, phaseShift, xStart, xEnd, count);
 
         return doubleSeries;
     }

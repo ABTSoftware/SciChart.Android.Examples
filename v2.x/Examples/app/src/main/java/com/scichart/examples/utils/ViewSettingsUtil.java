@@ -22,17 +22,15 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.SwitchCompat;
 import android.view.Window;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
 
 import com.scichart.charting.modifiers.IChartModifier;
 
 public class ViewSettingsUtil {
 
-    public static Dialog createSettingsPopup(Activity activity, @LayoutRes int id){
+    public static Dialog createSettingsPopup(Activity activity, @LayoutRes int id) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(id);
@@ -40,13 +38,13 @@ public class ViewSettingsUtil {
         return dialog;
     }
 
-    public static void setUpSwitchCompat(Dialog dialog, @IdRes int checkBoxId, boolean isChecked, CompoundButton.OnCheckedChangeListener listener){
+    public static void setUpSwitchCompat(Dialog dialog, @IdRes int checkBoxId, boolean isChecked, CompoundButton.OnCheckedChangeListener listener) {
         final SwitchCompat checkBox = (SwitchCompat) dialog.findViewById(checkBoxId);
         checkBox.setChecked(isChecked);
         checkBox.setOnCheckedChangeListener(listener);
     }
 
-    public static void setUpRadioButton(Dialog dialog, @IdRes int checkBoxId, final IChartModifier modifier){
+    public static void setUpRadioButton(Dialog dialog, @IdRes int checkBoxId, final IChartModifier modifier) {
         final RadioButton radioButton = (RadioButton) dialog.findViewById(checkBoxId);
         radioButton.setChecked(modifier.getIsEnabled());
         radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -57,9 +55,9 @@ public class ViewSettingsUtil {
         });
     }
 
-    public static void setUpSeekBar(Dialog dialog, @IdRes int seekBarId, int zScaleFactor, SeekBar.OnSeekBarChangeListener listener){
+    public static void setUpSeekBar(Dialog dialog, @IdRes int seekBarId, int progress, SeekBar.OnSeekBarChangeListener listener) {
         final SeekBar seekBar = (SeekBar) dialog.findViewById(seekBarId);
         seekBar.setOnSeekBarChangeListener(listener);
-        seekBar.setProgress(zScaleFactor);
+        seekBar.setProgress(progress);
     }
 }

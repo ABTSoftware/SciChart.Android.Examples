@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.scichart.charting.model.ChartModifierCollection;
 import com.scichart.charting.model.RenderableSeriesCollection;
@@ -30,17 +31,12 @@ import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.IChartModifier;
-import com.scichart.charting.modifiers.ModifierGroup;
-import com.scichart.charting.modifiers.PinchZoomModifier;
-import com.scichart.charting.modifiers.ZoomExtentsModifier;
-import com.scichart.charting.modifiers.ZoomPanModifier;
 import com.scichart.charting.visuals.SciChartSurface;
+import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
+import com.scichart.charting.visuals.annotations.CustomAnnotation;
 import com.scichart.charting.visuals.axes.AutoRange;
-import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.pointmarkers.CrossPointMarker;
-import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.FloatValues;
@@ -48,7 +44,6 @@ import com.scichart.core.model.IntegerValues;
 import com.scichart.data.model.ISciList;
 import com.scichart.data.numerics.ResamplingMode;
 import com.scichart.drawing.common.PenStyle;
-import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.MovingAverage;
@@ -59,6 +54,7 @@ import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -94,6 +90,8 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     private ScheduledFuture<?> schedule;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
+    private TextView textView;
+
     @Override
     protected void initExample() {
         selectedSeriesType = getResources().getStringArray(R.array.series_types)[0];
@@ -117,40 +115,33 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     }
 
     private void initChart() {
-        IAxis xAxis = new NumericAxis(getActivity());
-        xAxis.setAxisAlignment(AxisAlignment.Bottom);
-        xAxis.setAutoRange(AutoRange.Always);
-        xAxis.setAxisTitle("X Axis");
-        surface.getXAxes().add(xAxis);
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
 
-        IAxis yAxis = new NumericAxis(getActivity());
-        yAxis.setAxisAlignment(AxisAlignment.Right);
-        yAxis.setAutoRange(AutoRange.Always);
-        yAxis.setAxisTitle("Y Axis");
-        surface.getYAxes().add(yAxis);
+        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFF4083B7).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
+        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFFFFA500).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
+        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFFE13219).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
 
-        final PinchZoomModifier pinchZoomModifier = new PinchZoomModifier();
-        pinchZoomModifier.setReceiveHandledEvents(true);
-        ModifierGroup modifiers = new ModifierGroup(new ZoomPanModifier(), pinchZoomModifier, new ZoomExtentsModifier());
-
-        surface.getChartModifiers().add(modifiers);
+        textView = new TextView(getActivity());
+        textView.setPadding(20, 20, 20, 20);
+        final CustomAnnotation annotation = sciChartBuilder.newCustomAnnotation()
+                .withCoordinateMode(AnnotationCoordinateMode.Relative)
+                .withContent(textView)
+                .withZIndex(-1)
+                .withX1(0)
+                .withY1(0)
+                .build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                addSeries(new XyDataSeries<>(Integer.class, Float.class), ColorUtil.argb(0xFF, 0x40, 0x83, 0xB7));
-                addSeries(new XyDataSeries<>(Integer.class, Float.class), ColorUtil.argb(0xFF, 0xFF, 0xA5, 0x00));
-                addSeries(new XyDataSeries<>(Integer.class, Float.class), ColorUtil.argb(0xFF, 0xE1, 0x32, 0x19));
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                Collections.addAll(surface.getAnnotations(), annotation);
             }
         });
-    }
-
-    private void addSeries(IDataSeries dataSeries, int strokeColor) {
-        final FastLineRenderableSeries line = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(strokeColor)
-                .withDataSeries(dataSeries)
-                .build();
-        surface.getRenderableSeries().add(line);
     }
 
     @Override
@@ -204,9 +195,9 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
         return Math.round(maxPointCount / 3);
     }
 
-    private static int getMaxMemorySize(){
+    private static int getMaxMemorySize() {
         // max memory size in megabytes
-        return (int)(Runtime.getRuntime().maxMemory() / 1024L / 1024L);
+        return (int) (Runtime.getRuntime().maxMemory() / 1024L / 1024L);
     }
 
     private int getPointsCount() {
@@ -260,6 +251,16 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
             mainSeries.append(xValues, firstYValues);
             maLowSeries.append(xValues, secondYValues);
             maHighSeries.append(xValues, thirdYValues);
+
+            final long count = mainSeries.getCount() + maLowSeries.getCount() + maHighSeries.getCount();
+            final String text = "Amount of points: " + count;
+
+            new Runnable() {
+                @Override
+                public void run() {
+                    textView.setText(text);
+                }
+            }.run();
         }
     };
 
@@ -448,7 +449,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
         };
     }
 
-    private void updateAutoRangeBehavior(boolean isEnabled){
+    private void updateAutoRangeBehavior(boolean isEnabled) {
         IAxis xAxis = surface.getXAxes().get(0);
         IAxis yAxis = surface.getYAxes().get(0);
 
@@ -458,9 +459,9 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
         yAxis.setAutoRange(autoRangeMode);
     }
 
-    private void updateModifiers(boolean isEnabled){
+    private void updateModifiers(boolean isEnabled) {
         ChartModifierCollection modifiers = surface.getChartModifiers();
-        for (IChartModifier modifier:modifiers) {
+        for (IChartModifier modifier : modifiers) {
             modifier.setIsEnabled(isEnabled);
         }
     }
