@@ -206,6 +206,10 @@
     <string name="change_error_bars_data_point_width">Change ErrorBars dataPointWidth</string>
     <string name="change_error_bars_stroke_thickness">Change ErrorBars strokeThickness</string>
 
+    <string name="rollover">ROLLOVER</string>
+    <string name="cursor">CURSOR</string>
+    <string name="tooltip">TOOLTIP</string>
+
     <!-- end: ALL -->
 
 </resources>

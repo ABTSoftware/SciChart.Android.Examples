@@ -152,5 +152,4 @@ public class AddRemoveSeriesFragment extends ExampleBaseFragment {
             }
         });
     }
-
 }

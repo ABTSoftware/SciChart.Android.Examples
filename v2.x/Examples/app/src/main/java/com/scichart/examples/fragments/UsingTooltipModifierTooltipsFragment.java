@@ -16,11 +16,11 @@
 
 package com.scichart.examples.fragments;
 
-import com.scichart.charting.model.RenderableSeriesCollection;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.TooltipModifier;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
@@ -52,39 +52,38 @@ public class UsingTooltipModifierTooltipsFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        surface.getXAxes().add(sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build());
-        surface.getYAxes().add(sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withAxisAlignment(AxisAlignment.Left).build());
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withAxisAlignment(AxisAlignment.Left).build();
 
-        surface.getChartModifiers().add(new TooltipModifier());
+        final XyDataSeries<Double, Double> dataSeries1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Lissajous Curve").withAcceptsUnsortedData().build();
+        final XyDataSeries<Double, Double> dataSeries2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Sinewave").withAcceptsUnsortedData().build();
+
+        final DoubleSeries ds1Points = DataManager.getInstance().getLissajousCurve(0.8, 0.2, 0.43, 500);
+        final DoubleSeries ds2Points = DataManager.getInstance().getSinewave(1.5, 1.0, 500);
+
+        final DoubleValues scaledXValues = getScaledValues(ds1Points.xValues);
+
+        dataSeries1.append(scaledXValues, ds1Points.yValues);
+        dataSeries2.append(ds2Points.xValues, ds2Points.yValues);
+
+        final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries()
+                .withStrokeStyle(ColorUtil.SteelBlue, 2f, true)
+                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withStroke(ColorUtil.SteelBlue, 2f).withFill(ColorUtil.SteelBlue).build())
+                .withDataSeries(dataSeries1)
+                .build();
+        final FastLineRenderableSeries line2 = sciChartBuilder.newLineSeries()
+                .withStrokeStyle(0xFFFF3333, 2f, true)
+                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withStroke(0xFFFF3333, 2f).withFill(0xFFFF3333).build())
+                .withDataSeries(dataSeries2)
+                .build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                final RenderableSeriesCollection renderableSeriesCollection = surface.getRenderableSeries();
-
-                final XyDataSeries<Double, Double> dataSeries1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Lissajous Curve").withAcceptsUnsortedData().build();
-                final XyDataSeries<Double, Double> dataSeries2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Sinewave").withAcceptsUnsortedData().build();
-                
-                final DoubleSeries ds1Points = DataManager.getInstance().getLissajousCurve(0.8, 0.2, 0.43, 500);
-                final DoubleSeries ds2Points = DataManager.getInstance().getSinewave(1.5, 1.0, 500);
-
-                final DoubleValues scaledXValues = getScaledValues(ds1Points.xValues);
-
-                dataSeries1.append(scaledXValues, ds1Points.yValues);
-                dataSeries2.append(ds2Points.xValues, ds2Points.yValues);
-
-                final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries()
-                        .withStrokeStyle(ColorUtil.SteelBlue, 2f, true)
-                        .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withStroke(ColorUtil.SteelBlue, 2f).withFill(ColorUtil.SteelBlue).build())
-                        .withDataSeries(dataSeries1)
-                        .build();
-                final FastLineRenderableSeries line2 = sciChartBuilder.newLineSeries()
-                        .withStrokeStyle(0xFFFF3333, 2f, true)
-                        .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withStroke(0xFFFF3333, 2f).withFill(0xFFFF3333).build())
-                        .withDataSeries(dataSeries2)
-                        .build();
-
-                Collections.addAll(renderableSeriesCollection, line1, line2);
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), line1, line2);
+                Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
             }
         });
     }

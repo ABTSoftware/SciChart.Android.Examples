@@ -12,7 +12,7 @@
         android:layout_weight="1" />
 
     <com.scichart.charting.visuals.SciChartSurface
-        android:id="@+id/overviewChart"
+        android:id="@+id/overview"
         android:layout_width="fill_parent"
         android:layout_height="75dp" />
 
