@@ -16,7 +16,6 @@
 
 package com.scichart.examples.fragments;
 
-
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.SeriesSelectionModifier;
@@ -126,7 +125,7 @@ public class SeriesSelectionFragment extends ExampleBaseFragment {
         });
     }
 
-    private static IDataSeries generateDataSeries(AxisAlignment axisAlignment, int index){
+    private static IDataSeries generateDataSeries(AxisAlignment axisAlignment, int index) {
         final XyDataSeries<Double, Double> ds = new XyDataSeries<>(Double.class, Double.class);
         ds.setSeriesName(String.format("Series %d", index));
 

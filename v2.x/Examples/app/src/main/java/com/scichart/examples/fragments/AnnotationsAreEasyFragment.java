@@ -29,6 +29,7 @@ import android.view.View;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
 import com.scichart.charting.visuals.annotations.HorizontalAnchorPoint;
+import com.scichart.charting.visuals.annotations.LabelPlacement;
 import com.scichart.charting.visuals.annotations.VerticalAnchorPoint;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.core.framework.UpdateSuspender;
@@ -185,10 +186,12 @@ public class AnnotationsAreEasyFragment extends ExampleBaseFragment {
                                 .withPosition(5d, 3.2d)
                                 .withStroke(2, ColorUtil.Orange)
                                 .withHorizontalGravity(Gravity.RIGHT)
+                                .withAnnotationLabel(LabelPlacement.TopLeft, "Right Aligned, with text on left")
                                 .build(),
                         sciChartBuilder.newHorizontalLineAnnotation()
                                 .withPosition(7d, 2.8d)
                                 .withStroke(2, ColorUtil.Orange)
+                                .withAnnotationLabel(LabelPlacement.Axis)
                                 .build(),
 
                         // Vertical Lines
@@ -196,10 +199,13 @@ public class AnnotationsAreEasyFragment extends ExampleBaseFragment {
                                 .withPosition(9d, 4d)
                                 .withVerticalGravity(Gravity.BOTTOM)
                                 .withStroke(2, ColorUtil.Brown)
+                                .withAnnotationLabel()
                                 .build(),
                         sciChartBuilder.newVerticalLineAnnotation()
                                 .withPosition(9.5d, 3d)
                                 .withStroke(2, ColorUtil.Brown)
+                                .withAnnotationLabel()
+                                .withAnnotationLabel(LabelPlacement.TopRight, "Bottom-aligned", 90)
                                 .build());
 
                 surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());

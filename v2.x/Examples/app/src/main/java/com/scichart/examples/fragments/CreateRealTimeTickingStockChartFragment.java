@@ -17,6 +17,7 @@
 package com.scichart.examples.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.View;
@@ -31,8 +32,7 @@ import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
 import com.scichart.charting.visuals.annotations.AxisMarkerAnnotation;
 import com.scichart.charting.visuals.annotations.BoxAnnotation;
-import com.scichart.charting.visuals.annotations.IAnnotation;
-import com.scichart.charting.visuals.annotations.OnAnnotationDragListener;
+import com.scichart.charting.visuals.annotations.VerticalLineAnnotation;
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.CategoryDateAxis;
 import com.scichart.charting.visuals.axes.IAxis;
@@ -45,9 +45,9 @@ import com.scichart.charting.visuals.renderableSeries.FastOhlcRenderableSeries;
 import com.scichart.core.annotations.Orientation;
 import com.scichart.core.common.Action1;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.core.utility.ComparableUtil;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.IRange;
+import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.IMarketDataService;
 import com.scichart.examples.data.MarketDataService;
@@ -75,8 +75,8 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
     public static final int STROKE_DOWN_COLOR = 0xFFFF0000;
     public static final float STROKE_THICKNESS = 1.5f;
 
-    private final IOhlcDataSeries<Date, Double> ohlcDataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).withSeriesName("Price Series").withAcceptsUnsortedData().build();
-    private final IXyDataSeries<Date, Double> xyDataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).withSeriesName("50-Period SMA").withAcceptsUnsortedData().build();
+    private final IOhlcDataSeries<Date, Double> ohlcDataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).withSeriesName("Price Series").build();
+    private final IXyDataSeries<Date, Double> xyDataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).withSeriesName("50-Period SMA").build();
 
     private AxisMarkerAnnotation smaAxisMarker = sciChartBuilder.newAxisMarkerAnnotation().withY1(0d).withBackgroundColor(SMA_SERIES_COLOR).build();
     private AxisMarkerAnnotation ohlcAxisMarker = sciChartBuilder.newAxisMarkerAnnotation().withY1(0d).withBackgroundColor(STOKE_UP_COLOR).build();
@@ -271,53 +271,57 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
     private static class OverviewPrototype {
         private final SciChartBuilder builder = SciChartBuilder.instance();
 
-        private final OnAnnotationDragListener ANNOTATION_DRAG_LISTENER = new OnAnnotationDragListener() {
+        private final VisibleRangeChangeListener parentAxisVisibleRangeChangeListener = new VisibleRangeChangeListener() {
             @Override
-            public void onDragStarted(IAnnotation annotation) {
-                updateOverviewAnnotations(annotation);
-            }
+            public void onVisibleRangeChanged(IAxisCore axis, IRange oldRange, IRange newRange, boolean isAnimating) {
+                final double newMin = newRange.getMinAsDouble();
+                final double newMax = newRange.getMaxAsDouble();
 
-            @Override
-            public void onDragEnded(IAnnotation annotation) {
-                updateOverviewAnnotations(annotation);
-            }
+                if (!overviewXAxisVisibleRange.equals(new DoubleRange(0d, 10d))) {
+                    parentXAxisVisibleRange.setMinMaxWithLimit(newMin, newMax, overviewXAxisVisibleRange);
+                } else {
+                    parentXAxisVisibleRange.setMinMax(newMin, newMax);
+                }
 
-            @Override
-            public void onDragDelta(IAnnotation annotation, float horizontalOffset, float verticalOffset) {
-                updateOverviewAnnotations(annotation);
-            }
+                boxAnnotation.setX1(parentXAxisVisibleRange.getMin());
+                boxAnnotation.setX2(parentXAxisVisibleRange.getMax());
 
-            private void updateOverviewAnnotations(IAnnotation annotation) {
-                updateAnnotations(ComparableUtil.toDouble(annotation.getX1()), ComparableUtil.toDouble(annotation.getX2()));
+                leftLineGrip.setX1(parentXAxisVisibleRange.getMin());
+                leftBox.setX1(overviewXAxisVisibleRange.getMin());
+                leftBox.setX2(parentXAxisVisibleRange.getMin());
+
+                rightLineGrip.setX1(parentXAxisVisibleRange.getMax());
+                rightBox.setX1(parentXAxisVisibleRange.getMax());
+                rightBox.setX2(overviewXAxisVisibleRange.getMax());
             }
         };
 
-        private final BoxAnnotation leftBox = builder.newBoxAnnotation().withBackgroundDrawableId(R.drawable.example_grayed_out_box_annotation_background).withCoordinateMode(AnnotationCoordinateMode.RelativeY).withIsEditable(false).build();
-        private final BoxAnnotation boxAnnotation = builder.newBoxAnnotation().withCoordinateMode(AnnotationCoordinateMode.RelativeY).withAnnotationDragListener(ANNOTATION_DRAG_LISTENER).withIsEditable(true).build();
-        private final BoxAnnotation rightBox = builder.newBoxAnnotation().withBackgroundDrawableId(R.drawable.example_grayed_out_box_annotation_background).withCoordinateMode(AnnotationCoordinateMode.RelativeY).withIsEditable(false).build();
+        private final BoxAnnotation leftBox = generateBoxAnnotation(R.drawable.example_grayed_out_box_annotation_background);
+        private final BoxAnnotation rightBox = generateBoxAnnotation(R.drawable.example_grayed_out_box_annotation_background);
+        private final BoxAnnotation boxAnnotation = generateBoxAnnotation(0);
+        private final VerticalLineAnnotation leftLineGrip = generateVerticalLine();
+        private final VerticalLineAnnotation rightLineGrip = generateVerticalLine();
 
         private final IRange<Double> parentXAxisVisibleRange;
         private IRange<Double> overviewXAxisVisibleRange;
+
         private final IXyDataSeries<Date, Double> overviewDataSeries = builder.newXyDataSeries(Date.class, Double.class).withAcceptsUnsortedData().build();
 
+        @SuppressWarnings("unchecked")
         OverviewPrototype(SciChartSurface parentSurface, SciChartSurface fakeOverviewSurface) {
             final IAxis parentXAxis = parentSurface.getXAxes().get(0);
+            parentXAxis.setVisibleRangeChangeListener(parentAxisVisibleRangeChangeListener);
+
             parentXAxisVisibleRange = parentXAxis.getVisibleRange();
 
             initializeOverview(fakeOverviewSurface);
-
-            parentXAxis.setVisibleRangeChangeListener(new VisibleRangeChangeListener() {
-                @Override
-                public void onVisibleRangeChanged(IAxisCore axis, IRange oldRange, IRange newRange, boolean isAnimating) {
-                    updateAnnotations(newRange.getMinAsDouble(), newRange.getMaxAsDouble());
-                }
-            });
 
             overviewDataSeries.addObserver(new IDataSeriesObserver() {
                 @Override
                 public void onDataSeriesChanged(IDataSeries<?, ?> dataSeries, @DataSeriesUpdate.DataSeriesUpdateValue int dataSeriesUpdate) {
                     rightBox.setX1(parentXAxisVisibleRange.getMax());
-                    rightBox.setX2(overviewXAxisVisibleRange.getMax());                }
+                    rightBox.setX2(overviewXAxisVisibleRange.getMax());
+                }
             });
         }
 
@@ -348,7 +352,7 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
                     Collections.addAll(surface.getXAxes(), xAxis);
                     Collections.addAll(surface.getYAxes(), yAxis);
                     Collections.addAll(surface.getRenderableSeries(), mountain);
-                    Collections.addAll(surface.getAnnotations(), boxAnnotation, leftBox, rightBox);
+                    Collections.addAll(surface.getAnnotations(), boxAnnotation, leftBox, rightBox, leftLineGrip, rightLineGrip);
                     Collections.addAll(surface.getChartModifiers(), builder.newModifierGroup()
                             .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
                             .withZoomPanModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
@@ -357,23 +361,23 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
             });
         }
 
-        private void updateAnnotations(double newMin, double newMax) {
-            stretchYPositions(boxAnnotation, leftBox, rightBox);
+        private BoxAnnotation generateBoxAnnotation(@DrawableRes int backgroundDrawable) {
+            return builder.newBoxAnnotation()
+                    .withBackgroundDrawableId(backgroundDrawable)
+                    .withCoordinateMode(AnnotationCoordinateMode.RelativeY)
+                    .withIsEditable(false)
+                    .withY1(0).withY2(1)
+                    .build();
+        }
 
-            if (!overviewXAxisVisibleRange.equals(new DoubleRange(0d, 10d))) {
-                parentXAxisVisibleRange.setMinMaxWithLimit(newMin, newMax, overviewXAxisVisibleRange);
-            } else {
-                parentXAxisVisibleRange.setMinMax(newMin, newMax);
-            }
-
-            boxAnnotation.setX1(parentXAxisVisibleRange.getMin());
-            boxAnnotation.setX2(parentXAxisVisibleRange.getMax());
-
-            leftBox.setX1(overviewXAxisVisibleRange.getMin());
-            leftBox.setX2(parentXAxisVisibleRange.getMin());
-
-            rightBox.setX1(parentXAxisVisibleRange.getMax());
-            rightBox.setX2(overviewXAxisVisibleRange.getMax());
+        private VerticalLineAnnotation generateVerticalLine() {
+            return builder.newVerticalLineAnnotation().withCoordinateMode(AnnotationCoordinateMode.RelativeY)
+                    .withVerticalGravity(Gravity.CENTER_VERTICAL)
+                    .withStroke(5, ColorUtil.Grey)
+                    .withIsEditable(false)
+                    .withY1(0.3).withY2(0.7)
+                    .withX1(0)
+                    .build();
         }
 
         private void removeAxisGridLines(IAxis... axes) {
@@ -383,13 +387,6 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
                 axis.setDrawMajorBands(false);
                 axis.setDrawMinorGridLines(false);
                 axis.setDrawMinorTicks(false);
-            }
-        }
-
-        private void stretchYPositions(IAnnotation... annotations) {
-            for (IAnnotation annotation : annotations) {
-                annotation.setY1(0);
-                annotation.setY2(1);
             }
         }
     }

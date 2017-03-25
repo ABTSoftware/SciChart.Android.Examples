@@ -41,20 +41,20 @@ public class BandChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withDrawMajorBands(true).withVisibleRange(1.1, 2.7).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withDrawMajorBands(true).build();
+        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(1.1, 2.7).build();
+        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+
+        final DoubleSeries data = DataManager.getInstance().getDampedSinewave(1.0, 0.01, 1000, 10);
+        final DoubleSeries moreData = DataManager.getInstance().getDampedSinewave(1.0, 0.005, 1000, 12);
 
         final XyyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyyDataSeries(Double.class, Double.class).build();
+        dataSeries.append(data.xValues, data.yValues, moreData.yValues);
+
         final FastBandRenderableSeries renderableSeries = sciChartBuilder.newBandSeries()
                 .withDataSeries(dataSeries)
                 .withFillColor(0x33279B27).withFillY1Color(0x33FF1919)
                 .withStrokeStyle(0xFFFF1919).withStrokeY1Style(0xFF279B27)
                 .build();
-
-        final DoubleSeries data = DataManager.getInstance().getDampedSinewave(1.0, 0.01, 1000, 10);
-        final DoubleSeries moreData = DataManager.getInstance().getDampedSinewave(1.0, 0.005, 1000, 12);
-
-        dataSeries.append(data.xValues, data.yValues, moreData.yValues);
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override

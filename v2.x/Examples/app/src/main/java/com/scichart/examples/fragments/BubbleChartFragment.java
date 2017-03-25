@@ -76,8 +76,8 @@ public class BubbleChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final IAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(new DoubleRange(0d, 0.1d)).withDrawMajorBands(true).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0d, 0.1d)).withDrawMajorBands(true).build();
+        final IAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(0d, 0.1d).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0d, 0.1d).build();
 
         final IXyzDataSeries<Date, Double, Double> dataSeries = sciChartBuilder.newXyzDataSeries(Date.class, Double.class, Double.class).build();
 

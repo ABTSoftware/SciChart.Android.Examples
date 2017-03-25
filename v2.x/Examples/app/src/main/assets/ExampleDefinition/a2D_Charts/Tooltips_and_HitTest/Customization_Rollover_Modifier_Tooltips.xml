@@ -5,7 +5,7 @@
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- Custom_Tooltips_with_Modifiers.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- Customization_Rollover_Modifier_Tooltips.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -15,17 +15,17 @@
 <!--*************************************************************************-->
 
 <ExampleDefinition>
-    <Title>Custom Tooltips with Modifiers</Title>
+    <Title>Customization RolloverModifier Tooltips</Title>
     <IconPath>ic_hittest_feature</IconPath>
     <Description>
-        Demonstrates how to create custom tooltips for various modifiers within SciChart
+        Demonstrates how to customize RolloverModifier Tooltips
     </Description>
     <CodeFiles>
-        <string>res/layout/example_custom_tooltip_with_modifiers_fragment.xml.txt</string>
-        <string>java/com/scichart/examples/fragments/CustomTooltipsWithModifiersFragment.java.txt</string>
+        <string>res/layout/example_single_chart_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/CustomizationRolloverModifierTooltipsFragment.java.txt</string>
     </CodeFiles>
     <Features>
         <Features>Tooltips</Features>
     </Features>
-    <IsVisible>false</IsVisible>
+    <IsVisible>true</IsVisible>
 </ExampleDefinition>

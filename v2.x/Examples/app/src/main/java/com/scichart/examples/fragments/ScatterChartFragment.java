@@ -23,14 +23,12 @@ import com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
-import com.scichart.charting.visuals.pointmarkers.SpritePointMarker;
+import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
-import com.scichart.examples.data.DataManager;
-import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
@@ -39,11 +37,9 @@ import java.util.Random;
 import butterknife.Bind;
 
 public class ScatterChartFragment extends ExampleBaseFragment {
-
     @Bind(R.id.chart)
     SciChartSurface surface;
 
-    private final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
     private final Random random = new Random();
 
     @Override
@@ -53,20 +49,17 @@ public class ScatterChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+
+        final IRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFFFEB01, false);
+        final IRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffA300, false);
+        final IRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFff6501, true);
+        final IRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffa300, true);
+
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                final DoubleSeries ds1Points = DataManager.getInstance().getDampedSinewave(1.0, 0.02, 150, 5);
-                dataSeries.append(ds1Points.xValues, ds1Points.yValues);
-
-                final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
-                final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
-
-                final IRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFFFEB01, false);
-                final IRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffA300, false);
-                final IRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFff6501, true);
-                final IRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffa300, true);
-
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), rSeries1, rSeries2, rSeries3, rSeries4);
@@ -81,7 +74,7 @@ public class ScatterChartFragment extends ExampleBaseFragment {
         });
     }
 
-    private XyScatterRenderableSeries getScatterRenderableSeries(SpritePointMarker pointMarker, @ColorInt int color, boolean negative) {
+    private XyScatterRenderableSeries getScatterRenderableSeries(IPointMarker pointMarker, @ColorInt int color, boolean negative) {
         final String seriesName = pointMarker instanceof EllipsePointMarker ?
                 negative ? "Negative Ellipse" : "Positive Ellipse" :
                 negative ? "Negative" : "Positive";

@@ -25,14 +25,17 @@ import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
 import com.scichart.charting.visuals.annotations.AnnotationSurfaceEnum;
 import com.scichart.charting.visuals.annotations.HorizontalAnchorPoint;
+import com.scichart.charting.visuals.annotations.LabelPlacement;
 import com.scichart.charting.visuals.annotations.VerticalAnchorPoint;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
+import com.scichart.examples.data.MarketDataService;
 import com.scichart.examples.data.PriceBar;
 import com.scichart.examples.data.PriceSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
@@ -57,15 +60,13 @@ public class InteractionWithAnnotationsFragment extends ExampleBaseFragment {
     protected void initExample() {
         final OhlcDataSeries<Date, Double> dataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).build();
 
-        final PriceSeries priceData = DataManager.getInstance().getPriceDataIndu(getActivity());
+        final MarketDataService marketDataService = new MarketDataService(Calendar.getInstance().getTime(), 5, 5);
+        final PriceSeries data = marketDataService.getHistoricalData(200);
 
-        for (int i = 0; i < 100; i++) {
-            final PriceBar priceBar = priceData.get(i);
-            dataSeries.append(priceBar.getDate(), priceBar.getOpen(), priceBar.getHigh(), priceBar.getLow(), priceBar.getClose());
-        }
+        dataSeries.append(data.getDateData(), data.getOpenData(), data.getHighData(), data.getLowData(), data.getCloseData());
 
         Collections.addAll(surface.getRenderableSeries(), sciChartBuilder.newCandlestickSeries().withDataSeries(dataSeries).build());
-        Collections.addAll(surface.getXAxes(), sciChartBuilder.newCategoryDateAxis().withVisibleRange(0, 199).build());
+        Collections.addAll(surface.getXAxes(), sciChartBuilder.newCategoryDateAxis().build());
         Collections.addAll(surface.getYAxes(), sciChartBuilder.newNumericAxis().withVisibleRange(30d, 37d).build());
         Collections.addAll(surface.getChartModifiers(), new ZoomPanModifier());
 
@@ -133,12 +134,16 @@ public class InteractionWithAnnotationsFragment extends ExampleBaseFragment {
                         .withStroke(2, ColorUtil.Red)
                         .withHorizontalGravity(Gravity.RIGHT)
                         .withIsEditable(true)
+                        .withAnnotationLabel(LabelPlacement.Axis)
                         .build(),
                 sciChartBuilder.newHorizontalLineAnnotation()
                         .withX1(130).withX2(160).withY1(33.9d)
                         .withIsEditable(true)
                         .withStroke(2, ColorUtil.Blue)
                         .withHorizontalGravity(Gravity.CENTER_HORIZONTAL)
+                        .withAnnotationLabel(LabelPlacement.Left, "Left")
+                        .withAnnotationLabel(LabelPlacement.Top, "Top")
+                        .withAnnotationLabel(LabelPlacement.Right, "Right")
                         .build(),
                 sciChartBuilder.newVerticalLineAnnotation()
                         .withX1(20).withY1(35d).withY2(33d)
@@ -151,6 +156,7 @@ public class InteractionWithAnnotationsFragment extends ExampleBaseFragment {
                         .withIsEditable(true)
                         .withStroke(2, ColorUtil.Green)
                         .withVerticalGravity(Gravity.TOP)
+                        .withAnnotationLabel(LabelPlacement.Top, null, 90)
                         .build(),
                 sciChartBuilder.newTextAnnotation()
                         .withCoordinateMode(AnnotationCoordinateMode.Relative)

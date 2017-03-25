@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.graphics.Color;
+
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -52,7 +54,7 @@ public class CandlestickChartFragment extends ExampleBaseFragment {
 
         int size = priceSeries.size();
         final IAxis xAxis = sciChartBuilder.newCategoryDateAxis().withVisibleRange(size - 30, size).withGrowBy(0, 0.1).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0d, 0.1d)).withAutoRangeMode(AutoRange.Always).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
 
         final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
                 .withStrokeUp(0xFF00AA00)

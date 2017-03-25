@@ -22,7 +22,6 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
@@ -37,8 +36,6 @@ public class ImpulseChartFragment extends ExampleBaseFragment {
     @Bind(R.id.chart)
     SciChartSurface surface;
 
-    private final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-
     @Override
     protected int getLayoutId() {
         return R.layout.example_single_chart_fragment;
@@ -46,37 +43,30 @@ public class ImpulseChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final IAxis xBottomAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+        final IAxis yRightAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+
+        final DoubleSeries ds1Points = DataManager.getInstance().getDampedSinewave(1.0, 0.05, 50, 5);
+        final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
+        dataSeries.append(ds1Points.xValues, ds1Points.yValues);
+
+        final EllipsePointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker())
+                .withSize(10, 10)
+                .withStroke(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF), 1)
+                .withFill(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF))
+                .build();
+
+        final IRenderableSeries impulseSeries = sciChartBuilder.newImpulseSeries()
+                .withDataSeries(dataSeries)
+                .withXAxisId(xBottomAxis.getAxisId())
+                .withYAxisId(yRightAxis.getAxisId())
+                .withStrokeStyle(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF))
+                .withPointMarker(pointMarker)
+                .build();
+
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-
-                final DoubleSeries ds1Points = DataManager.getInstance().getDampedSinewave(1.0, 0.05, 50, 5);
-
-                dataSeries.append(ds1Points.xValues, ds1Points.yValues);
-
-                final IAxis xBottomAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .build();
-
-                final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .build();
-
-                final IRenderableSeries impulseSeries = sciChartBuilder.newImpulseSeries()
-                        .withDataSeries(dataSeries)
-                        .withXAxisId(xBottomAxis.getAxisId())
-                        .withYAxisId(yRightAxis.getAxisId())
-                        .withStrokeStyle(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF))
-                        .build();
-
-                final EllipsePointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker())
-                        .withSize(10, 10)
-                        .withStroke(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF), 1)
-                        .withFill(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF))
-                        .build();
-
-                impulseSeries.setPointMarker(pointMarker);
-
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis);
                 Collections.addAll(surface.getRenderableSeries(), impulseSeries);

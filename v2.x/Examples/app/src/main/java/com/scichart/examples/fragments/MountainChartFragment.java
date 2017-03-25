@@ -43,31 +43,22 @@ public class MountainChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final IAxis xBottomAxis = sciChartBuilder.newDateAxis().withGrowBy(0.1d, 0.1d).build();
+        final IAxis yRightAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+
+        final PriceSeries priceData = DataManager.getInstance().getPriceDataIndu(getActivity());
+        final IXyDataSeries<Date, Double> dataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).build();
+        dataSeries.append(priceData.getDateData(), priceData.getCloseData());
+
+        final IRenderableSeries rs1 = sciChartBuilder.newMountainSeries()
+                .withDataSeries(dataSeries)
+                .withStrokeStyle(0xAAFFC9A8)
+                .withAreaFillLinearGradientColors(0xAAFF8D42, 0x88090E11)
+                .build();
+
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                final PriceSeries priceData = DataManager.getInstance().getPriceDataIndu(getActivity());
-
-                final IXyDataSeries<Date, Double> dataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).build();
-
-                dataSeries.append(priceData.getDateData(), priceData.getCloseData());
-
-                final IAxis xBottomAxis = sciChartBuilder.newDateAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .build();
-
-                final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
-                        .withGrowBy(new DoubleRange(0.1d, 0.1d))
-                        .build();
-
-                final IRenderableSeries rs1 = sciChartBuilder.newMountainSeries()
-                        .withDataSeries(dataSeries)
-                        .withXAxisId(xBottomAxis.getAxisId())
-                        .withYAxisId(yRightAxis.getAxisId())
-                        .withStrokeStyle(0xAAFFC9A8)
-                        .withAreaFillLinearGradientColors(0xAAFF8D42,0x88090E11)
-                        .build();
-
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis);
                 Collections.addAll(surface.getRenderableSeries(), rs1);

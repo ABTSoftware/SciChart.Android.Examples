@@ -31,6 +31,12 @@ import java.util.concurrent.TimeUnit;
 
 public class RandomPricesDataSource {
 
+    private static final int MARKET_CLOSE_HOUR = 16;
+    private static final int MARKET_CLOSE_MINUTES = 30;
+
+    private static final int MARKET_OPEN_HOUR = 8;
+    private static final int MARKET_OPEN_MINUTE = 0;
+
     private final class PriceBarInfo {
         public Date date;
         public double close;
@@ -49,15 +55,15 @@ public class RandomPricesDataSource {
     private double currentTime;
     private final int updatesPerPrice;
     private int currentUpdateCount;
-    private final Date openMarketTime = new Date(0, 0, 0, 8, 0, 0);
-    private final Date closeMarketTime = new Date(0, 0, 0, 16, 30, 0);
+
     private ScheduledFuture<?> schedule;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     public MarketDataService.INewDataObserver newDataObserver;
     public MarketDataService.IUpdateDataObserver updateDataObserver;
 
     private volatile boolean isRunning = false;
-    private Calendar calendar;
+
+    private final Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"), Locale.getDefault());
 
     public RandomPricesDataSource(int candleIntervalMinutes, boolean simulateDateGap, long timerInterval, final int updatesPerPrice, int randomSeed, double startingPrice, Date startDate) {
         this.candleIntervalMinutes = candleIntervalMinutes;
@@ -95,9 +101,6 @@ public class RandomPricesDataSource {
                 0L);
 
         this.random = new Random(randomSeed);
-
-        calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"), Locale.getDefault());
-        calendar.clear();
     }
 
     public boolean isRunning() {
@@ -130,24 +133,26 @@ public class RandomPricesDataSource {
         long volume = (long) (random.nextDouble() * 30000 + 20000);
         Date openTime = simulateDateGap ? emulateDateGap(lastPriceBar.getDate()) : lastPriceBar.getDate();
         Date closeTime = new Date(openTime.getTime() + DateIntervalUtil.fromMinutes(candleIntervalMinutes));
-        PriceBar candle = new PriceBar(closeTime, close, high, low, num3, volume);
-        lastPriceBar = new PriceBar(candle.getDate(), candle.getOpen(), candle.getHigh(), candle.getLow(), candle.getClose(), volume);
+
+        lastPriceBar = new PriceBar(closeTime, close, high, low, num3, volume);
+
         currentTime += candleIntervalMinutes * 60;
 
-        return candle;
+        return lastPriceBar;
     }
 
     private Date emulateDateGap(Date candleOpenTime) {
         calendar.clear();
         calendar.setTime(candleOpenTime);
-        Date timeOfDay = new Date(0, 0, 0, candleOpenTime.getHours(), candleOpenTime.getMinutes(), candleOpenTime.getSeconds());
-        if (timeOfDay.getTime() > closeMarketTime.getTime()) {
-            Date date = new Date(candleOpenTime.getYear(), candleOpenTime.getMonth(), candleOpenTime.getDay() + 1);
-            calendar.clear();
-            calendar.setTime(new Date(date.getTime() + openMarketTime.getTime()));
-        }
-        while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_YEAR) == Calendar.SUNDAY) {
+
+        if (calendar.get(Calendar.HOUR_OF_DAY) > MARKET_CLOSE_HOUR || (calendar.get(Calendar.HOUR_OF_DAY) == MARKET_CLOSE_HOUR && calendar.get(Calendar.MINUTE) >= MARKET_CLOSE_MINUTES)) {
+            calendar.set(Calendar.HOUR_OF_DAY, MARKET_OPEN_HOUR);
+            calendar.set(Calendar.MINUTE, MARKET_OPEN_MINUTE);
+
             calendar.add(Calendar.DAY_OF_YEAR, 1);
+            while (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || calendar.get(Calendar.DAY_OF_YEAR) == Calendar.SUNDAY) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+            }
         }
 
         return calendar.getTime();

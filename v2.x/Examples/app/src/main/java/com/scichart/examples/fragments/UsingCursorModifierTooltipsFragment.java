@@ -25,6 +25,7 @@ import android.widget.Spinner;
 
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.CursorModifier;
+import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.modifiers.SourceMode;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
@@ -114,7 +115,7 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
                         .withCursorModifier().withShowTooltip(showTooltip).withShowAxisLabels(showAxisLabels).build()
                         .build());
-                cursorModifier = (CursorModifier) surface.getChartModifiers().get(0);
+                cursorModifier = (CursorModifier) ((ModifierGroup) surface.getChartModifiers().get(0)).getChildModifiers().get(0);
             }
         });
     }

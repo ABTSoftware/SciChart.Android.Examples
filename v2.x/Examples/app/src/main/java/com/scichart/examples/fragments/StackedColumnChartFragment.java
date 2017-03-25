@@ -43,7 +43,6 @@ public class StackedColumnChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
 
