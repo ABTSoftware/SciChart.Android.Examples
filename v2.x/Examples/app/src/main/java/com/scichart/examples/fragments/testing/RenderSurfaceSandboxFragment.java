@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.scichart.drawing.common.ITexture2D;
 import com.scichart.extensions.builders.FontStyleBuilder;
 import com.scichart.core.IServiceContainer;
 import com.scichart.core.ServiceContainer;
@@ -41,7 +42,6 @@ import com.scichart.drawing.common.IPen2D;
 import com.scichart.drawing.common.IRenderContext2D;
 import com.scichart.drawing.common.IRenderSurface;
 import com.scichart.drawing.common.IRenderSurfaceRenderer;
-import com.scichart.drawing.common.ISprite2D;
 import com.scichart.drawing.common.LinearGradientBrushStyle;
 import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.common.RadialGradientBrushStyle;
@@ -51,7 +51,6 @@ import com.scichart.drawing.common.TextureMappingMode;
 import com.scichart.drawing.opengl.GLTextureView;
 import com.scichart.drawing.opengl.RenderSurfaceGL;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.drawing.utility.RenderedMessage;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
@@ -250,11 +249,6 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
         }
 
         @Override
-        public void onFrameDrawEnd(RenderedMessage renderedMessage) {
-
-        }
-
-        @Override
         public void onSurfaceAttached(IRenderSurface surface) {
 
         }
@@ -302,9 +296,9 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
             final IFont font = assetManager.createFont(this.fontStyle);
             final IFont customFont = assetManager.createFont(this.customFontStyle);
 
-            final ISprite2D sprite1 = assetManager.createSprite(texture);
-            final ISprite2D sprite2 = assetManager.createSprite(texture, sprite2Rect);
-            final ISprite2D sprite3 = assetManager.createSprite(texture, sprite3Rect);
+            final ITexture2D sprite1 = assetManager.createTexture(texture);
+            final ITexture2D sprite2 = assetManager.createTexture(texture, sprite2Rect);
+            final ITexture2D sprite3 = assetManager.createTexture(texture, sprite3Rect);
 
             renderContext.drawLines(xAxisArrow, 0, xAxisArrow.length, simpleLine);
             renderContext.drawLines(yAxisArrow, 0, yAxisArrow.length, aaLine);
@@ -383,6 +377,10 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
             renderContext.drawSprite(sprite3, 0, 0);
             renderContext.translate(0, sprite3.getHeight() + 10);
+
+            sprite1.dispose();
+            sprite2.dispose();
+            sprite3.dispose();
         }
     }
 }

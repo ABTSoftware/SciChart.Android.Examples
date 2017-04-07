@@ -25,9 +25,9 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.scichart.charting.model.dataSeries.IDataSeries;
-import com.scichart.drawing.utility.RenderedMessage;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.rendering.RenderedMessage;
 import com.scichart.core.common.Action1;
 import com.scichart.core.utility.SciChartDebugLogger;
 import com.scichart.core.utility.Stopwatch;

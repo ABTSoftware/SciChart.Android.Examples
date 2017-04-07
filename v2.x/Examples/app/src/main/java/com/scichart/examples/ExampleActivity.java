@@ -93,8 +93,7 @@ public class ExampleActivity extends AppCompatActivity {
         menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                final Action1<Object> menuItemClickAction = drawerLayout.getMenuItemClickAction();
-                menuItemClickAction.execute(item);
+                drawerLayout.onMenuItemClick();
                 return true;
             }
         });

@@ -68,8 +68,7 @@ public class MainActivity extends Activity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View item) {
-                final Action1<Object> menuItemClickAction = drawerLayout.getMenuItemClickAction();
-                menuItemClickAction.execute(item);
+                drawerLayout.onMenuItemClick();
             }
         });
 

@@ -60,22 +60,22 @@ public class UsePointMarkersFragment extends ExampleBaseFragment {
         final IXyDataSeries<Double, Double> ds4 = new XyDataSeries<>(Double.class, Double.class);
         final IXyDataSeries<Double, Double> ds5 = new XyDataSeries<>(Double.class, Double.class);
 
-        final int dataSize = 30;
+        final int dataSize = 15;
         Random rnd = new Random();
 
         for (int i = 0; i < dataSize; i++) {
             ds1.append((double)i, rnd.nextDouble());
             ds2.append((double)i, 1+rnd.nextDouble());
-            ds3.append((double)i, 1.8+rnd.nextDouble());
-            ds4.append((double)i, 2.5+rnd.nextDouble());
-            ds5.append((double)i, 3.5+rnd.nextDouble());
+            ds3.append((double)i, 2.5+rnd.nextDouble());
+            ds4.append((double)i, 4+rnd.nextDouble());
+            ds5.append((double)i, 5.5+rnd.nextDouble());
         }
 
-        ds1.updateYAt(15, Double.NaN);
-        ds2.updateYAt(15, Double.NaN);
-        ds3.updateYAt(15, Double.NaN);
-        ds4.updateYAt(15, Double.NaN);
-        ds5.updateYAt(15, Double.NaN);
+        ds1.updateYAt(7, Double.NaN);
+        ds2.updateYAt(7, Double.NaN);
+        ds3.updateYAt(7, Double.NaN);
+        ds4.updateYAt(7, Double.NaN);
+        ds5.updateYAt(7, Double.NaN);
 
         final IPointMarker pointMarker1 = sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(15,15).withFill(0x990077ff).withStroke(ColorUtil.LightBlue, 2).build();
         final IPointMarker pointMarker2 = sciChartBuilder.newPointMarker(new SquarePointMarker()).withSize(20, 20).withFill(0x99ff0000).withStroke(ColorUtil.Red, 2).build();
@@ -83,11 +83,11 @@ public class UsePointMarkersFragment extends ExampleBaseFragment {
         final IPointMarker pointMarker4 = sciChartBuilder.newPointMarker(new CrossPointMarker()).withSize(25, 25).withStroke(ColorUtil.Magenta, 4).build();
         final IPointMarker pointMarker5 = sciChartBuilder.newPointMarker(new SpritePointMarker(new CustomPointMarkerDrawer(getActivity(), R.drawable.example_weather_storm))).withSize(40, 40).build();
 
-        IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withPointMarker(pointMarker1).withStrokeStyle(ColorUtil.LightBlue, 4f).build();
-        IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withPointMarker(pointMarker2).withStrokeStyle(ColorUtil.Red, 4f).build();
-        IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withPointMarker(pointMarker3).withStrokeStyle(ColorUtil.Yellow, 4f).build();
-        IRenderableSeries rs4 = sciChartBuilder.newLineSeries().withDataSeries(ds4).withPointMarker(pointMarker4).withStrokeStyle(ColorUtil.Magenta, 4f).build();
-        IRenderableSeries rs5 = sciChartBuilder.newLineSeries().withDataSeries(ds5).withPointMarker(pointMarker5).withStrokeStyle(ColorUtil.Wheat, 4f).build();
+        IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withPointMarker(pointMarker1).withStrokeStyle(ColorUtil.LightBlue, 2f).build();
+        IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withPointMarker(pointMarker2).withStrokeStyle(ColorUtil.Red, 2f).build();
+        IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withPointMarker(pointMarker3).withStrokeStyle(ColorUtil.Yellow, 2f).build();
+        IRenderableSeries rs4 = sciChartBuilder.newLineSeries().withDataSeries(ds4).withPointMarker(pointMarker4).withStrokeStyle(ColorUtil.Magenta, 2f).build();
+        IRenderableSeries rs5 = sciChartBuilder.newLineSeries().withDataSeries(ds5).withPointMarker(pointMarker5).withStrokeStyle(ColorUtil.Wheat, 2f).build();
 
         Collections.addAll(surface.getXAxes(), sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1, 0.1)).build());
         Collections.addAll(surface.getYAxes(), sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1, 0.1)).build());

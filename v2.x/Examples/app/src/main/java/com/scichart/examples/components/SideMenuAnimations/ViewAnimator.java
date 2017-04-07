@@ -43,6 +43,10 @@ public class ViewAnimator<T extends ISideMenuItem> {
         this.animatorListener = animatorListener;
     }
 
+    public boolean isAnimating() {
+        return isAnimating;
+    }
+
     public void showMenuContent() {
         isAnimating = true;
         setViewsClickable(!isAnimating);
@@ -133,8 +137,8 @@ public class ViewAnimator<T extends ISideMenuItem> {
 
                 view.setVisibility(View.INVISIBLE);
                 if (position == viewList.size() - 1) {
-                    drawerLayout.closeDrawers();
                     animatorListener.setViewsClickable(true);
+                    drawerLayout.closeDrawers();
                 }
             }
         });

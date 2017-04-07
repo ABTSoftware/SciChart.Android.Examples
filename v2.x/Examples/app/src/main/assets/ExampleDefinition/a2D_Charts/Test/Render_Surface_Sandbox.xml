@@ -20,7 +20,7 @@
         Render Surface Sandbox
     </Description>
     <CodeFiles>
-        <string>res/layout/example_fragment_render_surface_sandbox.xml.txt</string>
+        <string>res/layout/example_render_surface_sandbox_fragment.xml.txt</string>
         <string>java/com/scichart/examples/fragments/testing/RenderSurfaceSandboxFragment.java.txt</string>
     </CodeFiles>
     <Features>

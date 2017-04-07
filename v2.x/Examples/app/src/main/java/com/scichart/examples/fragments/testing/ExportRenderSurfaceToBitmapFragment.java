@@ -16,15 +16,13 @@
 
 package com.scichart.examples.fragments.testing;
 
-import android.graphics.Bitmap;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -33,6 +31,7 @@ import com.scichart.charting.themes.ThemeManager;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.charting.visuals.rendering.SciChartSurfaceExportUtil;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.canvas.RenderSurface;
@@ -44,13 +43,11 @@ import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
-import com.scichart.examples.utils.ItemSelectedListenerBase;
 
 import java.util.Collections;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
 public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
@@ -65,14 +62,14 @@ public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
     private final static int SCI_CHART_V4_DARK = 7;
     private final static int BERRY_BLUE = 8;
 
+    private String renderSurface;
+    private int themeId;
+
     @Bind(R.id.chart)
     SciChartSurface surface;
 
     @Bind(R.id.chartImage)
     ImageView imageView;
-
-    @Bind(R.id.exportChart)
-    Button exportChartButton;
 
     @Bind(R.id.renderSurfaceTypeSpinner)
     Spinner renderSurfaceTypeSpinner;
@@ -90,38 +87,21 @@ public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        exportChartButton.setOnClickListener(imageButtonClickListener);
-
-        final SpinnerStringAdapter adapter = new SpinnerStringAdapter(getActivity(), R.array.render_surface_types);
-        renderSurfaceTypeSpinner.setAdapter(adapter);
+        renderSurfaceTypeSpinner.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.render_surface_types));
+        renderSurfaceTypeSpinner.setSelection(1);
 
         themeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.style_list));
         themeSelector.setSelection(7);
-        themeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setTheme(position);
-            }
-        });
 
         return view;
     }
 
-    final View.OnClickListener imageButtonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Future<Bitmap> bitmapFuture = surface.exportToBitmap();
-            try {
-                Bitmap bitmap = bitmapFuture.get();
-                imageView.setImageBitmap(bitmap);
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
     @Override
     protected void initExample() {
+        initSurface(surface);
+    }
+
+    private void initSurface(final SciChartSurface sciChartSurface) {
         final DoubleSeries fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
 
         final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
@@ -132,14 +112,14 @@ public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
 
         final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xFF279B27).build();
 
-        UpdateSuspender.using(surface, new Runnable() {
+        UpdateSuspender.using(sciChartSurface, new Runnable() {
             @Override
             public void run() {
-                Collections.addAll(surface.getXAxes(), xAxis);
-                Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), rSeries);
-                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
-                Collections.addAll(surface.getAnnotations(),
+                Collections.addAll(sciChartSurface.getXAxes(), xAxis);
+                Collections.addAll(sciChartSurface.getYAxes(), yAxis);
+                Collections.addAll(sciChartSurface.getRenderableSeries(), rSeries);
+                Collections.addAll(sciChartSurface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                Collections.addAll(sciChartSurface.getAnnotations(),
                         sciChartBuilder.newTextAnnotation()
                                 .withX1(0.3)
                                 .withY1(0)
@@ -161,20 +141,46 @@ public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
         });
     }
 
+    @OnClick(R.id.exportChart)
+    public void exportChart() {
+        imageView.setImageBitmap(surface.exportToBitmap());
+    }
+
+    @OnClick(R.id.exportChartInMemory)
+    public void exportChartInMemory() {
+        final SciChartSurface sciChartSurface = new SciChartSurface(getActivity());
+
+        setRenderSurface(sciChartSurface, renderSurface);
+        sciChartSurface.setTheme(themeId);
+
+        initSurface(sciChartSurface);
+
+        SciChartSurfaceExportUtil.prepareSurfaceForExport(sciChartSurface, 800, 600);
+
+        imageView.setImageBitmap(sciChartSurface.exportToBitmap());
+    }
+
     @OnItemSelected(R.id.renderSurfaceTypeSpinner)
     public void onRenderSurfaceTypeSelected(int position) {
-        final String itemAtPosition = (String) renderSurfaceTypeSpinner.getItemAtPosition(position);
-        if (itemAtPosition.contains("Canvas")) {
-            surface.setRenderSurface(new RenderSurface(getActivity()));
-        } else if (itemAtPosition.contains("OpenGL")) {
-            surface.setRenderSurface(new RenderSurfaceGL(getActivity()));
-        } else if (itemAtPosition.contains("Texture")) {
-            surface.setRenderSurface(new GLTextureView(getActivity()));
+        renderSurface = (String) renderSurfaceTypeSpinner.getItemAtPosition(position);
+
+        setRenderSurface(surface, renderSurface);
+    }
+
+    private static void setRenderSurface(SciChartSurface surface, String renderSurface) {
+        final Context context = surface.getContext();
+
+        if (renderSurface.contains("Canvas")) {
+            surface.setRenderSurface(new RenderSurface(context));
+        } else if (renderSurface.contains("OpenGL")) {
+            surface.setRenderSurface(new RenderSurfaceGL(context));
+        } else if (renderSurface.contains("Texture")) {
+            surface.setRenderSurface(new GLTextureView(context));
         }
     }
 
-    private void setTheme(int position) {
-        int themeId;
+    @OnItemSelected(R.id.themeSelector)
+    public void setTheme(int position) {
         switch (position) {
             case BLACK_STEEL:
                 themeId = R.style.SciChart_BlackSteel;
