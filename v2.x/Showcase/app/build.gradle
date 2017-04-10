@@ -30,11 +30,11 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1805', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1805', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1805', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1805', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1805', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1806', ext: 'aar')
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:recyclerview-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
