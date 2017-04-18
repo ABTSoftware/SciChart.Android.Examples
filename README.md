@@ -50,6 +50,8 @@ The SciChart Showcase demonstrates some featured apps which show the speed, powe
 
 The SciChart Android Examples suite contain developer example code in Java to help you get started as soon as possible with SciChart.Android. 
 
+![SciChart Android Examples Suite](https://www.scichart.com/wp-content/uploads/2017/04/scichart-android-examples-header-cropped-for-github.png)
+
 Chart types include: 
 
 * [Android Line Chart](https://www.scichart.com/android-line-chart-example/)
