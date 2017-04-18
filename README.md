@@ -16,7 +16,7 @@ Android Chart Examples are provided in Java & Kotlin. If you are looking for oth
 
 ### Note: Maven Feed Setup
 
-To build, you will need an internet connection to download Maven dependencies. Maven depends are listed in the [build.gradle files within the examples application](https://github.com/ABTSoftware/SciChart.Android.Examples/blob/master/v2.x/Examples/app/build.gradle)
+To build, you will need an internet connection to download Maven dependencies. Maven depends are listed in the [build.gradle files within the examples application](https://github.com/ABTSoftware/SciChart.Android.Examples/blob/master/v2.x/Examples/app/build.gradle), for example: 
 
 ```
 repositories {
@@ -31,6 +31,8 @@ dependencies {
     compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1806', ext: 'aar')
     compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1806', ext: 'aar')
 ```
+
+_where latest version number can be found at our [SciChart/ABTSoftware Maven feed page](https://www.myget.org/feed/abtsoftware/package/maven/com.scichart.library/charting)_
 
 # Repository Contents
 
@@ -70,5 +72,19 @@ Chart types include:
 
 ## SciChart Android Tutorials 
 
-... are coming soon!
+We now have a set of Tutorials targetting SciChart Android v2.x over on our website. Please find a list of tutorials below:
+
+![SciChart Android Tutorials](https://www.scichart.com/wp-content/uploads/2017/04/scichart-android-tutorials-image.png)
+
+* [Tutorial 01 - Adding SciChart libraries as dependencies](https://www.scichart.com/documentation/android/v2.x/Tutorial%2001%20-%20Adding%20SciChart%20libraries%20as%20dependencies.html)
+* [Tutorial 02 - Creating a Chart](https://www.scichart.com/documentation/android/v2.x/Tutorial%2002%20-%20Creating%20a%20Chart.html)
+* [Tutorial 03 - Adding Series to a Chart](https://www.scichart.com/documentation/android/v2.x/Tutorial%2003%20-%20Adding%20Series%20to%20a%20Chart.html)
+* [Tutorial 04 - Adding Zooming, Panning Behavior](https://www.scichart.com/documentation/android/v2.x/Tutorial%2004%20-%20Adding%20Zooming,%20Panning%20Behavior.html)
+* [Tutorial 05 - Adding Tooltips and Legends](https://www.scichart.com/documentation/android/v2.x/Tutorial%2004%20-%20Adding%20Zooming,%20Panning%20Behavior.html)
+* [Tutorial 06 - Adding Realtime Updates](https://www.scichart.com/documentation/android/v2.x/Tutorial%2006%20-%20Adding%20Realtime%20Updates.html)
+* [Tutorial 07 - Adding Annotations](https://www.scichart.com/documentation/android/v2.x/Tutorial%2006%20-%20Adding%20Realtime%20Updates.html)
+* [Tutorial 08 - Adding Multiple Axis](https://www.scichart.com/documentation/android/v2.x/Tutorial%2008%20-%20Adding%20Multiple%20Axis.html)
+* [Tutorial 09 - Linking Multiple Charts](https://www.scichart.com/documentation/android/v2.x/Tutorial%2009%20-%20Linking%20Multiple%20Charts.html)
+
+
 
