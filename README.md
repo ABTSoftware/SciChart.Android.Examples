@@ -16,7 +16,20 @@ Android Chart Examples are provided in Java & Kotlin. If you are looking for oth
 
 ### Note: Maven Feed Setup
 
-To build, you will need an internet connection to download Maven dependencies. Maven depends are listed in the build.gradle files within each examples application 
+To build, you will need an internet connection to download Maven dependencies. Maven depends are listed in the [build.gradle files within the examples application](https://github.com/ABTSoftware/SciChart.Android.Examples/blob/master/v2.x/Examples/app/build.gradle)
+
+```repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+}
+dependencies {
+    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1806', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1806', ext: 'aar')
+```
 
 # Repository Contents
 
