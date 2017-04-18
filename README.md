@@ -18,7 +18,8 @@ Android Chart Examples are provided in Java & Kotlin. If you are looking for oth
 
 To build, you will need an internet connection to download Maven dependencies. Maven depends are listed in the [build.gradle files within the examples application](https://github.com/ABTSoftware/SciChart.Android.Examples/blob/master/v2.x/Examples/app/build.gradle)
 
-```repositories {
+```
+repositories {
     mavenLocal()
     mavenCentral()
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
