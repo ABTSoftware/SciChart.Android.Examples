@@ -88,5 +88,8 @@ We now have a set of Tutorials targetting SciChart Android v2.x over on our webs
 * [Tutorial 08 - Adding Multiple Axis](https://www.scichart.com/documentation/android/v2.x/Tutorial%2008%20-%20Adding%20Multiple%20Axis.html)
 * [Tutorial 09 - Linking Multiple Charts](https://www.scichart.com/documentation/android/v2.x/Tutorial%2009%20-%20Linking%20Multiple%20Charts.html)
 
+## Tech Support and Help 
+
+SciChart Android is a commercial chart control with world-class tech support. If you need help integrating SciChart to your Android apps, [Contact Us](https://www.scichart.com/contact-us) and we will do our best to help! 
 
 
