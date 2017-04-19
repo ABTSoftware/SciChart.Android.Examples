@@ -40,7 +40,9 @@ _where latest version number can be found at our [SciChart/ABTSoftware Maven fee
 
 The SciChart Showcase demonstrates some featured apps which show the speed, power and flexibility of the SciChart's [Android Chart library](https://www.scichart.com/android-chart-features). This showcase is written in Kotlin and is designed to be a demonstration of what SciChart can do. Examples include:
 
-[TODO IMAGE]
+![Android Audio Analyzer powered by SciChart](https://www.scichart.com/wp-content/uploads/2017/04/pixel-android-showcase-audio-analyzer.png)
+
+![Android 4-channel Realtime ECG powered by SciChart](https://www.scichart.com/wp-content/uploads/2017/04/pixel-android-showcase-ecg-monitor.png)
 
 * SciChart ECG: Realtime, 4-channel ECG for medical apps 
 * SciChart Audio Analyzer: Realtime Audio Analyzer which records the mic, and presents Frequency Spectrum + Spectrogram on a live updating heatmap
