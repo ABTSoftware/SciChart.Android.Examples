@@ -19,6 +19,7 @@ package com.scichart.examples.fragments;
 import android.view.View;
 
 import com.scichart.charting.ClipMode;
+import com.scichart.charting.Direction2D;
 import com.scichart.charting.model.AnnotationCollection;
 import com.scichart.charting.model.RenderableSeriesCollection;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
@@ -96,12 +97,13 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
 
         surface.getRenderableSeries().addAll(model.renderableSeries);
 
-        surface.getChartModifiers().add(sciChartBuilder.newModifierGroup()
-                .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
-                .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
-                .withRolloverModifier().withReceiveHandledEvents(true).build()
-                .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
-                .withLegendModifier().withShowCheckBoxes(false).build()
+        surface.getChartModifiers().add(sciChartBuilder
+                .newModifierGroup().withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                    .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
+                    .withPinchZoomModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
+                    .withZoomPanModifier().withReceiveHandledEvents(true).build()
+                    .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
+                    .withLegendModifier().withShowCheckBoxes(false).build()
                 .build());
 
         surface.setAnnotations(model.annotations);

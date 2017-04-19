@@ -18,26 +18,16 @@ package com.scichart.scishowcase.model.audioAnalyzer
 
 import android.media.AudioFormat
 import android.media.AudioRecord
-import android.util.Log
 import com.scichart.scishowcase.model.DataProviderBase
-import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class DefaultAudioAnalyzerDataProvider(sampleRate: Int = 44100,
-                                       channelConfig: Int = AudioFormat.CHANNEL_IN_MONO,
-                                       audioConfig: Int = AudioFormat.ENCODING_PCM_16BIT,
-                                       private val minBufferSize: Int = AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioConfig),
-                                       private val minBufferSizeInShorts: Int = minBufferSize/ 2,
-                                       interval: Long = (sampleRate / minBufferSizeInShorts).toLong()) : DataProviderBase<AudioData>(interval, TimeUnit.MILLISECONDS), IAudioAnalyzerDataProvider {
+                                       private val minBufferSize: Int = 2048, // should be with power of 2 for correct work of FFT
+                                       interval: Long = (sampleRate / minBufferSize).toLong()) : DataProviderBase<AudioData>(interval, TimeUnit.MILLISECONDS), IAudioAnalyzerDataProvider {
 
-    private val audioRecord = AudioRecord(1, sampleRate, channelConfig, audioConfig, minBufferSize)
+    private val audioRecord = AudioRecord(1, sampleRate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, minBufferSize * 2)
 
-    private val audioData = AudioData(minBufferSizeInShorts)
+    private val audioData = AudioData(minBufferSize)
 
     private var time = 0L
 
@@ -59,14 +49,14 @@ class DefaultAudioAnalyzerDataProvider(sampleRate: Int = 44100,
     }
 
     override fun onNext(): AudioData {
-        audioRecord.read(audioData.yData.itemsArray, 0, minBufferSizeInShorts)
+        audioRecord.read(audioData.yData.itemsArray, 0, minBufferSize)
 
         val itemsArray = audioData.xData.itemsArray
-        for (index in 0 until minBufferSizeInShorts)
+        for (index in 0 until minBufferSize)
             itemsArray[index] = time++
 
         return audioData
     }
 
-    override fun getBufferSize(): Int = minBufferSizeInShorts
+    override fun getBufferSize(): Int = minBufferSize
 }

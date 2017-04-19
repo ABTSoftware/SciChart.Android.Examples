@@ -26,6 +26,7 @@ import com.scichart.charting.model.RenderableSeriesCollection;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.model.dataSeries.XyyDataSeries;
+import com.scichart.charting.modifiers.AxisDragModifierBase;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.AxisLayoutState;
@@ -86,11 +87,11 @@ public class CreateMultiPaneStockChartFragment extends ExampleBaseFragment {
 
         surface.getChartModifiers().add(sciChartBuilder
                 .newModifierGroup()
-                    .withPinchZoomModifier().build()
-                    .withZoomPanModifier().withClipModex(ClipMode.StretchAtExtents).withXyDirection(Direction2D.XDirection).build()
-                    .withXAxisDragModifier().withClipModex(ClipMode.StretchAtExtents).withReceiveHandledEvents(true).build()
-                    .withRolloverModifier().withReceiveHandledEvents(true).build()
-                    .withZoomExtentsModifier().build()
+                    .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
+                    .withPinchZoomModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
+                    .withZoomPanModifier().withReceiveHandledEvents(true).build()
+                    .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
+                    .withLegendModifier().withShowCheckBoxes(false).build()
                 .build());
     }
 
