@@ -20,5 +20,7 @@ import com.scichart.scishowcase.model.IDataProvider
 
 interface IAudioAnalyzerDataProvider : IDataProvider<AudioData>{
     fun getBufferSize(): Int
+
+    fun getSampleRate(): Int
 }
 

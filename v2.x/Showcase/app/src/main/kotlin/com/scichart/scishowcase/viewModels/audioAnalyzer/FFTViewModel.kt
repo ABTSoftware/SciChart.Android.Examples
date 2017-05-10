@@ -31,24 +31,22 @@ import com.scichart.core.model.IntegerValues
 import com.scichart.core.utility.NumberUtil
 import com.scichart.data.model.DoubleRange
 import com.scichart.scishowcase.utils.XyDataSeries
-import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.ChartViewModel
 import com.scichart.drawing.utility.ColorUtil.*
 
-class FFTViewModel(context: Context, fftSize: Int) : ChartViewModel(context) {
-    private val fftDS = XyDataSeries<Long, Double>().init { fifoCapacity = fftSize }
+class FFTViewModel(context: Context, fftSize: Int, hzPerDataPoint: Double) : ChartViewModel(context) {
+    private val fftDS = XyDataSeries<Double, Double>().apply { fifoCapacity = fftSize }
 
     init {
-        xAxes.add(NumericAxis(context).init {
-            drawLabels = false
-            drawMinorTicks = false
-            drawMajorTicks = false
+        xAxes.add(NumericAxis(context).apply {
             drawMajorBands = false
-            drawMinorGridLines = false
-            drawMajorGridLines = false
+            maxAutoTicks = 5
+            axisTitle = "Hz"
+            axisTitlePlacement = AxisTitlePlacement.Right
+            axisTitleOrientation = AxisTitleOrientation.Horizontal
         })
 
-        yAxes.add(NumericAxis(context).init {
+        yAxes.add(NumericAxis(context).apply {
             axisAlignment = AxisAlignment.Left
             visibleRange = DoubleRange(-30.0, 70.0)
             growBy = DoubleRange(0.1, 0.1)
@@ -60,14 +58,14 @@ class FFTViewModel(context: Context, fftSize: Int) : ChartViewModel(context) {
             axisTitleOrientation = AxisTitleOrientation.Horizontal
         })
 
-        renderableSeries.add(FastColumnRenderableSeries().init {
+        renderableSeries.add(FastColumnRenderableSeries().apply {
             dataSeries = fftDS
             paletteProvider = FFTPaletteProvider()
             zeroLineY = -30.0 // set zero line equal to VisibleRange.Min
         })
 
-        for (index: Long in 0L until fftSize) {
-            fftDS.append(index, 0.0)
+        for (index: Int in 0 until fftSize) {
+            fftDS.append(index * hzPerDataPoint, 0.0)
         }
     }
 

@@ -14,7 +14,6 @@ import com.scichart.scishowcase.model.IDataProvider
 import com.scichart.scishowcase.model.dashboard.DashboardData
 import com.scichart.scishowcase.utils.XyDataSeries
 import com.scichart.scishowcase.utils.dip
-import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
@@ -28,12 +27,12 @@ class DashboardViewModel(context: Context, private val dataProvider: IDataProvid
     private val dataSeries = XyDataSeries<Long, Long>()
 
     init {
-        xAxes.add(NumericAxis(context).init { autoRange = AutoRange.Always })
-        yAxes.add(NumericAxis(context).init { autoRange = AutoRange.Always })
+        xAxes.add(NumericAxis(context).apply { autoRange = AutoRange.Always })
+        yAxes.add(NumericAxis(context).apply { autoRange = AutoRange.Always })
 
         val lineThickness = context.dip(1f)
 
-        renderableSeries.add(FastLineRenderableSeries().init {
+        renderableSeries.add(FastLineRenderableSeries().apply {
             dataSeries = this@DashboardViewModel.dataSeries
             strokeStyle = SolidPenStyle(ColorUtil.Grey, true, lineThickness, null)
         })

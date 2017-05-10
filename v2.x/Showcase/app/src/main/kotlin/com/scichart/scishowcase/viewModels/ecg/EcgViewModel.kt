@@ -48,7 +48,6 @@ import com.scichart.scishowcase.model.ecg.EcgData
 import com.scichart.scishowcase.model.ecg.TraceAOrB
 import com.scichart.scishowcase.utils.XyDataSeries
 import com.scichart.scishowcase.utils.dip
-import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
@@ -88,25 +87,25 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
     private val bloodVolumeBarValues = arrayOf(9, 10, 11)
     private val bloodOxygenationValues = arrayOf("93", "95", "96", "97")
 
-    private val ecgDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val ecgSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val bloodPressureDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val bloodPressureSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val bloodVolumeDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val bloodVolumeSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val bloodOxygenationDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
-    private val bloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = FIFO_CAPACITY }
+    private val ecgDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val ecgSweepDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val bloodPressureDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val bloodPressureSweepDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val bloodVolumeDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val bloodVolumeSweepDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val bloodOxygenationDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
+    private val bloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
 
-    private val lastEcgSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
-    private val lastBloodPressureDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
-    private val lastBloodVolumeDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
-    private val lastBloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().init { fifoCapacity = 1 }
+    private val lastEcgSweepDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = 1 }
+    private val lastBloodPressureDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = 1 }
+    private val lastBloodVolumeDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = 1 }
+    private val lastBloodOxygenationSweepDataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = 1 }
 
     private val dataBatch = EcgDataBatch()
     private val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
 
     init {
-        xAxes.add(NumericAxis(context).init {
+        xAxes.add(NumericAxis(context).apply {
             visibleRange = DoubleRange(0.0, 10.0)
             autoRange = AutoRange.Never
             drawMinorGridLines = false
@@ -178,7 +177,7 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
     }
 
     private fun generateAxis(context: Context, id: String): NumericAxis {
-        return NumericAxis(context).init {
+        return NumericAxis(context).apply {
             axisId = id
             autoRange = AutoRange.Always
             growBy = DoubleRange(.05, .05)
@@ -191,7 +190,7 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
     }
 
     private fun generateLineRenderableSeries(yAxisId: String, dataSeries: IDataSeries<*, *>, strokeStyle: SolidPenStyle): FastLineRenderableSeries {
-        return FastLineRenderableSeries().init {
+        return FastLineRenderableSeries().apply {
             this.dataSeries = dataSeries
             this.strokeStyle = strokeStyle
             this.yAxisId = yAxisId
@@ -200,10 +199,10 @@ class EcgViewModel(context: Context, private val dataProvider: IDataProvider<Ecg
     }
 
     private fun generateScatterRenderableSeriesForLastAppendedPoint(yAxisId: String, dataSeries: IDataSeries<*, *>): XyScatterRenderableSeries {
-        return XyScatterRenderableSeries().init {
+        return XyScatterRenderableSeries().apply {
             this.dataSeries = dataSeries
             this.yAxisId = yAxisId
-            this.pointMarker = EllipsePointMarker().init {
+            this.pointMarker = EllipsePointMarker().apply {
                 this.setSize(pmSize, pmSize)
                 this.fillStyle = SolidBrushStyle(pmColor)
                 this.strokeStyle = SolidPenStyle(pmColor, true, 1f, null)

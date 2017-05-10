@@ -17,6 +17,8 @@
 package com.scichart.examples.demo;
 
 import android.content.Context;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import com.scichart.examples.demo.parser.ExampleDefinitionParser;
 
@@ -39,47 +41,24 @@ public class ExampleLoader {
 
     public List<String> discoverAllXmlFiles() {
         final List<String> xmlFolders = listAssetsXmlFolders("ExampleDefinition");
-        final List<Thread> threads = new ArrayList<>();
         for (String xmlFolder : xmlFolders) {
-            final Thread t = new Downloader(xmlFolder);
-            threads.add(t);
-            t.start();
-        }
-        for (Thread t : threads) {
             try {
-                t.join(); // do not wait for other threads  in main UI thread!
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return xmlPaths;
-    }
-
-    class Downloader extends Thread {
-
-        private final String url;
-
-        public Downloader(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-            try {
-                final String[] paths = context.getAssets().list(url);
+                final String[] paths = context.getAssets().list(xmlFolder);
                 for (String path : paths) {
-                    xmlPaths.add(url + "/" + path);
+                    xmlPaths.add(xmlFolder + "/" + path);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+        return xmlPaths;
     }
 
-    private List<String> listAssetsXmlFolders(String path) {
+    private @NonNull List<String> listAssetsXmlFolders(String path) {
+        final List<String> result = new ArrayList<>();
+
         try {
-            final List<String> result = new ArrayList<>();
             final String[] categories = context.getAssets().list(path);
             for (String category : categories) {
                 final String[] groups = context.getAssets().list(path + "/" + category);
@@ -87,19 +66,17 @@ public class ExampleLoader {
                     result.add(path + "/" + category + "/" + group);
                 }
             }
-            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return result;
     }
 
     public ExampleDefinition parseDefinition(String path) {
         try {
             final InputStream in = context.getAssets().open(path);
             return new ExampleDefinitionParser().parseDefinition(in);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -24,7 +24,6 @@ import com.scichart.charting.visuals.renderableSeries.ColorMap
 import com.scichart.charting.visuals.renderableSeries.FastUniformHeatmapRenderableSeries
 import com.scichart.core.model.DoubleValues
 import com.scichart.scishowcase.utils.UniformHeatmapDataSeries
-import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.ChartViewModel
 import com.scichart.drawing.utility.ColorUtil.*
 
@@ -33,7 +32,7 @@ class SpectrogramViewModel(context: Context, fftSize: Int, batchSize: Int) : Cha
     private val spectrogramValues = DoubleValues(fftSize * batchSize)
 
     init {
-        xAxes.add(NumericAxis(context).init {
+        xAxes.add(NumericAxis(context).apply {
             autoRange = AutoRange.Always
             drawLabels = false
             drawMinorTicks = false
@@ -45,7 +44,7 @@ class SpectrogramViewModel(context: Context, fftSize: Int, batchSize: Int) : Cha
             flipCoordinates = true
         })
 
-        yAxes.add(NumericAxis(context).init {
+        yAxes.add(NumericAxis(context).apply {
             autoRange = AutoRange.Always
             drawLabels = false
             drawMinorTicks = false
@@ -57,7 +56,7 @@ class SpectrogramViewModel(context: Context, fftSize: Int, batchSize: Int) : Cha
             flipCoordinates = true
         })
 
-        renderableSeries.add(FastUniformHeatmapRenderableSeries().init {
+        renderableSeries.add(FastUniformHeatmapRenderableSeries().apply {
             dataSeries = spectrogramDS
             maximum = 70.0
             minimum = -30.0

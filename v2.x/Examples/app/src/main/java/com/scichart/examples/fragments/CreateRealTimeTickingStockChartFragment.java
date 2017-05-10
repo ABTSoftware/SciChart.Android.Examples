@@ -154,7 +154,6 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
                 Collections.addAll(surface.getRenderableSeries(), ohlc, line);
                 Collections.addAll(surface.getAnnotations(), smaAxisMarker, ohlcAxisMarker);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
-                        .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
                         .withXAxisDragModifier().build()
                         .withZoomPanModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
                         .withZoomExtentsModifier().build()
@@ -353,10 +352,6 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
                     Collections.addAll(surface.getYAxes(), yAxis);
                     Collections.addAll(surface.getRenderableSeries(), mountain);
                     Collections.addAll(surface.getAnnotations(), boxAnnotation, leftBox, rightBox, leftLineGrip, rightLineGrip);
-                    Collections.addAll(surface.getChartModifiers(), builder.newModifierGroup()
-                            .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
-                            .withZoomPanModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
-                            .build());
                 }
             });
         }

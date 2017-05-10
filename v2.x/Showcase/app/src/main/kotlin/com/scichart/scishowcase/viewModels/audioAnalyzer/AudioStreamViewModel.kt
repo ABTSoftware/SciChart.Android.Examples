@@ -24,16 +24,15 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.common.SolidPenStyle
 import com.scichart.scishowcase.model.audioAnalyzer.AudioData
 import com.scichart.scishowcase.utils.XyDataSeries
-import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.ChartViewModel
 import com.scichart.drawing.utility.ColorUtil.*
 import com.scichart.scishowcase.utils.dip
 
 class AudioStreamViewModel(context: Context, audioStreamBufferSize: Int) : ChartViewModel(context) {
-    private val audioDS = XyDataSeries<Long, Short>().init { fifoCapacity = audioStreamBufferSize }
+    private val audioDS = XyDataSeries<Long, Short>().apply { fifoCapacity = audioStreamBufferSize }
 
     init {
-        xAxes.add(NumericAxis(context).init {
+        xAxes.add(NumericAxis(context).apply {
             autoRange = AutoRange.Always
             drawLabels = false
             drawMinorTicks = false
@@ -43,7 +42,7 @@ class AudioStreamViewModel(context: Context, audioStreamBufferSize: Int) : Chart
             drawMajorGridLines = false
         })
 
-        yAxes.add(NumericAxis(context).init {
+        yAxes.add(NumericAxis(context).apply {
             visibleRange = DoubleRange(Short.MIN_VALUE.toDouble(), Short.MAX_VALUE.toDouble())
             drawLabels = false
             drawMinorTicks = false
@@ -55,7 +54,7 @@ class AudioStreamViewModel(context: Context, audioStreamBufferSize: Int) : Chart
 
         val lineThickness = context.dip(1f)
 
-        renderableSeries.add(FastLineRenderableSeries().init {
+        renderableSeries.add(FastLineRenderableSeries().apply {
             dataSeries = audioDS
             strokeStyle = SolidPenStyle(Grey, true, lineThickness, null)
         })

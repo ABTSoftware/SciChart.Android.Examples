@@ -47,6 +47,8 @@ class StubAudioAnalyzerDataProvider(private val bufferSizeInShorts: Int = 2048) 
 
     override fun getBufferSize(): Int = bufferSizeInShorts
 
+    override fun getSampleRate(): Int = 44100
+
     private interface IYValueProvider {
         fun getYValueForIndex(index: Long): Short
     }

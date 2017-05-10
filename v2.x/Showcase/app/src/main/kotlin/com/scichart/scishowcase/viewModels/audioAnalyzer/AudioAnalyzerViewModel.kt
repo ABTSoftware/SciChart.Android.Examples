@@ -24,15 +24,18 @@ import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 
-class AudioAnalyzerViewModel(context: Context, private val dataProvider: IAudioAnalyzerDataProvider) : FragmentViewModelBase(context) {
+class AudioAnalyzerViewModel(context: Context, maxFrequency: Int, private val dataProvider: IAudioAnalyzerDataProvider) : FragmentViewModelBase(context) {
     private val bufferSize = dataProvider.getBufferSize()
+    private val sampleRate = dataProvider.getSampleRate()
     private val audioStreamBufferSize = 500000
 
     private val fft = Radix2FFT(bufferSize)
-    private val fftSize = fft.fftSize
+
+    private val hzPerDataPoint = sampleRate.toDouble() / bufferSize
+    private val fftSize = (maxFrequency / hzPerDataPoint).toInt()
 
     val audioStreamVM = AudioStreamViewModel(context, audioStreamBufferSize)
-    val fftVM = FFTViewModel(context, fftSize)
+    val fftVM = FFTViewModel(context, fftSize, hzPerDataPoint)
     val spectrogramVM = SpectrogramViewModel(context, fftSize, audioStreamBufferSize / bufferSize)
 
     private val fftData = DoubleValues()
@@ -44,6 +47,7 @@ class AudioAnalyzerViewModel(context: Context, private val dataProvider: IAudioA
             audioStreamVM.onNextAudioData(it)
 
             fft.run(it.yData, fftData)
+            fftData.setSize(fftSize)
 
             fftVM.onNextFFT(fftData)
             spectrogramVM.onNextFFT(fftData)

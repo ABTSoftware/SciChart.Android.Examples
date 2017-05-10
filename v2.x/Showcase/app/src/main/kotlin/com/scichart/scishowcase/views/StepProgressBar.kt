@@ -25,7 +25,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.scichart.drawing.utility.ColorUtil
 import com.scichart.scishowcase.R
-import com.scichart.scishowcase.utils.init
 
 class StepProgressBar : View {
     private var _progressColor: Int = ColorUtil.Green
@@ -36,7 +35,7 @@ class StepProgressBar : View {
     private var _spacing: Float = 1f
     private var _barSize: Float = 10f
 
-    private val paint = Paint().init { style = Paint.Style.FILL }
+    private val paint = Paint().apply { style = Paint.Style.FILL }
 
     constructor(context: Context) : super(context) {}
 

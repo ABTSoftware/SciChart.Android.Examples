@@ -25,24 +25,23 @@ import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeri
 import com.scichart.scishowcase.model.trader.TradeDataPoints
 import com.scichart.scishowcase.utils.OhlcDataSeries
 import com.scichart.scishowcase.utils.XyDataSeries
-import com.scichart.scishowcase.utils.init
 import com.scichart.scishowcase.viewModels.ChartViewModel
 import java.util.*
 
 class StockChartViewModel(context: Context) : ChartViewModel(context) {
 
-    private val stockDataSeries = OhlcDataSeries<Date, Double>().init{ acceptsUnsortedData = true }
-    private val volumeDataSeries = XyDataSeries<Date, Double>().init{ acceptsUnsortedData = true }
+    private val stockDataSeries = OhlcDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
+    private val volumeDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
 
     init {
-        xAxes.add(CategoryDateAxis(context).init {
+        xAxes.add(CategoryDateAxis(context).apply {
             autoRange = AutoRange.Always
         })
-        yAxes.add(NumericAxis(context).init {
+        yAxes.add(NumericAxis(context).apply {
             axisId = "StockAxis"
             autoRange = AutoRange.Always
         })
-        yAxes.add(NumericAxis(context).init {
+        yAxes.add(NumericAxis(context).apply {
             axisId = "VolumeAxis"
             autoRange = AutoRange.Always
             drawLabels = false
@@ -50,11 +49,11 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
             drawMinorTicks = false
         })
 
-        renderableSeries.add(FastCandlestickRenderableSeries().init {
+        renderableSeries.add(FastCandlestickRenderableSeries().apply {
             dataSeries = stockDataSeries
             yAxisId = "StockAxis"
         })
-        renderableSeries.add(FastMountainRenderableSeries().init {
+        renderableSeries.add(FastMountainRenderableSeries().apply {
             dataSeries = volumeDataSeries
             yAxisId = "VolumeAxis"
         })

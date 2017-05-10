@@ -21,7 +21,7 @@ import android.media.AudioRecord
 import com.scichart.scishowcase.model.DataProviderBase
 import java.util.concurrent.TimeUnit
 
-class DefaultAudioAnalyzerDataProvider(sampleRate: Int = 44100,
+class DefaultAudioAnalyzerDataProvider(private val sampleRate: Int = 44100,
                                        private val minBufferSize: Int = 2048, // should be with power of 2 for correct work of FFT
                                        interval: Long = (sampleRate / minBufferSize).toLong()) : DataProviderBase<AudioData>(interval, TimeUnit.MILLISECONDS), IAudioAnalyzerDataProvider {
 
@@ -59,4 +59,6 @@ class DefaultAudioAnalyzerDataProvider(sampleRate: Int = 44100,
     }
 
     override fun getBufferSize(): Int = minBufferSize
+
+    override fun getSampleRate(): Int = sampleRate
 }
