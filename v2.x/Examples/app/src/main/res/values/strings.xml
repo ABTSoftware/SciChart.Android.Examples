@@ -18,7 +18,7 @@
 <resources>
 
     <string name="link_to_website">www.scichart.com</string>
-    <string name="app_name">Examples</string>
+    <string name="app_name">SciChart Demo</string>
     <string name="hello_world">Hello world!</string>
     <string name="default_title">Examples</string>
     <string name="start">START</string>

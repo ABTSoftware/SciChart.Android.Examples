@@ -15,7 +15,6 @@
 //******************************************************************************
 apply plugin: 'java'
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-import org.apache.tools.ant.taskdefs.condition.Os
 buildscript {
     repositories {
         jcenter()
@@ -23,7 +22,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:2.3.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -38,6 +37,7 @@ ext {
     versionCode = 1
     versionName = "1.0"
     documentationFolder = "${rootDir}/outputJavadoc/"
+    availableProcessors = Runtime.runtime.availableProcessors()
 }
 task deleteExistingZip(type: Delete) {
     delete file("outputAar/sciChart.zip")
@@ -103,21 +103,6 @@ allprojects {
     }
     task cleanJavadocOutput(type: Delete, description: 'Clean Javadoc output') {
         delete("${rootDir}/outputJavadoc/${project.getName()}")
-    }
-    task buildNative(type: Exec, description: 'Compile JNI source via NDK') {
-        def ndkDir = System.getenv("ANDROID_NDK_HOME")
-        def ndkBuildPath = Os.isFamily(Os.FAMILY_WINDOWS) ? "$ndkDir\\ndk-build.cmd" : "$ndkDir/ndk-build"
-        commandLine ndkBuildPath,
-                'NDK_PROJECT_PATH=' + file('src/main').absolutePath,
-                '-j', Runtime.runtime.availableProcessors(),
-                'NDK_DEBUG=0' // Force a release build
-    }
-    task cleanNative(type: Exec, description: 'Clean JNI object files') {
-        def ndkDir = System.getenv("ANDROID_NDK_HOME")
-        def ndkBuildPath = Os.isFamily(Os.FAMILY_WINDOWS) ? "$ndkDir\\ndk-build.cmd" : "$ndkDir/ndk-build"
-        commandLine ndkBuildPath,
-                'NDK_PROJECT_PATH=' + file('src/main').absolutePath,
-                'clean'
     }
 }
 subprojects {
