@@ -28,6 +28,7 @@ import com.scichart.charting.model.dataSeries.XyyDataSeries;
 import com.scichart.charting.modifiers.AxisDragModifierBase;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
+import com.scichart.charting.visuals.axes.CategoryDateAxis;
 import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.BaseRenderableSeries;
 import com.scichart.charting.visuals.synchronization.SciChartVerticalGroup;
@@ -66,6 +67,8 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
 
     private final SciChartVerticalGroup verticalGroup = new SciChartVerticalGroup();
 
+    private final DoubleRange sharedXRange = new DoubleRange();
+
     @Override
     protected int getLayoutId() {
         return R.layout.example_multipane_stock_charts_fragment;
@@ -92,13 +95,19 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
     }
 
     private void initChart(SciChartSurface surface, BasePaneModel model, boolean isMainPane) {
-        surface.getXAxes().add(sciChartBuilder.newCategoryDateAxis().withVisibility(isMainPane ? View.VISIBLE : View.GONE).withGrowBy(0, 0.05).build());
+        final CategoryDateAxis xAxis = sciChartBuilder.newCategoryDateAxis()
+                .withVisibility(isMainPane ? View.VISIBLE : View.GONE)
+                .withVisibleRange(sharedXRange)
+                .withGrowBy(0, 0.05)
+                .build();
+
+        surface.getXAxes().add(xAxis);
         surface.getYAxes().add(model.yAxis);
 
         surface.getRenderableSeries().addAll(model.renderableSeries);
 
         surface.getChartModifiers().add(sciChartBuilder
-                .newModifierGroup().withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                .newModifierGroup()
                     .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
                     .withPinchZoomModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
                     .withZoomPanModifier().withReceiveHandledEvents(true).build()

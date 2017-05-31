@@ -122,7 +122,7 @@ public class VerticallyStackedYAxesFragment extends ExampleBaseFragment {
 
                 final int bottomPlacement = topPlacement + axisSize;
 
-                axis.layoutArea(right - getRequiredAxisSize(axisLayoutState), topPlacement, right, bottomPlacement);
+                axis.layoutArea(right - getRequiredAxisSize(axisLayoutState) + axisLayoutState.additionalLeftSize, topPlacement, right - axisLayoutState.additionalRightSize, bottomPlacement);
 
                 topPlacement = bottomPlacement;
             }
