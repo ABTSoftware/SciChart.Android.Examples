@@ -124,6 +124,7 @@ public class OscilloscopeFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis);
                 Collections.addAll(surface.getRenderableSeries(), rSeries);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
             }
         });
 
