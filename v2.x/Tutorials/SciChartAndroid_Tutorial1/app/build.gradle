@@ -24,14 +24,14 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
     // Declare SciChart libraries as module dependencies
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions',version: '2.0.0.1654', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1866', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1866', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1866', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1866', ext: 'aar') { transitive = true }
+    compile (group: 'com.scichart.library', name: 'extensions',version: '2.0.0.1866', ext: 'aar')
 }
