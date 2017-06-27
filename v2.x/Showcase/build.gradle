@@ -14,8 +14,8 @@ buildscript {
 ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 19
     compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 25
-    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '25.0.2'
-    supportLibraryVersion = project.hasProperty('supportLibraryVersion') ? project.getProperty('supportLibraryVersion') : '25.2.0'
+    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '25.0.3'
+    supportLibraryVersion = project.hasProperty('supportLibraryVersion') ? project.getProperty('supportLibraryVersion') : '25.3.1'
     sourceCompatibility = JavaVersion.VERSION_1_7
     minifyEnabled = false
     versionCode = 1
