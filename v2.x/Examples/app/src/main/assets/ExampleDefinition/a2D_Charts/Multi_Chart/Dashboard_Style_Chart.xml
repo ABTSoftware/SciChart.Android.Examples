@@ -22,6 +22,7 @@
     </Description>
     <CodeFiles>
         <string>res/layout/example_dashboard_style_chart_fragment.xml.txt</string>
+        <string>res/layout/example_single_chart_fragment.xml.txt</string>
         <string>java/com/scichart/examples/fragments/DashboardStyleChartsFragment.java.txt</string>
     </CodeFiles>
     <Features>

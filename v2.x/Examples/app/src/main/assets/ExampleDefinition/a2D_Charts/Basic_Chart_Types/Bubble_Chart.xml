@@ -22,6 +22,7 @@
     </Description>
     <CodeFiles>
         <string>res/layout/example_single_chart_fragment.xml.txt</string>
+        <string>res/layout/example_bubble_chart_popop_layout.xml.txt</string>
         <string>java/com/scichart/examples/fragments/BubbleChartFragment.java.txt</string>
     </CodeFiles>
     <Features>

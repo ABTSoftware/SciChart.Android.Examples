@@ -22,6 +22,7 @@
     </Description>
     <CodeFiles>
         <string>res/layout/example_single_chart_fragment.xml.txt</string>
+        <string>res/layout/example_custom_cursor_modifier_tooltip_container.xml.txt</string>
         <string>java/com/scichart/examples/fragments/customizationCursorModifierTooltips/CustomizationCursorModifierTooltipsFragment.java.txt</string>
     </CodeFiles>
     <Features>

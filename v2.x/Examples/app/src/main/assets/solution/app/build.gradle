@@ -36,9 +36,13 @@ android {
 }
 
 repositories {
+    // add app\libs folder as libs source
     flatDir {
         dirs 'libs'
     }
+
+    // declare a Maven repository with SciChart libraries
+    maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 
 dependencies {
@@ -46,13 +50,22 @@ dependencies {
     compile 'com.android.support:support-annotations:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'de.greenrobot:eventbus:2.4.0'
 
+    // you can reference aar from app\libs folder
     compile 'com.scichart:charting:+@aar'
     compile 'com.scichart:core:+@aar'
     compile 'com.scichart:drawing:+@aar'
     compile 'com.scichart:data:+@aar'
     compile 'com.scichart:extensions:+@aar'
+
+    // or you can reference latest version from Maven
+    // compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.+', ext: 'aar')
+    // compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.+', ext: 'aar')
+    // compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.+', ext: 'aar')
+    // compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.+', ext: 'aar')
+    // compile (group: 'com.scichart.library', name: 'extensions',version: '2.0.0.+', ext: 'aar')
 }

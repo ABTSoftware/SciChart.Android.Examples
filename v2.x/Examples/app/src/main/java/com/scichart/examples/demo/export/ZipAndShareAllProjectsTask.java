@@ -46,6 +46,7 @@ public class ZipAndShareAllProjectsTask extends AsyncTask<Void, Void, Void> {
                 "\tcopy data-release.aar %%i\\app\\libs\\data-release.aar\n" +
                 "\tcopy core-release.aar %%i\\app\\libs\\core-release.aar\n" +
                 "\tcopy drawing-release.aar %%i\\app\\libs\\drawing-release.aar\n" +
+                "\tcopy extensions-release.aar %%i\\app\\libs\\extensions-release.aar\n" +
                 // compile subproject
                 "\tcall %%i\\gradlew.bat -p %%i\\ assemble\n " +
                 "\tif ERRORLEVEL 1 (\n" +

@@ -5,7 +5,7 @@
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- Spline Scatter Line Chart.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- Spline_Scatter_Line_Chart.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -23,6 +23,9 @@
     <CodeFiles>
         <string>res/layout/example_single_chart_fragment.xml.txt</string>
         <string>java/com/scichart/examples/fragments/splineLineSeries/SplineChartExampleFragment.java.txt</string>
+        <string>java/com/scichart/examples/fragments/splineLineSeries/CubicSpline.java.txt</string>
+        <string>java/com/scichart/examples/fragments/splineLineSeries/SplineLineRenderableSeries.java.txt</string>
+        <string>java/com/scichart/examples/fragments/splineLineSeries/TriDiagonalMatrixF.java.txt</string>
     </CodeFiles>
     <Features>
         <Features>Line</Features>

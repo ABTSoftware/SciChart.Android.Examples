@@ -21,7 +21,7 @@
         Creates a real-time example with two series.
     </Description>
     <CodeFiles>
-        <string>res/layout/example_single_chart_fragment.xml.txt</string>
+        <string>res/layout/example_real_time_ticking_stock_chart_fragment.xml.txt</string>
         <string>java/com/scichart/examples/fragments/CreateRealTimeTickingStockChartFragment.java.txt</string>
     </CodeFiles>
     <Features>
