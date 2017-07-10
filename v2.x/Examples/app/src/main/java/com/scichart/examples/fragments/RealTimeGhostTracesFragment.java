@@ -17,10 +17,10 @@
 package com.scichart.examples.fragments;
 
 
-import android.support.v4.util.CircularArray;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.scichart.charting.model.RenderableSeriesCollection;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
@@ -56,8 +56,6 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
-
-    private CircularArray<XyDataSeries<Double, Double>> dataSeriesCircularArray = new CircularArray<>(10);
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -170,43 +168,31 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
 
                     dataSeries.append(noisySinewave.xValues, noisySinewave.yValues);
 
-                    dataSeriesCircularArray.addLast(dataSeries);
-
-                    reassignRenderableSeries(dataSeriesCircularArray);
+                    reassignRenderableSeries(dataSeries);
                 }
             });
         }
     };
 
-    private void reassignRenderableSeries(final CircularArray<XyDataSeries<Double, Double>> dataSeries) {
+    private void reassignRenderableSeries(final XyDataSeries<Double, Double> dataSeries) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                final int size = dataSeries.size();
+                final RenderableSeriesCollection rs = surface.getRenderableSeries();
 
-                // Always the latest dataseries
-                if (size > 0)
-                    surface.getRenderableSeries().get(0).setDataSeries(dataSeries.get(size - 1));
-                if (size > 1)
-                    surface.getRenderableSeries().get(1).setDataSeries(dataSeries.get(size - 2));
-                if (size > 2)
-                    surface.getRenderableSeries().get(2).setDataSeries(dataSeries.get(size - 3));
-                if (size > 3)
-                    surface.getRenderableSeries().get(3).setDataSeries(dataSeries.get(size - 4));
-                if (size > 4)
-                    surface.getRenderableSeries().get(4).setDataSeries(dataSeries.get(size - 5));
-                if (size > 5)
-                    surface.getRenderableSeries().get(5).setDataSeries(dataSeries.get(size - 6));
-                if (size > 6)
-                    surface.getRenderableSeries().get(6).setDataSeries(dataSeries.get(size - 7));
-                if (size > 7)
-                    surface.getRenderableSeries().get(7).setDataSeries(dataSeries.get(size - 8));
-                if (size > 8)
-                    surface.getRenderableSeries().get(8).setDataSeries(dataSeries.get(size - 9));
+                // shift old data series
+                rs.get(9).setDataSeries(rs.get(8).getDataSeries());
+                rs.get(8).setDataSeries(rs.get(7).getDataSeries());
+                rs.get(7).setDataSeries(rs.get(6).getDataSeries());
+                rs.get(6).setDataSeries(rs.get(5).getDataSeries());
+                rs.get(5).setDataSeries(rs.get(4).getDataSeries());
+                rs.get(4).setDataSeries(rs.get(3).getDataSeries());
+                rs.get(3).setDataSeries(rs.get(2).getDataSeries());
+                rs.get(2).setDataSeries(rs.get(1).getDataSeries());
+                rs.get(1).setDataSeries(rs.get(0).getDataSeries());
 
-                // Always the oldest dataseries
-                if (size > 9)
-                    surface.getRenderableSeries().get(9).setDataSeries(dataSeries.get(size - 10));
+                // use new data series to draw first renderable series
+                rs.get(0).setDataSeries(dataSeries);
             }
         });
     }
