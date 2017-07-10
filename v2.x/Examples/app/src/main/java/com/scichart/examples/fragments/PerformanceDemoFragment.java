@@ -41,6 +41,7 @@ import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.FloatValues;
 import com.scichart.core.model.IntegerValues;
+import com.scichart.core.utility.Dispatcher;
 import com.scichart.data.model.ISciList;
 import com.scichart.data.numerics.ResamplingMode;
 import com.scichart.drawing.common.PenStyle;
@@ -255,12 +256,12 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
             final long count = mainSeries.getCount() + maLowSeries.getCount() + maHighSeries.getCount();
             final String text = "Amount of points: " + count;
 
-            new Runnable() {
+            Dispatcher.postOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     textView.setText(text);
                 }
-            }.run();
+            });
         }
     };
 
