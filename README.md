@@ -2,10 +2,12 @@
 
 Examples, Showcase Applications and Tutorials for [SciChart.Android](https://www.scichart.com): High Performance Realtime [Android Chart Library](https://www.scichart.com/android-chart-features). 
 
-![SciChart Android ECG Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png)
-![SciChart Android Candlestick Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png)
-![SciChart Android Heatmap Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png)
-![SciChart Android Multi XAxis Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png)
+[![SciChart Android Charts Video](https://www.scichart.com/wp-content/uploads/2017/07/Thumbnail-play.png](https://youtu.be/28wtiSRGmXQsc)
+
+![SciChart Android ECG Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png =300x)
+![SciChart Android Candlestick Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png =300x)
+![SciChart Android Heatmap Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png =300x)
+![SciChart Android Multi XAxis Example](https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png =300x)
 
 Android Chart Examples are provided in Java & Kotlin. If you are looking for other platforms then please see here:
 
