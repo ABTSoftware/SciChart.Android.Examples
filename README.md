@@ -2,7 +2,7 @@
 
 Examples, Showcase Applications and Tutorials for [SciChart.Android](https://www.scichart.com): High Performance Realtime [Android Chart Library](https://www.scichart.com/android-chart-features). 
 
-<a href="https://youtu.be/28wtiSRGmXQsc" target="_blank" Title="SciChart Android Charts Video"><img src="https://www.scichart.com/wp-content/uploads/2017/07/Thumbnail-play.png" Alt="SciChart Android Charts Video"/></a> 
+<a href="https://youtu.be/28wtiSRGmXQsc" target="\_blank" Title="SciChart Android Charts Video"><img src="https://www.scichart.com/wp-content/uploads/2017/07/Thumbnail-play.png" Alt="SciChart Android Charts Video"/></a> 
 
 <img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png" Width="420" Alt="Android ECG Chart Example"/>
 
