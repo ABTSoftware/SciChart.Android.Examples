@@ -4,29 +4,13 @@ Examples, Showcase Applications and Tutorials for [SciChart.Android](https://www
 
 [![SciChart Android Charts Video](https://www.scichart.com/wp-content/uploads/2017/07/Thumbnail-play.png)](https://youtu.be/28wtiSRGmXQsc)
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png" Width="320" Alt="Android ECG Chart Example"/>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png" Width="420" Alt="Android ECG Chart Example"/>
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png" Width="320" Alt="Android Candlestick Chart Example"/>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png" Width="420" Alt="Android Candlestick Chart Example"/>
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png" Width="320" Alt="Android Heatmap Chart Example"/>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png" Width="420" Alt="Android Heatmap Chart Example"/>
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png" Width="320" Alt="Android Multi XAxis Example"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png" Width="420" Alt="Android Multi XAxis Example"/>
 
 
 Android Chart Examples are provided in Java & Kotlin. If you are looking for other platforms then please see here:
@@ -62,9 +46,9 @@ _where latest version number can be found at our [SciChart/ABTSoftware Maven fee
 
 The SciChart Showcase demonstrates some featured apps which show the speed, power and flexibility of the SciChart's [Android Chart library](https://www.scichart.com/android-chart-features). This showcase is written in Kotlin and is designed to be a demonstration of what SciChart can do. Examples include:
 
-![Android Audio Analyzer powered by SciChart](https://www.scichart.com/wp-content/uploads/2017/04/pixel-android-showcase-audio-analyzer-2.jpg)
+<img src="https://www.scichart.com/wp-content/uploads/2017/04/pixel-android-showcase-audio-analyzer-2.jpg" Width="420" Alt="Android Audio Analyzer powered by SciChart"/>
 
-![Android 4-channel Realtime ECG powered by SciChart](https://www.scichart.com/wp-content/uploads/2017/04/pixel-android-showcase-ecg-monitor-2.jpg)
+<img src="https://www.scichart.com/wp-content/uploads/2017/04/pixel-android-showcase-ecg-monitor-2.jpg" Width="420" Alt="Android 4-Channel Realtime ECG powered by SciChart"/>
 
 * SciChart ECG: Realtime, 4-channel ECG for medical apps 
 * SciChart Audio Analyzer: Realtime Audio Analyzer which records the mic, and presents Frequency Spectrum + Spectrogram on a live updating heatmap
@@ -85,14 +69,15 @@ Chart types include:
 * [Android Mountain / Area Chart](https://www.scichart.com/android-mountain-chart-example/)
 * [Android Scatter Chart](https://www.scichart.com/android-scatter-chart-example/)
 * [Android Impulse / Stem Chart](https://www.scichart.com/android-impulse-stem-chart-example/)
-* Android Bubble Chart
+* [Android Bubble Chart](https://www.scichart.com/example/android-bubble-chart-demo/)
 * [Android Error Bars Chart](https://www.scichart.com/android-chart-example-error-bars/)
 * [Android Fan Chart](https://www.scichart.com/android-chart-example-fan-chart/)
 * [Android Heatmap Chart](https://www.scichart.com/android-heatmap-chart-example/)
-* Android Stacked Mountain Chart 
-* Android Stacked Column Chart
-* Android 100% Stacked Mountain Chart 
-* Android 100% Stacked Column Chart
+* [Android Stacked Mountain Chart](https://www.scichart.com/example/android-chart-stacked-mountain-chart-example/)
+* [Android Stacked Column Chart](https://www.scichart.com/example/android-chart-stacked-column-chart-example/)
+* [Android 100% Stacked Mountain Chart](https://www.scichart.com/example/android-chart-dashboard-style-charts-example/)
+* [Android 100% Stacked Column Chart](https://www.scichart.com/example/android-chart-dashboard-style-charts-example/)
+* [Android Stacked Grouped Column Chart](https://www.scichart.com/example/android-chart-stacked-column-chart-grouped-side-by-side-example/)
 * [Android Stock Charts](https://www.scichart.com/android-multi-pane-stock-charts/)
 * [Android Chart Legends](https://www.scichart.com/android-chart-legends-api-example/)
 
