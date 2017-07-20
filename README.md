@@ -4,15 +4,13 @@ Examples, Showcase Applications and Tutorials for [SciChart.Android](https://www
 
 [![SciChart Android Charts Video](https://www.scichart.com/wp-content/uploads/2017/07/Thumbnail-play.png)](https://youtu.be/28wtiSRGmXQsc)
 
-<img style="float: left;" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png" Width="320" Alt="Android ECG Chart Example"/>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png" Width="320" Alt="Android ECG Chart Example"/>
 
-<img style="float: left;" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png" Width="320" Alt="Android Candlestick Chart Example"/>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png" Width="320" Alt="Android Candlestick Chart Example"/>
 
-<img style="float: left;" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png" Width="320" Alt="Android Heatmap Chart Example"/>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png" Width="320" Alt="Android Heatmap Chart Example"/>
 
-<img style="float: left;" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png" Width="320" Alt="Android Multi XAxis Example"/>
-
-<div style="float: left;></div>
+<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png" Width="320" Alt="Android Multi XAxis Example"/>
 
 Android Chart Examples are provided in Java & Kotlin. If you are looking for other platforms then please see here:
 
