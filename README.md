@@ -12,7 +12,7 @@ Examples, Showcase Applications and Tutorials for [SciChart.Android](https://www
 
 <img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png" Width="420" Alt="Android Multi XAxis Example"/>
 
-<hr/>
+<span class="align-center"></span>
 
 Android Chart Examples are provided in Java & Kotlin. If you are looking for other platforms then please see here:
 
