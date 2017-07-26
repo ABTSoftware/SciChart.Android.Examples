@@ -17,23 +17,29 @@
 package com.scichart.scishowcase.viewModels.trader
 
 import android.content.Context
-import com.scichart.scishowcase.model.trader.TradeConfig
+import android.util.Log
+import android.widget.Toast
 import com.scichart.scishowcase.model.trader.TraderDataProvider
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
-class TraderViewModel(context: Context, private val dataProvider: TraderDataProvider, private val tradeConfigObservable: Observable<TradeConfig>) : FragmentViewModelBase(context) {
+class TraderViewModel(context: Context, private val dataProvider: TraderDataProvider) : FragmentViewModelBase(context) {
     val stockVM = StockChartViewModel(context)
+    val rsiVM = RsiViewModel(context)
+    val macdVM = MacdViewModel(context)
 
     override fun subscribe(lifecycleProvider: LifecycleProvider<*>) {
         super.subscribe(lifecycleProvider)
 
-        tradeConfigObservable.observeOn(Schedulers.computation()).doOnNext {
-            val data = dataProvider.getData(it)
-            stockVM.setData(data)
-        }.bindToLifecycle(lifecycleProvider).subscribe()
+        dataProvider.getData().bindToLifecycle(lifecycleProvider)
+                .subscribe({
+                    stockVM.setData(it)
+                    rsiVM.setData(it)
+                    macdVM.setData(it)
+                }, {
+                    Log.e("TraderDataProvider", it.message!!)
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                })
     }
 }

@@ -19,9 +19,14 @@ package com.scichart.scishowcase.utils
 import com.scichart.charting.model.dataSeries.OhlcDataSeries
 import com.scichart.charting.model.dataSeries.UniformHeatmapDataSeries
 import com.scichart.charting.model.dataSeries.XyDataSeries
+import com.scichart.charting.model.dataSeries.XyyDataSeries
 
 inline fun <reified TX : Comparable<TX>, reified TY : Comparable<TY>> XyDataSeries(): XyDataSeries<TX, TY> {
     return XyDataSeries(TX::class.javaObjectType, TY::class.javaObjectType)
+}
+
+inline fun <reified TX : Comparable<TX>, reified TY : Comparable<TY>> XyyDataSeries(): XyyDataSeries<TX, TY> {
+    return XyyDataSeries(TX::class.javaObjectType, TY::class.javaObjectType)
 }
 
 inline fun <reified TX : Comparable<TX>, reified TY : Comparable<TY>> OhlcDataSeries(): OhlcDataSeries<TX, TY> {

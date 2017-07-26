@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// StockChartViewModel.kt is part of the SCICHART® Showcases. Permission is hereby granted
+// StockChartViewModel.ktart of the SCICHART® Showcases. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -21,8 +21,10 @@ import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.charting.visuals.axes.CategoryDateAxis
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries
 import com.scichart.scishowcase.model.trader.TradeDataPoints
+import com.scichart.scishowcase.utils.MovingAverage
 import com.scichart.scishowcase.utils.OhlcDataSeries
 import com.scichart.scishowcase.utils.XyDataSeries
 import com.scichart.scishowcase.viewModels.ChartViewModel
@@ -32,6 +34,8 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
 
     private val stockDataSeries = OhlcDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
     private val volumeDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
+    private val maLowDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
+    private val maHighDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
 
     init {
         xAxes.add(CategoryDateAxis(context).apply {
@@ -53,6 +57,17 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
             dataSeries = stockDataSeries
             yAxisId = "StockAxis"
         })
+
+        renderableSeries.add(FastLineRenderableSeries().apply {
+            dataSeries = maLowDataSeries
+            yAxisId = "StockAxis"
+        })
+
+        renderableSeries.add(FastLineRenderableSeries().apply {
+            dataSeries = maHighDataSeries
+            yAxisId = "StockAxis"
+        })
+
         renderableSeries.add(FastMountainRenderableSeries().apply {
             dataSeries = volumeDataSeries
             yAxisId = "VolumeAxis"
@@ -62,8 +77,12 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
     fun setData(data: TradeDataPoints) {
         stockDataSeries.clear()
         volumeDataSeries.clear()
+        maLowDataSeries.clear()
+        maHighDataSeries.clear()
 
         stockDataSeries.append(data.xValues, data.openValues, data.highValues, data.lowValues, data.closeValues)
         volumeDataSeries.append(data.xValues, data.volumeValues)
+        maLowDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 50))
+        maHighDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 200))
     }
 }

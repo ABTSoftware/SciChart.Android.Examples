@@ -70,12 +70,56 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintBottom_toBottomOf="@+id/macdGuideline"
             scichart:layout_constraintHorizontal_bias="0.0"
             scichart:layout_constraintLeft_toLeftOf="parent"
             scichart:layout_constraintRight_toRightOf="parent"
             scichart:layout_constraintTop_toBottomOf="@+id/stockSymbol"
             scichart:viewModel="@{viewModel.stockVM}" />
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:id="@+id/macdChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            scichart:layout_constraintBottom_toBottomOf="@+id/rsiGuideline"
+            scichart:layout_constraintHorizontal_bias="0.0"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toBottomOf="@+id/macdGuideline"
+            scichart:viewModel="@{viewModel.macdVM}" />
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:id="@+id/rsiChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintHorizontal_bias="0.0"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toBottomOf="@+id/rsiGuideline"
+            scichart:viewModel="@{viewModel.rsiVM}" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/macdGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            scichart:layout_constraintGuide_end="200dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/rsiGuideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            scichart:layout_constraintGuide_end="100dp" />
 
     </android.support.constraint.ConstraintLayout>
 

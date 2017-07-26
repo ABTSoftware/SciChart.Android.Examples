@@ -30,15 +30,15 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1884', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1884', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1884', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1884', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1884', ext: 'aar')
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1894', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1894', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1894', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1894', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1894', ext: 'aar')
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile'io.reactivex.rxjava2:rxjava:2.0.1'
@@ -48,6 +48,9 @@ dependencies {
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.github.pwittchen:reactivenetwork-rx2:0.10.0'
     kapt "com.android.databinding:compiler:$android_plugin_version"
 }
 repositories {

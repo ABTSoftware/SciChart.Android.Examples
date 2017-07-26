@@ -17,15 +17,21 @@
 package com.scichart.scishowcase.views
 
 import android.widget.ArrayAdapter
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.scichart.scishowcase.R
 import com.scichart.scishowcase.application.ExampleDefinition
 import com.scichart.scishowcase.databinding.TraderFragmentBinding
+import com.scichart.scishowcase.model.trader.DefaultTradePointProvider
+import com.scichart.scishowcase.model.trader.StubTradePointsProvider
 import com.scichart.scishowcase.model.trader.TradeConfig
 import com.scichart.scishowcase.model.trader.TraderDataProvider
 import com.scichart.scishowcase.viewModels.trader.TraderViewModel
+import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function3
+import io.reactivex.schedulers.Schedulers
 
 @ExampleDefinition("SciTrader", "Custom Description")
 class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewModel>() {
@@ -60,6 +66,12 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
 
         val tradeConfigObservable: Observable<TradeConfig> = Observable.combineLatest(stockSymbolObservable, periodObservable, intervalObservable, Function3(::TradeConfig))
 
-        return TraderViewModel(activity, TraderDataProvider(), tradeConfigObservable)
+        val connectivityObservable = ReactiveNetwork.observeNetworkConnectivity(context)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .bindToLifecycle(this)
+
+        val dataProvider = TraderDataProvider(tradeConfigObservable, connectivityObservable, DefaultTradePointProvider(connectivityObservable), StubTradePointsProvider(context))
+        return TraderViewModel(activity, dataProvider)
     }
 }

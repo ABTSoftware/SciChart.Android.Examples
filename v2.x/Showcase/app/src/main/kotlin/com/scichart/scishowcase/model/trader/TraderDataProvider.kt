@@ -16,64 +16,27 @@
 
 package com.scichart.scishowcase.model.trader
 
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Converter
-import retrofit2.Retrofit
-import retrofit2.http.GET
-import retrofit2.http.Query
-import java.io.BufferedReader
-import java.lang.reflect.Type
+import android.net.NetworkInfo
+import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
+import com.scichart.scishowcase.model.IDataProvider
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
-class TraderDataProvider {
+class TraderDataProvider(private val tradeConfigObservable: Observable<TradeConfig>,
+                         private val connectivityObservable: Observable<Connectivity>,
+                         private val defaultProvider: ITradePointsProvider,
+                         private val stubProvider: ITradePointsProvider) : IDataProvider<TradeDataPoints> {
 
-    private interface IFinanceService {
-        @GET("getprices")
-        fun listTrades(@Query("q") stockSymbol: String, @Query("i") interval: Int, @Query("p") period: String, @Query("f") data: String = "d,o,h,l,c,v"): Call<ResponseBody>
-    }
+    override fun getData(): Observable<TradeDataPoints> {
+        val tradeConfigObservable = tradeConfigObservable.switchMap { tradeConfig -> Observable.interval(0, 1, TimeUnit.MINUTES).map { tradeConfig } }
 
-    private class FinanceConverterFactory : Converter.Factory() {
-        override fun responseBodyConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<ResponseBody, *> {
-            return Converter<ResponseBody, ResponseBody> { value -> value!! }
-        }
+        val providerObservable = connectivityObservable.map { if (it.state == NetworkInfo.State.CONNECTED) defaultProvider else stubProvider }
 
-        override fun stringConverter(type: Type?, annotations: Array<out Annotation>?, retrofit: Retrofit?): Converter<*, String> {
-            return Converter<Any, String>(Any::toString)
-        }
-    }
-
-    private val retrofit = Retrofit.Builder().baseUrl("https://www.google.com/finance/").addConverterFactory(FinanceConverterFactory()).build()
-    private val service = retrofit.create(IFinanceService::class.java)
-
-    fun getData(config: TradeConfig) : TradeDataPoints {
-        val data = TradeDataPoints()
-        val response = service.listTrades(config.symbol, config.interval, config.period).execute()
-        if (response != null) {
-            BufferedReader(response.body().charStream()).useLines {
-                var time: Long = 0
-
-                it.filter { it.contains(',') }.drop(1).forEach {
-                    val split = it.split(',')
-                    val timeString = split[0]
-                    val open = split[1].toDouble()
-                    val high = split[2].toDouble()
-                    val low = split[3].toDouble()
-                    val close = split[4].toDouble()
-                    val volume = split[5].toDouble()
-
-                    when {
-                        timeString.startsWith("a") -> {
-                            time = timeString.drop(1).toLong()
-                        }
-                        else -> {
-                            time += 100 * 1000
-                        }
-                    }
-
-                    data.append(time, open, high, low, close, volume)
-                }
-            }
-        }
-        return data
+        return Observable.combineLatest<TradeConfig, ITradePointsProvider, Pair<TradeConfig, ITradePointsProvider>>(tradeConfigObservable, providerObservable, BiFunction { tradeConfig, provider -> Pair(tradeConfig, provider) })
+                .observeOn(Schedulers.io()) // need to execute network requests from non UI thread
+                .map { (tradeConfig, provider) -> provider.getTradePoints(tradeConfig) }
     }
 }
