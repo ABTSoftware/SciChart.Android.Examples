@@ -23,4 +23,13 @@
         <item name="android:textSize">@dimen/toolbar_title_size</item>
     </style>
 
+    <style name="MenuItem">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_width">@dimen/menu_item_circle_size</item>
+        <item name="android:layout_height">@dimen/menu_item_circle_size</item>
+        <item name="android:textSize">@dimen/menu_item_circle_font_size</item>
+        <item name="android:background">@drawable/scichart_green_oval_selector</item>
+
+    </style>
+
 </resources>

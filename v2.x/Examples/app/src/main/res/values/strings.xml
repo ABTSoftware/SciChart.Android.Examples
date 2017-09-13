@@ -79,6 +79,18 @@
         <item>Vertical</item>
     </string-array>
 
+    <!--fragment: CreateAnnotationsDynamicallyFragment-->
+    <string-array name="annotation_type_list">
+        <item>BoxAnnotation</item>
+        <item>LineAnnotation</item>
+        <item>LineArrowAnnotation</item>
+        <item>AxisMarkerAnnotation</item>
+        <item>CustomAnnotation</item>
+        <item>TextAnnotation</item>
+        <item>HorizontalLineAnnotation</item>
+        <item>VerticalLineAnnotation</item>
+    </string-array>
+
     <string name="legend_orientation">Legend orientation:</string>
     <string name="legend_source">Data source:</string>
     <string name="show_legend">Show legend</string>
@@ -209,6 +221,8 @@
     <string name="rollover">ROLLOVER</string>
     <string name="cursor">CURSOR</string>
     <string name="tooltip">TOOLTIP</string>
+    <string name="annotation_type">Annotation type</string>
+    <string name="delete_annotation">DEL</string>
 
     <!-- end: ALL -->
 

@@ -19,15 +19,18 @@
     xmlns:scichart="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.scichart.charting.modifiers.DefaultAnnotationFactory" />
+        <import type="com.scichart.scishowcase.viewModels.trader.CustomAnnotationTypes" />
         <variable
             name="viewModel"
             type="com.scichart.scishowcase.viewModels.trader.TraderViewModel" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <com.scichart.scishowcase.views.LongTouchListenerView
+        android:id="@+id/longTouchListenerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        scichart:longTouchEnabled="@{viewModel.contextMenuEnabled}">
 
         <Spinner
             android:id="@+id/stockSymbol"
@@ -51,16 +54,14 @@
             scichart:layout_constraintRight_toRightOf="parent"
             scichart:layout_constraintTop_toTopOf="parent" />
 
-
         <Spinner
             android:id="@+id/period"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            scichart:layout_constraintLeft_toRightOf="@id/stockSymbol"
+            scichart:layout_constraintLeft_toRightOf="@+id/stockSymbol"
             scichart:layout_constraintTop_toTopOf="parent" />
-
 
         <com.scichart.charting.visuals.SciChartSurface
             android:id="@+id/stockChart"
@@ -121,7 +122,45 @@
             android:orientation="horizontal"
             scichart:layout_constraintGuide_end="100dp" />
 
-    </android.support.constraint.ConstraintLayout>
+        <com.ogaclejapan.arclayout.ArcLayout
+            android:id="@+id/arc_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            scichart:arc_axisRadius="216dp"
+            scichart:arc_origin="bottom|right"
+            scichart:arc_radius="252dp"
+            scichart:contextMenuPosition="@{viewModel.point}"
+            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintRight_toRightOf="parent"
+            scichart:layout_constraintTop_toBottomOf="@+id/stockSymbol">
 
+            <Button
+                style="@style/MenuItem"
+                android:text="TH" />
 
+            <Button
+                style="@style/MenuItem"
+                android:onClick="@{(v) -> viewModel.createAnnotation(DefaultAnnotationFactory.LINE_ANNOTATION)}"
+                android:text="L" />
+
+            <Button
+                style="@style/MenuItem"
+                android:onClick="@{(v) -> viewModel.createAnnotation(DefaultAnnotationFactory.TEXT_ANNOTATION)}"
+                android:text="T" />
+
+            <Button
+                style="@style/MenuItem"
+                android:onClick="@{(v) -> viewModel.createAnnotation(CustomAnnotationTypes.BUY_MARKER_ANNOTATION)}"
+                android:text="U" />
+
+            <Button
+                style="@style/MenuItem"
+                android:onClick="@{(v) -> viewModel.createAnnotation(CustomAnnotationTypes.SELL_MARKER_ANNOTATION)}"
+                android:text="D" />
+
+        </com.ogaclejapan.arclayout.ArcLayout>
+
+    </com.scichart.scishowcase.views.LongTouchListenerView>
 </layout>

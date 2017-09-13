@@ -56,6 +56,16 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
         binding.period.setSelection(0)
         binding.interval.setSelection(0)
 
+        binding.longTouchListenerView.clickSubject.doOnNext {
+            if (viewModel.point != null) {
+                viewModel.point = null
+            }
+        }.subscribe()
+
+        binding.longTouchListenerView.longPressSubject.doOnNext {
+            viewModel.point = it
+        }.subscribe()
+
         val stockSymbolsValues = resources.getStringArray(R.array.stockSymbolsValues)
         val periodsValues = resources.getStringArray(R.array.periodsValues)
         val intervalsValues = resources.getIntArray(R.array.intervalsValues)

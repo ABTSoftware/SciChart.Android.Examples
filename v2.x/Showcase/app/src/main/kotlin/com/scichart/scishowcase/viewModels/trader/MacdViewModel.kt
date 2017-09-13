@@ -17,11 +17,14 @@
 package com.scichart.scishowcase.viewModels.trader
 
 import android.content.Context
+import com.scichart.charting.modifiers.*
 import com.scichart.charting.visuals.axes.AutoRange
+import com.scichart.charting.visuals.axes.AxisBase
 import com.scichart.charting.visuals.axes.CategoryDateAxis
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.renderableSeries.FastBandRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
+import com.scichart.data.model.DoubleRange
 import com.scichart.scishowcase.model.trader.TradeDataPoints
 import com.scichart.scishowcase.utils.MovingAverage
 import com.scichart.scishowcase.utils.XyDataSeries
@@ -29,14 +32,15 @@ import com.scichart.scishowcase.utils.XyyDataSeries
 import com.scichart.scishowcase.viewModels.ChartViewModel
 import java.util.*
 
-class MacdViewModel(context: Context) : ChartViewModel(context) {
+class MacdViewModel(context: Context, sharedXRange: DoubleRange, listener: OnAnnotationCreatedListener)
+    : BaseChartPaneViewModel(context, AxisBase.DEFAULT_AXIS_ID, listener) {
 
     private val histogramDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
     private val macdDataSeries = XyyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
 
     init {
         xAxes.add(CategoryDateAxis(context).apply {
-            autoRange = AutoRange.Always
+            visibleRange = sharedXRange
         })
         yAxes.add(NumericAxis(context).apply {
             autoRange = AutoRange.Always
@@ -58,5 +62,7 @@ class MacdViewModel(context: Context) : ChartViewModel(context) {
 
         histogramDataSeries.append(data.xValues, macd.divergenceValues)
         macdDataSeries.append(data.xValues, macd.macdValues, macd.signalValues)
+
+        viewportManager.zoomExtentsX()
     }
 }

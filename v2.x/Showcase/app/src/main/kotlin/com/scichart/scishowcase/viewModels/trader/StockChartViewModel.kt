@@ -17,20 +17,27 @@
 package com.scichart.scishowcase.viewModels.trader
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
+import com.scichart.charting.modifiers.OnAnnotationCreatedListener
 import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.charting.visuals.axes.CategoryDateAxis
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries
+import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries
-import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries
+import com.scichart.data.model.DoubleRange
+import com.scichart.scishowcase.R
 import com.scichart.scishowcase.model.trader.TradeDataPoints
 import com.scichart.scishowcase.utils.MovingAverage
 import com.scichart.scishowcase.utils.OhlcDataSeries
 import com.scichart.scishowcase.utils.XyDataSeries
-import com.scichart.scishowcase.viewModels.ChartViewModel
 import java.util.*
 
-class StockChartViewModel(context: Context) : ChartViewModel(context) {
+class StockChartViewModel(context: Context, sharedXRange: DoubleRange, listener: OnAnnotationCreatedListener)
+    : BaseChartPaneViewModel(context, "StockAxis", listener) {
+
+    private val volumeUpColor = ContextCompat.getColor(context, R.color.stock_chart_volume_up_color)
+    private val volumeDownColor = ContextCompat.getColor(context, R.color.stock_chart_volume_down_color)
 
     private val stockDataSeries = OhlcDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
     private val volumeDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
@@ -39,7 +46,7 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
 
     init {
         xAxes.add(CategoryDateAxis(context).apply {
-            autoRange = AutoRange.Always
+            visibleRange = sharedXRange
         })
         yAxes.add(NumericAxis(context).apply {
             axisId = "StockAxis"
@@ -48,30 +55,38 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
         yAxes.add(NumericAxis(context).apply {
             axisId = "VolumeAxis"
             autoRange = AutoRange.Always
+            growBy = DoubleRange(0.0, 2.0)
             drawLabels = false
             drawMajorTicks = false
             drawMinorTicks = false
         })
 
-        renderableSeries.add(FastCandlestickRenderableSeries().apply {
+        val stockRs = FastCandlestickRenderableSeries().apply {
             dataSeries = stockDataSeries
             yAxisId = "StockAxis"
-        })
+        }
 
-        renderableSeries.add(FastLineRenderableSeries().apply {
+        val maLowRs = FastLineRenderableSeries().apply {
             dataSeries = maLowDataSeries
             yAxisId = "StockAxis"
-        })
+        }
 
-        renderableSeries.add(FastLineRenderableSeries().apply {
+        val maHighRs = FastLineRenderableSeries().apply {
             dataSeries = maHighDataSeries
             yAxisId = "StockAxis"
-        })
+        }
 
-        renderableSeries.add(FastMountainRenderableSeries().apply {
+        val volumeRs = FastColumnRenderableSeries().apply {
             dataSeries = volumeDataSeries
+            dataPointWidth = 1.0
+            paletteProvider = VolumePaletteProvider(stockRs, volumeUpColor, volumeDownColor)
             yAxisId = "VolumeAxis"
-        })
+        }
+
+        renderableSeries.add(stockRs)
+        renderableSeries.add(maLowRs)
+        renderableSeries.add(maHighRs)
+        renderableSeries.add(volumeRs)
     }
 
     fun setData(data: TradeDataPoints) {
@@ -84,5 +99,7 @@ class StockChartViewModel(context: Context) : ChartViewModel(context) {
         volumeDataSeries.append(data.xValues, data.volumeValues)
         maLowDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 50))
         maHighDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 200))
+
+        viewportManager.zoomExtentsX()
     }
 }

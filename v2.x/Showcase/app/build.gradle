@@ -30,11 +30,11 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1894', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1894', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1894', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1894', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1894', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.0.1.1918', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.0.1.1918', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.1.1918', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.1.1918', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.1.1918', ext: 'aar')
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile "com.android.support:design:$supportLibraryVersion"
@@ -52,6 +52,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.github.pwittchen:reactivenetwork-rx2:0.10.0'
     kapt "com.android.databinding:compiler:$android_plugin_version"
+    compile 'com.ogaclejapan.arclayout:library:1.1.0@aar'
 }
 repositories {
     mavenCentral()
