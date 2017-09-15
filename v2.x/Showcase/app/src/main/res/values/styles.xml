@@ -11,9 +11,10 @@
         <item name="android:textColor">@color/color_primary_text</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
     </style>
 
-    <style name="AppTheme.AppBarLayout" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarLayout" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.AppBar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:minHeight">?attr/actionBarSize</item>
@@ -29,7 +30,29 @@
         <item name="android:layout_height">@dimen/menu_item_circle_size</item>
         <item name="android:textSize">@dimen/menu_item_circle_font_size</item>
         <item name="android:background">@drawable/scichart_green_oval_selector</item>
+    </style>
 
+    <style name="ExampleSettingsPopupStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/example_popup_background</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/app_button_background</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceButton</item>
+        <item name="android:minHeight">28dip</item>
+        <item name="android:minWidth">58dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
     </style>
 
 </resources>

@@ -19,6 +19,8 @@
     xmlns:scichart="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
+        <import type="com.scichart.scishowcase.R" />
         <import type="com.scichart.charting.modifiers.DefaultAnnotationFactory" />
         <import type="com.scichart.scishowcase.viewModels.trader.CustomAnnotationTypes" />
         <variable
@@ -36,91 +38,90 @@
             android:id="@+id/stockSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            scichart:layout_anchor="@+id/stockChart"
             scichart:layout_constraintLeft_toLeftOf="parent"
-            scichart:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/interval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            scichart:layout_constraintHorizontal_bias="0.0"
-            scichart:layout_constraintLeft_toRightOf="@+id/period"
-            scichart:layout_constraintRight_toRightOf="parent"
             scichart:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/period"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             scichart:layout_constraintLeft_toRightOf="@+id/stockSymbol"
             scichart:layout_constraintTop_toTopOf="parent" />
 
-        <com.scichart.charting.visuals.SciChartSurface
-            android:id="@+id/stockChart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="9dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            scichart:layout_constraintBottom_toBottomOf="@+id/macdGuideline"
-            scichart:layout_constraintHorizontal_bias="0.0"
-            scichart:layout_constraintLeft_toLeftOf="parent"
-            scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toBottomOf="@+id/stockSymbol"
-            scichart:viewModel="@{viewModel.stockVM}" />
+        <Spinner
+            android:id="@+id/interval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            scichart:layout_constraintLeft_toRightOf="@+id/period"
+            scichart:layout_constraintTop_toTopOf="parent" />
 
-        <com.scichart.charting.visuals.SciChartSurface
-            android:id="@+id/macdChart"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="9dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+        <Button
+            android:id="@+id/showSurfaceListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            scichart:layout_constraintBottom_toBottomOf="@+id/rsiGuideline"
-            scichart:layout_constraintHorizontal_bias="0.0"
-            scichart:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:minHeight="0dp"
+            android:text="@string/surface_list"
             scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toBottomOf="@+id/macdGuideline"
-            scichart:viewModel="@{viewModel.macdVM}" />
+            scichart:layout_constraintTop_toTopOf="parent" />
 
-        <com.scichart.charting.visuals.SciChartSurface
-            android:id="@+id/rsiChart"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="9dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:orientation="vertical"
             scichart:layout_constraintBottom_toBottomOf="parent"
-            scichart:layout_constraintHorizontal_bias="0.0"
             scichart:layout_constraintLeft_toLeftOf="parent"
             scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toBottomOf="@+id/rsiGuideline"
-            scichart:viewModel="@{viewModel.rsiVM}" />
+            scichart:layout_constraintTop_toBottomOf="@id/stockSymbol">
 
-        <android.support.constraint.Guideline
-            android:id="@+id/macdGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            scichart:layout_constraintGuide_end="200dp" />
+            <com.scichart.charting.visuals.SciChartSurface
+                android:id="@+id/stockChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                scichart:viewModel="@{viewModel.stockVM}" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/rsiGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            scichart:layout_constraintGuide_end="100dp" />
+            <com.scichart.scishowcase.views.AdjustableSplitter
+                android:id="@+id/splitterTop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
+                scichart:nextViewId="@+id/rsiChart"
+                scichart:prevViewId="@+id/stockChart" />
+
+            <com.scichart.charting.visuals.SciChartSurface
+                android:id="@+id/rsiChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.24"
+                android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
+                scichart:viewModel="@{viewModel.rsiVM}" />
+
+            <com.scichart.scishowcase.views.AdjustableSplitter
+                android:id="@+id/splitterBottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.02"
+                android:background="@android:color/transparent"
+                android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
+                scichart:nextViewId="@+id/macdChart"
+                scichart:prevViewId="@{viewModel.showRsiPanel ? R.id.rsiChart : R.id.stockChart}" />
+
+            <com.scichart.charting.visuals.SciChartSurface
+                android:id="@+id/macdChart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.24"
+                android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
+                scichart:viewModel="@{viewModel.macdVM}" />
+
+        </LinearLayout>
 
         <com.ogaclejapan.arclayout.ArcLayout
             android:id="@+id/arc_layout"

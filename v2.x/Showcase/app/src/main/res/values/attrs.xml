@@ -9,4 +9,9 @@
         <attr name="spacing" format="dimension"/>
         <attr name="barSize" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="AdjustableSplitter">
+        <attr name="prevViewId" format="integer" />
+        <attr name="nextViewId" format="integer" />
+    </declare-styleable>
 </resources>

@@ -18,6 +18,7 @@ package com.scichart.scishowcase.viewModels.trader
 
 import android.content.Context
 import android.databinding.Bindable
+import android.databinding.ObservableBoolean
 import android.graphics.PointF
 import android.util.Log
 import android.widget.Toast
@@ -28,12 +29,16 @@ import com.scichart.scishowcase.model.trader.TraderDataProvider
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import com.trello.rxlifecycle2.LifecycleProvider
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import io.reactivex.subjects.PublishSubject
 
 class TraderViewModel(context: Context, private val dataProvider: TraderDataProvider) : FragmentViewModelBase(context) {
     private val sharedXRange = DoubleRange()
     private val onAnnotationCreatedListener = OnAnnotationCreatedListener {
         switchAnnotationCreationState(false)
     }
+
+    private val ma50PublishSubject = PublishSubject.create<Boolean>()!!
+    private val ma100PublishSubject = PublishSubject.create<Boolean>()!!
 
     @Bindable
     var point: PointF? = null
@@ -44,14 +49,30 @@ class TraderViewModel(context: Context, private val dataProvider: TraderDataProv
         }
 
     @Bindable
-    var contextMenuEnabled: Boolean = true
+    var showMovingAverage50: Boolean = true
         get() = field
         set(value) {
             field = value
-            notifyPropertyChanged(BR.contextMenuEnabled)
+            ma50PublishSubject.onNext(value)
+            notifyPropertyChanged(BR.showMovingAverage50)
         }
 
-    val stockVM = StockChartViewModel(context, sharedXRange, onAnnotationCreatedListener)
+    @Bindable
+    var showMovingAverage100: Boolean = true
+        get() = field
+        set(value) {
+            field = value
+            ma100PublishSubject.onNext(value)
+            notifyPropertyChanged(BR.showMovingAverage100)
+        }
+
+    var showRsiPanel: ObservableBoolean = ObservableBoolean(true)
+    var showMacdPanel: ObservableBoolean = ObservableBoolean(true)
+    var showAxisMarkers: ObservableBoolean = ObservableBoolean(true)
+
+    var contextMenuEnabled: ObservableBoolean = ObservableBoolean(true)
+
+    val stockVM = StockChartViewModel(context, sharedXRange, ma50PublishSubject, ma100PublishSubject, onAnnotationCreatedListener)
     val rsiVM = RsiViewModel(context, sharedXRange, onAnnotationCreatedListener)
     val macdVM = MacdViewModel(context, sharedXRange, onAnnotationCreatedListener)
 
@@ -76,7 +97,7 @@ class TraderViewModel(context: Context, private val dataProvider: TraderDataProv
     }
 
     fun switchAnnotationCreationState(isEnabled: Boolean) {
-        contextMenuEnabled = !isEnabled
+        contextMenuEnabled.set(!isEnabled)
 
         stockVM.switchAnnotationCreationState(isEnabled)
         rsiVM.switchAnnotationCreationState(isEnabled)

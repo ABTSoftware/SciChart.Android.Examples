@@ -17,6 +17,8 @@
 package com.scichart.scishowcase.viewModels.trader
 
 import android.content.Context
+import android.databinding.Bindable
+import android.databinding.ObservableBoolean
 import android.widget.ImageView
 import com.scichart.charting.modifiers.*
 import com.scichart.charting.visuals.annotations.CustomAnnotation
@@ -52,6 +54,8 @@ open class BaseChartPaneViewModel(context: Context, mainAxisId: String, listener
         annotationFactory = this@BaseChartPaneViewModel.annotationFactory
         setAnnotationCreationListener(listener)
     }
+
+    var isVisible: ObservableBoolean = ObservableBoolean(true)
 
     init {
         chartModifiers.addAll(arrayOf(

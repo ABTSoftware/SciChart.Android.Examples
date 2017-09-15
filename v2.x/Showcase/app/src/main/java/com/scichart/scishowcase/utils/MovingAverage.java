@@ -105,7 +105,7 @@ public class MovingAverage {
 
         final DoubleValues output = new DoubleValues(size);
 
-        for (int i=0; i< size; i++) {
+        for (int i = 0; i < size; i++) {
             final double item = input.get(i);
 
             ma.push(item);
@@ -124,24 +124,26 @@ public class MovingAverage {
 
         final DoubleValues output = new DoubleValues(size);
 
-        // skip first point
-        double prevClose = closeValues.get(0);
-        output.add(Double.NaN);
+        if (size > 0) {
+            // skip first point
+            double prevClose = closeValues.get(0);
+            output.add(Double.NaN);
 
-        for (int i = 1; i < size; i++) {
-            final double close = closeValues.get(i);
+            for (int i = 1; i < size; i++) {
+                final double close = closeValues.get(i);
 
-            final double gain = close > prevClose ? close - prevClose : 0.0;
-            final double loss = prevClose > close ? prevClose - close : 0.0;
+                final double gain = close > prevClose ? close - prevClose : 0.0;
+                final double loss = prevClose > close ? prevClose - close : 0.0;
 
-            averageGain.push(gain);
-            averageLoss.push(loss);
+                averageGain.push(gain);
+                averageLoss.push(loss);
 
-            final double relativeStrength = Double.isNaN(averageGain.getCurrent()) || Double.isNaN(averageLoss.getCurrent()) ? Double.NaN : averageGain.getCurrent() / averageLoss.getCurrent();
+                final double relativeStrength = Double.isNaN(averageGain.getCurrent()) || Double.isNaN(averageLoss.getCurrent()) ? Double.NaN : averageGain.getCurrent() / averageLoss.getCurrent();
 
-            output.add(Double.isNaN(relativeStrength) ? Double.NaN : 100.0 - (100.0 / (1.0 + relativeStrength)));
+                output.add(Double.isNaN(relativeStrength) ? Double.NaN : 100.0 - (100.0 / (1.0 + relativeStrength)));
 
-            prevClose = close;
+                prevClose = close;
+            }
         }
 
         return output;
@@ -157,7 +159,7 @@ public class MovingAverage {
         final int inputSize = input.size();
         final double[] inputArray = input.getItemsArray();
 
-        for (int i=0; i< inputSize; i++) {
+        for (int i = 0; i < inputSize; i++) {
             final double item = inputArray[i];
             final double macd = maSlow.push(item).getCurrent() - maFast.push(item).getCurrent();
             final double signalLine = Double.isNaN(macd) ? Double.NaN : maSignal.push(macd).getCurrent();

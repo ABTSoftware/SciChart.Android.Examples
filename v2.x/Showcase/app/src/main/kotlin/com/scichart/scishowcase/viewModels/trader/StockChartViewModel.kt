@@ -17,6 +17,7 @@
 package com.scichart.scishowcase.viewModels.trader
 
 import android.content.Context
+import android.databinding.Bindable
 import android.support.v4.content.ContextCompat
 import com.scichart.charting.modifiers.OnAnnotationCreatedListener
 import com.scichart.charting.visuals.axes.AutoRange
@@ -26,14 +27,16 @@ import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableS
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries
 import com.scichart.data.model.DoubleRange
+import com.scichart.scishowcase.BR
 import com.scichart.scishowcase.R
 import com.scichart.scishowcase.model.trader.TradeDataPoints
 import com.scichart.scishowcase.utils.MovingAverage
 import com.scichart.scishowcase.utils.OhlcDataSeries
 import com.scichart.scishowcase.utils.XyDataSeries
+import io.reactivex.subjects.PublishSubject
 import java.util.*
 
-class StockChartViewModel(context: Context, sharedXRange: DoubleRange, listener: OnAnnotationCreatedListener)
+class StockChartViewModel(context: Context, sharedXRange: DoubleRange, ma50PublishSubject: PublishSubject<Boolean>, ma100PublishSubject: PublishSubject<Boolean>, listener: OnAnnotationCreatedListener)
     : BaseChartPaneViewModel(context, "StockAxis", listener) {
 
     private val volumeUpColor = ContextCompat.getColor(context, R.color.stock_chart_volume_up_color)
@@ -87,6 +90,9 @@ class StockChartViewModel(context: Context, sharedXRange: DoubleRange, listener:
         renderableSeries.add(maLowRs)
         renderableSeries.add(maHighRs)
         renderableSeries.add(volumeRs)
+
+        ma50PublishSubject.doOnNext { maLowRs.isVisible = it }.subscribe()
+        ma100PublishSubject.doOnNext { maHighRs.isVisible = it }.subscribe()
     }
 
     fun setData(data: TradeDataPoints) {
@@ -98,7 +104,7 @@ class StockChartViewModel(context: Context, sharedXRange: DoubleRange, listener:
         stockDataSeries.append(data.xValues, data.openValues, data.highValues, data.lowValues, data.closeValues)
         volumeDataSeries.append(data.xValues, data.volumeValues)
         maLowDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 50))
-        maHighDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 200))
+        maHighDataSeries.append(data.xValues, MovingAverage.movingAverage(data.closeValues, 100))
 
         viewportManager.zoomExtentsX()
     }

@@ -16,12 +16,18 @@
 
 package com.scichart.scishowcase.views
 
+import android.app.Dialog
+import android.databinding.DataBindingUtil
+import android.view.LayoutInflater
+import android.view.Window
 import android.widget.ArrayAdapter
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.jakewharton.rxbinding2.view.clicks
 import com.jakewharton.rxbinding2.widget.itemSelections
 import com.scichart.scishowcase.R
 import com.scichart.scishowcase.application.ExampleDefinition
 import com.scichart.scishowcase.databinding.TraderFragmentBinding
+import com.scichart.scishowcase.databinding.TraderFragmentPopupBinding
 import com.scichart.scishowcase.model.trader.DefaultTradePointProvider
 import com.scichart.scishowcase.model.trader.StubTradePointsProvider
 import com.scichart.scishowcase.model.trader.TradeConfig
@@ -40,17 +46,19 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
     override fun onCreateViewModel(): TraderViewModel {
         val resources = activity.resources
 
-        val stockSymbols = resources.getStringArray(R.array.stockSymbols)
-        val intervals = resources.getStringArray(R.array.intervals)
-        val periods = resources.getStringArray(R.array.periods)
+        binding.showSurfaceListButton.clicks().doOnNext {
+            val binding = DataBindingUtil.inflate<TraderFragmentPopupBinding>(LayoutInflater.from(context), R.layout.trader_fragment_popup, null, false)
+            binding.viewModel = viewModel
 
-        val stockSymbolAdapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, stockSymbols)
-        val periodAdapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, periods)
-        val intervalAdapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, intervals)
+            Dialog(context).apply {
+                requestWindowFeature(Window.FEATURE_NO_TITLE)
+                setContentView(binding.root)
+            }.show()
+        }.subscribe()
 
-        binding.stockSymbol.adapter = stockSymbolAdapter
-        binding.period.adapter = periodAdapter
-        binding.interval.adapter = intervalAdapter
+        binding.stockSymbol.adapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, resources.getStringArray(R.array.stockSymbols))
+        binding.period.adapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, resources.getStringArray(R.array.periods))
+        binding.interval.adapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, resources.getStringArray(R.array.intervals))
 
         binding.stockSymbol.setSelection(0)
         binding.period.setSelection(0)
@@ -62,17 +70,11 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
             }
         }.subscribe()
 
-        binding.longTouchListenerView.longPressSubject.doOnNext {
-            viewModel.point = it
-        }.subscribe()
+        binding.longTouchListenerView.longPressSubject.doOnNext { viewModel.point = it }.subscribe()
 
-        val stockSymbolsValues = resources.getStringArray(R.array.stockSymbolsValues)
-        val periodsValues = resources.getStringArray(R.array.periodsValues)
-        val intervalsValues = resources.getIntArray(R.array.intervalsValues)
-
-        val stockSymbolObservable = binding.stockSymbol.itemSelections().map { stockSymbolsValues[it] }
-        val periodObservable = binding.period.itemSelections().map { periodsValues[it] }
-        val intervalObservable = binding.interval.itemSelections().map { intervalsValues[it] }
+        val stockSymbolObservable = binding.stockSymbol.itemSelections().map { resources.getStringArray(R.array.stockSymbolsValues)[it] }
+        val periodObservable = binding.period.itemSelections().map { resources.getStringArray(R.array.periodsValues)[it] }
+        val intervalObservable = binding.interval.itemSelections().map { resources.getIntArray(R.array.intervalsValues)[it] }
 
         val tradeConfigObservable: Observable<TradeConfig> = Observable.combineLatest(stockSymbolObservable, periodObservable, intervalObservable, Function3(::TradeConfig))
 

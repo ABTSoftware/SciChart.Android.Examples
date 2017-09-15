@@ -19,11 +19,13 @@ package com.scichart.scishowcase.utils
 import android.animation.*
 import android.databinding.BindingAdapter
 import android.graphics.PointF
+import android.support.annotation.IdRes
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AnticipateInterpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.LinearLayout
 import com.ogaclejapan.arclayout.ArcLayout
 import com.scichart.charting.layoutManagers.DefaultLayoutManager
 import com.scichart.charting.layoutManagers.IAxisLayoutStrategy
@@ -31,7 +33,10 @@ import com.scichart.charting.model.AxisCollection
 import com.scichart.charting.model.RenderableSeriesCollection
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.core.framework.UpdateSuspender
+import com.scichart.drawing.opengl.GLTextureView
+import com.scichart.drawing.opengl.RenderSurfaceGL
 import com.scichart.scishowcase.viewModels.ChartViewModel
+import com.scichart.scishowcase.views.AdjustableSplitter
 import com.scichart.scishowcase.views.LongTouchListenerView
 
 @BindingAdapter("app:configuration")
@@ -71,7 +76,19 @@ fun configureSurfaceViewModel(surface: SciChartSurface, viewModel: ChartViewMode
         surface.renderableSeries = viewModel.renderableSeries
         surface.annotations = viewModel.annotations
         surface.chartModifiers = viewModel.chartModifiers
+        surface.renderSurface = GLTextureView(surface.context)
     })
+}
+
+
+@BindingAdapter("scichart:nextViewId")
+fun setNextViewId(splitter: AdjustableSplitter, @IdRes nextViewId: Int) {
+    splitter.nextViewId = nextViewId
+}
+
+@BindingAdapter("scichart:prevViewId")
+fun setPrevViewId(splitter: AdjustableSplitter, @IdRes prevViewId: Int) {
+    splitter.prevViewId = prevViewId
 }
 
 @BindingAdapter("scichart:isLongTouchEnabled")
