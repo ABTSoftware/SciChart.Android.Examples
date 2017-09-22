@@ -17,14 +17,24 @@
 package com.scichart.scishowcase.views
 
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import com.scichart.scishowcase.R
 
 class AdjustableSplitter : View {
+    val paint = Paint().apply {
+        color = Color.GRAY
+        strokeWidth = 5f
+    }
+
+    private var weightPerPixel: Float = 0f
+    private var allowedHeight: Float = 0f
+
     private var lastY: Int = 0
 
     var prevViewId: Int = -1
@@ -51,18 +61,31 @@ class AdjustableSplitter : View {
         }
     }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+
+        canvas!!.drawLine(0f, canvas.height / 2f, canvas.width.toFloat(), canvas.height / 2f, paint)
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+
+        val parentView = parent as View
+        parentView.post {
+            weightPerPixel = (layoutParams as LinearLayout.LayoutParams).weight / height
+            allowedHeight = (parent as View).height * 0.2f
+        }
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 lastY = event.rawY.toInt()
             }
             MotionEvent.ACTION_MOVE -> {
-                val pixelsDragged = event.rawY.toInt() - lastY
-                val weightPerPixel = (layoutParams as LinearLayout.LayoutParams).weight / height
+                var lWeightDragged = weightPerPixel * (event.rawY.toInt() - lastY)
+                val allowedWeight = weightPerPixel * allowedHeight
 
-                var lWeightDragged = weightPerPixel * pixelsDragged
-
-                val allowedWeight = weightPerPixel * TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150f, resources.displayMetrics)
                 lWeightDragged = prevView.allowedWeightChange(lWeightDragged, allowedWeight)
                 lWeightDragged = -nextView.allowedWeightChange(-lWeightDragged, allowedWeight)
 

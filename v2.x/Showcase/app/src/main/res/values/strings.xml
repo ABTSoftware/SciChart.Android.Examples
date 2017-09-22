@@ -35,13 +35,6 @@
     <string name="don_t_show_this_again">Don\'t show this again</string>
     <string name="skip">SKIP ></string>
 
-    <string name="axis_markers">Axis Markers</string>
-    <string name="macd_panel">MACD Panel</string>
-    <string name="rsi_panel">RSI Panel</string>
-    <string name="moving_average_100">Moving Average 100</string>
-    <string name="moving_average_50">Moving Average 50</string>
-    <string name="surface_list">Surface List</string>
-
     <string-array name="stockSymbols">
         <item>INDEXNASDAQ</item>
         <item>INDEXDJX</item>
@@ -84,5 +77,15 @@
         <item>60m</item>
         <item>1d</item>
         <item>7d</item>
+    </string-array>
+
+    <string name="surface_list">Surface List</string>
+
+    <string-array name="traderOptions">
+        <item>Moving Average 50</item>
+        <item>Moving Average 100</item>
+        <item>RSI Panel</item>
+        <item>MACD Panel</item>
+        <item>Axis Markers</item>
     </string-array>
 </resources>

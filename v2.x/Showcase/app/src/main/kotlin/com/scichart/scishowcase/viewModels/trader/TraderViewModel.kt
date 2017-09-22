@@ -25,6 +25,7 @@ import android.widget.Toast
 import com.scichart.charting.modifiers.OnAnnotationCreatedListener
 import com.scichart.data.model.DoubleRange
 import com.scichart.scishowcase.BR
+import com.scichart.scishowcase.R
 import com.scichart.scishowcase.model.trader.TraderDataProvider
 import com.scichart.scishowcase.viewModels.FragmentViewModelBase
 import com.trello.rxlifecycle2.LifecycleProvider
@@ -72,6 +73,14 @@ class TraderViewModel(context: Context, private val dataProvider: TraderDataProv
 
     var contextMenuEnabled: ObservableBoolean = ObservableBoolean(true)
 
+    @Bindable
+    var themeId: Int = R.style.SciChart_SciChartv4DarkStyle
+        get() = field
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.themeId)
+        }
+
     val stockVM = StockChartViewModel(context, sharedXRange, ma50PublishSubject, ma100PublishSubject, onAnnotationCreatedListener)
     val rsiVM = RsiViewModel(context, sharedXRange, onAnnotationCreatedListener)
     val macdVM = MacdViewModel(context, sharedXRange, onAnnotationCreatedListener)
@@ -88,6 +97,10 @@ class TraderViewModel(context: Context, private val dataProvider: TraderDataProv
                     Log.e("TraderDataProvider", it.message!!)
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 })
+    }
+
+    fun changeTheme() {
+        themeId = (if (themeId == R.style.SciChart_SciChartv4DarkStyle) R.style.SciChart_Bright_Spark else R.style.SciChart_SciChartv4DarkStyle)
     }
 
     fun createAnnotation(annotationType: Int) {

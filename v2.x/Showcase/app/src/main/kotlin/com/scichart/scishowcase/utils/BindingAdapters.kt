@@ -20,21 +20,23 @@ import android.animation.*
 import android.databinding.BindingAdapter
 import android.graphics.PointF
 import android.support.annotation.IdRes
+import android.support.annotation.StyleRes
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AnticipateInterpolator
 import android.view.animation.OvershootInterpolator
-import android.widget.LinearLayout
+import com.ogaclejapan.arclayout.Arc
 import com.ogaclejapan.arclayout.ArcLayout
+import com.ogaclejapan.arclayout.ArcOrigin
 import com.scichart.charting.layoutManagers.DefaultLayoutManager
 import com.scichart.charting.layoutManagers.IAxisLayoutStrategy
 import com.scichart.charting.model.AxisCollection
 import com.scichart.charting.model.RenderableSeriesCollection
+import com.scichart.charting.themes.ThemeManager
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.core.framework.UpdateSuspender
 import com.scichart.drawing.opengl.GLTextureView
-import com.scichart.drawing.opengl.RenderSurfaceGL
 import com.scichart.scishowcase.viewModels.ChartViewModel
 import com.scichart.scishowcase.views.AdjustableSplitter
 import com.scichart.scishowcase.views.LongTouchListenerView
@@ -59,6 +61,17 @@ fun configureSurfaceYAxes(surface: SciChartSurface, yAxes: AxisCollection?) {
 @BindingAdapter("scichart:renderableSeries")
 fun configureSurfaceRenderableSeries(surface: SciChartSurface, renderableSeries: RenderableSeriesCollection?) {
     surface.renderableSeries = renderableSeries
+}
+
+@BindingAdapter("scichart:theme")
+fun setTheme(surface: SciChartSurface, @StyleRes themeId: Int) {
+    surface.theme = themeId
+}
+
+@BindingAdapter("scichart:backroundThemeId")
+fun setTheme(view: View, @StyleRes themeId: Int) {
+    val themeProvider = ThemeManager.getThemeProvider(themeId)
+    view.background = view.resources.getDrawable(themeProvider.sciChartSurfaceBackground)
 }
 
 @BindingAdapter("scichart:leftOuterAxesLayoutStrategy")
@@ -110,27 +123,50 @@ fun changeContextMenuVisibility(arcLayout: ArcLayout, point: PointF?) {
 
 private fun showMenu(arcLayout: ArcLayout, point: PointF) {
     val layoutParams = arcLayout.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.leftMargin = 0
+    layoutParams.topMargin = 0
+    layoutParams.rightMargin = 0
+    layoutParams.bottomMargin = 0
 
-    layoutParams.rightMargin = (arcLayout.parent as ConstraintLayout).measuredWidth - point.x.toInt()
-    layoutParams.bottomMargin = (arcLayout.parent as ConstraintLayout).measuredHeight - point.y.toInt()
+    val constraintLayout = arcLayout.parent as ConstraintLayout
+    val x = point.x.toInt()
+    val y = point.y.toInt()
 
+    var origin: Int
+    if (x < arcLayout.radius) {
+        layoutParams.leftMargin = x
+        origin = ArcOrigin.LEFT
+    } else {
+        layoutParams.rightMargin = constraintLayout.measuredWidth - x
+        origin = ArcOrigin.RIGHT
+    }
+
+    if (y < arcLayout.radius) {
+        layoutParams.topMargin = y
+        origin = origin or ArcOrigin.TOP
+    } else {
+        layoutParams.bottomMargin = constraintLayout.measuredHeight - y
+        origin = origin or ArcOrigin.BOTTOM
+    }
+
+    arcLayout.arc = Arc.of(origin)
     arcLayout.layoutParams = layoutParams
     arcLayout.visibility = View.VISIBLE
 
     val animList = ArrayList<Animator>()
 
     for (i in 0 until arcLayout.childCount) {
-        animList.add(createShowItemAnimator(arcLayout.getChildAt(i), point))
+        animList.add(createShowItemAnimator(arcLayout.getChildAt(i), point, arcLayout.radius))
     }
 
     val animSet = AnimatorSet()
-    animSet.duration = 550
+    animSet.duration = 450
     animSet.interpolator = OvershootInterpolator()
     animSet.playTogether(animList)
     animSet.start()
 }
 
-private fun createShowItemAnimator(item: View, pointF: PointF): Animator {
+private fun createShowItemAnimator(item: View, pointF: PointF, radius: Int): Animator {
     val dx = pointF.x - item.x
     val dy = pointF.y - item.y
 
@@ -152,7 +188,7 @@ private fun hideMenu(arcLayout: ArcLayout, point: PointF) {
     }
 
     val animSet = AnimatorSet()
-    animSet.duration = 550
+    animSet.duration = 450
     animSet.interpolator = AnticipateInterpolator()
     animSet.playTogether(animList)
     animSet.addListener(object : AnimatorListenerAdapter() {

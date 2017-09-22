@@ -20,6 +20,7 @@ import android.Manifest
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.scichart.charting.themes.ThemeManager
 import com.scichart.scishowcase.databinding.ActivityMainBinding
 import com.scichart.scishowcase.utils.PermissionManager
 import com.scichart.scishowcase.views.HomePageFragment
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         requestShowcasePermissions()
         initAppBar()
+        setUpThemes()
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomePageFragment()).commit()
         supportFragmentManager.addOnBackStackChangedListener {
@@ -46,6 +48,10 @@ class MainActivity : AppCompatActivity() {
                 else -> supportActionBar!!.setDisplayHomeAsUpEnabled(false)
             }
         }
+    }
+
+    private fun setUpThemes() {
+        ThemeManager.addTheme(this, R.style.SciChart_Bright_Spark)
     }
 
     private fun requestShowcasePermissions() {

@@ -32,6 +32,7 @@
         android:id="@+id/longTouchListenerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         scichart:longTouchEnabled="@{viewModel.contextMenuEnabled}">
 
         <Spinner
@@ -66,6 +67,7 @@
             android:background="@android:color/transparent"
             android:minHeight="0dp"
             android:text="@string/surface_list"
+            android:textColor="@color/color_accent"
             scichart:layout_constraintRight_toRightOf="parent"
             scichart:layout_constraintTop_toTopOf="parent" />
 
@@ -75,6 +77,7 @@
             android:orientation="vertical"
             scichart:layout_constraintBottom_toBottomOf="parent"
             scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:backroundThemeId="@{viewModel.themeId}"
             scichart:layout_constraintRight_toRightOf="parent"
             scichart:layout_constraintTop_toBottomOf="@id/stockSymbol">
 
@@ -83,6 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
+                scichart:theme="@{viewModel.themeId}"
                 scichart:viewModel="@{viewModel.stockVM}" />
 
             <com.scichart.scishowcase.views.AdjustableSplitter
@@ -101,6 +105,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.24"
                 android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
+                scichart:theme="@{viewModel.themeId}"
                 scichart:viewModel="@{viewModel.rsiVM}" />
 
             <com.scichart.scishowcase.views.AdjustableSplitter
@@ -119,6 +124,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.24"
                 android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
+                scichart:theme="@{viewModel.themeId}"
                 scichart:viewModel="@{viewModel.macdVM}" />
 
         </LinearLayout>
@@ -128,17 +134,18 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="invisible"
-            scichart:arc_axisRadius="216dp"
+            scichart:arc_axisRadius="136dp"
             scichart:arc_origin="bottom|right"
-            scichart:arc_radius="252dp"
+            scichart:arc_radius="168dp"
             scichart:contextMenuPosition="@{viewModel.point}"
             scichart:layout_constraintBottom_toBottomOf="parent"
             scichart:layout_constraintLeft_toLeftOf="parent"
             scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toBottomOf="@+id/stockSymbol">
+            scichart:layout_constraintTop_toTopOf="parent">
 
             <Button
                 style="@style/MenuItem"
+                android:onClick="@{(v) -> viewModel.changeTheme()}"
                 android:text="TH" />
 
             <Button

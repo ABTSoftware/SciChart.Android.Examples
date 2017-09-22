@@ -16,10 +16,6 @@
 
 package com.scichart.scishowcase.views
 
-import android.app.Dialog
-import android.databinding.DataBindingUtil
-import android.view.LayoutInflater
-import android.view.Window
 import android.widget.ArrayAdapter
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.jakewharton.rxbinding2.view.clicks
@@ -27,7 +23,6 @@ import com.jakewharton.rxbinding2.widget.itemSelections
 import com.scichart.scishowcase.R
 import com.scichart.scishowcase.application.ExampleDefinition
 import com.scichart.scishowcase.databinding.TraderFragmentBinding
-import com.scichart.scishowcase.databinding.TraderFragmentPopupBinding
 import com.scichart.scishowcase.model.trader.DefaultTradePointProvider
 import com.scichart.scishowcase.model.trader.StubTradePointsProvider
 import com.scichart.scishowcase.model.trader.TradeConfig
@@ -47,13 +42,20 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
         val resources = activity.resources
 
         binding.showSurfaceListButton.clicks().doOnNext {
-            val binding = DataBindingUtil.inflate<TraderFragmentPopupBinding>(LayoutInflater.from(context), R.layout.trader_fragment_popup, null, false)
-            binding.viewModel = viewModel
-
-            Dialog(context).apply {
-                requestWindowFeature(Window.FEATURE_NO_TITLE)
-                setContentView(binding.root)
-            }.show()
+            TraderDialogFragment(booleanArrayOf(
+                    viewModel.showMovingAverage50,
+                    viewModel.showMovingAverage100,
+                    viewModel.showRsiPanel.get(),
+                    viewModel.showMacdPanel.get(),
+                    viewModel.showAxisMarkers.get())) {
+                if (it.size >= 5) {
+                    viewModel.showMovingAverage50 = it[0]
+                    viewModel.showMovingAverage100 = it[1]
+                    viewModel.showRsiPanel.set(it[2])
+                    viewModel.showMacdPanel.set(it[3])
+                    viewModel.showMovingAverage50 = it[4]
+                }
+            }.show(activity.fragmentManager, "trader_dialog")
         }.subscribe()
 
         binding.stockSymbol.adapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, resources.getStringArray(R.array.stockSymbols))

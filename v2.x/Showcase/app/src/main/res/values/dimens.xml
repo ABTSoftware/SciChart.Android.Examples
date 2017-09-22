@@ -10,8 +10,8 @@
     <dimen name="intro_headers_text_size">24dp</dimen>
     <dimen name="intro_margin">8dp</dimen>
 
-    <dimen name="menu_item_circle_size">54dp</dimen>
-    <dimen name="menu_item_circle_font_size">28sp</dimen>
+    <dimen name="menu_item_circle_size">34dp</dimen>
+    <dimen name="menu_item_circle_font_size">18sp</dimen>
 
     <dimen name="example_popup_padding_horizontal">8dp</dimen>
     <dimen name="example_popup_control_corner">2dp</dimen>
