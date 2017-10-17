@@ -20,7 +20,9 @@ import android.Manifest
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.scichart.charting.themes.ThemeManager
+import com.scichart.core.annotations.Visibility
 import com.scichart.scishowcase.databinding.ActivityMainBinding
 import com.scichart.scishowcase.utils.PermissionManager
 import com.scichart.scishowcase.views.HomePageFragment
@@ -43,10 +45,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomePageFragment()).commit()
         supportFragmentManager.addOnBackStackChangedListener {
-            when {
-                supportFragmentManager.backStackEntryCount > 0 -> supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-                else -> supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-            }
+            val isBackStackEmpty = supportFragmentManager.backStackEntryCount > 0
+            supportActionBar!!.setDisplayHomeAsUpEnabled(isBackStackEmpty)
+            activityBinding!!.logo.visibility = if (isBackStackEmpty) View.GONE else View.VISIBLE
         }
     }
 

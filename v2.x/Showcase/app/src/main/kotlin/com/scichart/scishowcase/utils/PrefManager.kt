@@ -23,21 +23,28 @@ class PrefManager(val context: Context) {
 
     private val PRIVATE_MODE = 0
     private val PREF_NAME = "sciShowcasePreferences"
-    private val DO_NOT_SHOW_THIS_AGAIN = "DoNotShowThisAgain"
+    private val SHOW_APP_INTRO = "showAppIntro"
+    private val SHOW_TRADER_INTRO_GUIDE = "showTraderIntroGuide"
 
     private var preferences: SharedPreferences? = null
 
+    var showTraderIntroGuide: Boolean
+        get() = preferences!!.getBoolean(SHOW_TRADER_INTRO_GUIDE, true)
+        set(value) {
+            val preferencesEditor = preferences!!.edit()
+            preferencesEditor.putBoolean(SHOW_TRADER_INTRO_GUIDE, value)
+            preferencesEditor.apply()
+        }
+
+    var showAppIntro: Boolean
+        get() = preferences!!.getBoolean(SHOW_APP_INTRO, true)
+        set(value) {
+            val preferencesEditor = preferences!!.edit()
+            preferencesEditor.putBoolean(SHOW_APP_INTRO, value)
+            preferencesEditor.apply()
+        }
+
     init {
         preferences = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
-    }
-
-    fun setDoNotShowAgain(doNotShowAgain: Boolean) {
-        val preferencesEditor = preferences!!.edit()
-        preferencesEditor.putBoolean(DO_NOT_SHOW_THIS_AGAIN, doNotShowAgain)
-        preferencesEditor.apply()
-    }
-
-    fun isDoNotShowAgain(): Boolean {
-        return preferences!!.getBoolean(DO_NOT_SHOW_THIS_AGAIN, false)
     }
 }

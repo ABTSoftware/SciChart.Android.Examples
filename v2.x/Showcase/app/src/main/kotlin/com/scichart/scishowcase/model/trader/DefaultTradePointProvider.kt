@@ -16,7 +16,6 @@
 
 package com.scichart.scishowcase.model.trader
 
-import android.content.Context
 import android.net.NetworkInfo
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import io.reactivex.Observable
@@ -75,7 +74,7 @@ class DefaultTradePointProvider(connectivityObservable: Observable<Connectivity>
             .addInterceptor(ConnectivityInterceptor(connectivityObservable))
             .build()
 
-    private val retrofit = Retrofit.Builder().baseUrl("https://www.google.com/finance/")
+    private val retrofit = Retrofit.Builder().baseUrl("https://finance.google.com/finance/")
             .addConverterFactory(FinanceConverterFactory())
             .client(okHttpClient)
             .build()

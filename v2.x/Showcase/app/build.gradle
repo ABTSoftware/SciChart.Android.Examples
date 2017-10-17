@@ -28,20 +28,21 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+    maven() { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.1.1949', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.1.1949', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.1.1949', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.1.1949', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.1.1949', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.0.1.1962', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.0.1.1962', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.1.1962', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.1.1962', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.1.1962', ext: 'aar')
     compile "com.android.support:appcompat-v7:$supportLibraryVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
     compile 'com.trello.rxlifecycle2:rxlifecycle-kotlin:2.0.1'
@@ -53,6 +54,9 @@ dependencies {
     compile 'com.github.pwittchen:reactivenetwork-rx2:0.10.0'
     kapt "com.android.databinding:compiler:$android_plugin_version"
     compile 'com.ogaclejapan.arclayout:library:1.1.0@aar'
+    compile('com.github.worker8:tourguide:1.0.17-SNAPSHOT@aar') {
+        transitive = true
+    }
 }
 repositories {
     mavenCentral()

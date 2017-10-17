@@ -95,7 +95,6 @@ class TraderViewModel(context: Context, private val dataProvider: TraderDataProv
                     macdVM.setData(it)
                 }, {
                     Log.e("TraderDataProvider", it.message!!)
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 })
     }
 

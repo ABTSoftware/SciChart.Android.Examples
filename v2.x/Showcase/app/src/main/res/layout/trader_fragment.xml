@@ -32,143 +32,143 @@
         android:id="@+id/longTouchListenerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false"
         scichart:longTouchEnabled="@{viewModel.contextMenuEnabled}">
 
-        <Spinner
-            android:id="@+id/stockSymbol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            scichart:layout_constraintLeft_toLeftOf="parent"
-            scichart:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            scichart:layout_behavior="com.scichart.scishowcase.views.MoveUpwardBehavior">
 
-        <Spinner
-            android:id="@+id/period"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            scichart:layout_constraintLeft_toRightOf="@+id/stockSymbol"
-            scichart:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/stockSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                scichart:layout_constraintLeft_toLeftOf="parent"
+                scichart:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
-            android:id="@+id/interval"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            scichart:layout_constraintLeft_toRightOf="@+id/period"
-            scichart:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/period"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                scichart:layout_constraintLeft_toRightOf="@+id/stockSymbol"
+                scichart:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/showSurfaceListButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@android:color/transparent"
-            android:minHeight="0dp"
-            android:text="@string/surface_list"
-            android:textColor="@color/color_accent"
-            scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toTopOf="parent" />
+            <Spinner
+                android:id="@+id/interval"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                scichart:layout_constraintLeft_toRightOf="@+id/period"
+                scichart:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            scichart:layout_constraintBottom_toBottomOf="parent"
-            scichart:layout_constraintLeft_toLeftOf="parent"
-            scichart:backroundThemeId="@{viewModel.themeId}"
-            scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toBottomOf="@id/stockSymbol">
-
-            <com.scichart.charting.visuals.SciChartSurface
-                android:id="@+id/stockChart"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
-                scichart:theme="@{viewModel.themeId}"
-                scichart:viewModel="@{viewModel.stockVM}" />
+                android:orientation="vertical"
+                scichart:backroundThemeId="@{viewModel.themeId}"
+                scichart:layout_constraintBottom_toBottomOf="parent"
+                scichart:layout_constraintLeft_toLeftOf="parent"
+                scichart:layout_constraintRight_toRightOf="parent"
+                scichart:layout_constraintTop_toBottomOf="@id/stockSymbol">
 
-            <com.scichart.scishowcase.views.AdjustableSplitter
-                android:id="@+id/splitterTop"
-                android:layout_width="match_parent"
+                <com.scichart.charting.visuals.SciChartSurface
+                    android:id="@+id/stockChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    scichart:theme="@{viewModel.themeId}"
+                    scichart:viewModel="@{viewModel.stockVM}" />
+
+                <com.scichart.scishowcase.views.AdjustableSplitter
+                    android:id="@+id/splitterTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.02"
+                    android:background="@android:color/transparent"
+                    android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
+                    scichart:nextViewId="@+id/rsiChart"
+                    scichart:prevViewId="@+id/stockChart" />
+
+                <com.scichart.charting.visuals.SciChartSurface
+                    android:id="@+id/rsiChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.24"
+                    android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
+                    scichart:theme="@{viewModel.themeId}"
+                    scichart:viewModel="@{viewModel.rsiVM}" />
+
+                <com.scichart.scishowcase.views.AdjustableSplitter
+                    android:id="@+id/splitterBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.02"
+                    android:background="@android:color/transparent"
+                    android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
+                    scichart:nextViewId="@+id/macdChart"
+                    scichart:prevViewId="@{viewModel.showRsiPanel ? R.id.rsiChart : R.id.stockChart}" />
+
+                <com.scichart.charting.visuals.SciChartSurface
+                    android:id="@+id/macdChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.24"
+                    android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
+                    scichart:theme="@{viewModel.themeId}"
+                    scichart:viewModel="@{viewModel.macdVM}" />
+
+            </LinearLayout>
+
+            <com.ogaclejapan.arclayout.ArcLayout
+                android:id="@+id/arc_layout"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="0.02"
-                android:background="@android:color/transparent"
-                android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
-                scichart:nextViewId="@+id/rsiChart"
-                scichart:prevViewId="@+id/stockChart" />
+                android:visibility="invisible"
+                scichart:arc_axisRadius="136dp"
+                scichart:arc_origin="bottom|right"
+                scichart:arc_radius="168dp"
+                scichart:contextMenuPosition="@{viewModel.point}"
+                scichart:layout_constraintBottom_toBottomOf="parent"
+                scichart:layout_constraintLeft_toLeftOf="parent"
+                scichart:layout_constraintRight_toRightOf="parent"
+                scichart:layout_constraintTop_toTopOf="parent">
 
-            <com.scichart.charting.visuals.SciChartSurface
-                android:id="@+id/rsiChart"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.24"
-                android:visibility="@{viewModel.showRsiPanel ? View.VISIBLE : View.GONE}"
-                scichart:theme="@{viewModel.themeId}"
-                scichart:viewModel="@{viewModel.rsiVM}" />
+                <ImageButton
+                    style="@style/MenuItem"
+                    android:onClick="@{(v) -> viewModel.changeTheme()}"
+                    android:src="@drawable/ic_invert_colors_48px" />
 
-            <com.scichart.scishowcase.views.AdjustableSplitter
-                android:id="@+id/splitterBottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.02"
-                android:background="@android:color/transparent"
-                android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
-                scichart:nextViewId="@+id/macdChart"
-                scichart:prevViewId="@{viewModel.showRsiPanel ? R.id.rsiChart : R.id.stockChart}" />
+                <ImageButton
+                    style="@style/MenuItem"
+                    android:onClick="@{(v) -> viewModel.createAnnotation(DefaultAnnotationFactory.LINE_ANNOTATION)}"
+                    android:src="@drawable/ic_line_48px" />
 
-            <com.scichart.charting.visuals.SciChartSurface
-                android:id="@+id/macdChart"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.24"
-                android:visibility="@{viewModel.showMacdPanel ? View.VISIBLE : View.GONE}"
-                scichart:theme="@{viewModel.themeId}"
-                scichart:viewModel="@{viewModel.macdVM}" />
+                <ImageButton
+                    style="@style/MenuItem"
+                    android:onClick="@{(v) -> viewModel.createAnnotation(DefaultAnnotationFactory.TEXT_ANNOTATION)}"
+                    android:src="@drawable/ic_text_48px" />
 
-        </LinearLayout>
+                <ImageButton
+                    style="@style/MenuItem"
+                    android:onClick="@{(v) -> viewModel.createAnnotation(CustomAnnotationTypes.BUY_MARKER_ANNOTATION)}"
+                    android:src="@drawable/ic_arrow_up_48px" />
 
-        <com.ogaclejapan.arclayout.ArcLayout
-            android:id="@+id/arc_layout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="invisible"
-            scichart:arc_axisRadius="136dp"
-            scichart:arc_origin="bottom|right"
-            scichart:arc_radius="168dp"
-            scichart:contextMenuPosition="@{viewModel.point}"
-            scichart:layout_constraintBottom_toBottomOf="parent"
-            scichart:layout_constraintLeft_toLeftOf="parent"
-            scichart:layout_constraintRight_toRightOf="parent"
-            scichart:layout_constraintTop_toTopOf="parent">
+                <ImageButton
+                    style="@style/MenuItem"
+                    android:onClick="@{(v) -> viewModel.createAnnotation(CustomAnnotationTypes.SELL_MARKER_ANNOTATION)}"
+                    android:src="@drawable/ic_arrow_down_48px" />
 
-            <Button
-                style="@style/MenuItem"
-                android:onClick="@{(v) -> viewModel.changeTheme()}"
-                android:text="TH" />
+            </com.ogaclejapan.arclayout.ArcLayout>
 
-            <Button
-                style="@style/MenuItem"
-                android:onClick="@{(v) -> viewModel.createAnnotation(DefaultAnnotationFactory.LINE_ANNOTATION)}"
-                android:text="L" />
+            <ImageButton
+                android:id="@+id/contextMenuPlaceholder"
+                android:layout_height="@dimen/menu_item_circle_size"
+                android:layout_width="@dimen/menu_item_circle_size"
+                scichart:layout_constraintRight_toRightOf="parent"
+                scichart:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="24dp"
+                android:background="@android:color/transparent" />
 
-            <Button
-                style="@style/MenuItem"
-                android:onClick="@{(v) -> viewModel.createAnnotation(DefaultAnnotationFactory.TEXT_ANNOTATION)}"
-                android:text="T" />
-
-            <Button
-                style="@style/MenuItem"
-                android:onClick="@{(v) -> viewModel.createAnnotation(CustomAnnotationTypes.BUY_MARKER_ANNOTATION)}"
-                android:text="U" />
-
-            <Button
-                style="@style/MenuItem"
-                android:onClick="@{(v) -> viewModel.createAnnotation(CustomAnnotationTypes.SELL_MARKER_ANNOTATION)}"
-                android:text="D" />
-
-        </com.ogaclejapan.arclayout.ArcLayout>
-
+        </android.support.constraint.ConstraintLayout>
     </com.scichart.scishowcase.views.LongTouchListenerView>
 </layout>

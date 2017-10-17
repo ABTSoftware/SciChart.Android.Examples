@@ -79,7 +79,7 @@
         <item>7d</item>
     </string-array>
 
-    <string name="surface_list">Surface List</string>
+    <string name="settings">Settings</string>
 
     <string-array name="traderOptions">
         <item>Moving Average 50</item>

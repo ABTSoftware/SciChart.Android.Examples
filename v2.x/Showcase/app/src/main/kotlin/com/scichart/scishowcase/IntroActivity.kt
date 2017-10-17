@@ -26,14 +26,12 @@ import com.scichart.scishowcase.utils.PrefManager
 class IntroActivity : AppCompatActivity() {
 
     private var activityBinding: ActivityIntroBinding? = null
-    private var preferenceManager: PrefManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        preferenceManager = PrefManager(this)
-        val doNotShowAgain = preferenceManager!!.isDoNotShowAgain()
-        if (doNotShowAgain) {
+        val preferenceManager = PrefManager(this)
+        if (!preferenceManager.showAppIntro) {
             startHomePage()
         }
 
@@ -41,8 +39,7 @@ class IntroActivity : AppCompatActivity() {
 
         activityBinding!!.button.setOnClickListener {
             // Maybe set first time launch
-            val doNotShowAgain = activityBinding!!.checkbox.isChecked
-            preferenceManager!!.setDoNotShowAgain(doNotShowAgain)
+            preferenceManager.showAppIntro = !activityBinding!!.checkbox.isChecked
             startHomePage()
         }
     }

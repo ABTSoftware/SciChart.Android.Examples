@@ -19,13 +19,14 @@ package com.scichart.scishowcase.views
 import android.content.Context
 import android.graphics.PointF
 import android.support.constraint.ConstraintLayout
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.GestureDetectorCompat
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import io.reactivex.subjects.PublishSubject
 
-class LongTouchListenerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : ConstraintLayout(context, attrs, defStyleAttr) {
+class LongTouchListenerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : CoordinatorLayout(context, attrs, defStyleAttr) {
     val clickSubject = PublishSubject.create<PointF>()!!
     val longPressSubject = PublishSubject.create<PointF>()!!
     private val gestureDetector = GestureDetectorCompat(context, LongTouchListener(clickSubject, longPressSubject))
