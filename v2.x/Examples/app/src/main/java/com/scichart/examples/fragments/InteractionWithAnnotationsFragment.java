@@ -29,9 +29,7 @@ import com.scichart.charting.visuals.annotations.LabelPlacement;
 import com.scichart.charting.visuals.annotations.VerticalAnchorPoint;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
-import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.MarketDataService;
-import com.scichart.examples.data.PriceBar;
 import com.scichart.examples.data.PriceSeries;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
@@ -39,11 +37,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class InteractionWithAnnotationsFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     public SciChartSurface surface;
 
     @Override

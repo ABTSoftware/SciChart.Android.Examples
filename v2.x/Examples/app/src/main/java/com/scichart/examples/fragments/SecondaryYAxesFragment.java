@@ -31,7 +31,7 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SecondaryYAxesFragment extends ExampleBaseFragment {
 
@@ -42,7 +42,7 @@ public class SecondaryYAxesFragment extends ExampleBaseFragment {
     private final IXyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
     private final IXyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

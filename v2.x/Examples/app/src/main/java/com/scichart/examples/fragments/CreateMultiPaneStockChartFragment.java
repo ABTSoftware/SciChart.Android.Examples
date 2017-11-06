@@ -48,7 +48,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CreateMultiPaneStockChartFragment extends ExampleBaseFragment {
     private static final String VOLUME = "Volume";
@@ -56,7 +56,7 @@ public class CreateMultiPaneStockChartFragment extends ExampleBaseFragment {
     private static final String RSI = "RSI";
     private static final String MACD = "MACD";
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

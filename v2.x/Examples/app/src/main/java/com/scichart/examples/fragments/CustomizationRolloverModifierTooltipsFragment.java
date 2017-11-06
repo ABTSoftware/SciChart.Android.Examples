@@ -42,13 +42,13 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CustomizationRolloverModifierTooltipsFragment extends ExampleBaseFragment {
     private static final int POINTS_COUNT = 200;
     private static final String MODIFIER_NAME = "RolloverModifier";
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

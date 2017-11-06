@@ -40,22 +40,22 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
 public class ColumnChartFillFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
-    @Bind(R.id.fillList)
+    @BindView(R.id.fillList)
     Spinner fillSpinner;
 
-    @Bind(R.id.textureMappingModesList)
+    @BindView(R.id.textureMappingModesList)
     Spinner textureMappingModesSpinner;
 
-    @Bind(R.id.rotate)
+    @BindView(R.id.rotate)
     ToggleButton rotateChartButton;
 
     private FastColumnRenderableSeries rs;

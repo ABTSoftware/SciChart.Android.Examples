@@ -45,7 +45,7 @@ import com.scichart.extensions.builders.SciChartBuilder;
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
     private static final String VOLUME = "Volume";
@@ -53,16 +53,16 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
     private static final String RSI = "RSI";
     private static final String MACD = "MACD";
 
-    @Bind(R.id.priceChart)
+    @BindView(R.id.priceChart)
     SciChartSurface priceChart;
 
-    @Bind(R.id.macdChart)
+    @BindView(R.id.macdChart)
     SciChartSurface macdChart;
 
-    @Bind(R.id.rsiChart)
+    @BindView(R.id.rsiChart)
     SciChartSurface rsiChart;
 
-    @Bind(R.id.volumeChart)
+    @BindView(R.id.volumeChart)
     SciChartSurface volumeChart;
 
     private final SciChartVerticalGroup verticalGroup = new SciChartVerticalGroup();

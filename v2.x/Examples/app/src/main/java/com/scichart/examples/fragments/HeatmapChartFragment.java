@@ -38,7 +38,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Chartreuse;
 import static com.scichart.drawing.utility.ColorUtil.CornflowerBlue;
@@ -60,10 +60,10 @@ public class HeatmapChartFragment extends ExampleBaseFragment {
     private int timerIndex = 0;
     private final List<IValues<Double>> valuesList = new ArrayList<>(SERIES_PER_PERIOD);
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface chart;
 
-    @Bind(R.id.heatmapColourMap)
+    @BindView(R.id.heatmapColourMap)
     SciChartHeatmapColourMap colourMap;
 
     @Override

@@ -63,7 +63,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class PerformanceDemoFragment extends ExampleBaseFragment {
     private List<Integer> pointCounts = new ArrayList<Integer>() {{
@@ -86,7 +86,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     private MovingAverage maLow = new MovingAverage(MA_LOW);
     private MovingAverage maHigh = new MovingAverage(MA_HIGH);
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
     private ScheduledFuture<?> schedule;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();

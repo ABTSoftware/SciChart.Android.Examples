@@ -48,7 +48,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -74,7 +74,7 @@ public class OscilloscopeFragment extends ExampleBaseFragment {
     private double phase1 = 0.0;
     private double phaseIncrement = Math.PI * 0.1;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     private FastLineRenderableSeries rSeries;

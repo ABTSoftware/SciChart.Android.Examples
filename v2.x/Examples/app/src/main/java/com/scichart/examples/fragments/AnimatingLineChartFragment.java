@@ -56,7 +56,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class AnimatingLineChartFragment extends ExampleBaseFragment {
     private final static int FIFO_CAPACITY = 50;
@@ -72,7 +72,7 @@ public class AnimatingLineChartFragment extends ExampleBaseFragment {
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     private volatile boolean isRunning = true;

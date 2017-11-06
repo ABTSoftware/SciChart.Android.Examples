@@ -33,7 +33,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class QuadLeftRightYAxesFragment extends ExampleBaseFragment {
 
@@ -61,7 +61,7 @@ public class QuadLeftRightYAxesFragment extends ExampleBaseFragment {
     // Used to generate Random Walk
     private Random random = new Random(251916);
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

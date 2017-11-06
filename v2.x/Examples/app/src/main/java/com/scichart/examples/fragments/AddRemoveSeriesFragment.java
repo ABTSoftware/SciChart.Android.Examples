@@ -37,12 +37,12 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AddRemoveSeriesFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

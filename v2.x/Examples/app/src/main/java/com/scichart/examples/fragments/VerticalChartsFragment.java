@@ -31,11 +31,11 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class VerticalChartsFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

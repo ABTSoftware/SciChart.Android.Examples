@@ -60,7 +60,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnItemSelected;
 
 import static com.scichart.extensions.builders.PenStyleBuilder.*;
@@ -74,19 +74,19 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
     private TestRenderSurfaceRenderer renderer;
 
-    @Bind(R.id.renderSurfaceTypeSpinner)
+    @BindView(R.id.renderSurfaceTypeSpinner)
     Spinner renderSurfaceTypeSpinner;
 
-    @Bind(R.id.rendersurfaceFrame)
+    @BindView(R.id.rendersurfaceFrame)
     FrameLayout renderSurfaceFrame;
 
-    @Bind(R.id.rotation)
+    @BindView(R.id.rotation)
     SeekBar rotation;
 
-    @Bind(R.id.translateX)
+    @BindView(R.id.translateX)
     SeekBar translateX;
 
-    @Bind(R.id.translateY)
+    @BindView(R.id.translateY)
     SeekBar translateY;
 
     @Override

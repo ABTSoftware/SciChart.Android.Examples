@@ -64,7 +64,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment {
 
@@ -87,10 +87,10 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
     private OverviewPrototype overviewPrototype;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
-    @Bind(R.id.overview)
+    @BindView(R.id.overview)
     SciChartSurface overviewSurface;
 
     @Override

@@ -18,7 +18,6 @@ package com.scichart.examples.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.DisplayMetrics;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -39,11 +38,11 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ScatterChartFillFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

@@ -33,10 +33,10 @@ import com.scichart.examples.utils.ThousandsLabelProvider;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CustomThemeFragment extends ExampleBaseFragment {
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

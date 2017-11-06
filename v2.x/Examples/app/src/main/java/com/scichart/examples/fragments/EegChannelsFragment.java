@@ -47,7 +47,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EegChannelsFragment extends ExampleBaseFragment {
@@ -65,7 +65,7 @@ public class EegChannelsFragment extends ExampleBaseFragment {
                     ColorUtil.argb(255, 255, 99, 71), ColorUtil.argb(255, 205, 133, 63), ColorUtil.argb(255, 64, 224, 208), ColorUtil.argb(255, 244, 164, 96)
             };
 
-    @Bind(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
     private volatile boolean isRunning = true;
@@ -228,10 +228,10 @@ public class EegChannelsFragment extends ExampleBaseFragment {
         }
 
         class EegChannelViewHolder extends RecyclerView.ViewHolder {
-            @Bind(R.id.eegChart)
+            @BindView(R.id.eegChart)
             SciChartSurface chart;
 
-            @Bind(R.id.channelName)
+            @BindView(R.id.channelName)
             TextView channelName;
 
             public EegChannelViewHolder(View itemView) {

@@ -30,13 +30,13 @@ import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class HeatmapWithTextFragment extends ExampleBaseFragment {
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface chart;
 
-    @Bind(R.id.heatmapColourMap)
+    @BindView(R.id.heatmapColourMap)
     SciChartHeatmapColourMap colourMap;
 
     @Override

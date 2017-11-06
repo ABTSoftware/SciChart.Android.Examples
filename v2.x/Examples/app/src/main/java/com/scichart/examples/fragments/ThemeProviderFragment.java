@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ThemeProviderFragment extends ExampleBaseFragment {
 
@@ -64,10 +64,10 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
     private final static int SCI_CHART_V4_DARK = 7;
     private final static int BERRY_BLUE = 8;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
-    @Bind(R.id.themeSelector)
+    @BindView(R.id.themeSelector)
     Spinner themeSelector;
 
     private CursorModifier cursorModifier;

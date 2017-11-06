@@ -30,7 +30,7 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SyncMultipleChartsFragment extends ExampleBaseFragment {
 
@@ -39,10 +39,10 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment {
     private IRange sharedXRange = new DoubleRange(0d, 1d);
     private IRange sharedYRange = new DoubleRange(0d, 1d);
 
-    @Bind(R.id.chart0)
+    @BindView(R.id.chart0)
     SciChartSurface chart0;
 
-    @Bind(R.id.chart1)
+    @BindView(R.id.chart1)
     SciChartSurface chart1;
 
     @Override

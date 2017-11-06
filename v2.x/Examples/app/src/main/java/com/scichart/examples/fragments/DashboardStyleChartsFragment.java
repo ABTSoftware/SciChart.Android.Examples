@@ -42,14 +42,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class DashboardStyleChartsFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.tabLayout)
+    @BindView(R.id.tabLayout)
     TabLayout tabLayout;
 
-    @Bind(R.id.viewpager)
+    @BindView(R.id.viewpager)
     ViewPager viewPager;
 
     private final List<ChartTypeModel> chartTypesSource = new ArrayList<>();

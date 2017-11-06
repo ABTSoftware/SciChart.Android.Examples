@@ -42,14 +42,14 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment implements OnAnnotationCreatedListener {
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
-    @Bind(R.id.annotationTypeSelector)
+    @BindView(R.id.annotationTypeSelector)
     Spinner annotationTypeSelector;
 
     private final AnnotationCreationModifier annotationCreationModifier = new AnnotationCreationModifier();

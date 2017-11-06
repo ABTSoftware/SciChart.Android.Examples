@@ -36,11 +36,11 @@ import com.scichart.examples.fragments.splineLineSeries.SplineLineRenderableSeri
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SplineChartExampleFragment extends ExampleBaseFragment {
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

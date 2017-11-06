@@ -47,10 +47,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
+
 
 public class ErrorBarsChartFragment extends ExampleBaseFragment {
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

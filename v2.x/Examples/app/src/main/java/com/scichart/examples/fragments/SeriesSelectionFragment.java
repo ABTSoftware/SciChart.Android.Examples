@@ -38,13 +38,13 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class SeriesSelectionFragment extends ExampleBaseFragment {
     private static final int SERIES_POINT_COUNT = 50;
     private static final int SERIES_COUNT = 80;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override
@@ -72,7 +72,6 @@ public class SeriesSelectionFragment extends ExampleBaseFragment {
 
             private static final String STROKE = "Stroke";
             private static final String POINT_MARKER = "PointMarker";
-
 
             @Override
             protected void applyStyleInternal(IRenderableSeries renderableSeriesToStyle) {

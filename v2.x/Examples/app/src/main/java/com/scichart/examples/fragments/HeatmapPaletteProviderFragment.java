@@ -37,18 +37,18 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class HeatmapPaletteProviderFragment extends ExampleBaseFragment implements SeekBar.OnSeekBarChangeListener {
     private static final int WIDTH = 300, HEIGHT = 200;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface chart;
 
-    @Bind(R.id.seekBar)
+    @BindView(R.id.seekBar)
     SeekBar seekBar;
 
-    @Bind(R.id.thresholdValue)
+    @BindView(R.id.thresholdValue)
     TextView thresholdValue;
 
     private final CustomUniformHeatMapProvider paletteProvider = new CustomUniformHeatMapProvider();

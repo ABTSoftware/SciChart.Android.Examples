@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class LogarithmicAxisFragment extends ExampleBaseFragment {
 
@@ -58,7 +58,7 @@ public class LogarithmicAxisFragment extends ExampleBaseFragment {
     private boolean isXLogAxis, isYLogAxis;
     private IAxis xAxis, yAxis;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

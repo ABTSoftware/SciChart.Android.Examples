@@ -51,7 +51,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
 
@@ -61,7 +61,7 @@ public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
     private AxisDragMode selectedDragMode = AxisDragMode.Scale;
     private Direction2D selectedDirection = Direction2D.XyDirection;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

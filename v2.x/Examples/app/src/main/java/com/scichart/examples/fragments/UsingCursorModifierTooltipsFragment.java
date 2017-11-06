@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
@@ -64,7 +64,7 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
     private boolean showTooltip = true;
     private boolean showAxisLabels = true;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

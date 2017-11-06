@@ -38,13 +38,13 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class CustomizationTooltipModifierTooltipsFragment extends ExampleBaseFragment {
     private static final int POINTS_COUNT = 200;
     private static final String MODIFIER_NAME = "TooltipModifier";
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

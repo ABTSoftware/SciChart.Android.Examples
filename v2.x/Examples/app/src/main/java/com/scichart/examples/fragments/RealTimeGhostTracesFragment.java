@@ -41,17 +41,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements SeekBar.OnSeekBarChangeListener{
 
-    @Bind(R.id.seekBar)
+    @BindView(R.id.seekBar)
     SeekBar seekBar;
 
-    @Bind(R.id.speedValue)
+    @BindView(R.id.speedValue)
     TextView speedValue;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();

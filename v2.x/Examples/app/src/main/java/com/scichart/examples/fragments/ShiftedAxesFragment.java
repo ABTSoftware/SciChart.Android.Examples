@@ -29,7 +29,6 @@ import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.IServiceContainer;
 import com.scichart.core.common.Size;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.drawing.common.PenStyle;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
@@ -37,10 +36,10 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ShiftedAxesFragment extends ExampleBaseFragment {
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

@@ -41,7 +41,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ECGMonitorFragment extends ExampleBaseFragment {
 
@@ -62,7 +62,7 @@ public class ECGMonitorFragment extends ExampleBaseFragment {
 
     private volatile boolean isRunning = true;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     @Override

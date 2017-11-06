@@ -46,7 +46,7 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
@@ -65,16 +65,16 @@ public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
     private String renderSurface;
     private int themeId;
 
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
-    @Bind(R.id.chartImage)
+    @BindView(R.id.chartImage)
     ImageView imageView;
 
-    @Bind(R.id.renderSurfaceTypeSpinner)
+    @BindView(R.id.renderSurfaceTypeSpinner)
     Spinner renderSurfaceTypeSpinner;
 
-    @Bind(R.id.themeSelector)
+    @BindView(R.id.themeSelector)
     Spinner themeSelector;
 
     @Override

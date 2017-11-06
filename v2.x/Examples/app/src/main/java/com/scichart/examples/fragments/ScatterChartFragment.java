@@ -34,10 +34,10 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 public class ScatterChartFragment extends ExampleBaseFragment {
-    @Bind(R.id.chart)
+    @BindView(R.id.chart)
     SciChartSurface surface;
 
     private final Random random = new Random();

@@ -122,7 +122,7 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
         snackbar = Snackbar.make(binding.longTouchListenerView, "No Internet Connection", Snackbar.LENGTH_INDEFINITE).apply {
             val snackBarLayout = this.view as Snackbar.SnackbarLayout
             snackBarLayout.layoutParams.width = AppBarLayout.LayoutParams.MATCH_PARENT
-            (snackBarLayout.findViewById(android.support.design.R.id.snackbar_text) as TextView).apply {
+            (snackBarLayout.findViewById<TextView>(android.support.design.R.id.snackbar_text)).apply {
                 setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning_48px, 0, 0, 0)
                 compoundDrawablePadding = resources.getDimensionPixelOffset(R.dimen.design_snackbar_padding_horizontal)
             }
@@ -200,7 +200,7 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
                 .setOnClickListener {
                     welcomeGuide.cleanUp()
 
-                    val toolbar = activity.findViewById(R.id.appToolbar) as Toolbar
+                    val toolbar = activity.findViewById<Toolbar>(R.id.appToolbar)
                     val childAt = (toolbar.getChildAt(2) as ActionMenuView)
                     settingsGuide.playOn(childAt)
                 })
