@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. -->
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- example_single_pie_chart_fragment.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- example_single_pie_chart_with_legend_fragment.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -15,13 +16,20 @@
 <!--*************************************************************************-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <com.scichart.charting.visuals.SciPieChartSurface
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
+
+    <com.scichart.charting.visuals.legend.SciChartLegend
+        android:id="@+id/pieChartLegend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>
