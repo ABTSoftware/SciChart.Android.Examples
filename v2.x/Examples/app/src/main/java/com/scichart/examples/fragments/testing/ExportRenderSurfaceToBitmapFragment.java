@@ -136,6 +136,16 @@ public class ExportRenderSurfaceToBitmapFragment extends ExampleBaseFragment {
                                 .withPosition(7d, 2.8d)
                                 .withIsEditable(true)
                                 .withStroke(2, ColorUtil.Orange)
+                                .build(),
+                        sciChartBuilder.newLineAnnotation()
+                                .withPosition(2d, 0d, 8d, 2d)
+                                .withIsEditable(true)
+                                .withStroke(2, ColorUtil.DarkRed)
+                                .build(),
+                        sciChartBuilder.newAxisMarkerAnnotation()
+                                .withY1(2.8d)
+                                .withIsEditable(true)
+                                .withBackgroundColor(ColorUtil.Orange)
                                 .build());
             }
         });

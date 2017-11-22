@@ -52,5 +52,7 @@ public class DonutChartFragment extends ExampleBaseFragment {
 
         Collections.addAll(pieChartSurface.getRenderableSeries(), donutSeries);
         Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(legend).withSourceSeries(donutSeries).build(), new PieSegmentSelectionModifier());
+
+        donutSeries.animate(800);
     }
 }

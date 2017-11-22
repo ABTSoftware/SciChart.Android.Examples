@@ -50,5 +50,7 @@ public class PieChartFragment extends ExampleBaseFragment {
 
         Collections.addAll(pieChartSurface.getRenderableSeries(), pieSeries);
         Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(legend).withSourceSeries(pieSeries).build(), new PieSegmentSelectionModifier());
+
+        pieSeries.animate(800);
     }
 }

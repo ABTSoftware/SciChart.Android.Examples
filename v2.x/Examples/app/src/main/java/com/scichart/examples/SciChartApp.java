@@ -33,6 +33,23 @@ public class SciChartApp extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        // Set your license code here to license the SciChart Android Examples app
+        // You can get a trial lcicense key from      https://www.scichart.com/licensing-scichart-android/
+        // Purchased license keys can be viewed at https://www.scichart.com/profile
+        //
+        // e.g.
+        //
+        // com.scichart.charting.visuals.SciChartSurface.setRuntimeLicenseKey(
+        //        "<LicenseContract>" +
+        //                "<Customer>your-email@company.com</Customer>" +
+        //                "<OrderId>Trial</OrderId>" +
+        //                "<LicenseCount>1</LicenseCount>" +
+        //                "<IsTrialLicense>true</IsTrialLicense>" +
+        //                "<SupportExpires>12/21/2017 00:00:00</SupportExpires>" +
+        //                "<ProductCode>SC-ANDROID-2D-ENTERPRISE-SRC</ProductCode>" +
+        //                "<KeyCode>6ccc960b22b7b12360a141a7c2a89bce4e40.....09744b6c195022e9fa1ebcf9a0e78167cbaa8f9b8eee9221</KeyCode>" +
+        //        "</LicenseContract>"
+        // );
     }
     //BEGIN_DEMO_APPLICATION
     public Module getModule() {

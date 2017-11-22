@@ -17,7 +17,6 @@
 package com.scichart.examples.fragments;
 
 import com.scichart.charting.modifiers.PieChartTooltipModifier;
-import com.scichart.charting.modifiers.PieSegmentSelectionModifier;
 import com.scichart.charting.visuals.SciPieChartSurface;
 import com.scichart.charting.visuals.legend.SciChartLegend;
 import com.scichart.charting.visuals.renderableSeries.IPieRenderableSeries;
@@ -42,13 +41,13 @@ public class MultiplePieDonutChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final IPieRenderableSeries pieSeries = sciChartBuilder.newPieSeries().withSegments(
+        final IPieRenderableSeries pieSeries = sciChartBuilder.newPieSeries().withSeriesName("HowPeopleTravel").withSegments(
                 sciChartBuilder.newPieSegment().withValue(34).withTitle("Ecologic").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
                 sciChartBuilder.newPieSegment().withValue(34.4).withTitle("Municipal").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
                 sciChartBuilder.newPieSegment().withValue(31.6).withTitle("Personal").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build()
         ).build();
 
-        final IPieRenderableSeries donutSeries = sciChartBuilder.newDonutSeries().withSegments(
+        final IPieRenderableSeries donutSeries = sciChartBuilder.newDonutSeries().withSeriesName("DetailedGroup").withSegments(
                 sciChartBuilder.newPieSegment().withValue(28.8).withTitle("Walking").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
                 sciChartBuilder.newPieSegment().withValue(5.2).withTitle("Bicycle").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
 
@@ -65,5 +64,8 @@ public class MultiplePieDonutChartFragment extends ExampleBaseFragment {
 
         Collections.addAll(pieChartSurface.getRenderableSeries(), pieSeries, donutSeries);
         Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(legend).withShowCheckBoxes(false).withSourceSeries(pieSeries).build(), new PieChartTooltipModifier());
+
+        pieSeries.animate(800);
+        donutSeries.animate(800);
     }
 }
