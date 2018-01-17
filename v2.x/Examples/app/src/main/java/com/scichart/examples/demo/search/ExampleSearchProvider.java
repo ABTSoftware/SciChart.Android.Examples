@@ -33,25 +33,22 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import static com.scichart.examples.demo.search.CreateInvertedIndex.createInvertedCodeIndex;
 import static com.scichart.examples.demo.search.CreateInvertedIndex.createInvertedIndex;
 
 public class ExampleSearchProvider {
 
-    public Map<String, Posting> invertedIndex;
-    public Map<String, Posting> codeInvertedIndex;
+    private final Map<String, Posting> invertedIndex;
+    private final Map<String, Posting> codeInvertedIndex;
 
-    private final Context context;
-
-    public ExampleSearchProvider(Context context) {
-        this.context = context;
+    public ExampleSearchProvider(Context context, List<Example> examples) {
+        this.invertedIndex = createInvertedIndex(context, examples);
+        this.codeInvertedIndex = createInvertedCodeIndex(context, examples);
     }
 
-    public void initSearchProvider(List<Example> examples) {
-        final CreateInvertedIndex invertedIndex = createInvertedIndex(context);
-        invertedIndex.createIndex(examples);
-        invertedIndex.createIndexForCode(examples);
-        this.invertedIndex = invertedIndex.getInvertedIndex();
-        this.codeInvertedIndex = invertedIndex.getCodeInvertedIndex();
+    public ExampleSearchProvider() {
+        this.invertedIndex = Collections.emptyMap();
+        this.codeInvertedIndex = Collections.emptyMap();
     }
 
     public Set<UUID> query(String text) {

@@ -71,9 +71,7 @@ public class SciChartApp extends Application {
     }
     private ExampleSearchProvider initSearchProvider(Module module) {
         if (module != null) {
-            final ExampleSearchProvider searchProvider = new ExampleSearchProvider(getApplicationContext());
-            searchProvider.initSearchProvider(module.getExamples());
-            return searchProvider;
+            return new ExampleSearchProvider(getApplicationContext(), module.getExamples());
         }
         return null;
     }

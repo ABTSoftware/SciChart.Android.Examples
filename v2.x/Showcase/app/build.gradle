@@ -32,11 +32,11 @@ repositories {
     maven() { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.1.0.2084', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.1.0.2084', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.2084', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.1.0.2084', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.1.0.2084', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.1.0.2129', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.1.0.2129', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.2129', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.1.0.2129', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.1.0.2129', ext: 'aar')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"

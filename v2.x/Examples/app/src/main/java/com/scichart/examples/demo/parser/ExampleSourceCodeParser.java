@@ -16,7 +16,7 @@
 
 package com.scichart.examples.demo.parser;
 
-import android.util.Log;
+import com.scichart.examples.demo.helpers.Example;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -26,6 +26,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -33,7 +34,23 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class ExampleSourceCodeParser {
 
-    public String getSearchWords(String xml) {
+    public static String getSearchWords(Example example) {
+        final String xmlValue = getXmlValue(example);
+
+        return getSearchWords(xmlValue);
+    }
+
+    private static String getXmlValue(Example example) {
+        String xml = "";
+        for (Map.Entry<String, String> entry : example.sourceFiles.entrySet()) {
+            if (entry.getKey().contains(".xml")) {
+                xml = entry.getValue();
+            }
+        }
+        return xml.replaceAll("\n", "");
+    }
+
+    private static String getSearchWords(String xml) {
         try {
             SAXParserFactory spf = SAXParserFactory.newInstance();
             SAXParser sp = spf.newSAXParser();
@@ -54,7 +71,7 @@ public class ExampleSourceCodeParser {
         return "";
     }
 
-    class ItemXMLHandler extends DefaultHandler {
+    private static class ItemXMLHandler extends DefaultHandler {
 
         private StringBuilder result = new StringBuilder();
         private boolean rootElementProcessed = false;

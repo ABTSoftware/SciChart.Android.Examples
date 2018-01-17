@@ -16,8 +16,6 @@
 
 package com.scichart.examples.fragments;
 
-import android.graphics.Color;
-
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -25,7 +23,6 @@ import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;

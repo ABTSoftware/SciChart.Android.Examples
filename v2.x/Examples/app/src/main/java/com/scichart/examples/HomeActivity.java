@@ -216,7 +216,8 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         listView.setOnItemClickListener(this);
         adapter = new CustomAdapter(this);
 
-        searchProvider = new ExampleSearchProvider(this);
+        // set stub search provider
+        searchProvider = new ExampleSearchProvider();
 
         final SpinnerStringAdapter spinnerStringAdapter = new SpinnerStringAdapter(this, R.array.sort_by);
 

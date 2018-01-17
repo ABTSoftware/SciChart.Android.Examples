@@ -35,35 +35,44 @@ import static java.util.Arrays.asList;
 
 public class CreateInvertedIndex {
 
-    private Set<String> stopWords;
-    private Set<String> codeStopWords;
-    private Map<String, Posting> invertedIndex = new LinkedHashMap<>();
-    private Map<String, Posting> codeInvertedIndex = new LinkedHashMap<>();
-
-    private CreateInvertedIndex(Set<String> stopWords, Set<String> codeStopWords) {
-        this.stopWords = stopWords;
-        this.codeStopWords = codeStopWords;
-    }
-
-    public static CreateInvertedIndex createInvertedIndex(Context context) {
+    public static Map<String, Posting> createInvertedIndex(Context context, List<Example> examples) {
         final Set<String> stopWords = getStopWords(context, "stopwords.dat");
-        final Set<String> codeStopWords = getStopWords(context, "codeStopwords.dat");
-        return new CreateInvertedIndex(stopWords, codeStopWords);
-    }
 
-    public void createIndex(List<Example> examples) {
+        final Map<String, Posting> invertedIndex = new LinkedHashMap<>();
         for (final Example example : examples) {
             final String lines = getTextFromExample(example);
-            final List<String> terms  = getTerms(lines, " ", stopWordsPredicate);
+
+            final List<String> terms  = getTerms(lines, " ", stopWords);
             calculateIndex(example, terms, invertedIndex);
         }
         for (Map.Entry<String, Posting> entry : invertedIndex.entrySet()) {
             final Posting value = entry.getValue();
             value.invertedDocumentFrequency = Math.log(examples.size() / value.invertedDocumentFrequency);
         }
+
+        return invertedIndex;
     }
 
-    private void calculateIndex(final Example example, List<String> terms, Map<String, Posting> invertedIndex) {
+    public static Map<String, Posting> createInvertedCodeIndex(Context context, List<Example> examples) {
+        final Set<String> codeStopwords = getStopWords(context, "codeStopwords.dat");
+
+        final Map<String, Posting> codeInvertedIndex = new LinkedHashMap<>();
+        for (Example example : examples) {
+            final String lines = ExampleSourceCodeParser.getSearchWords(example);
+
+            final List<String> terms = getTerms(lines, " |:|\\.", codeStopwords);
+            calculateIndex(example, terms, codeInvertedIndex);
+        }
+
+        for (Map.Entry<String, Posting> entry : codeInvertedIndex.entrySet()) {
+            final Posting value = entry.getValue();
+            value.invertedDocumentFrequency = Math.log(examples.size() / value.invertedDocumentFrequency);
+        }
+
+        return codeInvertedIndex;
+    }
+
+    private static void calculateIndex(final Example example, List<String> terms, Map<String, Posting> invertedIndex) {
         final Map<String, List<Integer>> termDictExample = new LinkedHashMap<>();
         for (int i = 0; i < terms.size(); i++) {
             final String term = terms.get(i);
@@ -93,41 +102,18 @@ public class CreateInvertedIndex {
         }
     }
 
-    public void createIndexForCode(List<Example> examples) {
-        for (Example example : examples) {
-            final String xmlValue = getXmlValue(example);
-            final String lines = new ExampleSourceCodeParser().getSearchWords(xmlValue);
-            List<String> terms = getTerms(lines, " |:|\\.", codeStopWordsPredicate);
-            calculateIndex(example, terms, codeInvertedIndex);
-        }
-        for (Map.Entry<String, Posting> entry : codeInvertedIndex.entrySet()) {
-            final Posting value = entry.getValue();
-            value.invertedDocumentFrequency = Math.log(examples.size() / value.invertedDocumentFrequency);
-        }
-    }
-
-    private String getXmlValue(Example example) {
-        String xml = "";
-        for (Map.Entry<String, String> entry : example.sourceFiles.entrySet()) {
-            if (entry.getKey().contains(".xml")) {
-                xml = entry.getValue();
-            }
-        }
-        return xml.replaceAll("\n", "");
-    }
-
     private static Set<String> getStopWords(Context context, String fileName) {
         final String file = readAssetsFile(context, fileName);
         final String[] split = file.split("\n");
         return new HashSet<>(asList(split));
     }
 
-    private List<String> getTerms(String lines, String regexp, IPredicate<String> predicate) {
+    private static List<String> getTerms(String lines, String regexp, Set<String> stopWords) {
         final String text = lines.toLowerCase();
         final String[] words = text.split(regexp);
         final List<String> result = new ArrayList<>();
         for (String word : words) {
-            if (predicate.matches(word)) {
+            if (!stopWords.contains(word)) {
                 final String[][] tokenizedWord = tokenize(word);
                 for (final String[] strings : tokenizedWord) {
                     result.addAll(asList(strings));
@@ -137,7 +123,10 @@ public class CreateInvertedIndex {
         return result;
     }
 
-    public String[][] tokenize(String word) {
+    private static String[][] tokenize(String word) {
+        if(word == null || word.length() == 0)
+            return new String[0][0];
+
         final int m = word.length();
         final int n = m - 1;
 
@@ -185,31 +174,4 @@ public class CreateInvertedIndex {
     private static int sqr(int value) {
         return value * value;
     }
-
-    public Map<String, Posting> getInvertedIndex() {
-        return invertedIndex;
-    }
-
-    public Map<String, Posting> getCodeInvertedIndex() {
-        return codeInvertedIndex;
-    }
-
-    public interface IPredicate<T> {
-        boolean matches(T argument);
-    }
-
-    private final IPredicate<String> stopWordsPredicate = new IPredicate<String>() {
-        @Override
-        public boolean matches(String word) {
-            return !stopWords.contains(word);
-        }
-    };
-
-    private final IPredicate<String> codeStopWordsPredicate = new IPredicate<String>() {
-        @Override
-        public boolean matches(String word) {
-            return !codeStopWords.contains(word);
-        }
-    };
-
 }
