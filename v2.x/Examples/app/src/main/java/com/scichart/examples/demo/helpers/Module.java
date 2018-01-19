@@ -27,10 +27,10 @@ import com.scichart.examples.demo.ExampleLoader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static com.scichart.examples.demo.helpers.Example.prepareExample;
 
@@ -54,7 +54,7 @@ public class Module {
     }
 
     private void initializeExamples(List<ExampleDefinition> exampleDefinitions) {
-        final Set<String> categories = new HashSet<>();
+        final Set<String> categories = new TreeSet<>(); // need to sort categories alphabetically
 
         for (ExampleDefinition exampleDefinition : exampleDefinitions) {
             final Example example = prepareExample(exampleDefinition, context);

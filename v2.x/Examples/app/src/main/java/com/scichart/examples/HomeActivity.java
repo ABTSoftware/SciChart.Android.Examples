@@ -86,7 +86,7 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     private ListView listView;
     private CustomAdapter adapter;
 
-    private int selectedPosition = 1;
+    private int selectedPosition = 0; // a2D_Charts category
     private List<String> categories;
 
     private String exampleId;
