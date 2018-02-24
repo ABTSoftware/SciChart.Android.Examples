@@ -21,6 +21,7 @@ import android.graphics.PointF;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
@@ -30,6 +31,9 @@ import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
+import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.hitTest.HitTestInfo;
@@ -68,7 +72,7 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
     @Override
     protected void initExample() {
         IXyDataSeries<Double, Double> dataSeries0 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line Series").build();
-        dataSeries0.append(new Double[]{0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d}, new Double[]{0d, 0.1d, 0.3d, 0.5d, 0.4d, 0.35d, 0.3d, 0.25d, 0.2d, 0.1d, 0.05d });
+        dataSeries0.append(new Double[]{0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d}, new Double[]{0d, 0.1d, 0.3d, 0.5d, 0.4d, 0.35d, 0.3d, 0.25d, 0.2d, 0.1d, 0.05d});
 
         IXyDataSeries<Double, Double> dataSeries1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Mountain Series").build();
         dataSeries1.append(dataSeries0.getXValues(), ListUtil.select(dataSeries0.getYValues(), new Func1<Double, Double>() {
@@ -104,7 +108,7 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
             public Double func(Double arg) {
                 return arg + 0.3d;
             }
-        }),ListUtil.select(dataSeries0.getYValues(), new Func1<Double, Double>() {
+        }), ListUtil.select(dataSeries0.getYValues(), new Func1<Double, Double>() {
             @Override
             public Double func(Double arg) {
                 return arg + 0.7d;
@@ -114,7 +118,7 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withGrowBy(new DoubleRange(0d, 0.1d)).build();
 
-        final IRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries0)
                 .withStrokeStyle(ColorUtil.SteelBlue, 3)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker())
@@ -130,11 +134,11 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
                 .withDataSeries(dataSeries1)
                 .build();
 
-        final IRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
+        final FastColumnRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
                 .withDataSeries(dataSeries2)
                 .build();
 
-        final IRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
+        final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
                 .withDataSeries(dataSeries3)
                 .build();
 
@@ -144,6 +148,11 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), lineSeries, mountainSeries, columnSeries, candlestickSeries);
+
+                sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(0.3d).withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(columnSeries).withScaleTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
 
@@ -163,7 +172,7 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
 
         stringBuilder.append(String.format("Touch at: (%.1f, %.1f)", touchPoint.x, touchPoint.y));
 
-        for (IRenderableSeries renderableSeries: surface.getRenderableSeries()) {
+        for (IRenderableSeries renderableSeries : surface.getRenderableSeries()) {
             renderableSeries.hitTest(hitTestInfo, touchPoint.x, touchPoint.y, 30);
 
             stringBuilder.append(String.format("\n%s - %s", renderableSeries.getClass().getSimpleName(), Boolean.toString(hitTestInfo.isHit)));

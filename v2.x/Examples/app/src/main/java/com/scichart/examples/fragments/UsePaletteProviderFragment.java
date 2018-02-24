@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import com.daasuu.ei.Ease;
+import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -24,18 +26,24 @@ import com.scichart.charting.visuals.annotations.BoxAnnotation;
 import com.scichart.charting.visuals.annotations.IAnnotation;
 import com.scichart.charting.visuals.annotations.OnAnnotationDragListener;
 import com.scichart.charting.visuals.axes.AutoRange;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.pointmarkers.SquarePointMarker;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastOhlcRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.OhlcRenderableSeriesBase;
 import com.scichart.charting.visuals.renderableSeries.XyRenderableSeriesBase;
+import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.data.OhlcRenderPassData;
 import com.scichart.charting.visuals.renderableSeries.data.XyRenderPassData;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IPointMarkerPaletteProvider;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase;
+import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IntegerValues;
 import com.scichart.drawing.utility.ColorUtil;
@@ -51,7 +59,7 @@ import butterknife.BindView;
 
 public class UsePaletteProviderFragment extends ExampleBaseFragment {
     @BindView(R.id.chart)
-    SciChartSurface chart;
+    SciChartSurface surface;
 
     @Override
     protected int getLayoutId() {
@@ -60,8 +68,8 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(150d, 165d).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withLabelProvider(new ThousandsLabelProvider()).withGrowBy(0, 0.1).withAutoRangeMode(AutoRange.Always).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(150d, 165d).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withLabelProvider(new ThousandsLabelProvider()).withGrowBy(0, 0.1).withAutoRangeMode(AutoRange.Always).build();
 
         final DataManager dataManager = DataManager.getInstance();
         final PriceSeries priceBars = dataManager.getPriceDataIndu(getActivity());
@@ -95,7 +103,7 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
             protected void updateAnnotation(IAnnotation annotation) {
                 annotation.setY1(0);
                 annotation.setY2(1);
-                chart.invalidateElement();
+                surface.invalidateElement();
             }
 
             @Override
@@ -109,31 +117,31 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
             }
         });
 
-        final IRenderableSeries mountainSeries = sciChartBuilder.newMountainSeries()
+        final FastMountainRenderableSeries mountainSeries = sciChartBuilder.newMountainSeries()
                 .withAreaFillColor(0x9787CEEB)
                 .withStrokeStyle(ColorUtil.Magenta)
                 .withDataSeries(mountainDataSeries)
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.Red, annotation))
                 .build();
 
-        final IRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withStrokeStyle(ColorUtil.Blue)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withFill(ColorUtil.Red).withStroke(ColorUtil.Orange, 2f).withSize(10, 10).build())
                 .withDataSeries(lineDataSeries)
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.Red, annotation))
                 .build();
 
-        final IRenderableSeries ohlcSeries = sciChartBuilder.newOhlcSeries()
+        final FastOhlcRenderableSeries ohlcSeries = sciChartBuilder.newOhlcSeries()
                 .withDataSeries(ohlcDataSeries)
                 .withPaletteProvider(new OhlcCustomPaletteProvider(ColorUtil.CornflowerBlue, annotation))
                 .build();
 
-        final IRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
+        final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
                 .withDataSeries(candlestickDataSeries)
                 .withPaletteProvider(new OhlcCustomPaletteProvider(ColorUtil.Green, annotation))
                 .build();
 
-        final IRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
+        final FastColumnRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
                 .withStrokeStyle(ColorUtil.Blue)
                 .withZeroLine(6000)
                 .withDataPointWidth(0.8d)
@@ -142,17 +150,30 @@ public class UsePaletteProviderFragment extends ExampleBaseFragment {
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.Purple, annotation))
                 .build();
 
-        final IRenderableSeries xyScatterSeries = sciChartBuilder.newScatterSeries()
+        final XyScatterRenderableSeries xyScatterSeries = sciChartBuilder.newScatterSeries()
                 .withDataSeries(xyScatterDataSeries)
                 .withPointMarker(sciChartBuilder.newPointMarker(new SquarePointMarker()).withFill(ColorUtil.Red).withStroke(ColorUtil.Orange, 2f).withSize(7, 7).build())
                 .withPaletteProvider(new XyCustomPaletteProvider(ColorUtil.LimeGreen, annotation))
                 .build();
 
-        Collections.addAll(chart.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
-        Collections.addAll(chart.getXAxes(), xAxis);
-        Collections.addAll(chart.getYAxes(), yAxis);
-        Collections.addAll(chart.getRenderableSeries(), mountainSeries, lineSeries, ohlcSeries, candlestickSeries, columnSeries, xyScatterSeries);
-        Collections.addAll(chart.getAnnotations(), annotation);
+        UpdateSuspender.using(surface, new Runnable() {
+            @Override
+            public void run() {
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), mountainSeries, lineSeries, ohlcSeries, candlestickSeries, columnSeries, xyScatterSeries);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                Collections.addAll(surface.getAnnotations(), annotation);
+
+                sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation(6000d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(12500d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(ohlcSeries).withScaleTransformation(11750d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(10750d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(columnSeries).withScaleTransformation(6000d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(xyScatterSeries).withScaleTransformation(9000d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+
+            }
+        });
     }
 
     private static final class XyCustomPaletteProvider extends PaletteProviderBase<XyRenderableSeriesBase> implements IFillPaletteProvider, IStrokePaletteProvider, IPointMarkerPaletteProvider {

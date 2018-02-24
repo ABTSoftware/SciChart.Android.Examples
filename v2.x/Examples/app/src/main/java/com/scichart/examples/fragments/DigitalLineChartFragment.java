@@ -16,9 +16,11 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
@@ -41,27 +43,28 @@ public class DigitalLineChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withDrawMajorBands(true).withVisibleRange(1, 1.25).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.5, 0.5).withDrawMajorBands(true).withVisibleRange(2.3, 3.3).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withDrawMajorBands(true).withVisibleRange(1, 1.25).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.5, 0.5).withDrawMajorBands(true).withVisibleRange(2.3, 3.3).build();
 
+        final DoubleSeries fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
         final XyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-        final FastLineRenderableSeries renderableSeries = sciChartBuilder.newLineSeries()
-                .withDataSeries(dataSeries)
-                .withIsDigitalLine(true)
-                .withStrokeStyle(0xFF99EE99)
-                .build();
+        dataSeries.append(fourierSeries.xValues, fourierSeries.yValues);
 
-        final DoubleSeries data = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
-        dataSeries.append(data.xValues, data.yValues);
+        final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries()
+                .withDataSeries(dataSeries)
+                .withStrokeStyle(0xFF99EE99, 1f, true)
+                .withIsDigitalLine(true)
+                .build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), renderableSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-                surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

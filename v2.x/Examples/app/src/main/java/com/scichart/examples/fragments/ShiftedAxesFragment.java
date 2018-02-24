@@ -24,7 +24,6 @@ import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.IServiceContainer;
 import com.scichart.core.common.Size;
@@ -53,15 +52,14 @@ public class ShiftedAxesFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Top).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Top).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
 
         final DoubleSeries butterflyCurve = DataManager.getInstance().getButterflyCurve(20000);
-
         final XyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withAcceptsUnsortedData().build();
         dataSeries.append(butterflyCurve.xValues, butterflyCurve.yValues);
 
-        final FastLineRenderableSeries renderableSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).build();
+        final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -70,8 +68,10 @@ public class ShiftedAxesFragment extends ExampleBaseFragment {
 
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), renderableSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withDuration(20000).withStartDelay(350).start();
             }
         });
     }

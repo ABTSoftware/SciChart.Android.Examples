@@ -16,9 +16,11 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
@@ -30,7 +32,7 @@ import java.util.Collections;
 
 import butterknife.BindView;
 
-public class PanAndZoomChartFragment extends ExampleBaseFragment{
+public class PanAndZoomChartFragment extends ExampleBaseFragment {
     @BindView(R.id.chart)
     SciChartSurface surface;
 
@@ -41,16 +43,16 @@ public class PanAndZoomChartFragment extends ExampleBaseFragment{
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withVisibleRange(3, 6).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withVisibleRange(3, 6).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
 
         final XyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
         final XyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
         final XyDataSeries<Double, Double> ds3 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
 
-        final FastMountainRenderableSeries rs1 = sciChartBuilder.newMountainSeries().withDataSeries(ds1).withAreaFillColor(0x77279B27).withStrokeStyle(0xFF177B17).build();
-        final FastMountainRenderableSeries rs2 = sciChartBuilder.newMountainSeries().withDataSeries(ds2).withAreaFillColor(0x77FF1919).withStrokeStyle(0xFFDD0909).build();
-        final FastMountainRenderableSeries rs3 = sciChartBuilder.newMountainSeries().withDataSeries(ds3).withAreaFillColor(0x771964FF).withStrokeStyle(0xFF0944CF).build();
+        final FastMountainRenderableSeries rs1 = sciChartBuilder.newMountainSeries().withDataSeries(ds1).withAreaFillColor(0x77279B27).withStrokeStyle(0xFF177B17, 1f, true).build();
+        final FastMountainRenderableSeries rs2 = sciChartBuilder.newMountainSeries().withDataSeries(ds2).withAreaFillColor(0x77FF1919).withStrokeStyle(0xFFDD0909, 1f, true).build();
+        final FastMountainRenderableSeries rs3 = sciChartBuilder.newMountainSeries().withDataSeries(ds3).withAreaFillColor(0x771964FF).withStrokeStyle(0xFF0944CF, 1f, true).build();
 
         final DoubleSeries data1 = DataManager.getInstance().getDampedSinewave(300, 1.0, 0.0, 0.01, 1000, 10);
         final DoubleSeries data2 = DataManager.getInstance().getDampedSinewave(300, 1.0, 0.0, 0.024, 1000, 10);
@@ -71,6 +73,10 @@ public class PanAndZoomChartFragment extends ExampleBaseFragment{
                         .withZoomPanModifier().withReceiveHandledEvents(true).build()
                         .withZoomExtentsModifier().build()
                         .build());
+
+                sciChartBuilder.newAnimator(rs1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
             }
         });
     }

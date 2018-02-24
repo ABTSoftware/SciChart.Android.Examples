@@ -18,11 +18,12 @@ package com.scichart.examples.fragments;
 
 import android.content.Context;
 import android.text.SpannableStringBuilder;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.TooltipModifier;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.hitTest.DefaultXySeriesInfoProvider;
 import com.scichart.charting.visuals.renderableSeries.hitTest.XySeriesInfo;
@@ -54,8 +55,8 @@ public class CustomizationTooltipModifierTooltipsFragment extends ExampleBaseFra
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
 
         final RandomWalkGenerator randomWalkGenerator = new RandomWalkGenerator();
 
@@ -69,8 +70,8 @@ public class CustomizationTooltipModifierTooltipsFragment extends ExampleBaseFra
         ds1.append(data1.xValues, data1.yValues);
         ds2.append(data2.xValues, data2.yValues);
 
-        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new FirstCustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2).build();
-        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new SecondCustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2).build();
+        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new FirstCustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2, true).build();
+        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new SecondCustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2, true).build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -78,9 +79,10 @@ public class CustomizationTooltipModifierTooltipsFragment extends ExampleBaseFra
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), lineRs1, lineRs2);
-                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
-                        .withTooltipModifier().build()
-                        .build());
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup().withTooltipModifier().build().build());
+
+                sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

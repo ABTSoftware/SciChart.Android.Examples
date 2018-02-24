@@ -59,6 +59,23 @@
         <item>BerryBlue</item>
     </string-array>
 
+    <string-array name="series_list">
+        <item>COLUMN</item>
+        <item>LINE</item>
+        <item>SPLINE_LINE</item>
+        <item>IMPULSE</item>
+        <item>MOUNTAIN</item>
+        <item>XY_SCATTER</item>
+        <item>ERROR_BARS</item>
+        <item>FIXED_ERROR_BARS</item>
+        <item>BUBBLE</item>
+        <item>BAND</item>
+        <item>OHLC</item>
+        <item>CANDLESTICK</item>
+        <item>STACKED_COLUMN</item>
+        <item>STACKED_MOUNTAIN</item>
+    </string-array>
+
     <string name="theme">Theme:</string>
 
     <string-array name="fill_list">
@@ -223,6 +240,7 @@
     <string name="tooltip">TOOLTIP</string>
     <string name="annotation_type">Annotation type</string>
     <string name="delete_annotation">DEL</string>
+    <string name="select_renderable_series">Select Renderable Series</string>
 
     <!-- end: ALL -->
 

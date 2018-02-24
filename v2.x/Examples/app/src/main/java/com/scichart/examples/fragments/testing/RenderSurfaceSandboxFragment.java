@@ -26,6 +26,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import com.scichart.drawing.common.ITexture2D;
+import com.scichart.drawing.common.TexturePenStyle;
 import com.scichart.extensions.builders.FontStyleBuilder;
 import com.scichart.core.IServiceContainer;
 import com.scichart.core.ServiceContainer;
@@ -89,6 +90,9 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
     @BindView(R.id.translateY)
     SeekBar translateY;
 
+    @BindView(R.id.opacity)
+    SeekBar opacity;
+
     @Override
     protected int getLayoutId() {
         return R.layout.example_render_surface_sandbox_fragment;
@@ -99,6 +103,7 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
         rotation.setOnSeekBarChangeListener(this);
         translateX.setOnSeekBarChangeListener(this);
         translateY.setOnSeekBarChangeListener(this);
+        opacity.setOnSeekBarChangeListener(this);
 
         final SpinnerStringAdapter adapter = new SpinnerStringAdapter(getActivity(), R.array.render_surface_types);
         renderSurfaceTypeSpinner.setAdapter(adapter);
@@ -172,7 +177,7 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
     private void invalidateRS() {
         if(renderSurface != null) {
-            renderer.setTransform(rotation.getProgress(), translateX.getProgress(), translateY.getProgress());
+            renderer.setTransform(rotation.getProgress(), translateX.getProgress(), translateY.getProgress(), opacity.getProgress() / 1000f);
 
             renderSurface.invalidateElement();
         }
@@ -200,19 +205,27 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
         private final BrushStyle solidStyle;
         private final BrushStyle linearGradient;
         private final BrushStyle radialGradient;
-        private final BrushStyle textureStyle;
+        private final TextureBrushStyle textureStyle;
 
         private final PenStyle simpleLine;
         private final PenStyle aaLine;
+        private final PenStyle texturedLine;
+        private final PenStyle texturedAaLine;
 
         private final PenStyle dashedSimpleLine;
         private final PenStyle dashedAaLine;
+        private final PenStyle dashedTexturedLine;
+        private final PenStyle dashedTexturedAaLine;
 
         private final PenStyle thickSimpleLine;
         private final PenStyle thickAaLine;
+        private final PenStyle thickTexturedLine;
+        private final PenStyle thickTexturedAaLine;
 
         private final PenStyle dashedThickSimpleLine;
         private final PenStyle dashedThickAaLine;
+        private final PenStyle dashedThickTexturedLine;
+        private final PenStyle dashedThickTexturedAaLine;
 
         private final FontStyle fontStyle;
         private final FontStyle customFontStyle;
@@ -222,7 +235,7 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
         private final float[] xAxisArrow = {0,0, 50, 0, 30, -10, 50, 0, 30, 10, 50, 0};
         private final float[] yAxisArrow = {0,0, 0, 50, -10, 30, 0, 50, 10, 30, 0, 50};
 
-        private float degrees, dx, dy;
+        private float degrees, dx, dy, opacity;
 
         public TestRenderSurfaceRenderer(Bitmap texture) {
             solidStyle = new SolidBrushStyle(ColorUtil.argb(0xEE, 0xFF, 0xC9, 0xA8));
@@ -235,15 +248,23 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
             simpleLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Red).withAntiAliasing(false).withThickness(1f).build();
             aaLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Green).withAntiAliasing(true).withThickness(1f).build();
+            texturedLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(false).withThickness(1f).build();
+            texturedAaLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(true).withThickness(1f).build();
 
             dashedSimpleLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Blue).withAntiAliasing(false).withThickness(1f).withStrokeDashArray(new float[]{5, 10, 5, 10}).build();
             dashedAaLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Magenta).withAntiAliasing(true).withThickness(1f).withStrokeDashArray(new float[]{10, 5, 10, 5}).build();
+            dashedTexturedLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(false).withStrokeDashArray(new float[]{5, 10, 5, 10}).withThickness(1f).build();
+            dashedTexturedAaLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(true).withStrokeDashArray(new float[]{10, 5, 10, 5}).withThickness(1f).build();
 
             thickSimpleLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Red).withAntiAliasing(false).withThickness(10f).build();
             thickAaLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Green).withAntiAliasing(true).withThickness(10f).build();
+            thickTexturedLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(false).withThickness(10f).build();
+            thickTexturedAaLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(true).withThickness(10f).build();
 
             dashedThickSimpleLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Blue).withAntiAliasing(false).withThickness(20f).withStrokeDashArray(new float[]{5, 10, 5, 10}).build();
             dashedThickAaLine = new SolidPenStyleBuilder(getActivity()).withColor(ColorUtil.Magenta).withAntiAliasing(true).withThickness(20f).withStrokeDashArray(new float[]{0, 20, 10, 5}).build();
+            dashedThickTexturedLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(false).withThickness(20f).withStrokeDashArray(new float[]{5, 10, 5, 10}).build();
+            dashedThickTexturedAaLine = new TexturePenStyleBuilder(getActivity()).withTextureBrush(textureStyle).withAntiAliasing(true).withThickness(20).withStrokeDashArray(new float[]{0, 20, 10, 5}).build();
 
             this.texture = texture;
         }
@@ -263,10 +284,11 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
         }
 
-        public void setTransform(float degrees, float dx, float dy){
+        public void setTransform(float degrees, float dx, float dy, float opacity){
             this.degrees = degrees;
             this.dx = dx  - translateX.getMax() / 2;
             this.dy = dy - translateY.getMax() / 2;
+            this.opacity = opacity;
         }
 
         @Override
@@ -274,24 +296,33 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
             renderContext.translate(dx, dy);
             renderContext.rotate(degrees);
 
-            final IBrush2D solidBrushPerScreen = assetManager.createBrush(solidStyle, TextureMappingMode.PerScreen);
-            final IBrush2D radialGradientBrushPerScreen = assetManager.createBrush(radialGradient, TextureMappingMode.PerScreen);
-            final IBrush2D linearGradientBrushPerScreen = assetManager.createBrush(linearGradient, TextureMappingMode.PerScreen);
-            final IBrush2D textureBrushPerScreen = assetManager.createBrush(textureStyle, TextureMappingMode.PerScreen);
+            final IBrush2D solidBrushPerScreen = assetManager.createBrush(solidStyle, TextureMappingMode.PerScreen, opacity);
+            final IBrush2D radialGradientBrushPerScreen = assetManager.createBrush(radialGradient, TextureMappingMode.PerScreen, opacity);
+            final IBrush2D linearGradientBrushPerScreen = assetManager.createBrush(linearGradient, TextureMappingMode.PerScreen, opacity);
+            final IBrush2D textureBrushPerScreen = assetManager.createBrush(textureStyle, TextureMappingMode.PerScreen, opacity);
 
-            final IBrush2D solidBrushPerPrimitive = assetManager.createBrush(solidStyle, TextureMappingMode.PerPrimitive);
-            final IBrush2D radialGradientBrushPerPrimitive = assetManager.createBrush(radialGradient, TextureMappingMode.PerPrimitive);
-            final IBrush2D linearGradientBrushPerPrimitive = assetManager.createBrush(linearGradient, TextureMappingMode.PerPrimitive);
-            final IBrush2D textureBrushPerPrimitive = assetManager.createBrush(textureStyle, TextureMappingMode.PerPrimitive);
+            final IBrush2D solidBrushPerPrimitive = assetManager.createBrush(solidStyle, TextureMappingMode.PerPrimitive, opacity);
+            final IBrush2D radialGradientBrushPerPrimitive = assetManager.createBrush(radialGradient, TextureMappingMode.PerPrimitive, opacity);
+            final IBrush2D linearGradientBrushPerPrimitive = assetManager.createBrush(linearGradient, TextureMappingMode.PerPrimitive, opacity);
+            final IBrush2D textureBrushPerPrimitive = assetManager.createBrush(textureStyle, TextureMappingMode.PerPrimitive, opacity);
 
-            final IPen2D simpleLine = assetManager.createPen(this.simpleLine);
-            final IPen2D aaLine = assetManager.createPen(this.aaLine);
-            final IPen2D dashedSimpleLine = assetManager.createPen(this.dashedSimpleLine);
-            final IPen2D dashedAaLine = assetManager.createPen(this.dashedAaLine);
-            final IPen2D thickSimpleLine = assetManager.createPen(this.thickSimpleLine);
-            final IPen2D thickAaLine = assetManager.createPen(this.thickAaLine);
-            final IPen2D dashedThickSimpleLine = assetManager.createPen(this.dashedThickSimpleLine);
-            final IPen2D dashedThickAaLine = assetManager.createPen(this.dashedThickAaLine);
+            final IPen2D simpleLine = assetManager.createPen(this.simpleLine, opacity);
+            final IPen2D aaLine = assetManager.createPen(this.aaLine, opacity);
+            final IPen2D dashedSimpleLine = assetManager.createPen(this.dashedSimpleLine, opacity);
+            final IPen2D dashedAaLine = assetManager.createPen(this.dashedAaLine, opacity);
+            final IPen2D thickSimpleLine = assetManager.createPen(this.thickSimpleLine, opacity);
+            final IPen2D thickAaLine = assetManager.createPen(this.thickAaLine, opacity);
+            final IPen2D dashedThickSimpleLine = assetManager.createPen(this.dashedThickSimpleLine, opacity);
+            final IPen2D dashedThickAaLine = assetManager.createPen(this.dashedThickAaLine, opacity);
+
+            final IPen2D texturedLine = assetManager.createPen(this.texturedLine, opacity);
+            final IPen2D texturedAaLine = assetManager.createPen(this.texturedAaLine, opacity);
+            final IPen2D dashedTexturedLine = assetManager.createPen(this.dashedTexturedLine, opacity);
+            final IPen2D dashedTexturedAaLine = assetManager.createPen(this.dashedTexturedAaLine, opacity);
+            final IPen2D thickTexturedLine = assetManager.createPen(this.thickTexturedLine, opacity);
+            final IPen2D thickTexturedAaLine = assetManager.createPen(this.thickTexturedAaLine, opacity);
+            final IPen2D dashedThickTexturedLine = assetManager.createPen(this.dashedThickTexturedLine, opacity);
+            final IPen2D dashedThickTexturedAaLine = assetManager.createPen(this.dashedThickTexturedAaLine, opacity);
 
             final IFont font = assetManager.createFont(this.fontStyle);
             final IFont customFont = assetManager.createFont(this.customFontStyle);
@@ -319,6 +350,18 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
             renderContext.translate(0, 200);
 
+            renderContext.drawLine(0, 0, 80, 80, texturedLine);
+            renderContext.drawLine(100, 0, 180, 80, texturedAaLine);
+            renderContext.drawLine(200, 0, 280, 80, dashedTexturedLine);
+            renderContext.drawLine(300, 0, 380, 80, dashedTexturedAaLine);
+
+            renderContext.drawLine(0, 100, 80, 180, thickTexturedLine);
+            renderContext.drawLine(100, 100, 180, 180, thickTexturedAaLine);
+            renderContext.drawLine(200, 100, 280, 180, dashedThickTexturedLine);
+            renderContext.drawLine(300, 100, 380, 180, dashedThickTexturedAaLine);
+
+            renderContext.translate(0, 200);
+
             renderContext.drawRect(0, 0, 80, 80, simpleLine);
             renderContext.drawRect(100, 0, 180, 80, aaLine);
             renderContext.drawRect(200, 0, 280, 80, dashedSimpleLine);
@@ -328,6 +371,20 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
             renderContext.drawRect(100, 100, 180, 180, thickAaLine);
             renderContext.drawRect(200, 100, 280, 180, dashedThickSimpleLine);
             renderContext.drawRect(300, 100, 380, 180, dashedThickAaLine);
+
+            /* TODO implement rendering of textured rects
+            renderContext.translate(0, 200);
+
+            renderContext.drawRect(0, 0, 80, 80, texturedLine);
+            renderContext.drawRect(100, 0, 180, 80, texturedAaLine);
+            renderContext.drawRect(200, 0, 280, 80, dashedTexturedLine);
+            renderContext.drawRect(300, 0, 380, 80, dashedTexturedAaLine);
+
+            renderContext.drawRect(0, 100, 80, 180, thickTexturedLine);
+            renderContext.drawRect(100, 100, 180, 180, thickTexturedAaLine);
+            renderContext.drawRect(200, 100, 280, 180, dashedThickTexturedLine);
+            renderContext.drawRect(300, 100, 380, 180, dashedThickTexturedAaLine);
+            */
 
             renderContext.translate(0, 200);
 
@@ -353,6 +410,20 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
             renderContext.drawEllipse(250, 150, 80, 80, dashedThickSimpleLine, radialGradientBrushPerPrimitive);
             renderContext.drawEllipse(350, 150, 80, 80, dashedThickAaLine, textureBrushPerPrimitive);
 
+            /* TODO implement rendering of textured ellipses
+            renderContext.translate(0, 200);
+
+            renderContext.drawEllipse(50, 50, 80, 80, texturedLine, solidBrushPerScreen);
+            renderContext.drawEllipse(150, 50, 80, 80, texturedAaLine, linearGradientBrushPerScreen);
+            renderContext.drawEllipse(250, 50, 80, 80, dashedTexturedLine, radialGradientBrushPerScreen);
+            renderContext.drawEllipse(350, 50, 80, 80, dashedTexturedAaLine, textureBrushPerScreen);
+
+            renderContext.drawEllipse(50, 150, 80, 80, thickTexturedLine, solidBrushPerPrimitive);
+            renderContext.drawEllipse(150, 150, 80, 80, thickTexturedAaLine, linearGradientBrushPerPrimitive);
+            renderContext.drawEllipse(250, 150, 80, 80, dashedThickTexturedLine, radialGradientBrushPerPrimitive);
+            renderContext.drawEllipse(350, 150, 80, 80, dashedThickTexturedAaLine, textureBrushPerPrimitive);
+            */
+
             renderContext.restore();
 
             renderContext.save();
@@ -369,13 +440,13 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
             renderContext.translate(0, 300);
 
-            renderContext.drawSprite(sprite1, 0, 0);
+            renderContext.drawSprite(sprite1, 0, 0, opacity);
             renderContext.translate(0, sprite1.getHeight() + 10);
 
-            renderContext.drawSprite(sprite2, 0, 0);
+            renderContext.drawSprite(sprite2, 0, 0, opacity);
             renderContext.translate(0, sprite2.getHeight() + 10);
 
-            renderContext.drawSprite(sprite3, 0, 0);
+            renderContext.drawSprite(sprite3, 0, 0, opacity);
             renderContext.translate(0, sprite3.getHeight() + 10);
 
             sprite1.dispose();

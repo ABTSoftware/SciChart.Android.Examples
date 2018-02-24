@@ -57,6 +57,13 @@
             android:layout_weight="1"
             android:max="1000" android:progress="500"/>
 
+        <SeekBar
+            android:id="@+id/opacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="1000" android:progress="1000"/>
+
     </LinearLayout>
 
     <FrameLayout

@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.RolloverModifier;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
@@ -97,6 +99,12 @@ public class StackedColumnChartFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getChartModifiers(), new RolloverModifier());
                 Collections.addAll(surface.getChartModifiers(), new ZoomExtentsModifier());
+
+                sciChartBuilder.newAnimator(porkSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(vealSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(tomatoSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(cucumberSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(pepperSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

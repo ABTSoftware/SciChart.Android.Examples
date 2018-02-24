@@ -18,6 +18,7 @@ package com.scichart.examples.fragments;
 
 import android.app.Dialog;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
@@ -75,15 +76,14 @@ public class DragAreaToZoomFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        DoubleSeries data = new RandomWalkGenerator(0).setBias(0.0001).getRandomWalkSeries(10000);
-
-        final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-        dataSeries.append(data.xValues, data.yValues);
-
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
 
-        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(ColorUtil.argb(255, 9, 68, 27)).build();
+        DoubleSeries data = new RandomWalkGenerator(0).setBias(0.0001).getRandomWalkSeries(10000);
+        final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
+        dataSeries.append(data.xValues, data.yValues);
+
+        final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(ColorUtil.argb(255, 9, 68, 27), 1, true).build();
 
         rubberBandXyZoomModifier = new RubberBandXyZoomModifier();
         rubberBandXyZoomModifier.setIsXAxisOnly(true);
@@ -94,11 +94,13 @@ public class DragAreaToZoomFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), lineSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
                         .withZoomExtentsModifier().build()
                         .withModifier(rubberBandXyZoomModifier)
                         .build());
+
+                sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
             }
         });
     }

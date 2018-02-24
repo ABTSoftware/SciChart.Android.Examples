@@ -17,6 +17,7 @@
 package com.scichart.examples.fragments;
 
 import android.view.Gravity;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.numerics.labelProviders.FormatterLabelProviderBase;
@@ -111,17 +112,7 @@ public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
         final StackedColumnRenderableSeries s11 = sciChartBuilder.newStackedColumn().withDataSeries(restOfTheWorldDataSeries).withFillColor(0xff560068).withStrokeStyle(0xff3D0049, 0f).build();
 
         final HorizontallyStackedColumnsCollection columnsCollection = new HorizontallyStackedColumnsCollection();
-        columnsCollection.add(s1);
-        columnsCollection.add(s2);
-        columnsCollection.add(s3);
-        columnsCollection.add(s4);
-        columnsCollection.add(s5);
-        columnsCollection.add(s6);
-        columnsCollection.add(s7);
-        columnsCollection.add(s8);
-        columnsCollection.add(s9);
-        columnsCollection.add(s10);
-        columnsCollection.add(s11);
+        Collections.addAll(columnsCollection, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11);
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -133,6 +124,18 @@ public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
                         .withLegendModifier().withPosition(Gravity.TOP | Gravity.LEFT, 10).build()
                         .withTooltipModifier().build()
                         .build());
+
+                sciChartBuilder.newAnimator(s1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s4).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s5).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s6).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s7).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s8).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s9).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s10).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s11).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

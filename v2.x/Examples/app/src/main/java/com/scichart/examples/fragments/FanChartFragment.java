@@ -16,11 +16,12 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.model.dataSeries.XyyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.DateAxis;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastBandRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.common.Func1;
@@ -39,7 +40,6 @@ import java.util.List;
 
 import butterknife.BindView;
 
-
 public class FanChartFragment extends ExampleBaseFragment {
 
     @BindView(R.id.chart)
@@ -52,6 +52,9 @@ public class FanChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final IAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(0.1, 0.1).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+
         final XyDataSeries<Date, Double> actualDataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).build();
         final XyyDataSeries<Date, Double> var3DataSeries = sciChartBuilder.newXyyDataSeries(Date.class, Double.class).build();
         final XyyDataSeries<Date, Double> var2DataSeries = sciChartBuilder.newXyyDataSeries(Date.class, Double.class).build();
@@ -67,9 +70,6 @@ public class FanChartFragment extends ExampleBaseFragment {
             var1DataSeries.append(dataPoint.date, dataPoint.var2, dataPoint.var3);
         }
 
-        final DateAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(0.1, 0.1).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
-
         final FastBandRenderableSeries projectedVar3 = sciChartBuilder.newBandSeries().withDataSeries(var3DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
         final FastBandRenderableSeries projectedVar2 = sciChartBuilder.newBandSeries().withDataSeries(var2DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
         final FastBandRenderableSeries projectedVar = sciChartBuilder.newBandSeries().withDataSeries(var1DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
@@ -82,6 +82,11 @@ public class FanChartFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), projectedVar3, projectedVar2, projectedVar, lineSeries);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(lineSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(projectedVar).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(projectedVar2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(projectedVar3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

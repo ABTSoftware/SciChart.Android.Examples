@@ -20,11 +20,12 @@ import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.CursorModifier;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.hitTest.DefaultXySeriesInfoProvider;
 import com.scichart.charting.visuals.renderableSeries.hitTest.XySeriesInfo;
@@ -55,8 +56,8 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleBaseFrag
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
 
         final RandomWalkGenerator randomWalkGenerator = new RandomWalkGenerator();
 
@@ -70,8 +71,8 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleBaseFrag
         ds1.append(data1.xValues, data1.yValues);
         ds2.append(data2.xValues, data2.yValues);
 
-        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2).build();
-        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2).build();
+        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2, true).build();
+        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2, true).build();
 
         final CursorModifier cursorModifier = new CursorModifier(R.layout.example_custom_cursor_modifier_tooltip_container);
 
@@ -86,6 +87,9 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleBaseFrag
                 final DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
                 final float thickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, displayMetrics);
                 new SolidPenStyle(0xAAFFA500, false, thickness, null).initPaint(cursorModifier.getCrosshairPaint());
+
+                sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.TooltipModifier;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -67,6 +69,9 @@ public class StackedMountainChartFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
+
+                sciChartBuilder.newAnimator(s1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(s2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

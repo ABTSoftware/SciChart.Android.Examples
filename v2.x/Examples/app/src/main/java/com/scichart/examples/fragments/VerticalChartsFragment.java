@@ -16,11 +16,13 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.data.model.DoubleRange;
@@ -68,14 +70,14 @@ public class VerticalChartsFragment extends ExampleBaseFragment {
         DataManager.getInstance().setRandomDoubleSeries(xValues, yValues, 20);
         dataSeries1.append(xValues, yValues);
 
-        final IRenderableSeries lineSeries0 = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries lineSeries0 = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries0)
-                .withStrokeStyle(ColorUtil.SteelBlue, 3)
+                .withStrokeStyle(ColorUtil.SteelBlue, 2, true)
                 .build();
 
-        final IRenderableSeries lineSeries1 = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries lineSeries1 = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries1)
-                .withStrokeStyle(ColorUtil.Lime, 3)
+                .withStrokeStyle(ColorUtil.Lime, 2, true)
                 .build();
 
         UpdateSuspender.using(surface, new Runnable() {
@@ -85,6 +87,9 @@ public class VerticalChartsFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), lineSeries0, lineSeries1);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(lineSeries0).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

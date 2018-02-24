@@ -16,6 +16,7 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.layoutManagers.ChartLayoutState;
 import com.scichart.charting.layoutManagers.DefaultLayoutManager;
@@ -27,8 +28,8 @@ import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.AxisLayoutState;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
@@ -43,7 +44,7 @@ import butterknife.BindView;
 public class VerticallyStackedYAxesFragment extends ExampleBaseFragment {
 
     @BindView(R.id.chart)
-    SciChartSurface chart;
+    SciChartSurface surface;
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -63,33 +64,42 @@ public class VerticallyStackedYAxesFragment extends ExampleBaseFragment {
             final XyDataSeries<Double, Double> ds = new XyDataSeries<>(Double.class, Double.class);
             dataSeries.add(ds);
 
-            final DoubleSeries sinewave = DataManager.getInstance().getSinewave(3, i, 1000);
-
-            ds.append(sinewave.xValues, sinewave.yValues);
+            final DoubleSeries sineWave = DataManager.getInstance().getSinewave(3, i, 1000);
+            ds.append(sineWave.xValues, sineWave.yValues);
         }
 
-        final FastLineRenderableSeries ch0 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(0)).withStrokeStyle(0xFFFF1919).withYAxisId("Ch0").build();
-        final FastLineRenderableSeries ch1 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(1)).withStrokeStyle(0xFFFC9C29).withYAxisId("Ch1").build();
-        final FastLineRenderableSeries ch2 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(2)).withStrokeStyle(0xFFFF1919).withYAxisId("Ch2").build();
-        final FastLineRenderableSeries ch3 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(3)).withStrokeStyle(0xFFFC9C29).withYAxisId("Ch3").build();
-        final FastLineRenderableSeries ch4 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(4)).withStrokeStyle(0xFF4083B7).withYAxisId("Ch4").build();
+        final FastLineRenderableSeries ch0 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(0)).withStrokeStyle(0xFFFF1919, 1f, true).withYAxisId("Ch0").build();
+        final FastLineRenderableSeries ch1 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(1)).withStrokeStyle(0xFFFC9C29, 1f, true).withYAxisId("Ch1").build();
+        final FastLineRenderableSeries ch2 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(2)).withStrokeStyle(0xFFFF1919, 1f, true).withYAxisId("Ch2").build();
+        final FastLineRenderableSeries ch3 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(3)).withStrokeStyle(0xFFFC9C29, 1f, true).withYAxisId("Ch3").build();
+        final FastLineRenderableSeries ch4 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(4)).withStrokeStyle(0xFF4083B7, 1f, true).withYAxisId("Ch4").build();
 
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).build();
-
-        final NumericAxis yAxis0 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch0").withAxisTitle("Ch0").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
-        final NumericAxis yAxis1 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch1").withAxisTitle("Ch1").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
-        final NumericAxis yAxis2 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch2").withAxisTitle("Ch2").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
-        final NumericAxis yAxis3 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch3").withAxisTitle("Ch3").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
-        final NumericAxis yAxis4 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch4").withAxisTitle("Ch4").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).build();
+        final IAxis yAxis0 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch0").withAxisTitle("Ch0").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
+        final IAxis yAxis1 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch1").withAxisTitle("Ch1").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
+        final IAxis yAxis2 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch2").withAxisTitle("Ch2").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
+        final IAxis yAxis3 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch3").withAxisTitle("Ch3").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
+        final IAxis yAxis4 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch4").withAxisTitle("Ch4").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();
 
         final DefaultLayoutManager layoutManager = new DefaultLayoutManager.Builder().setLeftOuterAxesLayoutStrategy(new LeftAlignedOuterVerticallyStackedYAxisLayoutStrategy()).build();
 
-        chart.setLayoutManager(layoutManager);
+        UpdateSuspender.using(surface, new Runnable() {
+            @Override
+            public void run() {
+                surface.setLayoutManager(layoutManager);
 
-        Collections.addAll(chart.getXAxes(), xAxis);
-        Collections.addAll(chart.getYAxes(), yAxis0, yAxis1, yAxis2, yAxis3, yAxis4);
-        Collections.addAll(chart.getRenderableSeries(), ch0, ch1, ch2, ch3, ch4);
-        Collections.addAll(chart.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis0, yAxis1, yAxis2, yAxis3, yAxis4);
+                Collections.addAll(surface.getRenderableSeries(), ch0, ch1, ch2, ch3, ch4);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(ch0).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(ch1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(ch2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(ch3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(ch4).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            }
+        });
     }
 
     private static class LeftAlignedOuterVerticallyStackedYAxisLayoutStrategy extends VerticalAxisLayoutStrategy {

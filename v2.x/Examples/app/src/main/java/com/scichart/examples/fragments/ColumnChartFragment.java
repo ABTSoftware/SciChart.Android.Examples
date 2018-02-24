@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
@@ -44,6 +46,9 @@ public class ColumnChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0, 0.1).build();
+
         IXyDataSeries<Integer, Integer> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Integer.class).build();
         final int[] yValues = {50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60};
 
@@ -51,10 +56,7 @@ public class ColumnChartFragment extends ExampleBaseFragment {
             dataSeries.append(i, yValues[i]);
         }
 
-        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0, 0.1).build();
-
-        final FastColumnRenderableSeries columnSeries = sciChartBuilder.newColumnSeries()
+        final FastColumnRenderableSeries rSeries = sciChartBuilder.newColumnSeries()
                 .withStrokeStyle(0xFF232323, 0.4f)
                 .withDataPointWidth(0.7)
                 .withLinearGradientColors(ColorUtil.LightSteelBlue, ColorUtil.SteelBlue)
@@ -62,14 +64,15 @@ public class ColumnChartFragment extends ExampleBaseFragment {
                 .withPaletteProvider(new ColumnsPaletteProvider())
                 .build();
 
-        surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
-
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), columnSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

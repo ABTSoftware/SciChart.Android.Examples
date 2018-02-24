@@ -17,10 +17,11 @@
 package com.scichart.examples.fragments;
 
 import android.app.Dialog;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.daasuu.ei.Ease;
+import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.IXyzDataSeries;
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
@@ -29,7 +30,6 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastBubbleRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.common.SolidBrushStyle;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
@@ -89,7 +89,7 @@ public class BubbleChartFragment extends ExampleBaseFragment {
 
         final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xffff3333, 2f).build();
 
-        final FastBubbleRenderableSeries bubbleSeries = sciChartBuilder.newBubbleSeries()
+        final FastBubbleRenderableSeries rSeries = sciChartBuilder.newBubbleSeries()
                 .withDataSeries(dataSeries)
                 .withZScaleFactor(zScaleFactor / 10f)
                 .withBubbleBrushStyle(new SolidBrushStyle(0x77CCCCCC))
@@ -102,9 +102,12 @@ public class BubbleChartFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), lineSeries, bubbleSeries);
+                Collections.addAll(surface.getRenderableSeries(), lineSeries, rSeries);
                 Collections.addAll(surface.getChartModifiers(), new RubberBandXyZoomModifier());
                 Collections.addAll(surface.getChartModifiers(), new ZoomExtentsModifier());
+
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(10600d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rSeries).withScaleTransformation(10600d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

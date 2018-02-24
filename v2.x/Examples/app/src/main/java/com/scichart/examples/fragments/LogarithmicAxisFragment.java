@@ -19,13 +19,13 @@ package com.scichart.examples.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 
 import com.scichart.charting.model.AxisCollection;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
-import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.axes.ILogarithmicNumericAxis;
@@ -125,7 +125,6 @@ public class LogarithmicAxisFragment extends ExampleBaseFragment {
                 .withPointMarker(pointMarker2)
                 .withDataSeries(dataSeries2)
                 .build();
-
         final FastLineRenderableSeries line3 = sciChartBuilder.newLineSeries()
                 .withStrokeStyle(line3Color)
                 .withPointMarker(pointMarker3)
@@ -138,12 +137,11 @@ public class LogarithmicAxisFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), line1, line2, line3);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-                ModifierGroup modifierGroup = sciChartBuilder
-                        .newModifierGroupWithDefaultModifiers()
-                        .build();
-
-                surface.getChartModifiers().add(modifierGroup);
+                sciChartBuilder.newAnimator(line1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(line2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(line3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
 

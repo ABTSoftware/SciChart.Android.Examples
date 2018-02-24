@@ -20,6 +20,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -30,7 +31,7 @@ import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.modifiers.SeriesSelectionModifier;
 import com.scichart.charting.modifiers.SourceMode;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.SeriesStyleBase;
@@ -92,8 +93,8 @@ public class LegendFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(0, 150).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withVisibleRange(-1.5, 1.5).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(0, 150).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withVisibleRange(-1.5, 1.5).build();
 
         final XyDataSeries<Double, Double> dataSeries1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Curve A").build();
         final XyDataSeries<Double, Double> dataSeries2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Curve B").build();
@@ -123,10 +124,6 @@ public class LegendFragment extends ExampleBaseFragment {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                Collections.addAll(surface.getXAxes(), xAxis);
-                Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), line1, line2, line3, line4);
-
                 final SeriesSelectionModifier seriesSelectionModifier = new SeriesSelectionModifier();
                 seriesSelectionModifier.setSelectedSeriesStyle(new SeriesStyleBase<IRenderableSeries>(IRenderableSeries.class) {
                     @Override
@@ -151,7 +148,15 @@ public class LegendFragment extends ExampleBaseFragment {
                         .build();
                 legendModifier = (LegendModifier) modifierGroup.getChildModifiers().get(0);
 
-                surface.getChartModifiers().add(modifierGroup);
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), line1, line2, line3, line4);
+                Collections.addAll(surface.getChartModifiers(), modifierGroup);
+
+                sciChartBuilder.newAnimator(line1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(line2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(line3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(line4).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
 

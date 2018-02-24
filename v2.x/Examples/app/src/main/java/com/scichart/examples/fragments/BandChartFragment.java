@@ -16,9 +16,11 @@
 
 package com.scichart.examples.fragments;
 
+import com.daasuu.ei.Ease;
+import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.XyyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastBandRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
@@ -41,8 +43,8 @@ public class BandChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(1.1, 2.7).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(1.1, 2.7).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
 
         final DoubleSeries data = DataManager.getInstance().getDampedSinewave(1.0, 0.01, 1000, 10);
         final DoubleSeries moreData = DataManager.getInstance().getDampedSinewave(1.0, 0.005, 1000, 12);
@@ -50,10 +52,10 @@ public class BandChartFragment extends ExampleBaseFragment {
         final XyyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyyDataSeries(Double.class, Double.class).build();
         dataSeries.append(data.xValues, data.yValues, moreData.yValues);
 
-        final FastBandRenderableSeries renderableSeries = sciChartBuilder.newBandSeries()
+        final FastBandRenderableSeries rSeries = sciChartBuilder.newBandSeries()
                 .withDataSeries(dataSeries)
                 .withFillColor(0x33279B27).withFillY1Color(0x33FF1919)
-                .withStrokeStyle(0xFFFF1919).withStrokeY1Style(0xFF279B27)
+                .withStrokeStyle(0xFFFF1919, 1f, true).withStrokeY1Style(0xFF279B27, 1f, true)
                 .build();
 
         UpdateSuspender.using(surface, new Runnable() {
@@ -61,9 +63,10 @@ public class BandChartFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), renderableSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-                surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

@@ -20,8 +20,9 @@ import android.app.Dialog;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.daasuu.ei.Ease;
+import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.HlDataSeries;
-import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.axes.NumericAxis;
@@ -29,7 +30,9 @@ import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.ErrorDirection;
 import com.scichart.charting.visuals.renderableSeries.ErrorType;
 import com.scichart.charting.visuals.renderableSeries.FastErrorBarsRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.drawing.common.PenStyle;
@@ -48,7 +51,6 @@ import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
-
 
 public class ErrorBarsChartFragment extends ExampleBaseFragment {
     @BindView(R.id.chart)
@@ -91,25 +93,25 @@ public class ErrorBarsChartFragment extends ExampleBaseFragment {
         fillSeries(dataSeries1, data, 1.3);
 
         final int color = 0xFFC6E6FF;
-        final IRenderableSeries errorBars0 = sciChartBuilder.newErrorBarsSeries()
+        final FastErrorBarsRenderableSeries errorBars0 = sciChartBuilder.newErrorBarsSeries()
                 .withDataSeries(dataSeries0)
                 .withStrokeStyle(color, 1f)
                 .withErrorDirection(ErrorDirection.Vertical)
                 .withErrorType(ErrorType.Absolute)
                 .build();
-        final IRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries0)
                 .withStrokeStyle(color, 1f)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5, 5).withFill(color).build())
                 .build();
 
-        final IRenderableSeries errorBars1 = sciChartBuilder.newErrorBarsSeries()
+        final FastErrorBarsRenderableSeries errorBars1 = sciChartBuilder.newErrorBarsSeries()
                 .withDataSeries(dataSeries1)
                 .withStrokeStyle(color, 1f)
                 .withErrorDirection(ErrorDirection.Vertical)
                 .withErrorType(ErrorType.Absolute)
                 .build();
-        final IRenderableSeries scatterSeries = sciChartBuilder.newScatterSeries()
+        final XyScatterRenderableSeries scatterSeries = sciChartBuilder.newScatterSeries()
                 .withDataSeries(dataSeries1)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withFill(0x00FFFFFF).withStroke(color, 1f).build())
                 .build();
@@ -121,6 +123,11 @@ public class ErrorBarsChartFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), lineSeries, scatterSeries, errorBars0, errorBars1);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(errorBars0).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(errorBars1).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(scatterSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

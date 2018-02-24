@@ -19,6 +19,7 @@ package com.scichart.examples.fragments;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -29,7 +30,7 @@ import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.modifiers.SourceMode;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
@@ -83,8 +84,8 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(new DoubleRange(3d, 6d)).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withGrowBy(0.05d, 0.05d).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(new DoubleRange(3d, 6d)).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withGrowBy(0.05d, 0.05d).build();
 
         final XyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Green Series").build();
         final XyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Red Series").build();
@@ -116,6 +117,11 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
                         .withCursorModifier().withShowTooltip(showTooltip).withShowAxisLabels(showAxisLabels).build()
                         .build());
                 cursorModifier = (CursorModifier) ((ModifierGroup) surface.getChartModifiers().get(0)).getChildModifiers().get(0);
+
+                sciChartBuilder.newAnimator(rs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs4).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
             }
         });
     }

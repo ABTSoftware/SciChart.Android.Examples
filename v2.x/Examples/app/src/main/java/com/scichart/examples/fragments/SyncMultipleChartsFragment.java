@@ -16,12 +16,15 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.IRange;
 import com.scichart.drawing.utility.ColorUtil;
@@ -33,7 +36,6 @@ import java.util.Collections;
 import butterknife.BindView;
 
 public class SyncMultipleChartsFragment extends ExampleBaseFragment {
-
     private final static int POINTS_COUNT = 500;
 
     private IRange sharedXRange = new DoubleRange(0d, 1d);
@@ -61,31 +63,38 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment {
         initChart(chart1);
     }
 
-    private void initChart(SciChartSurface surface) {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedXRange).build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedYRange).build();
+    private void initChart(final SciChartSurface surface) {
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedXRange).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedYRange).build();
 
         final FastLineRenderableSeries line = sciChartBuilder.newLineSeries().withDataSeries(createDataSeries()).withStrokeStyle(ColorUtil.Green, 1f, true).build();
 
-        Collections.addAll(surface.getXAxes(), xAxis);
-        Collections.addAll(surface.getYAxes(), yAxis);
-        Collections.addAll(surface.getRenderableSeries(), line);
-        Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
-                .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
-                .withZoomExtentsModifier().build()
-                .withPinchZoomModifier().build()
-                .withRolloverModifier().withReceiveHandledEvents(true).build()
-                .withXAxisDragModifier().withReceiveHandledEvents(true).build()
-                .withYAxisDragModifier().withReceiveHandledEvents(true).build()
-                .build());
+        UpdateSuspender.using(surface, new Runnable() {
+            @Override
+            public void run() {
+                Collections.addAll(surface.getXAxes(), xAxis);
+                Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), line);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup()
+                        .withMotionEventsGroup("ModifiersSharedEventsGroup").withReceiveHandledEvents(true)
+                        .withZoomExtentsModifier().build()
+                        .withPinchZoomModifier().build()
+                        .withRolloverModifier().withReceiveHandledEvents(true).build()
+                        .withXAxisDragModifier().withReceiveHandledEvents(true).build()
+                        .withYAxisDragModifier().withReceiveHandledEvents(true).build()
+                        .build());
 
-        surface.zoomExtents();
+                surface.zoomExtents();
+
+                sciChartBuilder.newAnimator(line).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            }
+        });
     }
 
     private IDataSeries createDataSeries() {
         IXyDataSeries<Double, Double> dataSeries = new XyDataSeries<>(Double.class, Double.class);
 
-        for (int i = 0; i < POINTS_COUNT; i++) {
+        for (int i = 1; i < POINTS_COUNT; i++) {
             dataSeries.append((double) i, POINTS_COUNT * Math.sin(i * Math.PI * 0.1) / i);
         }
 

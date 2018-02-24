@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.CursorModifier;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
@@ -79,6 +81,10 @@ public class StackedBarChartFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getChartModifiers(), new CursorModifier());
                 Collections.addAll(surface.getChartModifiers(), new ZoomExtentsModifier());
+
+                sciChartBuilder.newAnimator(series1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(series2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(series3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

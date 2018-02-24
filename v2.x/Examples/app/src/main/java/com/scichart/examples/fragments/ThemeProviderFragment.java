@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.daasuu.ei.Ease;
+import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.CursorModifier;
@@ -32,7 +34,10 @@ import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
@@ -119,10 +124,10 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
         lineDataSeries.append(priceBars.getIndexesAsDouble(), dataManager.computeMovingAverage(priceBars.getCloseData(), 50));
         columnDataSeries.append(priceBars.getIndexesAsDouble(), priceBars.getVolumeData());
 
-        final IRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDataSeries).withYAxisId("PrimaryAxisId").build();
-        final IRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDataSeries).withYAxisId("PrimaryAxisId").build();
-        final IRenderableSeries columnRenderableSeries = sciChartBuilder.newColumnSeries().withDataSeries(columnDataSeries).withYAxisId("SecondaryAxisId").build();
-        final IRenderableSeries candlestickRenderableSeries = sciChartBuilder.newCandlestickSeries().withDataSeries(candlestickDataSeries).withYAxisId("PrimaryAxisId").build();
+        final FastMountainRenderableSeries mountainSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDataSeries).withYAxisId("PrimaryAxisId").build();
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDataSeries).withYAxisId("PrimaryAxisId").build();
+        final FastColumnRenderableSeries columnSeries = sciChartBuilder.newColumnSeries().withDataSeries(columnDataSeries).withYAxisId("SecondaryAxisId").build();
+        final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries().withDataSeries(candlestickDataSeries).withYAxisId("PrimaryAxisId").build();
 
         PinchZoomModifier pinchZoomModifier = new PinchZoomModifier();
         pinchZoomModifier.setReceiveHandledEvents(true);
@@ -148,7 +153,12 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getChartModifiers(), modifiers);
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis, yLeftAxis);
-                Collections.addAll(surface.getRenderableSeries(), mountainRenderableSeries, candlestickRenderableSeries, lineRenderableSeries, columnRenderableSeries);
+                Collections.addAll(surface.getRenderableSeries(), mountainSeries, candlestickSeries, lineSeries, columnSeries);
+
+                sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation(10500d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(11700d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(12250d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(columnSeries).withScaleTransformation(10500d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

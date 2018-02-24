@@ -16,13 +16,15 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.SeriesSelectionModifier;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.AxisAlignment;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
@@ -59,9 +61,9 @@ public class SeriesSelectionFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).withAutoRangeMode(AutoRange.Always).build();
-        final NumericAxis leftAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId(AxisAlignment.Left.name()).build();
-        final NumericAxis rightAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Right).withAxisId(AxisAlignment.Right.name()).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).withAutoRangeMode(AutoRange.Always).build();
+        final IAxis leftAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId(AxisAlignment.Left.name()).build();
+        final IAxis rightAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Right).withAxisId(AxisAlignment.Right.name()).build();
 
         final SeriesSelectionModifier seriesSelectionModifier = new SeriesSelectionModifier();
 
@@ -103,13 +105,13 @@ public class SeriesSelectionFragment extends ExampleBaseFragment {
                     final AxisAlignment alignment = i % 2 == 0 ? AxisAlignment.Left : AxisAlignment.Right;
 
                     final IDataSeries ds = generateDataSeries(alignment, i);
-                    final FastLineRenderableSeries rs = sciChartBuilder.newLineSeries()
-                            .withStrokeStyle(initialColor)
+                    final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries()
+                            .withStrokeStyle(initialColor, 1f, true)
                             .withDataSeries(ds)
                             .withYAxisId(alignment.name())
                             .build();
 
-                    surface.getRenderableSeries().add(rs);
+                    surface.getRenderableSeries().add(rSeries);
 
                     final int red = ColorUtil.red(initialColor);
                     final int green = ColorUtil.green(initialColor);
@@ -119,6 +121,8 @@ public class SeriesSelectionFragment extends ExampleBaseFragment {
                     int newB = blue == 0 ? 0 : blue - 2;
 
                     initialColor = ColorUtil.rgb(newR, green, newB);
+
+                    sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
                 }
             }
         });

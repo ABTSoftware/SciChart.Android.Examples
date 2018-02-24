@@ -21,6 +21,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -93,6 +94,12 @@ public class UsePointMarkersFragment extends ExampleBaseFragment {
         Collections.addAll(surface.getYAxes(), sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1, 0.1)).build());
         Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3, rs4, rs5);
         Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+        sciChartBuilder.newOpacityAnimator(rs1).withDuration(1000).withStartDelay(350).start();
+        sciChartBuilder.newOpacityAnimator(rs2).withDuration(1000).withStartDelay(350).start();
+        sciChartBuilder.newOpacityAnimator(rs3).withDuration(1000).withStartDelay(350).start();
+        sciChartBuilder.newOpacityAnimator(rs4).withDuration(1000).withStartDelay(350).start();
+        sciChartBuilder.newOpacityAnimator(rs5).withDuration(1000).withStartDelay(350).start();
     }
 
     private class CustomPointMarkerDrawer implements SpritePointMarker.ISpritePointMarkerDrawer {

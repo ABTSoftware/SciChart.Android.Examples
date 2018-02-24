@@ -16,10 +16,10 @@
 
 package com.scichart.examples.fragments;
 
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -28,7 +28,7 @@ import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.RolloverModifier;
 import com.scichart.charting.modifiers.SourceMode;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
@@ -80,8 +80,8 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().build();
-        final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.2d, 0.2d)).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.2d, 0.2d)).build();
 
         rolloverModifier = new RolloverModifier();
         rolloverModifier.setShowTooltip(showTooltip);
@@ -119,7 +119,7 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
                 .build();
         final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds3)
-                .withStrokeStyle(ColorUtil.LightSteelBlue, 2)
+                .withStrokeStyle(ColorUtil.LightSteelBlue, 2, true)
                 .build();
 
         UpdateSuspender.using(surface, new Runnable() {
@@ -129,6 +129,10 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3);
                 Collections.addAll(surface.getChartModifiers(), rolloverModifier);
+
+                sciChartBuilder.newAnimator(rs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
             }
         });
     }
@@ -137,7 +141,6 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
     protected int getLayoutId() {
         return R.layout.example_single_chart_fragment;
     }
-
 
     private void openSettingsDialog() {
         final Dialog dialog = ViewSettingsUtil.createSettingsPopup(getActivity(), R.layout.example_using_rollover_modofier_tooltips_popup_layout);

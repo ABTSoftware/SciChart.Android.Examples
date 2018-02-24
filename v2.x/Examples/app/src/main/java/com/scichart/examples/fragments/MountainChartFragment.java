@@ -16,10 +16,12 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
@@ -49,9 +51,9 @@ public class MountainChartFragment extends ExampleBaseFragment {
         final IXyDataSeries<Date, Double> dataSeries = sciChartBuilder.newXyDataSeries(Date.class, Double.class).build();
         dataSeries.append(priceData.getDateData(), priceData.getCloseData());
 
-        final IRenderableSeries rs1 = sciChartBuilder.newMountainSeries()
+        final FastMountainRenderableSeries rSeries = sciChartBuilder.newMountainSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xAAFFC9A8)
+                .withStrokeStyle(0xAAFFC9A8, 1f, true)
                 .withAreaFillLinearGradientColors(0xAAFF8D42, 0x88090E11)
                 .build();
 
@@ -60,8 +62,10 @@ public class MountainChartFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis);
-                Collections.addAll(surface.getRenderableSeries(), rs1);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -45,15 +47,15 @@ public class CandlestickChartFragment extends ExampleBaseFragment {
     @Override
     protected void initExample() {
         PriceSeries priceSeries = DataManager.getInstance().getPriceDataIndu(getActivity());
+        int size = priceSeries.size();
+
+        final IAxis xAxis = sciChartBuilder.newCategoryDateAxis().withVisibleRange(size - 30, size).withGrowBy(0, 0.1).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
 
         IOhlcDataSeries<Date, Double> dataSeries = new OhlcDataSeries<>(Date.class, Double.class);
         dataSeries.append(priceSeries.getDateData(), priceSeries.getOpenData(), priceSeries.getHighData(), priceSeries.getLowData(), priceSeries.getCloseData());
 
-        int size = priceSeries.size();
-        final IAxis xAxis = sciChartBuilder.newCategoryDateAxis().withVisibleRange(size - 30, size).withGrowBy(0, 0.1).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
-
-        final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries()
+        final FastCandlestickRenderableSeries rSeries = sciChartBuilder.newCandlestickSeries()
                 .withStrokeUp(0xFF00AA00)
                 .withFillUpColor(0x8800AA00)
                 .withStrokeDown(0xFFFF0000)
@@ -64,11 +66,12 @@ public class CandlestickChartFragment extends ExampleBaseFragment {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                Collections.addAll(surface.getRenderableSeries(), candlestickSeries);
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
+                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-                surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

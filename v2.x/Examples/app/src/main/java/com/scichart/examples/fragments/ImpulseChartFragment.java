@@ -16,11 +16,13 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastImpulseRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
@@ -56,7 +58,7 @@ public class ImpulseChartFragment extends ExampleBaseFragment {
                 .withFill(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF))
                 .build();
 
-        final IRenderableSeries impulseSeries = sciChartBuilder.newImpulseSeries()
+        final FastImpulseRenderableSeries rSeries = sciChartBuilder.newImpulseSeries()
                 .withDataSeries(dataSeries)
                 .withXAxisId(xBottomAxis.getAxisId())
                 .withYAxisId(yRightAxis.getAxisId())
@@ -69,8 +71,10 @@ public class ImpulseChartFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xBottomAxis);
                 Collections.addAll(surface.getYAxes(), yRightAxis);
-                Collections.addAll(surface.getRenderableSeries(), impulseSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

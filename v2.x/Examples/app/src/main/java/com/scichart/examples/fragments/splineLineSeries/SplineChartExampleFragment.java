@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments.splineLineSeries;
 
+import android.view.animation.OvershootInterpolator;
+
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
@@ -50,16 +52,15 @@ public class SplineChartExampleFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.2d, 0.2d).build();
+
         final IXyDataSeries<Double, Double> originalData = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Original").build();
         final IXyDataSeries<Double, Double> splineData = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Spline").build();
 
         final DoubleSeries sineWave = DataManager.getInstance().getSinewave(1.0, 0.0, 28, 7);
-
         originalData.append(sineWave.xValues, sineWave.yValues);
         splineData.append(sineWave.xValues, sineWave.yValues);
-
-        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.2d, 0.2d).build();
 
         final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(originalData)
@@ -67,7 +68,7 @@ public class SplineChartExampleFragment extends ExampleBaseFragment {
                 .withStrokeStyle(0xFF4282B4, 1f, true)
                 .build();
 
-        final SplineLineRenderableSeries splineSeries = new SplineLineRenderableSeriesBuilder(getActivity())
+        final SplineLineRenderableSeries rSeries = new SplineLineRenderableSeriesBuilder(getActivity())
                 .withDataSeries(splineData)
                 .withStrokeStyle(0xFF006400, 2f, true)
                 .withIsSplineEnabled(true)
@@ -88,9 +89,12 @@ public class SplineChartExampleFragment extends ExampleBaseFragment {
             public void run() {
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
-                Collections.addAll(surface.getRenderableSeries(), splineSeries, lineSeries);
+                Collections.addAll(surface.getRenderableSeries(), rSeries, lineSeries);
                 Collections.addAll(surface.getChartModifiers(), new RubberBandXyZoomModifier(), new ZoomExtentsModifier());
                 Collections.addAll(surface.getAnnotations(), textAnnotation);
+
+                sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new OvershootInterpolator()).withDuration(1500).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new OvershootInterpolator()).withDuration(1500).withStartDelay(350).start();
             }
         });
     }

@@ -17,6 +17,7 @@
 package com.scichart.examples.fragments;
 
 import android.support.annotation.ColorInt;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
@@ -25,7 +26,6 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
@@ -52,10 +52,10 @@ public class ScatterChartFragment extends ExampleBaseFragment {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
 
-        final IRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFFFEB01, false);
-        final IRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffA300, false);
-        final IRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFff6501, true);
-        final IRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffa300, true);
+        final XyScatterRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFFFEB01, false);
+        final XyScatterRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffA300, false);
+        final XyScatterRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFff6501, true);
+        final XyScatterRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffa300, true);
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -70,6 +70,11 @@ public class ScatterChartFragment extends ExampleBaseFragment {
                         .withXAxisDragModifier().withReceiveHandledEvents(true).build()
                         .withYAxisDragModifier().withDragMode(AxisDragMode.Pan).build()
                         .build());
+
+                sciChartBuilder.newAnimator(rSeries1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rSeries2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rSeries3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rSeries4).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }
@@ -91,7 +96,11 @@ public class ScatterChartFragment extends ExampleBaseFragment {
         return sciChartBuilder.newScatterSeries()
                 .withDataSeries(dataSeries)
                 .withStrokeStyle(color)
-                .withPointMarker(sciChartBuilder.newPointMarker(pointMarker).withSize(6, 6).withStroke(0xFFFFFFFF, 0.1f).withFill(color).build())
+                .withPointMarker(sciChartBuilder.newPointMarker(pointMarker)
+                        .withSize(6, 6)
+                        .withStroke(0xFFFFFFFF, 0.1f)
+                        .withFill(color)
+                        .build())
                 .build();
     }
 

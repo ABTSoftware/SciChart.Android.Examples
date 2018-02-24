@@ -111,6 +111,10 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
 
     @Override
     protected void internalDraw(IRenderContext2D renderContext, IAssetManager2D assetManager, ISeriesRenderPassData renderPassData) {
+        // Don't draw transparent series
+        final float opacity = getOpacity();
+        if (opacity == 0) return;
+
         final PenStyle strokeStyle = getStrokeStyle();
         if (strokeStyle == null || !strokeStyle.isVisible()) return;
 
@@ -118,7 +122,7 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
 
         IDrawingContext linesStripDrawingContext = DrawingContextFactory.LINES_STRIP_DRAWING_CONTEXT;
 
-        IPen2D pen = assetManager.createPen(strokeStyle);
+        IPen2D pen = assetManager.createPen(strokeStyle, opacity);
 
         final boolean digitalLine = currentRenderPassData.isDigitalLine;
         final boolean closeGaps = currentRenderPassData.closeGaps;

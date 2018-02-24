@@ -16,6 +16,8 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.animation.DecelerateInterpolator;
+
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.TooltipModifier;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -84,6 +86,9 @@ public class UsingTooltipModifierTooltipsFragment extends ExampleBaseFragment {
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), line1, line2);
                 Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
+
+                sciChartBuilder.newOpacityAnimator(line1).withDuration(1000).withStartDelay(350).start();
+                sciChartBuilder.newOpacityAnimator(line2).withDuration(1000).withStartDelay(350).start();
             }
         });
     }

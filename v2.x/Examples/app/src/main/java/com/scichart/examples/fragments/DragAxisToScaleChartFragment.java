@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.daasuu.ei.Ease;
+import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.ClipMode;
 import com.scichart.charting.Direction2D;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -30,7 +32,7 @@ import com.scichart.charting.modifiers.XAxisDragModifier;
 import com.scichart.charting.modifiers.YAxisDragModifier;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
-import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
@@ -45,13 +47,13 @@ import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
-import static com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
 
 public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
 
@@ -85,21 +87,21 @@ public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withTextFormatting("0.0").withGrowBy(0.1, 0.1).withVisibleRange(3, 6).build();
-        final NumericAxis rightYAxis = sciChartBuilder.newNumericAxis().withAxisId("RightAxisId").withAxisAlignment(AxisAlignment.Right).withTextColor(0xFF279B27).withGrowBy(0.1, 0.1).build();
-        final NumericAxis leftYAxis = sciChartBuilder.newNumericAxis().withAxisId("LeftAxisId").withAxisAlignment(AxisAlignment.Left).withTextColor(0xFF4083B7).withGrowBy(0.1, 0.1).build();
-
-        final XyDataSeries<Double, Double> mountainDS = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-        final XyDataSeries<Double, Double> lineDS = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-
-        final FastMountainRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDS).withAreaFillColor(0x771964FF).withStrokeStyle(0xFF0944CF).withYAxisId("LeftAxisId").build();
-        final FastLineRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDS).withStrokeStyle(0xFF279B27, 2f).withYAxisId("RightAxisId").build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().withTextFormatting("0.0").withGrowBy(0.1, 0.1).withVisibleRange(3, 6).build();
+        final IAxis rightYAxis = sciChartBuilder.newNumericAxis().withAxisId("RightAxisId").withAxisAlignment(AxisAlignment.Right).withTextColor(0xFF279B27).withGrowBy(0.1, 0.1).build();
+        final IAxis leftYAxis = sciChartBuilder.newNumericAxis().withAxisId("LeftAxisId").withAxisAlignment(AxisAlignment.Left).withTextColor(0xFF4083B7).withGrowBy(0.1, 0.1).build();
 
         final DoubleSeries fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
         final DoubleSeries dampedSinewave = DataManager.getInstance().getDampedSinewave(1500, 3.0, 0.0, 0.005, 5000, 10);
 
+        final XyDataSeries<Double, Double> mountainDS = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
+        final XyDataSeries<Double, Double> lineDS = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
+
         mountainDS.append(fourierSeries.xValues, fourierSeries.yValues);
         lineDS.append(dampedSinewave.xValues, dampedSinewave.yValues);
+
+        final FastMountainRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDS).withAreaFillColor(0x771964FF).withStrokeStyle(0xFF0944CF, 2f, true).withYAxisId("LeftAxisId").build();
+        final FastLineRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDS).withStrokeStyle(0xFF279B27, 2f, true).withYAxisId("RightAxisId").build();
 
         UpdateSuspender.using(surface, new Runnable() {
             @Override
@@ -121,6 +123,9 @@ public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
                         .build();
 
                 Collections.addAll(surface.getChartModifiers(), modifiers);
+
+                sciChartBuilder.newAnimator(lineRenderableSeries).withSweepTransformation().withInterpolator(new EasingInterpolator(Ease.CUBIC_IN_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(mountainRenderableSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.CUBIC_IN_OUT)).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

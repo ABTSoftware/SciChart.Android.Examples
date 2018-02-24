@@ -17,13 +17,14 @@
 package com.scichart.examples.fragments;
 
 import android.util.Pair;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.SourceMode;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
@@ -101,28 +102,28 @@ public class MultipleXAxesFragment extends ExampleBaseFragment {
         ds3.append(ds3Points.first, ds3Points.second);
         ds4.append(ds4Points.first, ds4Points.second);
 
-        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds1)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
                 .withStrokeStyle(0xFFFF1919, 1f, true)
                 .build();
 
-        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds2)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
                 .withStrokeStyle(0xFF279B27, 1f, true)
                 .build();
 
-        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds3)
                 .withXAxisId(X_TOP_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
                 .withStrokeStyle(0xFFFC9C29, 1f, true)
                 .build();
 
-        final IRenderableSeries rs4 = sciChartBuilder.newLineSeries()
+        final FastLineRenderableSeries rs4 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds4)
                 .withXAxisId(X_TOP_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
@@ -140,6 +141,11 @@ public class MultipleXAxesFragment extends ExampleBaseFragment {
                         .withXAxisDragModifier().withReceiveHandledEvents(true).build()
                         .withYAxisDragModifier().withReceiveHandledEvents(true).build()
                         .build());
+
+                sciChartBuilder.newAnimator(rs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rs4).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }
