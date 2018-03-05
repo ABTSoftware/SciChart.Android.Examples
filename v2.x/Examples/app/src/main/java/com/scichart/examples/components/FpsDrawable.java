@@ -16,12 +16,15 @@
 
 package com.scichart.examples.components;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.scichart.charting.model.dataSeries.IDataSeries;
@@ -48,9 +51,9 @@ public class FpsDrawable extends Drawable {
     private MessageSubscriptionToken token;
     private View viewToDrawOn;
 
-    public FpsDrawable() {
+    public FpsDrawable(Context context) {
         paint.setColor(Color.BLACK);
-        paint.setTextSize(20);
+        paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18f, context.getResources().getDisplayMetrics()));
 
         background.setColor(0xAA919191);
     }

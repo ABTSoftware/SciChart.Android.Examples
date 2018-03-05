@@ -69,12 +69,12 @@ public class UsingTooltipModifierTooltipsFragment extends ExampleBaseFragment {
         dataSeries2.append(ds2Points.xValues, ds2Points.yValues);
 
         final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(ColorUtil.SteelBlue, 2f, true)
+                .withStrokeStyle(ColorUtil.SteelBlue, 1f, true)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withStroke(ColorUtil.SteelBlue, 2f).withFill(ColorUtil.SteelBlue).build())
                 .withDataSeries(dataSeries1)
                 .build();
         final FastLineRenderableSeries line2 = sciChartBuilder.newLineSeries()
-                .withStrokeStyle(0xFFFF3333, 2f, true)
+                .withStrokeStyle(0xFFFF3333, 1f, true)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withStroke(0xFFFF3333, 2f).withFill(0xFFFF3333).build())
                 .withDataSeries(dataSeries2)
                 .build();

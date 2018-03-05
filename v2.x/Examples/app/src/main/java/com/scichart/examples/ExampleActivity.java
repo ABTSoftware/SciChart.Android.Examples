@@ -62,10 +62,12 @@ public class ExampleActivity extends AppCompatActivity {
     private CustomDrawerLayout drawerLayout;
 
     private boolean showFpsCounter;
-    private final FpsDrawable fpsDrawable = new FpsDrawable();
+    private FpsDrawable fpsDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        fpsDrawable = new FpsDrawable(this);
+
         SciChartBuilder.init(this);
 
         super.onCreate(savedInstanceState);
@@ -83,6 +85,9 @@ public class ExampleActivity extends AppCompatActivity {
         super.onDestroy();
 
         SciChartBuilder.dispose();
+
+        fpsDrawable.setTargets(null, null);
+        fpsDrawable = null;
     }
 
     @Override

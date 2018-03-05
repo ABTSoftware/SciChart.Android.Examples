@@ -16,6 +16,9 @@
 
 package com.scichart.examples.fragments;
 
+import android.util.TypedValue;
+
+import com.scichart.charting.SizingMode;
 import com.scichart.charting.modifiers.PieSegmentSelectionModifier;
 import com.scichart.charting.visuals.SciPieChartSurface;
 import com.scichart.charting.visuals.legend.SciChartLegend;
@@ -41,14 +44,14 @@ public class DonutChartFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        pieChartSurface.setHoleRadius(300);
+        final float donutSeriesHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getActivity().getResources().getDisplayMetrics());
 
         final IPieRenderableSeries donutSeries = sciChartBuilder.newDonutSeries().withSegments(
                 sciChartBuilder.newPieSegment().withValue(40).withTitle("Green").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
                 sciChartBuilder.newPieSegment().withValue(10).withTitle("Red").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
                 sciChartBuilder.newPieSegment().withValue(20).withTitle("Blue").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build(),
                 sciChartBuilder.newPieSegment().withValue(15).withTitle("Yellow").withRadialGradientColors(0xffFFFF00, 0xfffed325).build()
-        ).build();
+        ).withHeightSizingModeP(SizingMode.Absolute).withHeight(donutSeriesHeight).build();
 
         Collections.addAll(pieChartSurface.getRenderableSeries(), donutSeries);
         Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(legend).withSourceSeries(donutSeries).build(), new PieSegmentSelectionModifier());
