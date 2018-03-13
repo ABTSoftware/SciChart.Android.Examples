@@ -50,10 +50,11 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.0.2'
     implementation 'com.android.support:design:26.0.2'
 
+    implementation 'de.greenrobot:eventbus:2.4.0'
+    implementation 'com.daasuu:EasingInterpolator:1.0.0'
+
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
-    implementation 'de.greenrobot:eventbus:2.4.0'
 
     // you can reference aar from app\libs folder
     implementation 'com.scichart:charting:+@aar'

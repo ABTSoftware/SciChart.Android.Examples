@@ -79,7 +79,7 @@ public class CustomizationTooltipModifierTooltipsFragment extends ExampleBaseFra
                 Collections.addAll(surface.getXAxes(), xAxis);
                 Collections.addAll(surface.getYAxes(), yAxis);
                 Collections.addAll(surface.getRenderableSeries(), lineRs1, lineRs2);
-                Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroup().withTooltipModifier().build().build());
+                Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
 
                 sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
                 sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
