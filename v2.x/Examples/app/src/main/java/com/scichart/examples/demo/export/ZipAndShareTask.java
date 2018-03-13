@@ -52,6 +52,7 @@ public class ZipAndShareTask extends AsyncTask<Void, Void, Void> {
 
     private static final String RES_VALUES_ASSETS = APP_FOLDER + BuildConfig.RES_FOLDER + "/values";
     private static final String RES_DRAWABLE_ASSETS = APP_FOLDER + BuildConfig.RES_FOLDER + "/drawable";
+    private static final String RES_DRAWABLE_MDPI_ASSETS = APP_FOLDER + BuildConfig.RES_FOLDER + "/drawable-mdpi";
     private static final String RES_LAYOUT_ASSETS = APP_FOLDER + BuildConfig.RES_FOLDER + "/layout";
     private static final String LICENSE_FILE_ASSET = APP_FOLDER + BuildConfig.RES_FOLDER + "/raw/license.xml.txt";
 
@@ -120,7 +121,8 @@ public class ZipAndShareTask extends AsyncTask<Void, Void, Void> {
             addDataAssetFiles(exportManager, assetReader);
 
             addResValuesFiles(exportManager, assetReader);
-            addResDrawableFiles(exportManager, assetReader);
+            addResDrawableFiles(exportManager, assetReader, RES_DRAWABLE_ASSETS);
+            addResDrawableFiles(exportManager, assetReader, RES_DRAWABLE_MDPI_ASSETS);
             addResLayoutFiles(context, exportManager, assetReader);
             addLicenseFile(exportManager, assetReader);
 
@@ -214,8 +216,8 @@ public class ZipAndShareTask extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    private static void addResDrawableFiles(ExportManager exportManager, AssetReader assetReader) {
-        final AssetReader.AssetFile[] assetFiles = assetReader.readAssetsFromPath(RES_DRAWABLE_ASSETS);
+    private static void addResDrawableFiles(ExportManager exportManager, AssetReader assetReader, String path) {
+        final AssetReader.AssetFile[] assetFiles = assetReader.readAssetsFromPath(path);
         for (final AssetReader.AssetFile assetFile : assetFiles) {
             final String assetName = tryRemoveTxtEndingFromAssetName(assetFile.assetName);
 

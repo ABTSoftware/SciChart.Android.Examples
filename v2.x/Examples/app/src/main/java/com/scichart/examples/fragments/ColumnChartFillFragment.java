@@ -71,7 +71,7 @@ public class ColumnChartFillFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        texture = BitmapFactory.decodeResource(getResources(), R.drawable.scichartlogo);
+        texture = BitmapFactory.decodeResource(getResources(), R.drawable.example_scichartlogo);
 
         final SpinnerStringAdapter seriesTypeAdapter = new SpinnerStringAdapter(getActivity(), R.array.fill_list);
         fillSpinner.setAdapter(seriesTypeAdapter);

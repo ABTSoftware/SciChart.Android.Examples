@@ -94,7 +94,7 @@ public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment im
             @Override
             public IAnnotation createAnnotation(@NonNull ISciChartSurface parentSurface, int annotationType) {
                 final ImageView annotationContent = new ImageView(getActivity());
-                annotationContent.setImageDrawable(getResources().getDrawable(R.drawable.scichartlogo));
+                annotationContent.setImageDrawable(getResources().getDrawable(R.drawable.example_scichartlogo));
                 return sciChartBuilder.newCustomAnnotation().withContent(annotationContent).build();
             }
         });

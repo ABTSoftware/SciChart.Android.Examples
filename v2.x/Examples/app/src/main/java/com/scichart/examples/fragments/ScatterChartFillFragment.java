@@ -52,7 +52,7 @@ public class ScatterChartFillFragment extends ExampleBaseFragment {
 
     @Override
     protected void initExample() {
-        final Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.scichartlogo);
+        final Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.example_scichartlogo);
 
         final IXyDataSeries<Double, Double> ds1 = new XyDataSeries<>(Double.class, Double.class);
         final IXyDataSeries<Double, Double> ds2 = new XyDataSeries<>(Double.class, Double.class);
