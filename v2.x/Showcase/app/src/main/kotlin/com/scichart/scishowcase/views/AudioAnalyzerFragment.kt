@@ -30,7 +30,7 @@ class AudioAnalyzerFragment : BindingFragmentBase<AudioAnalyzerFragmentBinding, 
 
     override fun getLayoutId(): Int = R.layout.audio_analyzer_fragment
 
-    override fun onCreateViewModel(): AudioAnalyzerViewModel = AudioAnalyzerViewModel(activity, 10000, createDataProvider())
+    override fun onCreateViewModel(): AudioAnalyzerViewModel = AudioAnalyzerViewModel(requireContext(), 10000, createDataProvider())
 
     private fun createDataProvider(): IAudioAnalyzerDataProvider {
         try {

@@ -16,12 +16,14 @@
 
 package com.scichart.scishowcase.views
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.DialogFragment
 import android.os.Bundle
 import com.scichart.scishowcase.R
 
+@SuppressLint("ValidFragment")
 class TraderDialogFragment(private val selectedItems: BooleanArray, private val dialogListener: (selectedItems: BooleanArray) -> Unit) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

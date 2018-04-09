@@ -27,6 +27,6 @@ class HomePageFragment : BindingFragmentBase<HomePageFragmentBinding, HomePageVi
     }
 
     override fun onCreateViewModel(): HomePageViewModel {
-        return HomePageViewModel(activity, this)
+        return HomePageViewModel(requireContext(), this)
     }
 }

@@ -27,5 +27,8 @@ class EcgFragment : BindingFragmentBase<EcgFragmentBinding, EcgViewModel>() {
 
     override fun getLayoutId() = R.layout.ecg_fragment
 
-    override fun onCreateViewModel() = EcgViewModel(activity, DefaultEcgDataProvider(activity), binding.chart)
+    override fun onCreateViewModel(): EcgViewModel {
+        val context = requireContext()
+        return EcgViewModel(context, DefaultEcgDataProvider(context), binding.chart)
+    }
 }

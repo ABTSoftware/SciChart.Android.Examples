@@ -11,5 +11,8 @@ class DashboardFragment : BindingFragmentBase<DashboardFragmentBinding, Dashboar
 
     override fun getLayoutId() = R.layout.dashboard_fragment
 
-    override fun onCreateViewModel() = DashboardViewModel(activity, DefaultDashboardDataProvider(activity), binding.chart)
+    override fun onCreateViewModel(): DashboardViewModel {
+        val context = requireContext()
+        return DashboardViewModel(context, DefaultDashboardDataProvider(context), binding.chart)
+    }
 }

@@ -60,7 +60,9 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
 
     override fun onCreateViewModel(): TraderViewModel {
         setHasOptionsMenu(true)
-        val resources = activity.resources
+        val context = requireContext()
+
+        val resources = context.resources
 
         binding.stockSymbol.adapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, resources.getStringArray(R.array.stockSymbols))
         binding.period.adapter = ArrayAdapter<String>(activity!!, R.layout.spinner_item_layout, R.id.spinnerItemText, resources.getStringArray(R.array.periods))
@@ -92,10 +94,12 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
         connectivityObservable.doOnNext { if (it.state != NetworkInfo.State.CONNECTED) snackbar.show() else snackbar.dismiss() }.subscribe()
 
         val dataProvider = TraderDataProvider(tradeConfigObservable, connectivityObservable, DefaultTradePointProvider(connectivityObservable), StubTradePointsProvider(context))
-        return TraderViewModel(activity, dataProvider)
+        return TraderViewModel(context, dataProvider)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        val activity = requireActivity()
+
         activity.menuInflater.inflate(R.menu.trader_menu, menu)
 
         menu!!.findItem(R.id.settings)!!.clicks().doOnNext {
@@ -116,7 +120,7 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
         }.subscribe()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         snackbar = Snackbar.make(binding.longTouchListenerView, "No Internet Connection", Snackbar.LENGTH_INDEFINITE).apply {
@@ -133,7 +137,7 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
             }
         }
 
-        val prefManager = PrefManager(activity)
+        val prefManager = PrefManager(requireContext())
         if (prefManager.showTraderIntroGuide) {
             createAndRunTourGuide()
             prefManager.showTraderIntroGuide = false
@@ -141,6 +145,8 @@ class TraderFragment : BindingFragmentBase<TraderFragmentBinding, TraderViewMode
     }
 
     private fun createAndRunTourGuide() {
+        val activity = requireActivity()
+
         val finishedGuide = TourGuide.init(activity)
                 .setToolTip(ToolTip()
                         .setTitle("Well Done !!!")

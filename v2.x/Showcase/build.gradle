@@ -1,21 +1,21 @@
 apply plugin: 'java'
 buildscript {
-    ext.kotlin_version = '1.1.51'
-    ext.android_plugin_version = '3.0.0'
+    ext.kotlin_version = '1.2.30'
+    ext.android_plugin_version = '3.1.0'
     repositories {
         jcenter()
         google()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$android_plugin_version"
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 19
-    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 26
-    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '26.0.2'
-    supportLibraryVersion = project.hasProperty('supportLibraryVersion') ? project.getProperty('supportLibraryVersion') : '26.0.2'
+    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 27
+    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '27.0.3'
+    supportLibraryVersion = project.hasProperty('supportLibraryVersion') ? project.getProperty('supportLibraryVersion') : '27.1.0'
     sourceCompatibility = JavaVersion.VERSION_1_7
     minifyEnabled = false
     versionCode = 1

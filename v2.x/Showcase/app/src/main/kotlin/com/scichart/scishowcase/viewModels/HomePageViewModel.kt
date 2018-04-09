@@ -46,7 +46,7 @@ class HomePageViewModel(context: Context, private val fragment: HomePageFragment
         val adapter = RecyclerBindingAdapter(R.layout.home_page_item_layout, BR.viewModel, ExampleManager.examples)
 
         adapter.itemClickFlowable.doOnEach {
-            fragment.fragmentManager.beginTransaction().replace(R.id.fragment_container, it?.value?.exampleType?.newInstance() as Fragment).addToBackStack(null).commit()
+            fragment.fragmentManager?.beginTransaction()?.replace(R.id.fragment_container, it.value?.exampleType?.newInstance() as Fragment)?.addToBackStack(null)?.commit()
         }.subscribe()
 
         return adapter

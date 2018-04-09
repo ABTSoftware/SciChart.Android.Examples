@@ -33,8 +33,8 @@ abstract class BindingFragmentBase<TBinding : ViewDataBinding, TViewModel : Frag
     protected lateinit var binding: TBinding
     protected lateinit var viewModel: TViewModel
 
-    override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate<TBinding>(inflater, getLayoutId(), container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
 
         viewModel = onCreateViewModel()
 

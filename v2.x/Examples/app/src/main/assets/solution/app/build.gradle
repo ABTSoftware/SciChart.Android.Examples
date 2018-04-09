@@ -17,13 +17,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.1.0'
 
     defaultConfig {
         applicationId "com.scichart.examples.[example_fragment_name]"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -46,9 +46,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.android.support:recyclerview-v7:26.0.2'
-    implementation 'com.android.support:appcompat-v7:26.0.2'
-    implementation 'com.android.support:design:26.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
 
     implementation 'de.greenrobot:eventbus:2.4.0'
     implementation 'com.daasuu:EasingInterpolator:1.0.0'
