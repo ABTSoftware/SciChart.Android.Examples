@@ -18,7 +18,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.1.0'
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.scichart.examples.[example_fragment_name]"
@@ -64,9 +64,9 @@ dependencies {
     implementation 'com.scichart:extensions:+@aar'
 
     // or you can reference latest version from Maven
-    // implementation (group: 'com.scichart.library', name: 'core', version: '2.0.0.+', ext: 'aar')
-    // implementation (group: 'com.scichart.library', name: 'data', version: '2.0.0.+', ext: 'aar')
-    // implementation (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.+', ext: 'aar')
-    // implementation (group: 'com.scichart.library', name: 'charting', version: '2.0.0.+', ext: 'aar')
-    // implementation (group: 'com.scichart.library', name: 'extensions',version: '2.0.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'core', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'data', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'charting', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'extensions',version: '2.1.0.+', ext: 'aar')
 }

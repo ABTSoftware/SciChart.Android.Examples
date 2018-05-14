@@ -108,7 +108,7 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
 
         surface.getChartModifiers().add(sciChartBuilder
                 .newModifierGroup()
-                    .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModex(ClipMode.StretchAtExtents).build()
+                    .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).withClipModeX(ClipMode.StretchAtExtents).build()
                     .withPinchZoomModifier().withReceiveHandledEvents(true).withXyDirection(Direction2D.XDirection).build()
                     .withZoomPanModifier().withReceiveHandledEvents(true).build()
                     .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
