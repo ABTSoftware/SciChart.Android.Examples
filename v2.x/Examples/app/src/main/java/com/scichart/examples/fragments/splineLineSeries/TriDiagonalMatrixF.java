@@ -31,57 +31,17 @@ public class TriDiagonalMatrixF {
     /**
      * The values for the sub-diagonal. A[0] is never used.
      */
-    public double[] A;
+    public final double[] A;
 
     /**
      * The values for the main diagonal.
      */
-    public double[] B;
+    public final double[] B;
 
     /**
      * The values for the super-diagonal. C[C.Length-1] is never used.
      */
-    public double[] C;
-
-    /**
-     * Returns the width and height of this matrix.
-     */
-    public int N() {
-        return (A != null ? A.length : 0);
-    }
-
-    /**
-     * Gets a value from the passed in row and column.
-     */
-    public double getCell(int row, int col) {
-        int di = row - col;
-
-        if (di == 0) {
-            return B[row];
-        } else if (di == -1) {
-            return C[row];
-        } else if (di == 1) {
-            return A[row];
-        } else return 0;
-    }
-
-    /**
-     * Sets a value into the passed in row and column.
-     * Throws an exception if you try to set any not on the super, main, or sub diagonals.
-     */
-    public void setCell(int row, int col, double value) {
-        int di = row - col;
-
-        if (di == 0) {
-            B[row] = value;
-        } else if (di == -1) {
-            C[row] = value;
-        } else if (di == 1) {
-            A[row] = value;
-        } else {
-            throw new IllegalArgumentException("Only the main, super, and sub diagonals can be set.");
-        }
-    }
+    public final double[] C;
 
     /**
      * Construct an NxN matrix.
@@ -92,25 +52,6 @@ public class TriDiagonalMatrixF {
         this.C = new double[n];
     }
 
-    public String toDisplayString() {
-        if (this.N() > 0) {
-            StringBuilder s = new StringBuilder();
-            for (int r = 0; r < N(); r++) {
-
-                for (int c = 0; c < N(); c++) {
-                    s.append(getCell(r, c));
-                    if (c < N() - 1) s.append(", ");
-                }
-
-                s.append("\n");
-            }
-
-            return s.toString();
-        } else {
-            return "0x0 Matrix";
-        }
-    }
-
     /**
      * Solve the system of equations this*x=d given the specified d.
      * Uses the Thomas algorithm described in the wikipedia article: http://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm
@@ -119,7 +60,7 @@ public class TriDiagonalMatrixF {
      * @param d Right side of the equation.
      */
     public double[] solve(double[] d) {
-        int n = this.N();
+        int n = A.length;
 
         if (d.length != n) {
             throw new IllegalArgumentException("The input d is not the same size as this matrix.");

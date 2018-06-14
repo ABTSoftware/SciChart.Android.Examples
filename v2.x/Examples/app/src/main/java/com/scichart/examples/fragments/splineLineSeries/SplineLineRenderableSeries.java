@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 import com.scichart.charting.model.dataSeries.IDataSeries;
+import com.scichart.charting.numerics.coordinateCalculators.ICoordinateCalculator;
 import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.ISeriesDrawingManager;
@@ -34,11 +35,11 @@ import com.scichart.charting.visuals.renderableSeries.hitTest.LerpXySeriesInfoPr
 import com.scichart.charting.visuals.renderableSeries.hitTest.LineHitProvider;
 import com.scichart.charting.visuals.renderableSeries.hitTest.NearestXyPointProvider;
 import com.scichart.charting.visuals.renderableSeries.hitTest.PointMarkerHitProvider;
+import com.scichart.charting.visuals.rendering.RenderPassState;
 import com.scichart.core.framework.SmartPropertyBoolean;
 import com.scichart.core.framework.SmartPropertyInteger;
+import com.scichart.core.model.FloatValues;
 import com.scichart.core.utility.SciChartDebugLogger;
-import com.scichart.data.numerics.ResamplingMode;
-import com.scichart.data.numerics.pointresamplers.IPointResamplerFactory;
 import com.scichart.drawing.common.DrawingContextFactory;
 import com.scichart.drawing.common.IAssetManager2D;
 import com.scichart.drawing.common.IDrawingContext;
@@ -65,6 +66,9 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
             invalidateElement();
         }
     }, 10);
+
+    private final FloatValues splineXCoords = new FloatValues();
+    private final FloatValues splineYCoords = new FloatValues();
 
     /**
      * Creates a new instance of {@link FastLineRenderableSeries} class
@@ -103,10 +107,11 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
     }
 
     @Override
-    protected void internalUpdateRenderPassData(ISeriesRenderPassData renderPassDataToUpdate, IDataSeries<?, ?> dataSeries, ResamplingMode resamplingMode, IPointResamplerFactory factory) throws Exception {
-        super.internalUpdateRenderPassData(renderPassDataToUpdate, dataSeries, resamplingMode, factory);
+    protected void disposeCachedData() {
+        super.disposeCachedData();
 
-        computeSplineSeries(renderPassDataToUpdate, getIsSplineEnabled(), getUpSampleFactor());
+        splineXCoords.disposeItems();
+        splineYCoords.disposeItems();
     }
 
     @Override
@@ -130,11 +135,18 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
         final ISeriesDrawingManager drawingManager = getServices().getService(ISeriesDrawingManager.class);
         drawingManager.beginDraw(renderContext, currentRenderPassData);
 
-        drawingManager.iterateLines(linesStripDrawingContext, pen, currentRenderPassData.xCoords, currentRenderPassData.yCoords, digitalLine, closeGaps);
+        drawingManager.iterateLines(linesStripDrawingContext, pen, splineXCoords, splineYCoords, digitalLine, closeGaps);
 
         drawingManager.endDraw();
 
         drawPointMarkers(renderContext, assetManager, currentRenderPassData.xCoords, currentRenderPassData.yCoords);
+    }
+
+    @Override
+    protected void internalUpdate(IAssetManager2D assetManager2D, RenderPassState renderPassState) {
+        super.internalUpdate(assetManager2D, renderPassState);
+
+        computeSplineSeries(getCurrentRenderPassData(), getIsSplineEnabled(), getUpSampleFactor());
     }
 
     /**
@@ -146,29 +158,35 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
         final LineRenderPassData currentRenderPassData = (LineRenderPassData) renderPassData;
 
         // Spline enabled
-        int n = currentRenderPassData.xValues.size() * upSampleFactor;
-        double[] x = currentRenderPassData.xValues.getItemsArray();
-        double[] y = currentRenderPassData.yValues.getItemsArray();
-        double[] xs = new double[n];
-        double stepSize = (x[x.length - 1] - x[0]) / (n - 1);
+        final int size = currentRenderPassData.xValues.size();
+        final int splineSize = size * upSampleFactor;
 
-        for (int i = 0; i < n; i++) {
+        final double[] x = currentRenderPassData.xValues.getItemsArray();
+        final double[] y = currentRenderPassData.yValues.getItemsArray();
+
+        final double[] xs = new double[splineSize];
+        double stepSize = (x[size - 1] - x[0]) / (splineSize - 1);
+
+        for (int i = 0; i < splineSize; i++) {
             xs[i] = x[0] + i * stepSize;
         }
         double[] ys = new double[0];
 
         try {
             CubicSpline cubicSpline = new CubicSpline();
-            ys = cubicSpline.fitAndEval(x, y, xs, Double.NaN, Double.NaN, false);
+            ys = cubicSpline.fitAndEval(x, y, size, xs, Double.NaN, Double.NaN, false);
         } catch (Exception e) {
             SciChartDebugLogger.instance().handleException(e);
         }
 
-        currentRenderPassData.xValues.clear();
-        currentRenderPassData.xValues.add(xs);
+        final ICoordinateCalculator xCalc = renderPassData.getXCoordinateCalculator();
+        final ICoordinateCalculator yCalc = renderPassData.getYCoordinateCalculator();
 
-        currentRenderPassData.yValues.clear();
-        currentRenderPassData.yValues.add(ys);
+        splineXCoords.setSize(splineSize);
+        splineYCoords.setSize(splineSize);
+
+        xCalc.getCoordinates(xs, splineXCoords.getItemsArray(), splineSize);
+        yCalc.getCoordinates(ys, splineYCoords.getItemsArray(), splineSize);
     }
 
     public static class SplineLineRenderableSeriesBuilder {

@@ -47,19 +47,6 @@ public class CubicSpline {
     }
 
     /**
-     * Construct and call fit.
-     *
-     * @param x          Input. X coordinates to fit.
-     * @param y          Input. Y coordinates to fit.
-     * @param startSlope Optional slope constraint for the first point. Single.NaN means no constraint.
-     * @param endSlope   Optional slope constraint for the final point. Single.NaN means no constraint.
-     * @param debug      Turn on console output. Default is false.
-     */
-    public CubicSpline(double[] x, double[] y, double startSlope, double endSlope, boolean debug) throws Exception {
-        fit(x, y, startSlope, endSlope, debug);
-    }
-
-    /**
      * Throws if fit has not been called.
      */
     private void checkAlreadyFitted() throws Exception {
@@ -119,8 +106,8 @@ public class CubicSpline {
      * @param debug      Turn on console output. Default is false.
      * @return The computed y values for each xs.
      */
-    public double[] fitAndEval(double[] x, double[] y, double[] xs, double startSlope, double endSlope, boolean debug) throws Exception {
-        fit(x, y, startSlope, endSlope, debug);
+    public double[] fitAndEval(double[] x, double[] y, int n, double[] xs, double startSlope, double endSlope, boolean debug) throws Exception {
+        fit(x, y, n, startSlope, endSlope);
         return eval(xs, debug);
     }
 
@@ -134,9 +121,8 @@ public class CubicSpline {
      * @param y          Input. Y coordinates to fit
      * @param startSlope Optional slope constraint for the first point. Single.NaN means no constraint.
      * @param endSlope   Optional slope constraint for the final point. Single.NaN means no constraint.
-     * @param debug      Turn on console output. Default is false.
      */
-    public void fit(double[] x, double[] y, double startSlope, double endSlope, boolean debug) throws Exception {
+    public void fit(double[] x, double[] y, int n, double startSlope, double endSlope) throws Exception {
         if (Double.isInfinite(startSlope) || Double.isInfinite(endSlope)) {
             throw new Exception("startSlope and endSlope cannot be infinity.");
         }
@@ -145,7 +131,6 @@ public class CubicSpline {
         this.xOrig = x;
         this.yOrig = y;
 
-        int n = x.length;
         double[] r = new double[n]; // the right hand side numbers: wikipedia page overloads b
 
         TriDiagonalMatrixF m = new TriDiagonalMatrixF(n);
@@ -188,12 +173,8 @@ public class CubicSpline {
             r[n - 1] = endSlope;
         }
 
-//            if (debug) Console.WriteLine("Tri-diagonal matrix:\n{0}", m.ToDisplayString(":0.0000", "  "));
-//            if (debug) Console.WriteLine("r: {0}", ArrayUtil.ToString<double>(r));
-
         // k is the solution to the matrix
         double[] k = m.solve(r);
-//            if (debug) Console.WriteLine("k = {0}", ArrayUtil.ToString<double>(k));
 
         // a and b are each spline's coefficients
         this.a = new double[n - 1];
@@ -205,9 +186,6 @@ public class CubicSpline {
             a[i - 1] = k[i - 1] * dx1 - dy1; // equation 10 from the article
             b[i - 1] = -k[i] * dx1 + dy1; // equation 11 from the article
         }
-
-//            if (debug) Console.WriteLine("a: {0}", ArrayUtil.ToString<double>(a));
-//            if (debug) Console.WriteLine("b: {0}", ArrayUtil.ToString<double>(b));
     }
 
     /**
@@ -237,101 +215,4 @@ public class CubicSpline {
 
         return y;
     }
-
-    /**
-     * Evaluate (compute) the slope of the spline at the specified x coordinates.
-     * This can extrapolate off the ends of the splines.
-     * You must provide X's in ascending order.
-     * The spline must already be computed before calling this, meaning you must have already called fit() or fitAndEval().
-     *
-     * @param x     Input. X coordinates to evaluate the fitted curve at.
-     * @param debug Turn on console output. Default is false.
-     * @return The computed y values for each x.
-     */
-    public double[] evalSlope(double[] x, boolean debug) throws Exception {
-        checkAlreadyFitted();
-
-        int n = x.length;
-        double[] qPrime = new double[n];
-        _lastIndex = 0; // Reset simultaneous traversal in case there are multiple calls
-
-        for (int i = 0; i < n; i++) {
-            // Find which spline can be used to compute this x (by simultaneous traverse)
-            int j = getNextXIndex(x[i]);
-
-            // Evaluate using j'th spline
-            double dx = xOrig[j + 1] - xOrig[j];
-            double dy = yOrig[j + 1] - yOrig[j];
-            double t = (x[i] - xOrig[j]) / dx;
-
-            // From equation 5 we could also compute q' (qp) which is the slope at this x
-            qPrime[i] = dy / dx
-                    + (1 - 2 * t) * (a[j] * (1 - t) + b[j] * t) / dx
-                    + t * (1 - t) * (b[j] - a[j]) / dx;
-
-            if (debug) {
-                System.out.println(String.format("[%d]: xs = %d, j = %d, t = %d", i, x[i], j, t));
-            }
-        }
-
-        return qPrime;
-    }
-
-    /**
-     * Static all-in-one method to fit the splines and evaluate at X coordinates.
-     *
-     * @param x          Input. X coordinates to fit
-     * @param y          Input. Y coordinates to fit
-     * @param xs         Input. X coordinates to evaluate the fitted curve at.
-     * @param startSlope Optional slope constraint for the first point. Single.NaN means no constraint.
-     * @param endSlope   Optional slope constraint for the final point. Single.NaN means no constraint.
-     * @param debug      Turn on console output. Default is false.
-     * @return The computed y values for each xs.
-     */
-    public static double[] compute(double[] x, double[] y, double[] xs, double startSlope, double endSlope, boolean debug) throws Exception {
-        CubicSpline spline = new CubicSpline();
-        return spline.fitAndEval(x, y, xs, startSlope, endSlope, debug);
-    }
-
-//    /**
-//     * Fit the input x,y points using a 'geometric' strategy so that y does not have to be a single-valued
-//     * function of x.
-//     *
-//     * @param x             Input x coordinates.
-//     * @param y             Input y coordinates, do not need to be a single-valued function of x.
-//     * @param nOutputPoints How many output points to create.
-//     *                      <param name="xs">Output (interpolated) x values.</param>
-//     *                      <param name="ys">Output (interpolated) y values.</param>
-//     */
-//    public static void fitGeometric(double[] x, double[] y, int nOutputPoints, out double[]xs, out double[]ys) {
-//        // Compute distances
-//        int n = x.length;
-//        double[] dists = new double[n]; // cumulative distance
-//        dists[0] = 0;
-//        double totalDist = 0;
-//
-//        for (int i = 1; i < n; i++) {
-//            double dx = x[i] - x[i - 1];
-//            double dy = y[i] - y[i - 1];
-//            double dist = Math.sqrt(dx * dx + dy * dy);
-//            totalDist += dist;
-//            dists[i] = totalDist;
-//        }
-//
-//        // Create 'times' to interpolate to
-//        double dt = totalDist / (nOutputPoints - 1);
-//        double[] times = new double[nOutputPoints];
-//        times[0] = 0;
-//
-//        for (int i = 1; i < nOutputPoints; i++) {
-//            times[i] = times[i - 1] + dt;
-//        }
-//
-//        // Spline fit both x and y to times
-//        CubicSpline xSpline = new CubicSpline();
-//        xs = xSpline.fitAndEval(dists, x, times);
-//
-//        CubicSpline ySpline = new CubicSpline();
-//        ys = ySpline.fitAndEval(dists, y, times);
-//    }
 }
