@@ -13,28 +13,41 @@
 // without any warranty. It is provided "AS IS" without warranty of any kind, either
 // expressed or implied.
 //******************************************************************************
+
 package com.scichart.examples;
+
 import android.app.Application;
 import android.util.Log;
+
 //BEGIN_DEMO_APPLICATION
 import com.scichart.examples.demo.helpers.Module;
 import com.scichart.examples.demo.search.ExampleSearchProvider;
 //END_DEMO_APPLICATION
+
 public class SciChartApp extends Application {
+
     private static SciChartApp sInstance;
+
     public static SciChartApp getInstance() {
         return sInstance;
     }
+
     //BEGIN_DEMO_APPLICATION
     private Module module;
     private ExampleSearchProvider searchProvider;
     //END_DEMO_APPLICATION
+
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+
+        setUpSciChartLicense();
+    }
+
+    private void setUpSciChartLicense() {
         // Set your license code here to license the SciChart Android Examples app
-        // You can get a trial lcicense key from      https://www.scichart.com/licensing-scichart-android/
+        // You can get a trial license key from https://www.scichart.com/licensing-scichart-android/
         // Purchased license keys can be viewed at https://www.scichart.com/profile
         //
         // e.g.
@@ -50,7 +63,14 @@ public class SciChartApp extends Application {
         //                "<KeyCode>6ccc960b22b7b12360a141a7c2a89bce4e40.....09744b6c195022e9fa1ebcf9a0e78167cbaa8f9b8eee9221</KeyCode>" +
         //        "</LicenseContract>"
         // );
+
+        try {
+            com.scichart.charting.visuals.SciChartSurface.setRuntimeLicenseKey("");
+        } catch (Exception e) {
+            Log.e("SciChart", "Error when setting the license", e);
+        }
     }
+
     //BEGIN_DEMO_APPLICATION
     public Module getModule() {
         if (module == null) {
@@ -58,17 +78,20 @@ public class SciChartApp extends Application {
         }
         return module;
     }
+
     public ExampleSearchProvider getSearchProvider(Module module) {
         if (searchProvider == null) {
             searchProvider = initSearchProvider(module);
         }
         return searchProvider;
     }
+
     private Module initModule() {
         final Module module = new Module(getApplicationContext());
         module.initialize();
         return module;
     }
+
     private ExampleSearchProvider initSearchProvider(Module module) {
         if (module != null) {
             return new ExampleSearchProvider(getApplicationContext(), module.getExamples());

@@ -31,25 +31,25 @@ public class TriDiagonalMatrixF {
     /**
      * The values for the sub-diagonal. A[0] is never used.
      */
-    public final double[] A;
+    public final float[] A;
 
     /**
      * The values for the main diagonal.
      */
-    public final double[] B;
+    public final float[] B;
 
     /**
      * The values for the super-diagonal. C[C.Length-1] is never used.
      */
-    public final double[] C;
+    public final float[] C;
 
     /**
      * Construct an NxN matrix.
      */
     public TriDiagonalMatrixF(int n) {
-        this.A = new double[n];
-        this.B = new double[n];
-        this.C = new double[n];
+        this.A = new float[n];
+        this.B = new float[n];
+        this.C = new float[n];
     }
 
     /**
@@ -59,7 +59,7 @@ public class TriDiagonalMatrixF {
      *
      * @param d Right side of the equation.
      */
-    public double[] solve(double[] d) {
+    public float[] solve(float[] d) {
         int n = A.length;
 
         if (d.length != n) {
@@ -67,7 +67,7 @@ public class TriDiagonalMatrixF {
         }
 
         // cPrime
-        double[] cPrime = new double[n];
+        float[] cPrime = new float[n];
         cPrime[0] = C[0] / B[0];
 
         for (int i = 1; i < n; i++) {
@@ -75,7 +75,7 @@ public class TriDiagonalMatrixF {
         }
 
         // dPrime
-        double[] dPrime = new double[n];
+        float[] dPrime = new float[n];
         dPrime[0] = d[0] / B[0];
 
         for (int i = 1; i < n; i++) {
@@ -83,7 +83,7 @@ public class TriDiagonalMatrixF {
         }
 
         // Back substitution
-        double[] x = new double[n];
+        float[] x = new float[n];
         x[n - 1] = dPrime[n - 1];
 
         for (int i = n - 2; i >= 0; i--) {

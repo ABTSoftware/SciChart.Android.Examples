@@ -33,12 +33,12 @@ package com.scichart.examples.fragments.splineLineSeries;
 public class CubicSpline {
 
     // N-1 spline coefficients for N points
-    private double[] a;
-    private double[] b;
+    private float[] a;
+    private float[] b;
 
     // Save the original x and y for Eval
-    private double[] xOrig;
-    private double[] yOrig;
+    private float[] xOrig;
+    private float[] yOrig;
 
     /**
      * Default ctor.
@@ -62,7 +62,7 @@ public class CubicSpline {
      * This allows xs to be less than x[0] and/or greater than x[n-1]. So allows extrapolation.
      * This keeps state, so requires that x be sorted and xs called in ascending order, and is not multi-thread safe.
      */
-    private int getNextXIndex(double x) {
+    private int getNextXIndex(float x) {
         if (x < xOrig[_lastIndex]) {
             throw new IllegalArgumentException("The X values to evaluate must be sorted.");
         }
@@ -82,10 +82,10 @@ public class CubicSpline {
      * @param debug Turn on console output. Default is false.
      * @return The y value.
      */
-    private double evalSpline(double x, int j, boolean debug) {
-        double dx = xOrig[j + 1] - xOrig[j];
-        double t = (x - xOrig[j]) / dx;
-        double y = (1 - t) * yOrig[j] + t * yOrig[j + 1] + t * (1 - t) * (a[j] * (1 - t) + b[j] * t); // equation 9
+    private float evalSpline(float x, int j, boolean debug) {
+        float dx = xOrig[j + 1] - xOrig[j];
+        float t = (x - xOrig[j]) / dx;
+        float y = (1 - t) * yOrig[j] + t * yOrig[j + 1] + t * (1 - t) * (a[j] * (1 - t) + b[j] * t); // equation 9
         if (debug) {
             System.out.println(String.format("xs = %d, j = %d, t = %d", x, j, t));
         }
@@ -106,7 +106,7 @@ public class CubicSpline {
      * @param debug      Turn on console output. Default is false.
      * @return The computed y values for each xs.
      */
-    public double[] fitAndEval(double[] x, double[] y, int n, double[] xs, double startSlope, double endSlope, boolean debug) throws Exception {
+    public float[] fitAndEval(float[] x, float[] y, int n, float[] xs, float startSlope, float endSlope, boolean debug) throws Exception {
         fit(x, y, n, startSlope, endSlope);
         return eval(xs, debug);
     }
@@ -122,7 +122,7 @@ public class CubicSpline {
      * @param startSlope Optional slope constraint for the first point. Single.NaN means no constraint.
      * @param endSlope   Optional slope constraint for the final point. Single.NaN means no constraint.
      */
-    public void fit(double[] x, double[] y, int n, double startSlope, double endSlope) throws Exception {
+    public void fit(float[] x, float[] y, int n, float startSlope, float endSlope) throws Exception {
         if (Double.isInfinite(startSlope) || Double.isInfinite(endSlope)) {
             throw new Exception("startSlope and endSlope cannot be infinity.");
         }
@@ -131,10 +131,10 @@ public class CubicSpline {
         this.xOrig = x;
         this.yOrig = y;
 
-        double[] r = new double[n]; // the right hand side numbers: wikipedia page overloads b
+        float[] r = new float[n]; // the right hand side numbers: wikipedia page overloads b
 
         TriDiagonalMatrixF m = new TriDiagonalMatrixF(n);
-        double dx1, dx2, dy1, dy2;
+        float dx1, dx2, dy1, dy2;
 
         // First row is different (equation 16 from the article)
         if (Double.isNaN(startSlope)) {
@@ -174,11 +174,11 @@ public class CubicSpline {
         }
 
         // k is the solution to the matrix
-        double[] k = m.solve(r);
+        float[] k = m.solve(r);
 
         // a and b are each spline's coefficients
-        this.a = new double[n - 1];
-        this.b = new double[n - 1];
+        this.a = new float[n - 1];
+        this.b = new float[n - 1];
 
         for (int i = 1; i < n; i++) {
             dx1 = x[i] - x[i - 1];
@@ -198,11 +198,11 @@ public class CubicSpline {
      * @param debug Turn on console output. Default is false.
      * @return The computed y values for each x.
      */
-    public double[] eval(double[] x, boolean debug) throws Exception {
+    public float[] eval(float[] x, boolean debug) throws Exception {
         checkAlreadyFitted();
 
         int n = x.length;
-        double[] y = new double[n];
+        float[] y = new float[n];
         _lastIndex = 0; // Reset simultaneous traversal in case there are multiple calls
 
         for (int i = 0; i < n; i++) {

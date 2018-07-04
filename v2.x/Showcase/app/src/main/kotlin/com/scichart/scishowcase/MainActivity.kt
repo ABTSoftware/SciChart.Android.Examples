@@ -20,6 +20,7 @@ import android.Manifest
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.scichart.charting.themes.ThemeManager
 import com.scichart.core.annotations.Visibility
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        setUpSciChartLicense()
         requestShowcasePermissions()
         initAppBar()
         setUpThemes()
@@ -69,5 +71,31 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(activityBinding!!.appToolbar)
 
         activityBinding!!.appToolbar.setNavigationOnClickListener({ onBackPressed() })
+    }
+
+    private fun setUpSciChartLicense() {
+        // Set your license code here to license the SciChart Android Examples app
+        // You can get a trial license key from https://www.scichart.com/licensing-scichart-android/
+        // Purchased license keys can be viewed at https://www.scichart.com/profile
+        //
+        // e.g.
+        //
+        // com.scichart.charting.visuals.SciChartSurface.setRuntimeLicenseKey(
+        //        "<LicenseContract>" +
+        //                "<Customer>your-email@company.com</Customer>" +
+        //                "<OrderId>Trial</OrderId>" +
+        //                "<LicenseCount>1</LicenseCount>" +
+        //                "<IsTrialLicense>true</IsTrialLicense>" +
+        //                "<SupportExpires>12/21/2017 00:00:00</SupportExpires>" +
+        //                "<ProductCode>SC-ANDROID-2D-ENTERPRISE-SRC</ProductCode>" +
+        //                "<KeyCode>6ccc960b22b7b12360a141a7c2a89bce4e40.....09744b6c195022e9fa1ebcf9a0e78167cbaa8f9b8eee9221</KeyCode>" +
+        //        "</LicenseContract>"
+        // );
+
+        try {
+            com.scichart.charting.visuals.SciChartSurface.setRuntimeLicenseKey("")
+        } catch (e: Exception) {
+            Log.e("SciChart", "Error when setting the license", e)
+        }
     }
 }

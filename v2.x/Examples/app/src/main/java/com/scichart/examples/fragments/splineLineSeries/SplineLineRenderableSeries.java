@@ -20,7 +20,6 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 import com.scichart.charting.model.dataSeries.IDataSeries;
-import com.scichart.charting.numerics.coordinateCalculators.ICoordinateCalculator;
 import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.ISeriesDrawingManager;
@@ -35,7 +34,6 @@ import com.scichart.charting.visuals.renderableSeries.hitTest.LerpXySeriesInfoPr
 import com.scichart.charting.visuals.renderableSeries.hitTest.LineHitProvider;
 import com.scichart.charting.visuals.renderableSeries.hitTest.NearestXyPointProvider;
 import com.scichart.charting.visuals.renderableSeries.hitTest.PointMarkerHitProvider;
-import com.scichart.charting.visuals.rendering.RenderPassState;
 import com.scichart.core.framework.SmartPropertyBoolean;
 import com.scichart.core.framework.SmartPropertyInteger;
 import com.scichart.core.model.FloatValues;
@@ -125,6 +123,8 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
 
         final LineRenderPassData currentRenderPassData = (LineRenderPassData) renderPassData;
 
+        computeSplineSeries(splineXCoords, splineYCoords, currentRenderPassData, getIsSplineEnabled(), getUpSampleFactor());
+
         IDrawingContext linesStripDrawingContext = DrawingContextFactory.LINES_STRIP_DRAWING_CONTEXT;
 
         IPen2D pen = assetManager.createPen(strokeStyle, opacity);
@@ -142,51 +142,40 @@ public class SplineLineRenderableSeries extends XyRenderableSeriesBase {
         drawPointMarkers(renderContext, assetManager, currentRenderPassData.xCoords, currentRenderPassData.yCoords);
     }
 
-    @Override
-    protected void internalUpdate(IAssetManager2D assetManager2D, RenderPassState renderPassState) {
-        super.internalUpdate(assetManager2D, renderPassState);
-
-        computeSplineSeries(getCurrentRenderPassData(), getIsSplineEnabled(), getUpSampleFactor());
-    }
-
     /**
      * Cubic Spline interpolation: http://www.codeproject.com/Articles/560163/Csharp-Cubic-Spline-Interpolation
      */
-    private void computeSplineSeries(ISeriesRenderPassData renderPassData, boolean isSplineEnabled, int upSampleFactor) {
+    private static void computeSplineSeries(FloatValues splineXCoords, FloatValues splineYCoords, LineRenderPassData currentRenderPassData, boolean isSplineEnabled, int upSampleFactor) {
         if (!isSplineEnabled) return;
 
-        final LineRenderPassData currentRenderPassData = (LineRenderPassData) renderPassData;
-
         // Spline enabled
-        final int size = currentRenderPassData.xValues.size();
+        final int size = currentRenderPassData.pointsCount();
         final int splineSize = size * upSampleFactor;
-
-        final double[] x = currentRenderPassData.xValues.getItemsArray();
-        final double[] y = currentRenderPassData.yValues.getItemsArray();
-
-        final double[] xs = new double[splineSize];
-        double stepSize = (x[size - 1] - x[0]) / (splineSize - 1);
-
-        for (int i = 0; i < splineSize; i++) {
-            xs[i] = x[0] + i * stepSize;
-        }
-        double[] ys = new double[0];
-
-        try {
-            CubicSpline cubicSpline = new CubicSpline();
-            ys = cubicSpline.fitAndEval(x, y, size, xs, Double.NaN, Double.NaN, false);
-        } catch (Exception e) {
-            SciChartDebugLogger.instance().handleException(e);
-        }
-
-        final ICoordinateCalculator xCalc = renderPassData.getXCoordinateCalculator();
-        final ICoordinateCalculator yCalc = renderPassData.getYCoordinateCalculator();
 
         splineXCoords.setSize(splineSize);
         splineYCoords.setSize(splineSize);
 
-        xCalc.getCoordinates(xs, splineXCoords.getItemsArray(), splineSize);
-        yCalc.getCoordinates(ys, splineYCoords.getItemsArray(), splineSize);
+        final float[] x = currentRenderPassData.xCoords.getItemsArray();
+        final float[] y = currentRenderPassData.yCoords.getItemsArray();
+
+        final float[] xs = splineXCoords.getItemsArray();
+        float stepSize = (x[size - 1] - x[0]) / (splineSize - 1);
+
+        // set spline xCoords
+        for (int i = 0; i < splineSize; i++) {
+            xs[i] = x[0] + i * stepSize;
+        }
+        float[] ys = new float[0];
+
+        try {
+            CubicSpline cubicSpline = new CubicSpline();
+            ys = cubicSpline.fitAndEval(x, y, size, xs, Float.NaN, Float.NaN, false);
+        } catch (Exception e) {
+            SciChartDebugLogger.instance().handleException(e);
+        }
+
+        // copy spline yCoords
+        System.arraycopy(ys, 0, splineYCoords.getItemsArray(), 0, splineSize);
     }
 
     public static class SplineLineRenderableSeriesBuilder {
