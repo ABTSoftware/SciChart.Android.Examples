@@ -34,7 +34,7 @@ ext {
     buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '27.0.3'
     supportLibraryVersion = project.hasProperty('supportLibraryVersion') ? project.getProperty('supportLibraryVersion') : '27.1.0'
     sourceCompatibility = JavaVersion.VERSION_1_7
-    minifyEnabled = false
+    minifyEnabled = true
     versionCode = 1
     versionName = "1.0"
     documentationFolder = "${rootDir}/outputJavadoc/"
