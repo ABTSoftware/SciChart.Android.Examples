@@ -50,13 +50,28 @@ android {
         buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
         buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
     }
+    signingConfigs {
+        release {
+            storeFile RELEASE_STORE_FILE != null ? file(RELEASE_STORE_FILE) : null
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
     buildTypes {
         debug {
             minifyEnabled false
         }
         release {
-            minifyEnabled false
+            minifyEnabled rootProject.ext.minifyEnabled
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        signed {
+            initWith release
+            debuggable false
+            signingConfig signingConfigs.release
+            // use release build since we don't provide releaseSigned builds
+            matchingFallbacks = ['release']
         }
     }
     productFlavors {
@@ -122,11 +137,11 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.2.0.2324', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.2.0.2324', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.2.0.2324', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.2.0.2324', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.2.0.2324', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.2.0.2347', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.2.0.2347', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.2.0.2347', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.2.0.2347', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.2.0.2347', ext: 'aar')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:support-v4:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
