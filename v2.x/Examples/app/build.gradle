@@ -14,6 +14,7 @@
 // expressed or implied.
 //******************************************************************************
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
 def mainFolder = "src/main"
 def assetsFolder = mainFolder + "/assets"
 def resFolder = mainFolder + "/res"
@@ -24,6 +25,8 @@ def utilsFolder = examplesFolder + "/utils"
 def componentsFolder = examplesFolder + "/components"
 def dataFolder = examplesFolder + "/data"
 def exampleFragmentsFolder = examplesFolder + "/fragments"
+def apkVersionCode = APK_VERSION_CODE != '' ? APK_VERSION_CODE.toInteger() : rootProject.ext.versionCode
+def apkVersionName = APK_VERSION_NAME != '' ? APK_VERSION_NAME : rootProject.ext.versionName
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -31,8 +34,8 @@ android {
         applicationId "com.scichart.examples"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.compileSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        versionCode apkVersionCode
+        versionName apkVersionName
     }
     compileOptions {
         sourceCompatibility rootProject.ext.sourceCompatibility
@@ -52,7 +55,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile RELEASE_STORE_FILE != null ? file(RELEASE_STORE_FILE) : null
+            storeFile RELEASE_STORE_FILE != '' ? file(RELEASE_STORE_FILE) : null
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
@@ -137,11 +140,11 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.2.0.2348', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.2.0.2348', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.2.0.2348', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.2.0.2348', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.2.0.2348', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'core', version: '2.2.0.2362', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.2.0.2362', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.2.0.2362', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.2.0.2362', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.2.0.2362', ext: 'aar')
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:support-v4:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
@@ -150,4 +153,8 @@ dependencies {
     implementation 'com.daasuu:EasingInterpolator:1.0.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+play {
+    jsonFile API_KEY != '' ? file(API_KEY) : null
+    track TRACK_NAME
 }
