@@ -386,8 +386,10 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     }
 
     private void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        final View currentFocus = getCurrentFocus();
+        if(imm != null && currentFocus != null)
+            imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
     }
 
     private void openFragment(final String exampleId, final Bundle savedInstanceState) {
