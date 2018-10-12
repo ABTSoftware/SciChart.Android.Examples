@@ -87,7 +87,7 @@ public class CubicSpline {
         float t = (x - xOrig[j]) / dx;
         float y = (1 - t) * yOrig[j] + t * yOrig[j + 1] + t * (1 - t) * (a[j] * (1 - t) + b[j] * t); // equation 9
         if (debug) {
-            System.out.println(String.format("xs = %d, j = %d, t = %d", x, j, t));
+            System.out.println(String.format("xs = %f, j = %d, t = %f", x, j, t));
         }
         return y;
     }
