@@ -216,7 +216,7 @@
     <string name="z_scale">Change Z-Scale</string>
     <string name="zoom_extents_y_axis">Zoom Extents Y-Axis</string>
     <string name="zoom_x_axis_only">Zoom X-Axis Only</string>
-    <string name="export_solution_text">Thank you for exporting the SciChart Android %s Example, please check out the attached project which you can run in Android studio.\n\nFor help, please see www.scichart.com/running-scichart-android-examples</string>
+    <string name="export_solution_text">Thank you for exporting the SciChart Android %s Example, please check out the attached project which you can run in Android studio.\n\nFor help, please see https://www.scichart.com/licensing-scichart-android</string>
     <string name="hit_test_result">HitTest Result:</string>
     <string name="thresholdValueText">Threshold value:</string>
     <string name="title_activity_example">ExampleActivity</string>

@@ -64,5 +64,15 @@
             android:name=".ShowCodeActivity"
             android:theme="@style/ShowCode_Dialog" />
 
+        <provider
+            android:name=".demo.SciChartFilesProvider"
+            android:authorities="com.scichart.examples.demo.SciChartFilesProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
     </application>
 </manifest>

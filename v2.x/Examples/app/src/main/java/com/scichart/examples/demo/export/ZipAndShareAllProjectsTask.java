@@ -18,8 +18,6 @@ package com.scichart.examples.demo.export;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -133,12 +131,8 @@ public class ZipAndShareAllProjectsTask extends AsyncTask<Void, Void, Void> {
                 ZipUtil.zipFolder(exportFolder, zipFile);
 
                 // send zip file
-                final Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("application/zip");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(zipFile));
-                intent.putExtra(Intent.EXTRA_SUBJECT, SCI_CHART_PROJECTS);
-
-                context.startActivity(Intent.createChooser(intent, String.format(context.getString(R.string.export_option), SCI_CHART_PROJECTS)));
+                final String title = String.format(context.getString(R.string.export_option), SCI_CHART_PROJECTS);
+                ExportManager.sendZip(zipFile, SCI_CHART_PROJECTS, "", context, title);
             }
         } finally {
             // remove temporary files

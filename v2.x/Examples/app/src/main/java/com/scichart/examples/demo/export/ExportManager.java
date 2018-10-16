@@ -19,6 +19,7 @@ package com.scichart.examples.demo.export;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import com.scichart.core.framework.DisposableBase;
@@ -31,6 +32,7 @@ import java.io.IOException;
 
 final class ExportManager extends DisposableBase {
     private static final String APP_FOLDER = "app/";
+    private static final String AUTHORITY = "com.scichart.examples.demo.SciChartFilesProvider";
 
     private final Context context;
     private final String exampleName;
@@ -109,14 +111,27 @@ final class ExportManager extends DisposableBase {
         ZipUtil.zipFolder(exportFolder, zipFile);
 
         if (shouldSendZip) {
-            final Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("application/zip");
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(zipFile));
-            intent.putExtra(Intent.EXTRA_SUBJECT, exampleName + " example");
-            intent.putExtra(Intent.EXTRA_TEXT, String.format(context.getString(R.string.export_solution_text), exampleName));
+            final String subject = exampleName + " example";
+            final String text = String.format(context.getString(R.string.export_solution_text), exampleName);
+            final String title = String.format(context.getString(R.string.export_option), exampleName);
 
-            context.startActivity(Intent.createChooser(intent, String.format(context.getString(R.string.export_option), exampleName)));
+            sendZip(zipFile, subject, text, context, title);
         }
+    }
+
+    public static void sendZip(File zipFile, String subject, String text, Context context, String title) {
+        final Intent intent = new Intent(Intent.ACTION_SEND);
+
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("application/zip");
+
+        final Uri uriForFile = FileProvider.getUriForFile(context, AUTHORITY, zipFile);
+
+        intent.putExtra(Intent.EXTRA_STREAM, uriForFile);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, text);
+
+        context.startActivity(Intent.createChooser(intent, title));
     }
 
     @Override
@@ -132,3 +147,4 @@ final class ExportManager extends DisposableBase {
         fileOrDirectory.delete();
     }
 }
+
