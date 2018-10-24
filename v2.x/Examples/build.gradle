@@ -17,10 +17,9 @@ apply plugin: 'java'
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
-        jcenter()
-        mavenLocal()
-        mavenCentral()
         google()
+        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.0'
@@ -99,10 +98,9 @@ task zipJavadocs(type: Zip, dependsOn: deleteExistingJavadocZip) {
 }
 allprojects {
     repositories {
-        jcenter()
-        mavenLocal()
-        mavenCentral()
         google()
+        mavenCentral()
+        jcenter()
     }
     task cleanJavadocOutput(type: Delete, description: 'Clean Javadoc output') {
         delete("${rootDir}/outputJavadoc/${project.getName()}")
