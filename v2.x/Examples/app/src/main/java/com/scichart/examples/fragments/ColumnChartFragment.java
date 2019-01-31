@@ -22,6 +22,7 @@ import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.data.XSeriesRenderPassData;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase;
 import com.scichart.core.framework.UpdateSuspender;
@@ -93,12 +94,16 @@ public class ColumnChartFragment extends ExampleBaseFragment {
 
         @Override
         public void update() {
-            final int size = this.renderableSeries.getCurrentRenderPassData().pointsCount();
+            final XSeriesRenderPassData currentRenderPassData = (XSeriesRenderPassData) renderableSeries.getCurrentRenderPassData();
+
+            final int size = currentRenderPassData.pointsCount();
             colors.setSize(size);
 
             final int[] colorsArray = colors.getItemsArray();
+            final int[] indices = currentRenderPassData.indices.getItemsArray();
             for (int i = 0; i < size; i++) {
-                colorsArray[i] = desiredColors[i % 3];
+                final int index = indices[i];
+                colorsArray[i] = desiredColors[index % 3];
             }
         }
 
