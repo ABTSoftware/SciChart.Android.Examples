@@ -16,7 +16,6 @@
 
 package com.scichart.scishowcase.model.trader
 
-import android.net.NetworkInfo
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import com.scichart.scishowcase.model.IDataProvider
 import io.reactivex.Observable
@@ -32,7 +31,7 @@ class TraderDataProvider(private val tradeConfigObservable: Observable<TradeConf
     override fun getData(): Observable<TradeDataPoints> {
         val tradeConfigObservable = tradeConfigObservable.switchMap { tradeConfig -> Observable.interval(0, 1, TimeUnit.MINUTES).map { tradeConfig } }
 
-        val providerObservable = connectivityObservable.map { if (it.state == NetworkInfo.State.CONNECTED) defaultProvider else stubProvider }
+        val providerObservable = connectivityObservable.map { stubProvider }
 
         return Observable.combineLatest<TradeConfig, ITradePointsProvider, Pair<TradeConfig, ITradePointsProvider>>(tradeConfigObservable, providerObservable, BiFunction { tradeConfig, provider -> Pair(tradeConfig, provider) })
                 .observeOn(Schedulers.io()) // need to execute network requests from non UI thread
