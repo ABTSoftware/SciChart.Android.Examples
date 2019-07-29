@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 .withPinchZoomModifier().build()
                 .withZoomPanModifier().withReceiveHandledEvents(true).build()
                 .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
-                .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Scale).withClipModex(ClipMode.None).build()
+                .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Scale).withClipModeX(ClipMode.None).build()
                 .withYAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).build()
                 .build();
 
