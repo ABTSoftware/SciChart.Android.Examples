@@ -1,0 +1,32 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- RealTime_3D_Geoid.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>RealTime 3D Geoid</Title>
+    <IconPath>ic_realtime_feature</IconPath>
+    <Description>
+        The 3D Realtime Ellipsoid Mesh example shows how to update a EllipsoidDataSeries3D in real-time to render to a 3D FreeSurfaceRenderableSeries3D.
+    </Description>
+    <CodeFiles>
+        <string>res/layout/example_single_chart3d_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/charts3d/CreateRealtimeGeoid3DChartFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>PointCloud3D</Features>
+        <Features>Scatter3D</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

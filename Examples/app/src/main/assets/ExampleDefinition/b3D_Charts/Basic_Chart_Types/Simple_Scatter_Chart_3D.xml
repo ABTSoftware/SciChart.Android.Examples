@@ -1,0 +1,31 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2018. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- Simple_Scatter_Chart_3D.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>Simple Scatter Chart 3D</Title>
+    <IconPath>ic_scatter3d_feature</IconPath>
+    <Description>
+        The 3D Scatter Chart demo shows how to create 3D Scatter Chart with three-dimentional markers chart using the SciChart 3D Component.
+    </Description>
+    <CodeFiles>
+        <string>res/layout/example_single_chart3d_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/charts3d/CreateScatter3DChartFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>Scatter3D</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

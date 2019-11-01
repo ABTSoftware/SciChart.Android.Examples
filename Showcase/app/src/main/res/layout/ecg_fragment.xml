@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:scichart="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.scichart.scishowcase.viewModels.ecg.EcgViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/ecg_surface_margin"
+        android:orientation="horizontal">
+
+        <com.scichart.charting.visuals.SciChartSurface
+            android:id="@+id/chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            bind:layout_constraintRight_toLeftOf="@+id/linearLayout"
+            scichart:layout_constraintBottom_toBottomOf="parent"
+            scichart:layout_constraintLeft_toLeftOf="parent"
+            scichart:layout_constraintTop_toTopOf="parent"
+            scichart:leftOuterAxesLayoutStrategy="@{viewModel.yAxisLayoutStrategy}"
+            scichart:renderableSeries="@{viewModel.renderableSeries}"
+            scichart:xAxes="@{viewModel.xAxes}"
+            scichart:yAxes="@{viewModel.yAxes}" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:paddingStart="8dp"
+            android:orientation="vertical"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            bind:layout_constraintRight_toRightOf="parent"
+            bind:layout_constraintTop_toTopOf="parent">
+
+
+            <include
+                layout="@layout/ecg_heart_rate_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                bind:viewModel="@{viewModel.hrVM}" />
+
+            <include
+                layout="@layout/ecg_blood_pressure_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                bind:viewModel="@{viewModel.bloodPressureVM}" />
+
+            <include
+                layout="@layout/ecg_blood_volume_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                bind:viewModel="@{viewModel.bloodVolumeVM}" />
+
+            <include
+                layout="@layout/ecg_blood_oxygenation_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                bind:viewModel="@{viewModel.bloodOxygenationVM}" />
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

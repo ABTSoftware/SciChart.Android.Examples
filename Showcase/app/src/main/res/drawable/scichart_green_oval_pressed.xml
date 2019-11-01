@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************--><!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. --><!--   --><!-- Web: http://www.scichart.com --><!-- Support: support@scichart.com --><!-- Sales:   sales@scichart.com --><!--  --><!-- scichart_green_oval_pressed.xml is part of the SCICHART® Showcases. Permission is hereby granted --><!-- to modify, create derivative works, distribute and publish any part of this source --><!-- code whether for commercial, private or personal use. --><!--  --><!-- The SCICHART® Showcases are distributed in the hope that they will be useful, but --><!-- without any warranty. It is provided "AS IS" without warranty of any kind, either --><!-- expressed or implied. --><!--*************************************************************************-->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/scichart_green_oval" />
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/menu_button_pressed" />
+        </shape>
+    </item>
+</layer-list>

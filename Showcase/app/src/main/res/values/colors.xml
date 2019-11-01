@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#FF42B649</color>
+    <color name="color_primary_dark">#43A047</color>
+    <color name="color_accent">#FF42B649</color>
+
+    <color name="color_primary_text">#FFF</color>
+    <color name="color_intro_background">#43A047</color>
+    <color name="color_window_background">#FF2C3135</color>
+
+    <color name="menu_button_pressed">#33000000</color>
+
+    <!-- ECG Colors -->
+    <color name="ecg_layout_background_stroke_color">#d9d9c1</color>
+    <color name="heart_rate_color">#FF42B649</color>
+    <color name="blood_pressure_color">#FFFFFF00</color>
+    <color name="blood_pressure_bar_color">#FF42B649</color>
+    <color name="blood_pressure_bar_background_color">#646464</color>
+    <color name="blood_volume_color">#FFB0C4DE</color>
+    <color name="blood_oxygenation_color">#FF6495ED</color>
+
+    <!-- Trader Colors -->
+    <color name="stock_chart_volume_up_color">#30008300</color>
+    <color name="stock_chart_volume_down_color">#30ff0000</color>
+
+</resources>

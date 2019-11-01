@@ -1,0 +1,55 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_2d_icon_white.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector android:height="57dp" android:viewportHeight="134"
+    android:viewportWidth="135" android:width="57dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#fff" android:pathData="M0,0h6v134h-6z"/>
+    <path android:fillColor="#fff" android:pathData="M135,128l-0,6l-135,0l-0,-6z"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M20,57h23.5v73.5h-23.5z"
+        android:strokeColor="#fff" android:strokeWidth="5"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M60,24.5h23.5v106h-23.5z"
+        android:strokeColor="#fff" android:strokeWidth="5"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M97,93.5h23.5v37h-23.5z"
+        android:strokeColor="#fff" android:strokeWidth="5"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M70.5,25.5L60.5,35.5"
+        android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M80,25L60.5,44.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,32L60.5,54.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,42L60.5,64.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,52L60.5,74.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,62L60.5,84.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,72L60.5,94.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,82L60.5,104.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,92L60.5,114.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,102L60.5,124.5" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,112L63,132" android:strokeColor="#fff" android:strokeWidth="3"/>
+    <path android:fillColor="#00000000"
+        android:pathData="M83,122L73,132" android:strokeColor="#fff" android:strokeWidth="3"/>
+</vector>

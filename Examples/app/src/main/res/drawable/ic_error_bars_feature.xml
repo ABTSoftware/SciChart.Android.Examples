@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_error_bars_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106"
+    android:viewportHeight="106">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M5,101 L5,35.3 L17.5,40.2 L17.5,40.8 A10.17,10.17,0,0,0,25,50.5 L25,60.6
+L17.4,60.6 L17.4,65.6 L37.6,65.6 L37.6,60.6 L30,60.6 L30,50.5
+A10.66,10.66,0,0,0,31.9,49.8 L46.6,64.7 A10,10,0,0,0,52.6,79.6 L52.6,89.7
+L45,89.7 L45,94.7 L65.2,94.7 L65.2,89.7 L57.6,89.7 L57.6,79.6
+A10,10,0,0,0,64,65.4 L80.1,48.8 A12.24,12.24,0,0,0,82.5,49.8 L82.5,59.9
+L74.9,59.9 L74.9,64.9 L95.1,64.9 L95.1,59.9 L87.5,59.9 L87.5,49.8
+A10,10,0,0,0,87.5,30.4 L87.5,19.7 L95.1,19.7 L95.1,14.7 L74.9,14.7 L74.9,19.7
+L82.5,19.7 L82.5,30.4 A10,10,0,0,0,75,40.1 A9.31,9.31,0,0,0,76.5,45.3 L60.7,61.6
+A10.91,10.91,0,0,0,57.6,60.2 L57.6,49.5 L65.2,49.5 L65.2,44.5 L45,44.5 L45,49.5
+L52.6,49.5 L52.6,60.2 A7.2,7.2,0,0,0,50.2,61.2 L35.7,46.5
+A10.15,10.15,0,0,0,37.5,40.8 A10,10,0,0,0,30,31.2 L30,20.5 L37.6,20.5 L37.6,15.5
+L17.4,15.5 L17.4,20.5 L25,20.5 L25,31.2 A9.62,9.62,0,0,0,19.1,35.5 L5,29.9 L5,0
+L0,0 L0,106 L106,106 L106,101 L5,101 Z M85.1,35.1 A5,5,0,0,1,90.1,40.1
+A5,5,0,1,1,85.1,35.1 Z M60.1,69.9 A5,5,0,0,1,55.1,74.9 A5,5,0,1,1,60.1,69.9 Z
+M27.5,35.9 A5,5,0,0,1,32.5,40.9 A5,5,0,0,1,22.5,40.9 A5,5,0,0,1,27.5,35.9 Z" />
+</vector>

@@ -1,0 +1,32 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- Multiple_X_Axes.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>Multiple X-Axes</Title>
+    <IconPath>ic_modify_axes_feature</IconPath>
+    <Description>
+        Demonstrates a line chart with four series and multiple top / bottom X-Axis and left / right Y-Axis. SciChart supports multiple top or bottom X-Axes and multiple left and right Y-Axes. This example shows in a simple way how to register a line series on each axis.
+    </Description>
+    <CodeFiles>
+        <string>res/layout/example_single_chart_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/MultipleXAxesFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>Axis</Features>
+        <Features>MultipleAxis</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- app_button_background.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetBottom="0dp"
+    android:insetLeft="0dp"
+    android:insetRight="@dimen/abc_button_inset_horizontal_material"
+    android:insetTop="0dp">
+    <shape android:shape="rectangle" >
+        <corners android:radius="@dimen/abc_control_corner_material" />
+        <solid android:color="#2B2E32" />
+        <padding
+            android:bottom="0dp"
+            android:left="@dimen/abc_button_padding_horizontal_material"
+            android:right="@dimen/abc_button_padding_horizontal_material"
+            android:top="0dp" />
+    </shape>
+</inset>
