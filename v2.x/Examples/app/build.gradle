@@ -1,0 +1,160 @@
+//******************************************************************************
+// SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved.
+//
+// Web: http://www.scichart.com
+// Support: support@scichart.com
+// Sales:   sales@scichart.com
+//
+// build.gradle is part of the SCICHART® Examples. Permission is hereby granted
+// to modify, create derivative works, distribute and publish any part of this source
+// code whether for commercial, private or personal use.
+//
+// The SCICHART® examples are distributed in the hope that they will be useful, but
+// without any warranty. It is provided "AS IS" without warranty of any kind, either
+// expressed or implied.
+//******************************************************************************
+apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
+def mainFolder = "src/main"
+def assetsFolder = mainFolder + "/assets"
+def resFolder = mainFolder + "/res"
+def javaFolder = mainFolder + "/java"
+def examplesFolder = javaFolder + "/com/scichart/examples"
+def sciChartApp = "SciChartApp.java"
+def utilsFolder = examplesFolder + "/utils"
+def componentsFolder = examplesFolder + "/components"
+def dataFolder = examplesFolder + "/data"
+def exampleFragmentsFolder = examplesFolder + "/fragments"
+def apkVersionCode = APK_VERSION_CODE != '' ? APK_VERSION_CODE.toInteger() : rootProject.ext.versionCode
+def apkVersionName = APK_VERSION_NAME != '' ? APK_VERSION_NAME : rootProject.ext.versionName
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.scichart.examples"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode apkVersionCode
+        versionName apkVersionName
+    }
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibility
+        targetCompatibility rootProject.ext.sourceCompatibility
+    }
+    defaultConfig {
+        buildConfigField "String", "MAIN_FOLDER", "\"$mainFolder\""
+        buildConfigField "String", "ASSETS_FOLDER", "\"$assetsFolder\""
+        buildConfigField "String", "RES_FOLDER", "\"$resFolder\""
+        buildConfigField "String", "JAVA_FOLDER", "\"$javaFolder\""
+        buildConfigField "String", "EXAMPLE_FOLDER", "\"$examplesFolder\""
+        buildConfigField "String", "SCI_CHART_APP", "\"$sciChartApp\""
+        buildConfigField "String", "UTILS_FOLDER", "\"$utilsFolder\""
+        buildConfigField "String", "COMPONENTS_FOLDER", "\"$componentsFolder\""
+        buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
+        buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
+    }
+    signingConfigs {
+        release {
+            storeFile RELEASE_STORE_FILE != '' ? file(RELEASE_STORE_FILE) : null
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled rootProject.ext.minifyEnabled
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        signed {
+            initWith release
+            debuggable false
+            signingConfig signingConfigs.release
+            // use release build since we don't provide releaseSigned builds
+            matchingFallbacks = ['release']
+        }
+    }
+    productFlavors {
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}
+task cleanExampleAssets(type: Delete) {
+    delete "src/main/assets/app"
+}
+task copySourceSciChartAppToAssets(type: Copy) {
+    from examplesFolder + "/" + sciChartApp
+    into assetsFolder + "/app/" + examplesFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleFragmentsToAssets(type: Copy) {
+    from exampleFragmentsFolder
+    into assetsFolder + "/app/" + exampleFragmentsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleUtilsToAssets(type: Copy) {
+    from utilsFolder
+    into assetsFolder + "/app/" + utilsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleDataToAssets(type: Copy) {
+    from dataFolder
+    into assetsFolder + "/app/" + dataFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copySourceExampleComponentsToAssets(type: Copy) {
+    from componentsFolder
+    into assetsFolder + "/app/" + componentsFolder
+    rename { String fileName ->
+        fileName.replace("java", "java.txt")
+    }
+}
+task copyResourceExamplesToAssets(type: Copy) {
+    from resFolder
+    into assetsFolder + "/app/" + resFolder
+    include '**/example_*.*'
+    include '**/license.xml'
+    include '**/values/*.xml'
+    includeEmptyDirs = false
+    rename { String fileName ->
+        fileName.replace("xml", "xml.txt")
+    }
+}
+project.afterEvaluate {
+    clean.dependsOn cleanExampleAssets
+    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
+}
+repositories {
+    maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+}
+dependencies {
+    compile (group: 'com.scichart.library', name: 'core', version: '2.5.0.2618', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'data', version: '2.5.0.2618', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'drawing', version: '2.5.0.2618', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'charting', version: '2.5.0.2618', ext: 'aar')
+    compile (group: 'com.scichart.library', name: 'extensions', version: '2.5.0.2618', ext: 'aar')
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:support-v4:$supportLibraryVersion"
+    implementation "com.android.support:design:$supportLibraryVersion"
+    implementation 'com.github.twalcari:java-prettify:1.2.2'
+    implementation 'de.greenrobot:eventbus:2.4.0'
+    implementation 'com.daasuu:EasingInterpolator:1.0.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+play {
+    jsonFile API_KEY != '' ? file(API_KEY) : null
+    track TRACK_NAME
+}

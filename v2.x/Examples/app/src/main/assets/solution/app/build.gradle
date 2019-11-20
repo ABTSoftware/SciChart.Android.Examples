@@ -1,0 +1,72 @@
+//******************************************************************************
+// SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved.
+//
+// Web: http://www.scichart.com
+// Support: support@scichart.com
+// Sales:   sales@scichart.com
+//
+// build.gradle is part of the SCICHART® Examples. Permission is hereby granted
+// to modify, create derivative works, distribute and publish any part of this source
+// code whether for commercial, private or personal use.
+//
+// The SCICHART® examples are distributed in the hope that they will be useful, but
+// without any warranty. It is provided "AS IS" without warranty of any kind, either
+// expressed or implied.
+//******************************************************************************
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    defaultConfig {
+        applicationId "com.scichart.examples.[example_fragment_name]"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    // add app\libs folder as libs source
+    flatDir {
+        dirs 'libs'
+    }
+
+    // declare a Maven repository with SciChart libraries
+    maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+}
+
+dependencies {
+    implementation 'com.android.support:recyclerview-v7:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+
+    implementation 'de.greenrobot:eventbus:2.4.0'
+    implementation 'com.daasuu:EasingInterpolator:1.0.0'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    // you can reference aar from app\libs folder
+    implementation 'com.scichart:charting:+@aar'
+    implementation 'com.scichart:core:+@aar'
+    implementation 'com.scichart:drawing:+@aar'
+    implementation 'com.scichart:data:+@aar'
+    implementation 'com.scichart:extensions:+@aar'
+
+    // or you can reference latest version from Maven
+    // implementation (group: 'com.scichart.library', name: 'core', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'data', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'drawing', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'charting', version: '2.1.0.+', ext: 'aar')
+    // implementation (group: 'com.scichart.library', name: 'extensions',version: '2.1.0.+', ext: 'aar')
+}

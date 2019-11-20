@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- AndroidManifest.xml is part of SCICHART®, High Performance Scientific Charts -->
+<!-- For full terms and conditions of the license, see http://www.scichart.com/scichart-eula/ -->
+<!--  -->
+<!-- This source code is protected by international copyright law. Unauthorized -->
+<!-- reproduction, reverse-engineering, or distribution of all or any portion of -->
+<!-- this source code is strictly prohibited. -->
+<!--  -->
+<!-- This source code contains confidential and proprietary trade secrets of -->
+<!-- SciChart Ltd., and should at no time be copied, transferred, sold, -->
+<!-- distributed or made available without express written permission. -->
+<!--*************************************************************************-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.scichart.examples">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+
+    <application
+        android:name=".SciChartApp"
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ExampleActivity"
+            android:label="@string/title_activity_example"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".ExceptionActivity"
+            android:theme="@style/Theme_Dialog" />
+
+        <activity
+            android:name=".ShowCodeActivity"
+            android:theme="@style/ShowCode_Dialog" />
+
+        <provider
+            android:name=".demo.SciChartFilesProvider"
+            android:authorities="com.scichart.examples.demo.SciChartFilesProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+    </application>
+</manifest>

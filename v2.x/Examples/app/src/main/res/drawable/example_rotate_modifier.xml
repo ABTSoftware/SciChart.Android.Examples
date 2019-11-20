@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_rotate_modifier.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="118.4"
+    android:viewportHeight="117.2">
+
+    <group>
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M24.2,20.8 L24.2,94.2 L97.5,94.2 L97.5,89.2 L91,89.2 L91,67.9 L73.3,67.9
+L73.3,26.5 L50.6,26.5 L50.6,44.4 L32.9,44.4 L32.9,89.1 L29.2,89.1 L29.2,20.7
+L24.2,20.7 L24.2,20.8 Z M55.6,50.4 L68.3,37.7 L68.3,44.7 L55.6,57.4 L55.6,50.4 Z
+M55.6,60.2 L68.3,47.5 L68.3,54.5 L55.6,67.2 L55.6,60.2 Z M55.6,70.1 L68.3,57.4
+L68.3,64.4 L55.6,77.1 L55.6,70.1 Z M68.3,84 L63.2,89.1 L56.2,89.1 L68.3,77
+L68.3,84 Z M66,89.2 L68.3,86.9 L68.3,89.2 L66,89.2 Z M86,72.9 L86,89.2
+L73.3,89.2 L73.3,72.9 L86,72.9 Z M68.3,74.2 L55.6,86.9 L55.6,79.9 L68.3,67.2
+L68.3,74.2 Z M61.8,31.5 L55.6,37.7 L55.6,31.5 L61.8,31.5 Z M55.6,40.6 L64.6,31.6
+L68.3,31.6 L68.3,34.9 L55.6,47.6 L55.6,40.6 Z M37.9,49.4 L50.6,49.4 L50.6,89.1
+L37.9,89.1 L37.9,49.4 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M110.7,29.6 L106.4,32.1 A53.29,53.29,0,0,1,113.4,58.6
+C113.4,88.2,89.1,112.2,59.2,112.2 S5,88.1,5,58.5 S29.3,4.9,59.2,4.9
+A54.55,54.55,0,0,1,93.1,16.7 L87.4,15.1 L86,19.9 L105.5,25.5 L100.9,6.2
+L96,7.40001 L97.6,14 A59.29,59.29,0,0,0,59.2,0 C26.6,0,0,26.3,0,58.6
+S26.6,117.2,59.2,117.2 S118.4,90.9,118.4,58.6 A57.47,57.47,0,0,0,110.7,29.6 Z" />
+    </group>
+</vector>

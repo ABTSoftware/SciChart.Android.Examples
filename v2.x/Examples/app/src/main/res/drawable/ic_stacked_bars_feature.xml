@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_stacked_bars_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106.2"
+    android:viewportHeight="106">
+
+    <group>
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M95.4,101.1 L95.4,70 L69.5,70 L69.5,9.60001 L38.6,9.60001 L38.6,35.7 L12.7,35.7
+L12.7,101 L5,101 L5,0 L0,0 L0,106 L106.2,106 L106.2,101 L95.4,101 L95.4,101.1 Z
+M43.6,43 L64.5,22.1 L64.5,29.1 L43.6,50 L43.6,43 Z M43.6,52.8 L64.5,31.9
+L64.5,38.9 L43.6,59.8 L43.6,52.8 Z M43.6,62.6 L64.5,41.7 L64.5,48.7 L43.6,69.6
+L43.6,62.6 Z M43.6,72.5 L64.5,51.6 L64.5,58.6 L43.6,79.5 L43.6,72.5 Z M43.6,82.3
+L64.5,61.4 L64.5,68.4 L43.6,89.3 L43.6,82.3 Z M64.5,71.3 L64.5,78.6 L43.6,99.5
+L43.6,92.2 Z M64.5,81.4 L64.5,88.4 L51.8,101.1 L44.8,101.1 Z M64.5,91.3
+L64.5,98.3 L61.6,101.2 L54.6,101.2 Z M52.3,14.7 L59.3,14.7 L43.7,30.3 L43.7,23.3
+Z M43.6,20.5 L43.6,14.7 L49.4,14.7 Z M43.6,33.1 L62.1,14.6 L64.5,14.6 L64.5,19.2
+L43.6,40.1 L43.6,33.1 Z M17.8,101.1 L17.8,40.8 L38.7,40.8 L38.7,101.1
+L17.8,101.1 Z M64.5,101.1 L64.5,101.1 Z M69.5,101.1 L69.5,75 L90.4,75
+L90.4,101.1 L69.5,101.1 Z" />
+    </group>
+</vector>

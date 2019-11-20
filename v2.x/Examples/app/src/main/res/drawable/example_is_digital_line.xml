@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_is_digital_line.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106"
+    android:viewportHeight="106.1">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M5,101.1 L5,54.3 L18.6,54.3 L18.6,79.1 L42.8,79.1 L42.8,28.3 L59.7,28.3
+L59.7,67.2 L82.2,67.2 L82.2,33.5 L98.9,33.5 L98.9,28.5 L77.2,28.5 L77.2,62.2
+L64.7,62.2 L64.7,23.3 L37.8,23.3 L37.8,74.1 L23.6,74.1 L23.6,49.3 L5,49.3 L5,0
+L0,0 L0,106.1 L106,106.1 L106,101.1 L5,101.1 Z" />
+</vector>

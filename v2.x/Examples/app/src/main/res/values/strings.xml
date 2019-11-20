@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- strings.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<resources>
+
+    <string name="link_to_website">www.scichart.com</string>
+    <string name="app_name">SciChart Demo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="default_title">Examples</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="reset">RESET</string>
+
+    <string name="clear">Clear</string>
+    <string name="autorange">AutoRange</string>
+    <string name="add_series">Add Series</string>
+    <string name="remove_series">Remove Series</string>
+    <string name="apply_range">Apply</string>
+
+    <string name="exception_clipboard_message">Exception message is copied to the clipboard</string>
+    <string name="exception_stack_trace">Exception stack trace</string>
+    <string name="exception_has_occurred">An exception has occurred!</string>
+    <string name="send_an_email">send an email</string>
+    <string name="copy_to_clipboard">copy to clipboard</string>
+    <string name="enable_performance_overlay">Enable performance overlay</string>
+    <string name="speed_text">Speed (ms) :</string>
+    <string name="no_results_found">It\'s looking lonely in here&#x2026; Have you tried searching for something simpler? e.g. \"Realtime Charts\"</string>
+
+    <string-array name="sort_by">
+        <item>Category</item>
+        <item>Feature</item>
+        <item>Name</item>
+        <item>Most Used</item>
+    </string-array>
+
+    <string-array name="style_list">
+        <item>BlackSteel</item>
+        <item>BrightSpark</item>
+        <item>Chrome</item>
+        <item>Electric</item>
+        <item>ExpressionDark</item>
+        <item>ExpressionLight</item>
+        <item>Oscilloscope</item>
+        <item>SciChartv4Dark</item>
+        <item>BerryBlue</item>
+    </string-array>
+
+    <string-array name="series_list">
+        <item>COLUMN</item>
+        <item>LINE</item>
+        <item>SPLINE_LINE</item>
+        <item>IMPULSE</item>
+        <item>MOUNTAIN</item>
+        <item>XY_SCATTER</item>
+        <item>ERROR_BARS</item>
+        <item>FIXED_ERROR_BARS</item>
+        <item>BUBBLE</item>
+        <item>BAND</item>
+        <item>OHLC</item>
+        <item>CANDLESTICK</item>
+        <item>STACKED_COLUMN</item>
+        <item>STACKED_MOUNTAIN</item>
+    </string-array>
+
+    <string name="theme">Theme:</string>
+
+    <string-array name="fill_list">
+        <item>Solid color</item>
+        <item>Linear gradient</item>
+        <item>Radial gradient</item>
+        <item>Texture</item>
+    </string-array>
+
+    <string-array name="texture_mapping_mode_list">
+        <item>Per Screen</item>
+        <item>Per Primitive</item>
+    </string-array>
+
+    <!-- fragment: LegendFragment -->
+    <string-array name="legend_orientation">
+        <item>Horizontal</item>
+        <item>Vertical</item>
+    </string-array>
+
+    <!--fragment: CreateAnnotationsDynamicallyFragment-->
+    <string-array name="annotation_type_list">
+        <item>BoxAnnotation</item>
+        <item>LineAnnotation</item>
+        <item>LineArrowAnnotation</item>
+        <item>AxisMarkerAnnotation</item>
+        <item>CustomAnnotation</item>
+        <item>TextAnnotation</item>
+        <item>HorizontalLineAnnotation</item>
+        <item>VerticalLineAnnotation</item>
+    </string-array>
+
+    <string name="legend_orientation">Legend orientation:</string>
+    <string name="legend_source">Data source:</string>
+    <string name="show_legend">Show legend</string>
+    <string name="show_checkboxes">Show checkboxes</string>
+    <string name="show_series_markers">Show series markers</string>
+    <!-- end: LegendFragment -->
+
+    <!-- fragment: ECGMonitorFragment -->
+    <string name="ecg_start">START</string>
+    <string name="ecg_stop">STOP</string>
+    <!-- end: ECGMonitorFragment -->
+
+    <!-- fragment: AddPointsPerformanceChartFragment -->
+    <string name="append_10K_points">+10K</string>
+    <string name="append_100K_points">+100K</string>
+    <string name="append_MLN_points">+1MLN</string>
+    <string name="add_points_reset">Clear</string>
+    <!-- end: AddPointsPerformanceChartFragment -->
+
+    <!-- fragment: PerformanceDemoFragment -->
+    <string-array name="resampling_mode">
+        <item>None</item>
+        <item>MinMax</item>
+        <item>Mid</item>
+        <item>Min</item>
+        <item>Max</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="stroke">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="points">
+        <item>1k points p/s</item>
+        <item>10k points p/s</item>
+        <item>100k points p/s</item>
+    </string-array>
+    <string-array name="series_types">
+        <item>FastLineRenderableSeries</item>
+        <item>FastMountainRenderableSeries</item>
+        <item>XyScatterRenderableSeries</item>
+    </string-array>
+    <string name="series_type">Series type: </string>
+    <string name="stroke">Stroke: </string>
+    <string name="speed">Speed: </string>
+    <string name="resampling">Resampling: </string>
+    <!-- end: PerformanceDemoFragment -->
+
+    <!-- fragment: ThemeProviderFragment -->
+    <string name="cursor_modifier">Enable Cursor</string>
+    <string name="pan_modifier">Pan modifier</string>
+    <string name="zoom_modifier">Enable Zoom/Pan</string>
+    <!-- end: OscilloscopeFragment -->
+
+    <!-- fragment: UsingModifierTooltipsFragment(s) -->
+    <string name="show_tooltips">Show tooltips</string>
+    <string name="show_axis_labels">Show axis labels</string>
+    <string name="draw_vertical_line">Draw vertical line</string>
+    <!-- end: LegendFragment -->
+
+    <!-- fragment: OscilloscopeFragment -->
+    <string name="data_source">Data source: </string>
+    <string name="is_step_line">Is step line</string>
+    <!-- end: OscilloscopeFragment -->
+
+    <!-- fragment: LogarithmicAxisFragment -->
+    <string name="use_log_on">Use Logaritmic on: </string>
+    <string name="use_log_on_x_axis">X-Axis</string>
+    <string name="use_log_on_y_axis">Y-Axis</string>
+    <string name="log_base">Logarithmic Base</string>
+    <string-array name="log_base_modes">
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+        <item>E</item>
+    </string-array>
+    <!-- end: LogarithmicAxisFragment -->
+
+    <!-- fragment: DragAxisToScaleChartFragment -->
+    <string name="axis_drag_mode">Axis drag mode: </string>
+    <string name="direction">Direction: </string>
+    <!-- end: DragAxisToScaleChartFragment -->
+
+    <!-- fragment: ALL -->
+    <string name="action_settings">Settings</string>
+    <string name="show_fps_counter">Show FPS Counter</string>
+
+    <string name="horizontal">Horizontal Chart</string>
+    <string name="vertical">Vertical Chart</string>
+
+    <string-array name="render_surface_types">
+        <item>Canvas RenderSurface</item>
+        <item>OpenGL RenderSurface</item>
+        <item>Texture RenderSurface</item>
+    </string-array>
+    <string-array name="overlay_types">
+        <item>None</item>
+        <item>FPS counter</item>
+        <item>Performance overlay</item>
+    </string-array>
+
+    <string name="use_animation">Use Animation</string>
+    <string name="z_scale">Change Z-Scale</string>
+    <string name="zoom_extents_y_axis">Zoom Extents Y-Axis</string>
+    <string name="zoom_x_axis_only">Zoom X-Axis Only</string>
+    <string name="export_solution_text">Thank you for exporting the SciChart Android %s Example, please check out the attached project which you can run in Android studio.\n\nFor help, please see https://www.scichart.com/licensing-scichart-android</string>
+    <string name="hit_test_result">HitTest Result:</string>
+    <string name="thresholdValueText">Threshold value:</string>
+    <string name="title_activity_example">ExampleActivity</string>
+    <string name="navigation_drawer_open">Open the app menu</string>
+    <string name="navigation_drawer_close">Close the app menu</string>
+    <string name="toggle_drawer">Toggle Drawer</string>
+    <string name="scichart_android_examples">SciChart Android examples</string>
+    <string name="show_code">Show code</string>
+    <string name="export_project">Export project</string>
+    <string name="export_option">Select export option for %s example:</string>
+    <string name="export_example">Exporting example…</string>
+    <string name="export_all_examples">Exporting all examples…</string>
+
+    <string name="toolbar_drawer_open">Open the toolbar</string>
+    <string name="toolbar_drawer_close">Close the toolbar</string>
+    <string name="change_error_bars_data_point_width">Change ErrorBars dataPointWidth</string>
+    <string name="change_error_bars_stroke_thickness">Change ErrorBars strokeThickness</string>
+
+    <string name="rollover">ROLLOVER</string>
+    <string name="cursor">CURSOR</string>
+    <string name="tooltip">TOOLTIP</string>
+    <string name="annotation_type">Annotation type</string>
+    <string name="delete_annotation">DEL</string>
+    <string name="select_renderable_series">Select Renderable Series</string>
+
+    <!-- end: ALL -->
+
+</resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************--><!-- SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved. --><!--   --><!-- Web: http://www.scichart.com --><!-- Support: support@scichart.com --><!-- Sales:   sales@scichart.com --><!--  --><!-- example_single_chart_fragment.xml is part of the SCICHART® Examples. Permission is hereby granted --><!-- to modify, create derivative works, distribute and publish any part of this source --><!-- code whether for commercial, private or personal use. --><!--  --><!-- The SCICHART® examples are distributed in the hope that they will be useful, but --><!-- without any warranty. It is provided "AS IS" without warranty of any kind, either --><!-- expressed or implied. --><!--*************************************************************************-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/scale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scale" />
+
+        <Button
+            android:id="@+id/wave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wave" />
+
+        <Button
+            android:id="@+id/sweep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sweep" />
+
+        <Button
+            android:id="@+id/translateX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TransX" />
+
+        <Button
+            android:id="@+id/translateY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TransY" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:text="@string/select_renderable_series" />
+
+        <Spinner
+            android:id="@+id/seriesSelector"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+    <com.scichart.charting.visuals.SciChartSurface
+        android:id="@+id/chart"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
+</LinearLayout>

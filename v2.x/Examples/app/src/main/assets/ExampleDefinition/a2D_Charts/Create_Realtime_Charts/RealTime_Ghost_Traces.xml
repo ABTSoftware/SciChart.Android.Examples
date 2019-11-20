@@ -1,0 +1,32 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- RealTime_Ghost_Traces.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>RealTime Ghosted Traces</Title>
+    <IconPath>ic_realtime_feature</IconPath>
+    <Description>
+        This example shows persistence of old traces giving a 'ghosted' effect. As new series are drawn older series are made increasingly transparent until they become invisible.
+    </Description>
+    <CodeFiles>
+        <string>res/layout/example_real_time_ghost_traces_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/RealTimeGhostTracesFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>Realtime</Features>
+        <Features>Performance</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

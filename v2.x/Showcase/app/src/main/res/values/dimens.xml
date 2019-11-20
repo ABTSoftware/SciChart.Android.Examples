@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recycler_item_padding">24dp</dimen>
+    <dimen name="recycler_item_margin">24dp</dimen>
+
+    <dimen name="toolbar_title_size">18sp</dimen>
+
+    <dimen name="ecg_surface_margin">12dp</dimen>
+
+    <dimen name="intro_headers_text_size">24dp</dimen>
+    <dimen name="intro_margin">8dp</dimen>
+
+    <dimen name="menu_item_circle_size">34dp</dimen>
+    <dimen name="menu_item_circle_font_size">18sp</dimen>
+
+    <dimen name="example_popup_padding_horizontal">8dp</dimen>
+    <dimen name="example_popup_control_corner">2dp</dimen>
+</resources>

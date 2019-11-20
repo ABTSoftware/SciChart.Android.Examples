@@ -1,0 +1,32 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- Dashboard_Style_Chart.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>Dashboard style chart</Title>
+    <IconPath>ic_stacked_columns_feature</IconPath>
+    <Description>
+        Demonstrates the many kinds of Stacked chart (Stacked Mountain, Stacked Column, 100% Stacked Column) available in SciChart, and allows MS Excel style changing of data-presentation dynamically.
+    </Description>
+    <CodeFiles>
+        <string>res/layout/example_dashboard_style_chart_fragment.xml.txt</string>
+        <string>res/layout/example_single_chart_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/DashboardStyleChartsFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>MultiChart</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_fan_chart_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106"
+    android:viewportHeight="106">
+
+    <path
+        android:fillColor="#ffffffff"
+        android:pathData="M9.3,101 L14.8,93.3 L26.2,62 L41.6,78.7 L70.9,86.8 L93.1,82.4 L97.5,82.4
+L97.5,77.4 L92.6,77.4 L71.1,81.6 L54.9,77.2 L71.4,77.2 L92.2,59.2 L98.5,56.5
+L98.5,51.1 L89.5,54.9 L69.5,72.2 L50.8,72.2 L69.5,61.6 L85.2,41.7 L98.8,33
+L98.7,27.1 L81.8,38 L66.1,57.8 L48.7,67.6 L58.5,52.3 L83.1,20.4 L98.6,12.8
+L98.6,7.5 L79.9,16.4 L54.4,49.3 L40.9,70.6 L24.3,52.6 L10.4,90.9 L5,98.5 L5,0
+L0,0 L0,106 L106,106 L106,101 L9.3,101 Z" />
+</vector>

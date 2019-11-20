@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- ic_scatter_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="106"
+    android:viewportHeight="106">
+
+    <group>
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M5,101 L5,0 L0,0 L0,106 L106,106 L106,101 L5,101 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M17.1,90.6 L22.1,90.6 L22.1,86.9 L25.9,86.9 L25.9,81.9 L22.1,81.9 L22.1,78.1
+L17.1,78.1 L17.1,81.9 L13.4,81.9 L13.4,86.9 L17.1,86.9 L17.1,90.6 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M31.7,57.1 L36.7,57.1 L36.7,53.3 L40.4,53.3 L40.4,48.3 L36.7,48.3 L36.7,44.6
+L31.7,44.6 L31.7,48.3 L27.9,48.3 L27.9,53.3 L31.7,53.3 L31.7,57.1 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M50.9,78.8 L55.9,78.8 L55.9,75 L59.6,75 L59.6,70 L55.9,70 L55.9,66.3 L50.9,66.3
+L50.9,70 L47.1,70 L47.1,75 L50.9,75 L50.9,78.8 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M65,44.6 L70,44.6 L70,40.8 L73.8,40.8 L73.8,35.8 L70,35.8 L70,32.1 L65,32.1
+L65,35.8 L61.3,35.8 L61.3,40.8 L65,40.8 L65,44.6 Z" />
+        <path
+            android:fillColor="#ffffffff"
+            android:pathData="M85.2,21.7 L90.2,21.7 L90.2,17.9 L94,17.9 L94,12.9 L90.2,12.9 L90.2,9.2
+L85.2,9.2 L85.2,12.9 L81.5,12.9 L81.5,17.9 L85.2,17.9 L85.2,21.7 Z" />
+    </group>
+</vector>
