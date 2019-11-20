@@ -70,8 +70,8 @@ public class CreateUniformMesh3DChartFragment extends ExampleBaseFragment {
             }
         }
 
-        final int[] colors = new int[]{0xFF1D2C6B, Blue, Cyan, GreenYellow, Yellow, Red, DarkRed};
-        final float[] stops = {0, .1f, .3f, .5f, .7f, .9f, 1};
+        final int[] colors = new int[]{0xFFFF0000, 0xFF00FF00, 0xFF0000FF};
+        final float[] stops = {0, .5f, 1};
 
         final int stroke = 0x77228B22;
 
@@ -82,7 +82,7 @@ public class CreateUniformMesh3DChartFragment extends ExampleBaseFragment {
                 .withContourStroke(stroke)
                 .withStrokeThicknes(1f)
                 .withDrawSkirt(false)
-                .withMeshColorPalette(new GradientColorPalette(colors, stops))
+                .withMeshColorPalette(new GradientColorPalette(colors, stops, true))
                 .build();
 
         UpdateSuspender.using(surface3d, new Runnable() {
