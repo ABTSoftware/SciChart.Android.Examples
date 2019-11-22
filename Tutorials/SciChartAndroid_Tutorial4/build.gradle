@@ -2,10 +2,11 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.5.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,10 +15,12 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
 
         // Declare a Maven repository for SciChart
-        maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+		maven { url 'https://www.myget.org/F/abtsoftware-bleeding-edge/maven' }
+		maven { url 'https://www.myget.org/F/abtsoftware/maven' }
     }
 }
 

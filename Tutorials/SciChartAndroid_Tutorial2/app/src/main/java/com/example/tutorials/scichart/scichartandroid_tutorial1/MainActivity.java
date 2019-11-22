@@ -1,8 +1,10 @@
 package com.example.tutorials.scichart.scichartandroid_tutorial1;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -22,11 +24,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try {
+            // set license key before using SciChart
+            SciChartSurface.setRuntimeLicenseKey("");
+        } catch (Exception e) {
+            Log.e("SciChart", "Error during setting license key", e);
+        }
+
         // Create a SciChartSurface
         SciChartSurface surface = new SciChartSurface(this);
 
         // Get a layout declared in "activity_main.xml" by id
-        LinearLayout chartLayout = (LinearLayout) findViewById(R.id.chart_layout);
+        LinearLayout chartLayout = findViewById(R.id.chart_layout);
 
         // Add the SciChartSurface to the layout
         chartLayout.addView(surface);

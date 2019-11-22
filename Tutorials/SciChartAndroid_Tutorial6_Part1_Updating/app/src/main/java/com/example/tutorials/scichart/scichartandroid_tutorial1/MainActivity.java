@@ -1,9 +1,11 @@
 package com.example.tutorials.scichart.scichartandroid_tutorial1;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.scichart.charting.ClipMode;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -32,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            // set license key before using SciChart
+            SciChartSurface.setRuntimeLicenseKey("");
+        } catch (Exception e) {
+            Log.e("SciChart", "Error during setting license key", e);
+        }
 
         // Added in Tutorial #1
         // Create a SciChartSurface
@@ -75,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 .withPinchZoomModifier().build()
                 .withZoomPanModifier().withReceiveHandledEvents(true).build()
                 .withZoomExtentsModifier().withReceiveHandledEvents(true).build()
-                .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Scale).withClipModex(ClipMode.None).build()
+                .withXAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Scale).withClipModeX(ClipMode.None).build()
                 .withYAxisDragModifier().withReceiveHandledEvents(true).withDragMode(AxisDragModifierBase.AxisDragMode.Pan).build()
                 .build();
 
