@@ -22,7 +22,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         classpath 'com.github.triplet.gradle:play-publisher:1.2.2'
@@ -44,8 +44,8 @@ ext {
     abiFiltersList = ['x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a']
     sourceCompatibility = JavaVersion.VERSION_1_8
     minifyEnabled = true
-    versionCode = 1
-    versionName = "1.0"
+    versionCode = project.hasProperty('versionCode') ? project.getProperty('versionCode').toInteger() : 1
+    versionName = project.hasProperty('versionName') ? project.getProperty('versionName') : "1.0"
     documentationFolder = "${rootDir}/outputJavadoc/"
     availableProcessors = Runtime.runtime.availableProcessors()
 }
