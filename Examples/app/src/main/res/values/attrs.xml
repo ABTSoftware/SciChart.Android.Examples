@@ -6,7 +6,7 @@
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- content_example.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- attrs.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -15,12 +15,15 @@
 <!-- expressed or implied. -->
 <!--*************************************************************************-->
 
-<!--Chart Example Frame-->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    tools:context="com.scichart.examples.ExampleActivity"
-    tools:showIn="@layout/activity_example" />
+<resources>
+    <declare-styleable name="StepProgressBar">
+        <attr name="progressColor" format="color" />
+        <attr name="progressBackgroundColor" format="color" />
+        <attr name="progress" format="integer"/>
+        <attr name="max" format="integer"/>
+        <attr name="isVertical" format="boolean"/>
+        <attr name="spacing" format="dimension"/>
+        <attr name="barSize" format="dimension"/>
+    </declare-styleable>
+
+</resources>

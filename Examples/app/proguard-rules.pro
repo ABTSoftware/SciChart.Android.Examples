@@ -12,6 +12,7 @@
 # ignore warnings and save classes required for syntax highlighting
 -dontwarn java.awt.**
 -dontwarn javax.swing.**
+-dontwarn javax.annotation.**
 -dontwarn syntaxhighlight.**
 
 -keep public class java.awt.** { *; }

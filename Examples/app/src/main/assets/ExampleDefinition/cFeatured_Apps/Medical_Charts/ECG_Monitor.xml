@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--*************************************************************************-->
 <!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
 <!--   -->
@@ -6,7 +5,7 @@
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- content_example.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- ECG_Monitor.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -15,12 +14,18 @@
 <!-- expressed or implied. -->
 <!--*************************************************************************-->
 
-<!--Chart Example Frame-->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    tools:context="com.scichart.examples.ExampleActivity"
-    tools:showIn="@layout/activity_example" />
+<ExampleDefinition>
+    <Description>
+        The ECG Monitor Demo showcases a real-time heart-rate monitor.
+    </Description>
+    <IconPath>ic_realtime_feature</IconPath>
+    <CodeFiles>
+        <string>res/layout/example_ecg_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/ecg/EcgShowcaseFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>Realtime</Features>
+        <Features>Performance</Features>
+    </Features>
+    <IsVisible>false</IsVisible>
+</ExampleDefinition>

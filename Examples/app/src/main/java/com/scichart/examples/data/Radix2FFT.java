@@ -16,6 +16,8 @@
 
 package com.scichart.examples.data;
 
+import com.scichart.core.model.DoubleValues;
+import com.scichart.core.model.ShortValues;
 import com.scichart.core.utility.DoubleUtil;
 
 import static java.lang.Math.cos;
@@ -75,6 +77,35 @@ public class Radix2FFT {
             re[i] = complex.re;
             im[i] = complex.im;
         }
+    }
+
+    public void run(ShortValues input, DoubleValues output) {
+        if(input.size() != n) throw new UnsupportedOperationException();
+
+        // init input values
+        final short[] itemsArray = input.getItemsArray();
+        for (int i = 0; i < n; i++) {
+            final Complex complex = x[i];
+            complex.re = itemsArray[i];
+            complex.im = 0;
+        }
+
+        // perform fft
+        rad2FFT(x, dft);
+
+        // set output
+        output.setSize(fftSize);
+        final double[] outputItems = output.getItemsArray();
+        for (int i = 0; i < fftSize; i++) {
+            outputItems[i] = calculateOutputValue(dft[i]);
+        }
+    }
+
+    private double calculateOutputValue(Complex complex) {
+        final double magnitude = Math.sqrt(complex.re * complex.re + complex.im * complex.im);
+
+        // convert to magnitude to dB
+        return 20 * Math.log10(magnitude / n);
     }
 
     private void rad2FFT(Complex[] x, Complex[] DFT) {

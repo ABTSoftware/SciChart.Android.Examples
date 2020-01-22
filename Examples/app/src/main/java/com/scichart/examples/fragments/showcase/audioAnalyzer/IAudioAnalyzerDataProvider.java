@@ -1,11 +1,11 @@
 //******************************************************************************
-// SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved.
+// SCICHART® Copyright SciChart Ltd. 2011-2020. All rights reserved.
 //
 // Web: http://www.scichart.com
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// BillionsLabelProvider.java is part of the SCICHART® Examples. Permission is hereby granted
+// IAudioAnalyzerDataProvider.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -14,13 +14,11 @@
 // expressed or implied.
 //******************************************************************************
 
-package com.scichart.examples.utils;
+package com.scichart.examples.fragments.showcase.audioAnalyzer;
 
-import com.scichart.charting.numerics.labelProviders.NumericLabelProvider;
+import com.scichart.examples.fragments.showcase.IDataProvider;
 
-public class BillionsLabelProvider extends NumericLabelProvider {
-    @Override
-    public CharSequence formatLabel(double dataValue) {
-        return super.formatLabel(dataValue / Math.pow(10, 9)) + "B";
-    }
+public interface IAudioAnalyzerDataProvider extends IDataProvider<AudioData> {
+    int getBufferSize();
+    int getSampleRate();
 }

@@ -17,11 +17,10 @@
 package com.scichart.examples.utils;
 
 import com.scichart.charting.numerics.labelProviders.NumericLabelProvider;
-import com.scichart.core.utility.ComparableUtil;
 
 public class ThousandsLabelProvider extends NumericLabelProvider {
     @Override
-    public CharSequence formatLabel(Comparable dataValue) {
-        return super.formatLabel(ComparableUtil.toDouble(dataValue) / 1000) + "k";
+    public CharSequence formatLabel(double dataValue) {
+        return super.formatLabel(dataValue / 1000) + "k";
     }
 }

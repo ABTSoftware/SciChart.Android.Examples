@@ -51,4 +51,13 @@
     <color name="dashboard_chart_violet_series_0">#ff8562b4</color>
     <color name="dashboard_chart_violet_series_1">#ff664b8a</color>
 
+    <!-- ECG Colors -->
+    <color name="ecg_layout_background_stroke_color">#d9d9c1</color>
+    <color name="heart_rate_color">#FF42B649</color>
+    <color name="blood_pressure_color">#FFFFFF00</color>
+    <color name="blood_pressure_bar_color">#FF42B649</color>
+    <color name="blood_pressure_bar_background_color">#646464</color>
+    <color name="blood_volume_color">#FFB0C4DE</color>
+    <color name="blood_oxygenation_color">#FF6495ED</color>
+
 </resources>

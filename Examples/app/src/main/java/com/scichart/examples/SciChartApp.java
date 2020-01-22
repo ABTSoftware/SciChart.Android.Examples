@@ -17,7 +17,6 @@
 package com.scichart.examples;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 
 //BEGIN_DEMO_APPLICATION

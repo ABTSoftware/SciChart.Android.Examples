@@ -141,16 +141,20 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    implementation (group: 'com.scichart.library', name: 'core', version: '3.0.0.4239', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '3.0.0.4239', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '3.0.0.4239', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '3.0.0.4239', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '3.0.0.4239', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '3.0.0.4239', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '3.0.0.4239', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '3.0.0.4253', ext: 'aar')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle:3.1.0'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-android:3.1.0'
     implementation 'com.github.twalcari:java-prettify:1.2.2'
     implementation 'com.daasuu:EasingInterpolator:1.3.0'
     implementation 'com.jakewharton:butterknife:10.2.0'

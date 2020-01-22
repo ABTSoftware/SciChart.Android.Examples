@@ -30,4 +30,6 @@
     <dimen name="main_screen_heading_font_size">16sp</dimen>
     <dimen name="main_screen_description_font_size">12sp</dimen>
 
+    <dimen name="ecg_surface_margin">12dp</dimen>
+
 </resources>
