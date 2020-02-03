@@ -59,7 +59,7 @@ The SciChart Showcase demonstrates some featured apps which show the speed, powe
 
 The SciChart Android Examples suite contain developer example code in Java to help you get started as soon as possible with SciChart.Android. 
 
-![SciChart Android Examples Suite](https://www.scichart.com/wp-content/uploads/2017/04/scichart-android-examples-header-cropped-for-github2.png)
+![SciChart Android Examples Suite](https://www.scichart.com/wp-content/uploads/2020/02/android-main-page-examples-min-1.png)
 
 Chart types include: 
 
@@ -106,7 +106,7 @@ Chart types include:
 
 We now have a set of Tutorials targetting SciChart Android v3.x over on our website. Please find a list of 2D and 3D tutorials below:
 
-![SciChart Android Tutorials](https://www.scichart.com/wp-content/uploads/2017/04/scichart-android-tutorials-image.png)
+![SciChart Android Tutorials](https://www.scichart.com/wp-content/uploads/2020/02/Android-Documentation-Version-3.png)
 
 * [Tutorial 01 - Adding SciChart libraries as dependencies](https://www.scichart.com/documentation/android/current/Tutorial%2001%20-%20Adding%20SciChart%20libraries%20as%20dependencies.html)
 * [Tutorial 02 - Creating a Chart](https://www.scichart.com/documentation/android/current/Tutorial%2002%20-%20Creating%20a%20Chart.html)
