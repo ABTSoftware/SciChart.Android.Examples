@@ -53,7 +53,7 @@ The SciChart Showcase demonstrates some featured apps which show the speed, powe
 
 * SciChart ECG: Realtime, 4-channel ECG for medical apps 
 * SciChart Audio Analyzer: Realtime Audio Analyzer which records the mic, and presents Frequency Spectrum + Spectrogram on a live updating heatmap
-* + more coming soon!
+* plus more coming soon!
 
 ## SciChart Android Examples Suite
 
