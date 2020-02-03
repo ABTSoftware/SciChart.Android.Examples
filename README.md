@@ -4,13 +4,13 @@ Examples, Showcase Applications and Tutorials for [SciChart.Android](https://www
 
 <a href="https://youtu.be/28wtiSRGmXQsc" target="\_blank" Title="SciChart Android Charts Video"><img src="https://www.scichart.com/wp-content/uploads/2017/07/Thumbnail-play.png" Alt="SciChart Android Charts Video"/></a> 
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/ECGMonitorDemo_framed-e1467216503738.png" Width="420" Alt="Android ECG Chart Example"/>
+<img Align="Left" src="https://www.scichart.com/wp-content/uploads/2019/12/scichart-android-v3-multipane-stock-chart.png" Width="420" Alt="Android Multi-Pane Stock Charts Example"/>
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/RealTimetickingStockChart.png" Width="420" Alt="Android Candlestick Chart Example"/>
+<img Align="Left" src="https://www.scichart.com/wp-content/uploads/2019/12/scichart-android-v3-annotation-markers-charts.png" Width="420" Alt="Android Annotations are Easy Example"/>
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/06/HeatmapChart_framed.png" Width="420" Alt="Android Heatmap Chart Example"/>
+<img Align="Left" src="https://www.scichart.com/wp-content/uploads/2019/08/scichart-android-3d-charts-example-realtime-3d-surfacemesh-chart-landscape-phone.png" Width="420" Alt="Android Realtime 3D Surface Mesh Example"/>
 
-<img Align="Left" src="https://abtsoftware-wpengine.netdna-ssl.com/wp-content/uploads/2016/08/MultiXAxes_framed-2-e1470382586249.png" Width="420" Alt="Android Multi XAxis Example"/>
+<img Align="Left" src="https://www.scichart.com/wp-content/uploads/2019/09/scichart-android-3d-charts-example-simple-point-lines-chart-landscape-phone.png" Width="420" Alt="Android PointLine 3D Chart Example"/>
 
 <span class="align-center"></span>
 
@@ -81,22 +81,49 @@ Chart types include:
 * [Android Stacked Grouped Column Chart](https://www.scichart.com/example/android-chart-stacked-column-chart-grouped-side-by-side-example/)
 * [Android Stock Charts](https://www.scichart.com/android-multi-pane-stock-charts/)
 * [Android Chart Legends](https://www.scichart.com/android-chart-legends-api-example/)
+* [Android Pie Charts](https://www.scichart.com/example/android-chart-pie-chart-example/)
+* [Android Donut Chart](https://www.scichart.com/example/android-chart-donut-chart-example/)
+* [Android Nested Chart](https://www.scichart.com/example/android-chart-nested-chart-example/)
+* [Android Simple Bubble 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-bubble/)
+* [Android Simple Cylindroid 3D Charts](https://www.scichart.com/example/android-3d-chart-example-simple-cylindroid/)
+* [Android Sparse Ellipsoid 3D Charts](https://www.scichart.com/example/android-3d-chart-example-simple-ellipsoid/)
+* [Android Simple Point-Cloud 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-point-cloud/)
+* [Android Simple Point-Lines 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-point-lines/)
+* [Android Simple Polar 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-polar/)
+* [Android Simple Scatter 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-scatter/)
+* [Android Simple Waterfall 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-waterfall/)
+* [Android Sparse Column 3D Chart](https://www.scichart.com/example/android-3d-chart-example-sparse-column/)
+* [Android Sparse Impulse Series 3D Chart](https://www.scichart.com/example/android-3d-chart-example-sparse-impulse-series/)
+* [Android Uniform Column 3D Chart](https://www.scichart.com/example/android-3d-chart-example-uniform-column/)
+* [Android Uniform Impulse 3D Chart](https://www.scichart.com/example/android-3d-chart-example-uniform-impulse-series/)
+* [Android Custom Free Surface 3D Chart](https://www.scichart.com/example/android-3d-chart-example-create-custom-free-surface/)
+* [Android Simple Uniform Mesh 3D Chart](https://www.scichart.com/example/android-3d-chart-example-simple-uniform-mesh/)
+* [Android Surface Mesh Floor and Ceiling 3D Chart](https://www.scichart.com/example/android-3d-chart-example-surface-mesh-floor-and-ceiling/)
+* [Android Surface Mesh Palette Provider 3D Chart](https://www.scichart.com/example/android-3d-chart-example-surface-mesh-palette-provider/)
+* [Android Surface Mesh With Contours 3D Chart](https://www.scichart.com/example/android-3d-chart-example-surface-mesh-with-contours/)
 
 ## SciChart Android Tutorials 
 
-We now have a set of Tutorials targetting SciChart Android v2.x over on our website. Please find a list of tutorials below:
+We now have a set of Tutorials targetting SciChart Android v3.x over on our website. Please find a list of 2D and 3D tutorials below:
 
 ![SciChart Android Tutorials](https://www.scichart.com/wp-content/uploads/2017/04/scichart-android-tutorials-image.png)
 
-* [Tutorial 01 - Adding SciChart libraries as dependencies](https://www.scichart.com/documentation/android/v2.x/Tutorial%2001%20-%20Adding%20SciChart%20libraries%20as%20dependencies.html)
-* [Tutorial 02 - Creating a Chart](https://www.scichart.com/documentation/android/v2.x/Tutorial%2002%20-%20Creating%20a%20Chart.html)
-* [Tutorial 03 - Adding Series to a Chart](https://www.scichart.com/documentation/android/v2.x/Tutorial%2003%20-%20Adding%20Series%20to%20a%20Chart.html)
-* [Tutorial 04 - Adding Zooming, Panning Behavior](https://www.scichart.com/documentation/android/v2.x/Tutorial%2004%20-%20Adding%20Zooming,%20Panning%20Behavior.html)
-* [Tutorial 05 - Adding Tooltips and Legends](https://www.scichart.com/documentation/android/v2.x/Tutorial%2004%20-%20Adding%20Zooming,%20Panning%20Behavior.html)
-* [Tutorial 06 - Adding Realtime Updates](https://www.scichart.com/documentation/android/v2.x/Tutorial%2006%20-%20Adding%20Realtime%20Updates.html)
-* [Tutorial 07 - Adding Annotations](https://www.scichart.com/documentation/android/v2.x/Tutorial%2006%20-%20Adding%20Realtime%20Updates.html)
-* [Tutorial 08 - Adding Multiple Axis](https://www.scichart.com/documentation/android/v2.x/Tutorial%2008%20-%20Adding%20Multiple%20Axis.html)
-* [Tutorial 09 - Linking Multiple Charts](https://www.scichart.com/documentation/android/v2.x/Tutorial%2009%20-%20Linking%20Multiple%20Charts.html)
+* [Tutorial 01 - Adding SciChart libraries as dependencies](https://www.scichart.com/documentation/android/current/Tutorial%2001%20-%20Adding%20SciChart%20libraries%20as%20dependencies.html)
+* [Tutorial 02 - Creating a Chart](https://www.scichart.com/documentation/android/current/Tutorial%2002%20-%20Creating%20a%20Chart.html)
+* [Tutorial 03 - Adding Series to a Chart](https://www.scichart.com/documentation/android/current/Tutorial%2003%20-%20Adding%20Series%20to%20a%20Chart.html)
+* [Tutorial 04 - Adding Zooming, Panning Behavior](https://www.scichart.com/documentation/android/current/Tutorial%2004%20-%20Adding%20Zooming,%20Panning%20Behavior.html)
+* [Tutorial 05 - Adding Tooltips and Legends](https://www.scichart.com/documentation/android/current/Tutorial%2005%20-%20Adding%20Tooltips%20and%20Legends.html)
+* [Tutorial 06 - Adding Realtime Updates](https://www.scichart.com/documentation/android/current/Tutorial%2006%20-%20Adding%20Realtime%20Updates.html)
+* [Tutorial 07 - Adding Annotations](https://www.scichart.com/documentation/android/current/Tutorial%2007%20-%20Adding%20Annotations.html)
+* [Tutorial 08 - Adding Multiple Axis](https://www.scichart.com/documentation/android/current/Tutorial%2008%20-%20Adding%20Multiple%20Axis.html)
+* [Tutorial 09 - Linking Multiple Charts](https://www.scichart.com/documentation/android/current/Tutorial%2009%20-%20Linking%20Multiple%20Charts.html)
+* [3D Tutorial 01 - Charting Concepts](https://www.scichart.com/documentation/android/current/3D%20Tutorial%20%2001%20-%20Charting%20Concepts.html)
+* [3D Tutorial 02 - Add SciChart Libraries to Android Studio](https://www.scichart.com/documentation/android/current/3D%20Tutorial%20%2002%20-%20Add%20SciChart%20Libraries%20to%20Android%20Studio.html)
+* [3D Tutorial 03 - Creating a Chart and Add a Data Series](https://www.scichart.com/documentation/android/current/3D%20Tutorial%20%2003%20-%20Creating%20a%20Chart%20and%20Add%20a%20Data%20Series.html)
+* [3D Tutorials 04 - Changing the Axes Length and Chart Pitch and Yaw](https://www.scichart.com/documentation/android/current/3D%20Tutorial%2004%20-%20Changing%20the%20Axes%20Length%20and%20Chart%20Pitch%20and%20Yaw.html)
+* [3D Tutorial 05 - Zooming and Rotating](https://www.scichart.com/documentation/android/current/3D%20Tutorial%2005%20-%20Zooming%20and%20Rotating.html)
+* [3D Tutorial 06 - Cursors and Tooltips](https://www.scichart.com/documentation/android/current/3D%20Tutorial%2006%20-%20Cursors%20and%20Tooltips.html)
+* [3D Tutorial 07 - Plotting Realtime Data](https://www.scichart.com/documentation/android/current/3D%20Tutorial%2007%20-%20Plotting%20Realtime%20Data.html)
 
 ## Tech Support and Help 
 
