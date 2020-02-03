@@ -18,8 +18,7 @@ Android Chart Examples are provided in Java & Kotlin. If you are looking for oth
 
 * [iOS Charts](https://github.com/ABTSoftware/SciChart.iOS.Examples) (Swift / Objective C)
 * [WPF Charts](https://github.com/ABTSoftware/SciChart.WPF.Examples) (C# / WPF)
-* [Xamarin Charts](https://github.com/ABTSoftware/SciChart.Xamarin.Examples) (C#) BETA!
-* [NativeScript Charts](https://github.com/ABTSoftware/SciChart.NativeScript.Examples) (TypeScript / Javascript) BETA!
+* [Xamarin Charts](https://github.com/ABTSoftware/SciChart.Xamarin.Examples) (C#) 
 
 ### Note: Maven Feed Setup
 
@@ -32,11 +31,14 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1806', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1806', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1806', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1806', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions', version: '2.0.0.1806', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '3.0.0.4253', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '3.0.0.4253', ext: 'aar')
+}
 ```
 
 _where latest version number can be found at our [SciChart/ABTSoftware Maven feed page](https://www.myget.org/feed/abtsoftware/package/maven/com.scichart.library/charting)_
