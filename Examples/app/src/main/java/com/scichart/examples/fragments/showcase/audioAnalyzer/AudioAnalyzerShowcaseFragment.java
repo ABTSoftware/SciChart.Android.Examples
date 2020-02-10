@@ -40,10 +40,9 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IntegerValues;
 import com.scichart.core.utility.NumberUtil;
-import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.Radix2FFT;
-import com.scichart.examples.fragments.showcase.ShowcaseExampleBaseFragment;
+import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment;
 
 import butterknife.BindView;
 

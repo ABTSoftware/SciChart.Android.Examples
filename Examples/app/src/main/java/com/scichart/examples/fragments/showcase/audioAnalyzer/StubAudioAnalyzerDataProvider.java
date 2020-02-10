@@ -16,7 +16,7 @@
 
 package com.scichart.examples.fragments.showcase.audioAnalyzer;
 
-import com.scichart.examples.fragments.showcase.DataProviderBase;
+import com.scichart.examples.fragments.base.DataProviderBase;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;

@@ -19,7 +19,7 @@ package com.scichart.examples.fragments.showcase.audioAnalyzer;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 
-import com.scichart.examples.fragments.showcase.DataProviderBase;
+import com.scichart.examples.fragments.base.DataProviderBase;
 
 import java.util.concurrent.TimeUnit;
 

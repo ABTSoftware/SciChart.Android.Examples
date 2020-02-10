@@ -21,7 +21,15 @@
     <IconPath>ic_realtime_feature</IconPath>
     <CodeFiles>
         <string>res/layout/example_ecg_fragment.xml.txt</string>
+        <string>res/layout-land/example_ecg_fragment.xml.txt</string>
+        <string>res/layout/example_ecg_blood_oxygenation_indicator_layout.xml.txt</string>
+        <string>res/layout/example_ecg_blood_pressure_indicator_layout.xml.txt</string>
+        <string>res/layout/example_ecg_blood_volume_indicator_layout.xml.txt</string>
+        <string>res/layout/example_ecg_heart_rate_indicator_layout.xml.txt</string>
         <string>java/com/scichart/examples/fragments/showcase/ecg/EcgShowcaseFragment.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/ecg/DefaultEcgDataProvider.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/ecg/EcgData.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/ecg/EcgIndicatorsProvider.java.txt</string>
     </CodeFiles>
     <Features>
         <Features>Realtime</Features>

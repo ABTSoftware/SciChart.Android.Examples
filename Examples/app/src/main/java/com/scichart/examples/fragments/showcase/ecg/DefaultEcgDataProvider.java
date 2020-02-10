@@ -20,7 +20,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.scichart.core.model.DoubleValues;
-import com.scichart.examples.fragments.showcase.DataProviderBase;
+import com.scichart.examples.fragments.base.DataProviderBase;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

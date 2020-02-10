@@ -16,7 +16,7 @@
 
 package com.scichart.examples.fragments.showcase.audioAnalyzer;
 
-import com.scichart.examples.fragments.showcase.IDataProvider;
+import com.scichart.examples.fragments.base.IDataProvider;
 
 public interface IAudioAnalyzerDataProvider extends IDataProvider<AudioData> {
     int getBufferSize();

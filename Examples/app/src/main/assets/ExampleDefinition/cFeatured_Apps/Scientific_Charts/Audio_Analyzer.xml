@@ -21,6 +21,10 @@
     <CodeFiles>
         <string>res/layout/example_audio_analyzer_fragment.xml.txt</string>
         <string>java/com/scichart/examples/fragments/showcase/audioAnalyzer/AudioAnalyzerShowcaseFragment.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/audioAnalyzer/AudioData.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/audioAnalyzer/DefaultAudioAnalyzerDataProvider.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/audioAnalyzer/IAudioAnalyzerProvider.java.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/audioAnalyzer/StubAudioAnalyzerDataProvider.java.txt</string>
     </CodeFiles>
     <Features>
         <Features>Realtime</Features>

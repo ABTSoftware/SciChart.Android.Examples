@@ -45,7 +45,7 @@ import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.StepProgressBar;
-import com.scichart.examples.fragments.showcase.ShowcaseExampleBaseFragment;
+import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment;
 
 import java.util.Collections;
 import java.util.List;

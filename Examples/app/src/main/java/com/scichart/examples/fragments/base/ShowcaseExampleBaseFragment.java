@@ -1,5 +1,5 @@
 //******************************************************************************
-// SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved.
+// SCICHART® Copyright SciChart Ltd. 2011-2020. All rights reserved.
 //
 // Web: http://www.scichart.com
 // Support: support@scichart.com
@@ -14,7 +14,7 @@
 // expressed or implied.
 //******************************************************************************
 
-package com.scichart.examples.fragments.showcase;
+package com.scichart.examples.fragments.base;
 
 import android.app.Activity;
 import android.os.Bundle;
