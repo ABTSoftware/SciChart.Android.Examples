@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// EcgData.java is part of the SCICHART® Examples. Permission is hereby granted
+// VitalSignsData.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -14,9 +14,9 @@
 // expressed or implied.
 //******************************************************************************
 
-package com.scichart.examples.fragments.showcase.ecg;
+package com.scichart.examples.fragments.showcase.vitalSignsMonitor;
 
-public class EcgData {
+public class VitalSignsData {
     public final double xValue;
     public final double ecgHeartRate;
     public final double bloodPressure;
@@ -24,7 +24,7 @@ public class EcgData {
     public final double bloodOxygenation;
     public final boolean isATrace;
 
-    public EcgData(double xValue, double ecgHeartRate, double bloodPressure, double bloodVolume, double bloodOxygenation, boolean isATrace) {
+    public VitalSignsData(double xValue, double ecgHeartRate, double bloodPressure, double bloodVolume, double bloodOxygenation, boolean isATrace) {
         this.xValue = xValue;
         this.ecgHeartRate = ecgHeartRate;
         this.bloodPressure = bloodPressure;

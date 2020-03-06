@@ -104,6 +104,7 @@ public class Module {
                 exampleDefinition.description,
                 exampleDefinition.codeFiles,
                 exampleDefinition.features,
+                exampleDefinition.permissions,
                 exampleDefinition.isVisible);
     }
 

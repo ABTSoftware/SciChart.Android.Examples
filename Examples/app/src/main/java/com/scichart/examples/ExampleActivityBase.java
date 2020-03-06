@@ -21,14 +21,16 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.scichart.core.common.Action1;
 import com.scichart.examples.components.CustomDrawerLayout;
@@ -59,9 +61,13 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_example);
 
+        final Window window = getWindow();
+
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // don't turn off screen when showing example
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
         setUpExample(savedInstanceState);
         setUpDrawerAndToolbar();
     }
@@ -185,7 +191,7 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
         widgets.add(new ImageViewWidget.Builder().setId(R.drawable.ic_share_white).setListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MailUtils.trySendExampleByMail(ExampleActivityBase.this, example, (new int[]{}));
+                MailUtils.trySendExampleByMail(ExampleActivityBase.this, example);
             }
         }).build());
 

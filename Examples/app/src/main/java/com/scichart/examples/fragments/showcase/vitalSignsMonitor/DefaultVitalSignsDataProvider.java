@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// DefaultEcgDataProvider.java is part of the SCICHART® Examples. Permission is hereby granted
+// DefaultVitalSignsDataProvider.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -14,12 +14,15 @@
 // expressed or implied.
 //******************************************************************************
 
-package com.scichart.examples.fragments.showcase.ecg;
+package com.scichart.examples.fragments.showcase.vitalSignsMonitor;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.scichart.core.model.DoubleValues;
+import com.scichart.core.utility.ListUtil;
+import com.scichart.data.model.DoubleRange;
+import com.scichart.data.model.SciListUtil;
 import com.scichart.examples.fragments.base.DataProviderBase;
 
 import java.io.BufferedReader;
@@ -28,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Double.parseDouble;
 
-public class DefaultEcgDataProvider extends DataProviderBase<EcgData> {
+public class DefaultVitalSignsDataProvider extends DataProviderBase<VitalSignsData> {
     //1. Heart rate or pulse rate (ECG HR)
     //2. Blood Pressure (NI BP)
     //3. Blood Volume (SV ml)
@@ -46,7 +49,7 @@ public class DefaultEcgDataProvider extends DataProviderBase<EcgData> {
     private final DoubleValues bloodVolume = new DoubleValues();
     private final DoubleValues bloodOxygenation = new DoubleValues();
 
-    public DefaultEcgDataProvider(Context context) {
+    public DefaultVitalSignsDataProvider(Context context) {
         super(1000L, TimeUnit.MICROSECONDS);
 
         try {
@@ -70,7 +73,7 @@ public class DefaultEcgDataProvider extends DataProviderBase<EcgData> {
     }
 
     @Override
-    protected EcgData onNext() {
+    protected VitalSignsData onNext() {
         if(currentIndex >= xValues.size()) {
             currentIndex = 0;
         }
@@ -81,7 +84,7 @@ public class DefaultEcgDataProvider extends DataProviderBase<EcgData> {
         final double bloodVolume = this.bloodVolume.get(currentIndex);
         final double bloodOxygenation = this.bloodOxygenation.get(currentIndex);
 
-        final EcgData data = new EcgData(time, ecgHeartRate, bloodPressure, bloodVolume, bloodOxygenation, isATrace);
+        final VitalSignsData data = new VitalSignsData(time, ecgHeartRate, bloodPressure, bloodVolume, bloodOxygenation, isATrace);
 
         currentIndex++;
         totalIndex++;
@@ -90,5 +93,29 @@ public class DefaultEcgDataProvider extends DataProviderBase<EcgData> {
             isATrace = !isATrace;
         }
         return data;
+    }
+
+    public final DoubleRange getEcgHeartRateRange() {
+        return getMinMaxRange(ecgHeartRate);
+    }
+
+    public final DoubleRange getBloodPressureRange() {
+        return getMinMaxRange(bloodPressure);
+    }
+
+    public final DoubleRange getBloodVolumeRange() {
+        return getMinMaxRange(bloodVolume);
+    }
+
+    public final DoubleRange getBloodOxygenationRange() {
+        return getMinMaxRange(bloodOxygenation);
+    }
+
+    private static DoubleRange getMinMaxRange(DoubleValues values) {
+        final DoubleRange range = new DoubleRange();
+        SciListUtil.instance().minMax(values.getItemsArray(), 0, values.size(), range);
+
+        range.growBy(0.1, 0.1);
+        return range;
     }
 }

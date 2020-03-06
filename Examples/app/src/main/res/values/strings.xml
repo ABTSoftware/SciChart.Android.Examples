@@ -296,11 +296,10 @@
     <!-- end: ALL -->
 
     <!--  ECG showcase example -->
-    <string name="bpm">BPM</string>
     <string name="ecg">ECG</string>
     <string name="heartRateInfo">V1- 1.4MM \nST |+ 0.6 ||+ 0.9</string>
     <string name="nibp">NIBP</string>
-    <string name="nibpInfo">AUTO\n145\n95</string>
+    <string name="nibpInfo">AUTO\n145/95</string>
     <string name="sv">SV</string>
     <string name="svInfo">ML\t\t100\n%*****\t55</string>
     <string name="spo2">SPO<small><small><small><sub>2</sub></small></small></small></string>

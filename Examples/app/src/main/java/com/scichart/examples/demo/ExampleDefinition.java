@@ -16,6 +16,8 @@
 
 package com.scichart.examples.demo;
 
+import com.scichart.examples.utils.Permission;
+
 import java.util.List;
 
 public class ExampleDefinition {
@@ -27,6 +29,7 @@ public class ExampleDefinition {
     public final String description;
     public final List<String> codeFiles;
     public final List<Features> features;
+    public final List<Permission> permissions;
     public final boolean isVisible;
 
     public ExampleDefinition(String exampleTitle,
@@ -36,6 +39,7 @@ public class ExampleDefinition {
                              String description,
                              List<String> codeFiles,
                              List<Features> features,
+                             List<Permission> permissions,
                              boolean isVisible) {
         this.exampleTitle = exampleTitle;
         this.exampleCategory = exampleCategory;
@@ -44,6 +48,7 @@ public class ExampleDefinition {
         this.description = description;
         this.codeFiles = codeFiles;
         this.features = features;
+        this.permissions = permissions;
         this.isVisible = isVisible;
     }
 

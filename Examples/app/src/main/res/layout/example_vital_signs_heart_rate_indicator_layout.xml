@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2020. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- example_ecg_heart_rate_indicator_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- example_vital_signs_heart_rate_indicator_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -22,53 +22,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/example_ecg_layout_background">
 
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/verticalGuideline"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="vertical"-->
-    <!--        app:layout_constraintGuide_percent="0.30" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/horizontalGuideline"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.3" />-->
-
-    <!--    <androidx.constraintlayout.widget.Guideline-->
-    <!--        android:id="@+id/guideline5"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintGuide_percent="0.45" />-->
-
     <ImageView
         android:id="@+id/heartIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/heart_icon_description"
         android:src="@drawable/example_heart_icon_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/barrier"/>
-
-    <TextView
-        android:id="@+id/bpmLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="end|bottom"
-        android:singleLine="true"
-        android:text="@string/bpm"
-        android:textColor="@color/heart_rate_color"
-        android:textStyle="normal|bold"
-        app:layout_constraintEnd_toStartOf="@+id/heartIcon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/barrier"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bpmValueLabel"
@@ -83,7 +46,7 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@id/heartIcon"
         tools:text="69"
         tools:textColor="@color/color_primary" />
 
@@ -92,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:singleLine="true"
         android:text="@string/ecg"
         android:textAlignment="viewStart"
@@ -115,12 +78,5 @@
         app:autoSizeMinTextSize="6sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

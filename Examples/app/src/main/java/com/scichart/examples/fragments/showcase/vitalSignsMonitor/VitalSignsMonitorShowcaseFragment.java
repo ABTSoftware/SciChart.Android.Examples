@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// EcgShowcaseFragment.java is part of the SCICHART® Examples. Permission is hereby granted
+// VitalSignsMonitorShowcaseFragment.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -14,7 +14,7 @@
 // expressed or implied.
 //******************************************************************************
 
-package com.scichart.examples.fragments.showcase.ecg;
+package com.scichart.examples.fragments.showcase.vitalSignsMonitor;
 
 import android.content.Context;
 import android.view.View;
@@ -41,6 +41,7 @@ import com.scichart.charting.visuals.renderableSeries.paletteProviders.PalettePr
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IntegerValues;
+import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
@@ -55,7 +56,7 @@ import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
+public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragment {
     private static final int FIFO_CAPACITY = 7850;
 
     private final XyDataSeries<Double, Double> ecgDataSeries = newDataSeries(FIFO_CAPACITY);
@@ -72,7 +73,7 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
     private final XyDataSeries<Double, Double> lastBloodVolumeDataSeries = newDataSeries(1);
     private final XyDataSeries<Double, Double> lastBloodOxygenationSweepDataSeries = newDataSeries(1);
 
-    private final EcgIndicatorsProvider indicatorsProvider = new EcgIndicatorsProvider();
+    private final VitalSignsIndicatorsProvider indicatorsProvider = new VitalSignsIndicatorsProvider();
 
     @BindView(R.id.chart)
     SciChartSurface chart;
@@ -108,14 +109,14 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.example_ecg_fragment;
+        return R.layout.example_vital_signs_monitor_fragment;
     }
 
     @Override
     protected void initExample() {
-        setUpChart();
+        final DefaultVitalSignsDataProvider dataProvider = new DefaultVitalSignsDataProvider(getActivity());
 
-        final DefaultEcgDataProvider dataProvider = new DefaultEcgDataProvider(getActivity());
+        setUpChart(dataProvider);
 
         dataProvider.getData().buffer(50, TimeUnit.MILLISECONDS).doOnNext(ecgData -> {
             if(ecgData.isEmpty()) return;
@@ -137,13 +138,13 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
                 bloodVolumeDataSeries.append(xValues, dataBatch.bloodVolumeValuesA);
                 bloodVolumeSweepDataSeries.append(xValues, dataBatch.bloodVolumeValuesB);
 
-                final EcgData lastEcgData = dataBatch.lastEcgData;
-                final double xValue = lastEcgData.xValue;
+                final VitalSignsData lastVitalSignsData = dataBatch.lastVitalSignsData;
+                final double xValue = lastVitalSignsData.xValue;
 
-                lastEcgSweepDataSeries.append(xValue, lastEcgData.ecgHeartRate);
-                lastBloodPressureDataSeries.append(xValue, lastEcgData.bloodPressure);
-                lastBloodOxygenationSweepDataSeries.append(xValue, lastEcgData.bloodOxygenation);
-                lastBloodVolumeDataSeries.append(xValue, lastEcgData.bloodVolume);
+                lastEcgSweepDataSeries.append(xValue, lastVitalSignsData.ecgHeartRate);
+                lastBloodPressureDataSeries.append(xValue, lastVitalSignsData.bloodPressure);
+                lastBloodOxygenationSweepDataSeries.append(xValue, lastVitalSignsData.bloodOxygenation);
+                lastBloodVolumeDataSeries.append(xValue, lastVitalSignsData.bloodVolume);
             });
         }).compose(bindToLifecycle()).subscribe();
 
@@ -173,7 +174,7 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
         }
     }
 
-    private void setUpChart() {
+    private void setUpChart(DefaultVitalSignsDataProvider dataProvider) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                 .withVisibleRange(0, 10)
                 .withAutoRangeMode(AutoRange.Never)
@@ -187,10 +188,10 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
         final String bloodVolumeId = "bloodVolumeId";
         final String bloodOxygenationId = "bloodOxygenationId";
 
-        final NumericAxis yAxisEcg = generateYAxis(ecgId);
-        final NumericAxis yAxisPressure = generateYAxis(bloodPressureId);
-        final NumericAxis yAxisVolume = generateYAxis(bloodVolumeId);
-        final NumericAxis yAxisOxygenation = generateYAxis(bloodOxygenationId);
+        final NumericAxis yAxisEcg = generateYAxis(ecgId, dataProvider.getEcgHeartRateRange());
+        final NumericAxis yAxisPressure = generateYAxis(bloodPressureId, dataProvider.getBloodPressureRange());
+        final NumericAxis yAxisVolume = generateYAxis(bloodVolumeId, dataProvider.getBloodVolumeRange());
+        final NumericAxis yAxisOxygenation = generateYAxis(bloodOxygenationId, dataProvider.getBloodOxygenationRange());
 
         final Context context = getActivity();
 
@@ -226,8 +227,8 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
         });
     }
 
-    private NumericAxis generateYAxis(String id) {
-        return sciChartBuilder.newNumericAxis().withAxisId(id).withVisibility(View.GONE).withGrowBy(0.05, 0.05).withAutoRangeMode(AutoRange.Always).withDrawMajorBands(false).withDrawMinorGridLines(false).withDrawMajorGridLines(false).build();
+    private NumericAxis generateYAxis(String id, DoubleRange visibleRange) {
+        return sciChartBuilder.newNumericAxis().withAxisId(id).withVisibility(View.GONE).withVisibleRange(visibleRange).withAutoRangeMode(AutoRange.Never).withDrawMajorBands(false).withDrawMinorGridLines(false).withDrawMajorGridLines(false).build();
     }
 
     private IRenderableSeries generateLineSeries(String yAxisId, IDataSeries ds, PenStyle strokeStyle) {
@@ -267,9 +268,9 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
         private final DoubleValues bloodVolumeValuesB = new DoubleValues();
         private final DoubleValues bloodOxygenationB = new DoubleValues();
 
-        EcgData lastEcgData;
+        VitalSignsData lastVitalSignsData;
 
-        final void updateData(List<EcgData> ecgDataList) {
+        final void updateData(List<VitalSignsData> vitalSignsDataList) {
             xValues.clear();
             ecgHeartRateValuesA.clear();
             ecgHeartRateValuesB.clear();
@@ -280,27 +281,27 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
             bloodOxygenationA.clear();
             bloodOxygenationB.clear();
 
-            final int size = ecgDataList.size();
+            final int size = vitalSignsDataList.size();
             for (int i = 0; i < size; i++) {
-                final EcgData ecgData = ecgDataList.get(i);
+                final VitalSignsData vitalSignsData = vitalSignsDataList.get(i);
 
-                xValues.add(ecgData.xValue);
+                xValues.add(vitalSignsData.xValue);
 
-                if (ecgData.isATrace) {
-                    ecgHeartRateValuesA.add(ecgData.ecgHeartRate);
-                    bloodPressureValuesA.add(ecgData.bloodPressure);
-                    bloodVolumeValuesA.add(ecgData.bloodVolume);
-                    bloodOxygenationA.add(ecgData.bloodOxygenation);
+                if (vitalSignsData.isATrace) {
+                    ecgHeartRateValuesA.add(vitalSignsData.ecgHeartRate);
+                    bloodPressureValuesA.add(vitalSignsData.bloodPressure);
+                    bloodVolumeValuesA.add(vitalSignsData.bloodVolume);
+                    bloodOxygenationA.add(vitalSignsData.bloodOxygenation);
 
                     ecgHeartRateValuesB.add(Double.NaN);
                     bloodPressureValuesB.add(Double.NaN);
                     bloodVolumeValuesB.add(Double.NaN);
                     bloodOxygenationB.add(Double.NaN);
                 } else {
-                    ecgHeartRateValuesB.add(ecgData.ecgHeartRate);
-                    bloodPressureValuesB.add(ecgData.bloodPressure);
-                    bloodVolumeValuesB.add(ecgData.bloodVolume);
-                    bloodOxygenationB.add(ecgData.bloodOxygenation);
+                    ecgHeartRateValuesB.add(vitalSignsData.ecgHeartRate);
+                    bloodPressureValuesB.add(vitalSignsData.bloodPressure);
+                    bloodVolumeValuesB.add(vitalSignsData.bloodVolume);
+                    bloodOxygenationB.add(vitalSignsData.bloodOxygenation);
 
                     ecgHeartRateValuesA.add(Double.NaN);
                     bloodPressureValuesA.add(Double.NaN);
@@ -310,7 +311,7 @@ public class EcgShowcaseFragment extends ShowcaseExampleBaseFragment {
 
             }
 
-            lastEcgData = ecgDataList.get(size - 1);
+            lastVitalSignsData = vitalSignsDataList.get(size - 1);
         }
     }
 

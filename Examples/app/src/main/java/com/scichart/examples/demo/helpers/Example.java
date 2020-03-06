@@ -21,6 +21,7 @@ import android.util.Log;
 
 import com.scichart.examples.demo.ExampleDefinition;
 import com.scichart.examples.demo.Features;
+import com.scichart.examples.utils.Permission;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +47,7 @@ public class Example {
     public final List<CodeFile> sourceFilePaths;
     public final Map<String, String> sourceFiles;
     public final List<Features> features;
+    public final List<Permission> permissions;
     public final boolean isHeader;
 
     public Example(UUID id, String title,
@@ -58,6 +60,7 @@ public class Example {
                    List<CodeFile> sourceFilePaths,
                    Map<String, String> sourceFiles,
                    List<Features> features,
+                   List<Permission> permissions,
                    boolean isHeader) {
         this.id = id;
         this.title = title;
@@ -70,6 +73,7 @@ public class Example {
         this.sourceFilePaths = sourceFilePaths;
         this.sourceFiles = sourceFiles;
         this.features = features;
+        this.permissions = permissions;
         this.isHeader = isHeader;
     }
 
@@ -80,7 +84,7 @@ public class Example {
         final UUID id = UUID.randomUUID();
 
         return new Example(id, exampleDefinition.exampleTitle, exampleDefinition.iconPath,  exampleDefinition.exampleCategory, exampleDefinition.chartGroup,
-                fragment, fragmentName, exampleDefinition.description, sourceFilePaths, sourceFiles, exampleDefinition.features, false);
+                fragment, fragmentName, exampleDefinition.description, sourceFilePaths, sourceFiles, exampleDefinition.features, exampleDefinition.permissions, false);
     }
 
     public static Example prepareExample(ExampleDefinition exampleDefinition, Context context) {
@@ -96,7 +100,7 @@ public class Example {
                     sourceFiles.put(withoutTxt, fileContent);
                 }
             } catch (IOException e) {
-                Log.e("prepareExample: ", codeFile, e);
+                Log.e("prepareExample", String.format("%s:%s", exampleDefinition.exampleTitle, codeFile), e);
             }
         }
         return createExample(exampleDefinition, sourceFiles);

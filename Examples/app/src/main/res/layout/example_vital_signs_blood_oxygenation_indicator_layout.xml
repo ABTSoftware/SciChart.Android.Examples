@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2020. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- example_ecg_blood_pressure_indicator_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- example_vital_signs_blood_oxygenation_indicator_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -26,13 +26,14 @@
         android:id="@+id/spoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:gravity="start|top"
+        android:paddingBottom="5dp"
         android:text="@string/spo2"
         android:textAlignment="center"
         android:textColor="@color/blood_oxygenation_color"
         android:textSize="18sp"
-        android:paddingBottom="5dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,8 +41,9 @@
         android:id="@+id/spoClockLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+        android:gravity="top|end"
         android:textAlignment="viewStart"
         android:textColor="@color/blood_oxygenation_color"
         android:textSize="14sp"
@@ -53,8 +55,8 @@
         android:id="@+id/spoInfoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/spoInfo"
         android:textColor="@color/blood_oxygenation_color"
         android:textSize="10sp"

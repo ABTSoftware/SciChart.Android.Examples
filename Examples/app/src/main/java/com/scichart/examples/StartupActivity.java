@@ -16,7 +16,6 @@
 
 package com.scichart.examples;
 
-import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,14 +27,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.WindowManager;
 
 import com.scichart.examples.demo.DemoKeys;
-import com.scichart.examples.utils.PermissionManager;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class StartupActivity extends AppCompatActivity {
-    private final PermissionManager permissionManager = new PermissionManager(this);
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +39,7 @@ public class StartupActivity extends AppCompatActivity {
         setContentView(R.layout.startup_activity);
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
         ButterKnife.bind(this, this);
@@ -52,14 +48,6 @@ public class StartupActivity extends AppCompatActivity {
         if(!instance.getModule().isInitialized()) {
             new ParseExampleTasks(this).execute();
         }
-
-        requestPermissions();
-    }
-
-    private void requestPermissions() {
-        // permissions for Audio Analyzer
-        permissionManager.tryRequestPermission(Manifest.permission.RECORD_AUDIO);
-        permissionManager.tryRequestPermission(Manifest.permission.MODIFY_AUDIO_SETTINGS);
     }
 
     @OnClick(R.id.charts2dCard)

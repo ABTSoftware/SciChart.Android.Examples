@@ -38,6 +38,8 @@ import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeri
 import com.scichart.charting.visuals.renderableSeries.HlRenderableSeriesBase;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.OhlcRenderableSeriesBase;
+import com.scichart.charting.visuals.renderableSeries.SplineBandRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.SplineLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.XyRenderableSeriesBase;
 import com.scichart.charting.visuals.renderableSeries.XyyRenderableSeriesBase;
 import com.scichart.charting.visuals.renderableSeries.XyzRenderableSeriesBase;
@@ -47,7 +49,6 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
-import com.scichart.examples.fragments.splineLineSeries.SplineLineRenderableSeries;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.extensions.builders.AnimatorBuilderBase;
 
@@ -71,6 +72,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
     private static final int CANDLESTICK = 11;
     private static final int STACKED_COLUMN = 12;
     private static final int STACKED_MOUNTAIN = 13;
+    private static final int SPLINE_BAND = 14;
 
     private static final int POINTS_COUNT = 25;
 
@@ -183,7 +185,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             case SPLINE_LINE:
                 final SplineLineRenderableSeries series = new SplineLineRenderableSeries();
                 series.setStrokeStyle(new SolidPenStyle(ColorUtil.LimeGreen, true, 2f, null));
-                rSeries = initXySeries(series);
+                rSeries = initSplineLineSeries(series);
                 break;
             case IMPULSE:
                 rSeries = initXySeries(sciChartBuilder.newImpulseSeries()
@@ -225,6 +227,9 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             case CANDLESTICK:
                 rSeries = initOhlcSeries(sciChartBuilder.newCandlestickSeries().build());
                 break;
+            case SPLINE_BAND:
+                rSeries = initSplineBandSeries(sciChartBuilder.newSplineBandSeries().build());
+                break;
 
             case STACKED_COLUMN:
             case STACKED_MOUNTAIN:
@@ -256,6 +261,21 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
         return series;
     }
 
+    private IRenderableSeries initSplineLineSeries(SplineLineRenderableSeries series) {
+        final XyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
+
+        double[] randomWalk = getRandomWalk(0d);
+        for (int i = 0; i < POINTS_COUNT; i++) {
+            dataSeries.append((double) i, randomWalk[i]);
+        }
+        series.setDataSeries(dataSeries);
+
+        initAnimators(sciChartBuilder.newAnimator(series));
+        sweepAnimator = sciChartBuilder.newAnimator(series).withSweepTransformation().build();
+
+        return series;
+    }
+
     private IRenderableSeries initFixedErrorBarsSeries(FastFixedErrorBarsRenderableSeries series) {
         final XyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
 
@@ -272,6 +292,22 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
     }
 
     private IRenderableSeries initXyySeries(XyyRenderableSeriesBase series) {
+        final XyyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyyDataSeries(Double.class, Double.class).build();
+
+        double[] randomWalkY = getRandomWalk(1d);
+        double[] randomWalkY1 = getRandomWalk(-1d);
+        for (int i = 0; i < POINTS_COUNT; i++) {
+            dataSeries.append((double) i, randomWalkY[i], randomWalkY1[i]);
+        }
+        series.setDataSeries(dataSeries);
+
+        initAnimators(sciChartBuilder.newAnimator(series));
+        sweepAnimator = sciChartBuilder.newAnimator(series).withSweepTransformation().build();
+
+        return series;
+    }
+
+    private IRenderableSeries initSplineBandSeries(SplineBandRenderableSeries series) {
         final XyyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyyDataSeries(Double.class, Double.class).build();
 
         double[] randomWalkY = getRandomWalk(1d);

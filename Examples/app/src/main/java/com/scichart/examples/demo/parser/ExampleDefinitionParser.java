@@ -20,6 +20,7 @@ import android.util.Xml;
 
 import com.scichart.examples.demo.ExampleDefinition;
 import com.scichart.examples.demo.Features;
+import com.scichart.examples.utils.Permission;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -35,6 +36,7 @@ import static com.scichart.examples.demo.DemoKeys.EXAMPLE_DEFINITION;
 import static com.scichart.examples.demo.DemoKeys.FEATURES;
 import static com.scichart.examples.demo.DemoKeys.ICON_PATH;
 import static com.scichart.examples.demo.DemoKeys.IS_VISIBLE;
+import static com.scichart.examples.demo.DemoKeys.PERMISSIONS;
 import static com.scichart.examples.demo.DemoKeys.TITLE;
 
 public class ExampleDefinitionParser {
@@ -65,6 +67,7 @@ public class ExampleDefinitionParser {
         String description = "";
         final List<String> codeFiles = new ArrayList<>();
         final List<Features> features = new ArrayList<>();
+        final List<Permission> permissions = new ArrayList<>();
         boolean isVisible = false;
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -87,6 +90,9 @@ public class ExampleDefinitionParser {
                 case FEATURES:
                     features.addAll(readFeatures(parser));
                     break;
+                case PERMISSIONS:
+                    permissions.addAll(readPermissions(parser));
+                    break;
                 case IS_VISIBLE:
                     isVisible = Boolean.parseBoolean(readElement(parser, IS_VISIBLE));
                     break;
@@ -95,7 +101,7 @@ public class ExampleDefinitionParser {
                     break;
             }
         }
-        return new ExampleDefinition(title, "", "", iconPath, description, codeFiles, features, isVisible);
+        return new ExampleDefinition(title, "", "", iconPath, description, codeFiles, features, permissions, isVisible);
     }
 
     private String readElement(XmlPullParser parser, String element) throws IOException, XmlPullParserException {
@@ -126,6 +132,26 @@ public class ExampleDefinitionParser {
                 String name = parser.getName();
                 if (name.equals(FEATURES)) {
                     result.add(Features.valueOf(readText(parser)));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private List<Permission> readPermissions(XmlPullParser parser) throws XmlPullParserException {
+        final List<Permission> result = new ArrayList<>();
+        try {
+            parser.require(XmlPullParser.START_TAG, null, PERMISSIONS);
+            while (parser.next() != XmlPullParser.END_TAG) {
+                if (parser.getEventType() != XmlPullParser.START_TAG) {
+                    continue;
+                }
+
+                String name = parser.getName();
+                if (name.equals(PERMISSIONS)) {
+                    result.add(Permission.valueOf(readText(parser)));
                 }
             }
         } catch (IOException e) {

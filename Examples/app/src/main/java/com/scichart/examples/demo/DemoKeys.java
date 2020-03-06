@@ -31,6 +31,7 @@ public class DemoKeys {
     public final static String DESCRIPTION = "Description";
     public final static String CODE_FILES = "CodeFiles";
     public final static String FEATURES = "Features";
+    public final static String PERMISSIONS = "Permissions";
     public final static String IS_VISIBLE = "IsVisible";
 
     public final static String FRAGMENT_TAG = "FragmentTag";

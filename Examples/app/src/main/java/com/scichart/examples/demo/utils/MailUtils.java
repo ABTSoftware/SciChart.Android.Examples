@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.scichart.examples.demo.export.ZipAndShareTask;
 import com.scichart.examples.demo.helpers.Example;
+import com.scichart.examples.utils.PermissionManager;
 
 public class MailUtils {
 
@@ -35,8 +36,8 @@ public class MailUtils {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    public static void trySendExampleByMail(Activity activity, Example example, @NonNull int[] grantResults) {
-        if (askForPermissions(activity, requiredPermissions)) {
+    public static void trySendExampleByMail(Activity activity, Example example) {
+        if (PermissionManager.askForPermissions(activity, EMAIL_PERMISSIONS_REQUEST, requiredPermissions)) {
             trySendEmail(activity, example, (new int[]{}));
         }
     }
@@ -53,19 +54,5 @@ public class MailUtils {
         } else {
             Toast.makeText(activity, "Cannot send an email with an attachment without permissions granted.", Toast.LENGTH_LONG).show();
         }
-    }
-
-    private static boolean askForPermissions(Activity activity, @NonNull String[] permissions) {
-        boolean hasPermissions = true;
-
-        for (String permission : permissions) {
-            hasPermissions &= ActivityCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
-        }
-
-        if (!hasPermissions) {
-            ActivityCompat.requestPermissions(activity, permissions, EMAIL_PERMISSIONS_REQUEST);
-        }
-
-        return hasPermissions;
     }
 }

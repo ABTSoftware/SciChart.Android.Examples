@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.core.view.MenuItemCompat;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +50,7 @@ import com.scichart.examples.demo.helpers.Example;
 import com.scichart.examples.demo.helpers.Module;
 import com.scichart.examples.demo.search.ExampleSearchHelper;
 import com.scichart.examples.demo.viewobjects.ExampleView;
+import com.scichart.examples.utils.PermissionManager;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -62,9 +65,12 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         AdapterView.OnItemSelectedListener,
         AdapterView.OnItemClickListener,
         SearchResultsDialog.IOnSearchItemClickListener {
+    private static final int EXAMPLE_REQUEST_CODE = 42;
 
     private Module module;
     private ExampleSearchHelper searchProvider;
+
+    private Example example;
 
     private SearchResultsDialog searchResultsDialog;
 
@@ -92,7 +98,7 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         searchProvider = new ExampleSearchHelper(this, module.getExamples());
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
         if (savedInstanceState != null) {
@@ -281,7 +287,7 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     }
 
     private void openFragment(final String exampleId) {
-        final Example example = SciChartApp.getInstance().getModule().getExampleByTitle(exampleId);
+        this.example = SciChartApp.getInstance().getModule().getExampleByTitle(exampleId);
         if (example != null) {
             if (searchMenuItem != null) {
                 searchMenuItem.collapseActionView();
@@ -289,17 +295,34 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
             }
             searchResultsDialog.hide();
 
-            final boolean is3DExample = example.topLevelCategory.contains("3D");
-            final Class<?> activityType = is3DExample ? Example3DActivity.class : ExampleActivity.class;
-
-            Intent exampleActivity = new Intent(this, activityType);
-            exampleActivity.putExtra(EXAMPLE_ID, exampleId);
-            startActivity(exampleActivity);
+            final boolean hasPermissions = PermissionManager.askForPermissions(this, EXAMPLE_REQUEST_CODE, example.permissions);
+            if (hasPermissions) {
+                startExampleActivity(example);
+            }
         }
+    }
+
+    private void startExampleActivity(Example example) {
+        final boolean is3DExample = example.topLevelCategory.contains("3D");
+        final Class<?> activityType = is3DExample ? Example3DActivity.class : ExampleActivity.class;
+
+        Intent exampleActivity = new Intent(this, activityType);
+        exampleActivity.putExtra(EXAMPLE_ID, example.title);
+
+        startActivity(exampleActivity);
     }
 
     @Override
     public void onSearchItemClick(String exampleId) {
         openFragment(exampleId);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == EXAMPLE_REQUEST_CODE && example != null) {
+            startExampleActivity(example);
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

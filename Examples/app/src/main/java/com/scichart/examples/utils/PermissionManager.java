@@ -19,20 +19,42 @@ package com.scichart.examples.utils;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class PermissionManager {
-    private static final int SHOWCASE_REQUEST_CODE = 42;
-    private final Activity activity;
+import com.scichart.core.common.Predicate;
+import com.scichart.core.utility.ListUtil;
+import com.scichart.examples.demo.helpers.Example;
 
-    public PermissionManager(Activity activity) {
-        this.activity = activity;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
+public class PermissionManager {
+
+    public static boolean askForPermissions(Activity activity, int requestCode, List<Permission> permissions) {
+        final int size = permissions.size();
+        final String[] permissionsArray = new String[size];
+        for (int i = 0; i < size; i++) {
+            permissionsArray[i] = permissions.get(i).permission;
+        }
+
+        return askForPermissions(activity, requestCode, permissionsArray);
     }
 
-    public final void tryRequestPermission(String permission) {
-        if(ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{permission}, SHOWCASE_REQUEST_CODE);
+    public static boolean askForPermissions(Activity activity, int requestCode, @NonNull String[] permissions) {
+        boolean hasPermissions = true;
+
+        for (String permission : permissions) {
+            hasPermissions &= ActivityCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_GRANTED;
         }
+
+        if (!hasPermissions) {
+            ActivityCompat.requestPermissions(activity, permissions, requestCode);
+        }
+
+        return hasPermissions;
     }
 }

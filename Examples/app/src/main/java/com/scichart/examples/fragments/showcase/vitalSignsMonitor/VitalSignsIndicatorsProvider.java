@@ -5,7 +5,7 @@
 // Support: support@scichart.com
 // Sales:   sales@scichart.com
 //
-// EcgIndicatorsProvider.java is part of the SCICHART® Examples. Permission is hereby granted
+// VitalSignsIndicatorsProvider.java is part of the SCICHART® Examples. Permission is hereby granted
 // to modify, create derivative works, distribute and publish any part of this source
 // code whether for commercial, private or personal use.
 //
@@ -14,24 +14,24 @@
 // expressed or implied.
 //******************************************************************************
 
-package com.scichart.examples.fragments.showcase.ecg;
+package com.scichart.examples.fragments.showcase.vitalSignsMonitor;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Random;
 
-public class EcgIndicatorsProvider {
+public class VitalSignsIndicatorsProvider {
     private final Random random = new Random();
     private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     private static final String[] BPM_VALUES = new String[] {"67", "69", "72", "74"};
 
     private static final String[] BP_VALUES = new String[] {"120/70", "115/70", "115/75", "120/75"};
-    private static final int[] BPB_VALUES = new int[] {5, 6, 7};
+    private static final int[] BPB_VALUES = new int[] {3, 4, 5};
 
     private static final String[] BV_VALUES = new String[] {"13.1", "13.2", "13.3", "13.0"};
-    private static final int[] BVB_VALUES = new int[] {9, 10, 11};
+    private static final int[] BVB_VALUES = new int[] {8, 9, 10};
 
     private static final String[] BO_VALUES = new String[] { "93", "95", "96", "97"};
 

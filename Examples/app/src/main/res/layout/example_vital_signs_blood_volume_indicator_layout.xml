@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2020. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- example_ecg_blood_pressure_indicator_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- example_vital_signs_blood_volume_indicator_layout.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="@string/sv"
         android:textColor="@color/blood_volume_color"
         android:textSize="18sp"
@@ -38,12 +38,12 @@
         android:id="@+id/svInfoLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/svInfo"
         android:textColor="@color/blood_volume_color"
         android:textSize="8sp"
-        app:layout_constraintLeft_toRightOf="@+id/svLabel"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -52,8 +52,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:textAlignment="textEnd"
+        android:gravity="bottom|end"
+        android:textAlignment="gravity"
         android:textColor="@color/blood_volume_color"
         android:textSize="36sp"
         android:textStyle="bold|italic"
@@ -61,47 +61,38 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toRightOf="@+id/svBar2"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="120" />
-
-    <TextView
-        android:id="@+id/bloodVolumeValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/blood_volume_color"
-        app:layout_constraintRight_toRightOf="parent" />
+        tools:text="13.0" />
 
     <com.scichart.examples.components.StepProgressBar
         android:id="@+id/svBar1"
         android:layout_width="15dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         app:barSize="3dp"
         app:isVertical="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:max="12"
+        app:max="10"
         app:progressBackgroundColor="@android:color/transparent"
         app:progressColor="@color/blood_volume_color"
         app:spacing="2dp"
-        tools:progress="12" />
+        tools:progress="9" />
 
     <com.scichart.examples.components.StepProgressBar
         android:id="@+id/svBar2"
         android:layout_width="15dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         app:barSize="3dp"
         app:isVertical="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/svBar1"
-        app:max="12"
+        app:max="10"
         app:progressBackgroundColor="@android:color/transparent"
         app:progressColor="@color/blood_volume_color"
         app:spacing="2dp"
-        tools:progress="11" />
+        tools:progress="7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

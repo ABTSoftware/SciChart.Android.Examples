@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2020. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- example_ecg_fragment.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- example_vital_signs_monitor_fragment.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -24,74 +23,81 @@
     tools:layout_editor_absoluteY="12dp">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topIndicatorsGuideline"
+        android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottomIndicatorsGuideline"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/verticalGuideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <include
         android:id="@+id/heartRateIndicator"
-        layout="@layout/example_ecg_heart_rate_indicator_layout"
+        layout="@layout/example_vital_signs_heart_rate_indicator_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/topIndicatorsGuideline"
-        app:layout_constraintEnd_toStartOf="@id/verticalGuideline"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/verticalGuideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/bloodPressureIndicator"
-        layout="@layout/example_ecg_blood_pressure_indicator_layout"
+        layout="@layout/example_vital_signs_blood_pressure_indicator_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/topIndicatorsGuideline"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/verticalGuideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/guideline1" />
 
     <include
         android:id="@+id/bloodVolumeIndicator"
-        layout="@layout/example_ecg_blood_volume_indicator_layout"
+        layout="@layout/example_vital_signs_blood_volume_indicator_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/verticalGuideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bottomIndicatorsGuideline" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/verticalGuideline"
+        app:layout_constraintTop_toTopOf="@id/guideline2" />
 
     <include
         android:id="@+id/bloodOxygenationIndicator"
-        layout="@layout/example_ecg_blood_oxygenation_indicator_layout"
+        layout="@layout/example_vital_signs_blood_oxygenation_indicator_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/verticalGuideline"
-        app:layout_constraintTop_toBottomOf="@id/bottomIndicatorsGuideline" />
+        app:layout_constraintTop_toTopOf="@id/guideline3" />
 
     <com.scichart.charting.visuals.SciChartSurface
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomIndicatorsGuideline"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/verticalGuideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topIndicatorsGuideline" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
