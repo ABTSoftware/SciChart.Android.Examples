@@ -74,6 +74,7 @@
         <item>CANDLESTICK</item>
         <item>STACKED_COLUMN</item>
         <item>STACKED_MOUNTAIN</item>
+        <item>SPLINE_BAND</item>
     </string-array>
 
     <string name="theme">Theme:</string>

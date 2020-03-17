@@ -16,7 +16,7 @@
 
 package com.scichart.examples.fragments;
 
-import android.view.animation.OvershootInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -70,8 +70,8 @@ public class SplineLineChartFragment extends ExampleBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries, lineSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new OvershootInterpolator()).withDuration(1500).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new OvershootInterpolator()).withDuration(1500).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(lineSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
         });
     }
 }

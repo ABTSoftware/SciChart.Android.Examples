@@ -43,7 +43,7 @@ public class SplineMountainChartFragment extends ExampleBaseFragment {
     @Override
     protected void initExample() {
         final IAxis xBottomAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
-        final IAxis yRightAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
+        final IAxis yRightAxis = sciChartBuilder.newNumericAxis().withGrowBy(0d, 0.2d).build();
 
         final IXyDataSeries<Integer, Integer> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Integer.class).build();
         final int[] yValues = {50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60};
