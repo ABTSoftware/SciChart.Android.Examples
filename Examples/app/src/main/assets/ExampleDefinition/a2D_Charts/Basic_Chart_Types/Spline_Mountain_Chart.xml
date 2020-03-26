@@ -27,5 +27,5 @@
         <Features>Mountain</Features>
         <Features>Area</Features>
     </Features>
-    <IsVisible>false</IsVisible>
+    <IsVisible>true</IsVisible>
 </ExampleDefinition>
