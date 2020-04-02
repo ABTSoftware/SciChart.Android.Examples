@@ -5,7 +5,7 @@
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- Spline_Scatter_Line_Chart.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- Rounded_Columns_Chart.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -15,17 +15,15 @@
 <!--*************************************************************************-->
 
 <ExampleDefinition>
-    <Title>Spline Scatter Line Chart</Title>
-    <IconPath>ic_lines_feature</IconPath>
+    <Title>Custom Rounded Columns Chart</Title>
+    <IconPath>ic_columns_feature</IconPath>
     <Description>
-        Generates a spline scatter-line chart in code.
+        Generates a rounded columns chart in code.
     </Description>
     <CodeFiles>
         <string>res/layout/example_single_chart_fragment.xml.txt</string>
-        <string>java/com/scichart/examples/fragments/splineLineSeries/SplineChartExampleFragment.java.txt</string>
-        <string>java/com/scichart/examples/fragments/splineLineSeries/CubicSpline.java.txt</string>
-        <string>java/com/scichart/examples/fragments/splineLineSeries/SplineLineRenderableSeries.java.txt</string>
-        <string>java/com/scichart/examples/fragments/splineLineSeries/TriDiagonalMatrixF.java.txt</string>
+        <string>java/com/scichart/examples/fragments/roundedColumnsSeries/RoundedColumnsExampleFragment.java.txt</string>
+        <string>java/com/scichart/examples/fragments/roundedColumnsSeries/RoundedColumnsRenderableSeries.java.txt</string>
     </CodeFiles>
     <Features>
         <Features>Line</Features>
