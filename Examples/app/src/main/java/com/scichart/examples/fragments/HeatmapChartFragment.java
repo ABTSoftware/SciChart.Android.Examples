@@ -48,7 +48,7 @@ import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
 public class HeatmapChartFragment extends ExampleBaseFragment {
-    private static final int WIDTH = 300, HEIGHT = 200;
+    private static final int WIDTH = 200, HEIGHT = 300;
     private static final int SERIES_PER_PERIOD = 30;
     private static final long TIME_INTERVAL = 40;
 
@@ -125,10 +125,10 @@ public class HeatmapChartFragment extends ExampleBaseFragment {
         final Random random = new Random();
         final double angle = Math.PI * 2 * index / SERIES_PER_PERIOD;
         final double cx =150, cy = 100;
-        for (int x = 0; x < WIDTH; x++) {
-            for (int y = 0; y < HEIGHT; y++) {
-                final double v = (1 + Math.sin(x * 0.04 + angle)) * 50 + (1 + Math.sin(y * 0.1 + angle)) * 50 * (1 + Math.sin(angle * 2));
-                final double r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+        for (int y = 0; y < HEIGHT; y++) {
+            for (int x = 0; x < WIDTH; x++) {
+                final double v = (1 + Math.sin(y * 0.04 + angle)) * 50 + (1 + Math.sin(x * 0.1 + angle)) * 50 * (1 + Math.sin(angle * 2));
+                final double r = Math.sqrt((y - cx) * (y - cx) + (x - cy) * (x - cy));
                 final double exp = Math.max(0, 1 - r * 0.008);
 
                 values.add(v * exp + random.nextDouble() * 50);

@@ -113,8 +113,8 @@
 
         <!-- Axis defaults -->
         <item name="tickTextColor">#FF6495ED</item>
-        <item name="majorGridLinesColor">#102A47</item>
-        <item name="minorGridLinesColor">#0D223D</item>
+        <item name="majorGridLineColor">#102A47</item>
+        <item name="minorGridLineColor">#0D223D</item>
         <item name="axisBandsColor">#0E233A</item>
 
         <!-- Modifier defaults -->

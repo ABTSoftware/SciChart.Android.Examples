@@ -21,15 +21,7 @@ import android.content.pm.PackageManager;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import com.scichart.core.common.Predicate;
-import com.scichart.core.utility.ListUtil;
-import com.scichart.examples.demo.helpers.Example;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class PermissionManager {
