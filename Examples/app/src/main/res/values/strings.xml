@@ -178,7 +178,7 @@
     <!-- end: OscilloscopeFragment -->
 
     <!-- fragment: LogarithmicAxisFragment -->
-    <string name="use_log_on">Use Logaritmic on: </string>
+    <string name="use_log_on">Use Logarithmic on: </string>
     <string name="use_log_on_x_axis">X-Axis</string>
     <string name="use_log_on_y_axis">Y-Axis</string>
     <string name="log_base">Logarithmic Base</string>

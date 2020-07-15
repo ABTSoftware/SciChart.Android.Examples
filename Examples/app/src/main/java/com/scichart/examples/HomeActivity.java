@@ -20,13 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.core.view.MenuItemCompat;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +30,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.demo.CustomAdapter;
@@ -303,8 +303,15 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     }
 
     private void startExampleActivity(Example example) {
-        final boolean is3DExample = example.topLevelCategory.contains("3D");
-        final Class<?> activityType = is3DExample ? Example3DActivity.class : ExampleActivity.class;
+        final Class<?> activityType;
+
+        final String category = example.topLevelCategory;
+        if(category.contains("3D"))
+            activityType = Example3DActivity.class;
+        else if(category.contains("Featured"))
+            activityType = ShowcaseActivity.class;
+        else
+            activityType = ExampleActivity.class;
 
         Intent exampleActivity = new Intent(this, activityType);
         exampleActivity.putExtra(EXAMPLE_ID, example.title);

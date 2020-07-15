@@ -1,0 +1,32 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- Audio_Analyzer.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>LIDAR Point Cloud</Title>
+    <Description>
+        The LIDAR Point Cloud demo showcases visualizing LIDAR data.
+    </Description>
+    <IconPath>ic_scatter3d_feature</IconPath>
+    <CodeFiles>
+        <string>res/layout/example_single_chart3d_fragment.xml.txt</string>
+        <string>java/com/scichart/examples/fragments/showcase/lidarPointCloud/LidarPointCloudFragment.java.txt</string>
+    </CodeFiles>
+    <Features>
+        <Features>PointCloud3D</Features>
+        <Features>Scatter3D</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

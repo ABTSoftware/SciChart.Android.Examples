@@ -17,10 +17,11 @@
 package com.scichart.examples.data;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
-import android.util.Log;
 
 import com.scichart.core.model.DoubleValues;
 import com.scichart.data.model.SciListUtil;
@@ -47,6 +48,7 @@ public class DataManager {
     private static final String FFT_DATA_PATH = "data/FourierTransform.txt";
     private static final String PRICE_INDU_DAILY_DATA_PATH = "data/INDU_Daily.csv";
     private static final String PRICE_EURUSD_DAILY_DATA_PATH = "data/EURUSD_Daily.csv";
+    private static final String LIDAR_DATA_PATH = "data/LIDAR-DSM-2M-TQ38sw/tq3080_DSM_2M.asc";
 
     private DataManager() {
     }
@@ -454,5 +456,27 @@ public class DataManager {
         }
 
         return result;
+    }
+
+    public AscData getLidarData(Context context) {
+        BufferedReader reader = null;
+        final List<DoubleValues> result = new ArrayList<>();
+        try {
+            reader = new BufferedReader(new InputStreamReader(context.getAssets().open(LIDAR_DATA_PATH)));
+
+            return new AscData(reader);
+        } catch (IOException ex) {
+            Log.e("DataManager", "loadFFT", ex);
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        return null;
     }
 }

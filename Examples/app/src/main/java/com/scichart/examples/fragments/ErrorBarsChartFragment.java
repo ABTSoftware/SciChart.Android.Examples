@@ -167,8 +167,8 @@ public class ErrorBarsChartFragment extends ExampleBaseFragment {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
-                ((FastErrorBarsRenderableSeries) surface.getRenderableSeries().get(0)).setDataPointWidth(dataPointWidth / 100f);
                 ((FastErrorBarsRenderableSeries) surface.getRenderableSeries().get(2)).setDataPointWidth(dataPointWidth / 100f);
+                ((FastErrorBarsRenderableSeries) surface.getRenderableSeries().get(3)).setDataPointWidth(dataPointWidth / 100f);
             }
         });
     }

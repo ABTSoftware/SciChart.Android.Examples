@@ -78,6 +78,15 @@
         </activity>
 
         <activity
+            android:name=".ShowcaseActivity"
+            android:label="@string/title_activity_example"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".HomeActivity" />
+        </activity>
+
+        <activity
             android:name=".ExceptionActivity"
             android:theme="@style/Theme_Dialog" />
 
