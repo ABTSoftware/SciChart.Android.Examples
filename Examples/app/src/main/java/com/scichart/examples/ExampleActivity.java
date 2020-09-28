@@ -16,9 +16,10 @@
 package com.scichart.examples;
 
 import android.os.Bundle;
-import androidx.annotation.DrawableRes;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.DrawableRes;
 
 import com.scichart.charting.model.ChartModifierCollection;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
@@ -35,8 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExampleActivity extends ExampleActivityBase {
-    private SciChartSurface surface;
-
     private FpsDrawable fpsDrawable;
 
     @Override
@@ -62,7 +61,6 @@ public class ExampleActivity extends ExampleActivityBase {
     protected void onPostResume() {
         super.onPostResume();
 
-        surface = findViewById(R.id.chart);
         showFpsCounter = fpsDrawable.hasTargets();
     }
 
@@ -70,28 +68,29 @@ public class ExampleActivity extends ExampleActivityBase {
     protected List<Widget> getDefaultModifiers() {
         List<Widget> widgets = new ArrayList<>();
 
+        final SciChartSurface surface = getTargetChart();
         if (surface != null) {
             final ChartModifierCollection chartModifiers = surface.getChartModifiers();
 
-            widgets.add(attachModifierAndCreateWidget(null, R.drawable.example_toolbar_zoom_extents, this.surface, new View.OnClickListener() {
+            widgets.add(attachModifierAndCreateWidget(null, R.drawable.example_toolbar_zoom_extents, surface, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     surface.animateZoomExtents(ZoomExtentsModifier.DEFAULT_ANIMATION_DURATION);
                 }
             }));
-            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_x, this.surface, new View.OnClickListener() {
+            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_x, surface, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipXAxes();
                 }
             }));
-            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_y, this.surface, new View.OnClickListener() {
+            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_y, surface, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipYAxes();
                 }
             }));
-            widgets.add(attachModifierAndCreateWidget(CustomRotateChartModifier.class, R.drawable.example_toolbar_rotate, this.surface, new View.OnClickListener() {
+            widgets.add(attachModifierAndCreateWidget(CustomRotateChartModifier.class, R.drawable.example_toolbar_rotate, surface, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((CustomRotateChartModifier) SideMenuHelper.getModifier(CustomRotateChartModifier.class, chartModifiers)).rotateChart();
@@ -101,7 +100,11 @@ public class ExampleActivity extends ExampleActivityBase {
         return widgets;
     }
 
-    private Widget attachModifierAndCreateWidget(Class modifierType, @DrawableRes int drawableRes, SciChartSurface surface, View.OnClickListener listener) {
+    private SciChartSurface getTargetChart() {
+        return findViewById(R.id.chart);
+    }
+
+    private Widget attachModifierAndCreateWidget(Class<?> modifierType, @DrawableRes int drawableRes, SciChartSurface surface, View.OnClickListener listener) {
         if (modifierType != null) {
             SideMenuHelper.attachModifierToSurface(modifierType, surface);
         }
@@ -112,6 +115,7 @@ public class ExampleActivity extends ExampleActivityBase {
     @Override
     protected void onShowFpsCounterChanged(boolean showFpsCounter) {
         if (showFpsCounter) {
+            final SciChartSurface surface = getTargetChart();
             if (surface != null) {
                 fpsDrawable.setTargets(surface, (View) surface.getRenderableSeriesArea());
                 fpsDrawable.setVisible(true, true);
