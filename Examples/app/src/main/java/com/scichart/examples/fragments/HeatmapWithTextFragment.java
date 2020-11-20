@@ -16,6 +16,10 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.UniformHeatmapDataSeries;
 import com.scichart.charting.visuals.SciChartHeatmapColourMap;
@@ -24,28 +28,22 @@ import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastUniformHeatmapRenderableSeries;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleHeatmapWithTextFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class HeatmapWithTextFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface chart;
-
-    @BindView(R.id.heatmapColourMap)
-    SciChartHeatmapColourMap colourMap;
+public class HeatmapWithTextFragment extends ExampleBaseFragment<ExampleHeatmapWithTextFragmentBinding> {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_heatmap_with_text_fragment;
+    protected ExampleHeatmapWithTextFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleHeatmapWithTextFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleHeatmapWithTextFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                 .withGrowBy(0.1, 0.1)
                 .withFlipCoordinates(true)
@@ -65,11 +63,13 @@ public class HeatmapWithTextFragment extends ExampleBaseFragment {
                 .withDataSeries(createDataSeries())
                 .build();
 
+        final SciChartHeatmapColourMap colourMap = binding.heatmapColourMap;
         colourMap.setMinimum(heatmapRenderableSeries.getMinimum());
         colourMap.setMaximum(heatmapRenderableSeries.getMaximum());
         colourMap.setColorMap(heatmapRenderableSeries.getColorMap());
         colourMap.setTextFormat(new DecimalFormat("0.##"));
 
+        final SciChartSurface chart = binding.surface;
         Collections.addAll(chart.getXAxes(), xAxis);
         Collections.addAll(chart.getYAxes(), yAxis);
         Collections.addAll(chart.getRenderableSeries(), heatmapRenderableSeries);

@@ -24,10 +24,8 @@ import android.view.animation.DecelerateInterpolator;
 
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
-import com.scichart.charting.model.dataSeries.IXyDataSeriesValues;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
-import com.scichart.charting.visuals.axes.ICategoryDateAxis;
 import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.data.ISeriesRenderPassData;
@@ -43,7 +41,7 @@ import com.scichart.data.numerics.pointresamplers.IPointResamplerFactory;
 import com.scichart.drawing.common.IAssetManager2D;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
@@ -56,9 +54,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
 
-public class AnimatingLineChartFragment extends ExampleBaseFragment {
+public class AnimatingLineChartFragment extends ExampleSingleChartBaseFragment {
     private final static int FIFO_CAPACITY = 50;
     private final static long TIME_INTERVAL = 1000;
     private final static double ONE_OVER_TIME_INTERVAL = 1.0 / TIME_INTERVAL;
@@ -72,9 +69,6 @@ public class AnimatingLineChartFragment extends ExampleBaseFragment {
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     private volatile boolean isRunning = true;
     private double t = 0;
     private double yValue = 0;
@@ -82,7 +76,7 @@ public class AnimatingLineChartFragment extends ExampleBaseFragment {
     private final DoubleRange xVisibleRange = new DoubleRange(-GROW_BY, VISIBLE_RANGE_MAX + GROW_BY);
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -170,7 +164,7 @@ public class AnimatingLineChartFragment extends ExampleBaseFragment {
     }
 
     private void resetChart() {
-        UpdateSuspender.using(surface, new Runnable() {
+        UpdateSuspender.using(binding.surface, new Runnable() {
             @Override
             public void run() {
                 ds1.clear();
@@ -292,11 +286,6 @@ public class AnimatingLineChartFragment extends ExampleBaseFragment {
             this.animatedFraction = animation.getAnimatedFraction();
             invalidateElement();
         }
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
     }
 
     public boolean showDefaultModifiersInToolbar() {

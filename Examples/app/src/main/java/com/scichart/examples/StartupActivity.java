@@ -24,45 +24,34 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
 import android.view.WindowManager;
 
+import com.scichart.examples.databinding.StartupActivityBinding;
 import com.scichart.examples.demo.DemoKeys;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class StartupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.startup_activity);
+        final StartupActivityBinding binding = StartupActivityBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        ButterKnife.bind(this, this);
-
         final SciChartApp instance = SciChartApp.getInstance();
         if(!instance.getModule().isInitialized()) {
             new ParseExampleTasks(this).execute();
         }
-    }
 
-    @OnClick(R.id.charts2dCard)
-    void open2dChartsExampleList() {
-        openExampleListActivity(DemoKeys.CHARTS_2D);
-    }
-
-    @OnClick(R.id.charts3dCard)
-    void open3dChartsExampleList() {
-        openExampleListActivity(DemoKeys.CHARTS_3D);
-    }
-
-    @OnClick(R.id.featuredChartsCard)
-    void openFeaturedExampleList() {
-        openExampleListActivity(DemoKeys.FEATURED);
+        binding.charts2d.charts2dCard.setOnClickListener(v -> openExampleListActivity(DemoKeys.CHARTS_2D));
+        binding.charts3d.charts3dCard.setOnClickListener(v -> openExampleListActivity(DemoKeys.CHARTS_3D));
+        binding.featuredCharts.featuredChartsCard.setOnClickListener(v -> openExampleListActivity(DemoKeys.FEATURED));
     }
 
     private void openExampleListActivity(String category) {

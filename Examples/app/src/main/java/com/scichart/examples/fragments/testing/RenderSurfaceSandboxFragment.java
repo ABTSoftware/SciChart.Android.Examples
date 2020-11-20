@@ -21,6 +21,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -52,6 +55,7 @@ import com.scichart.drawing.opengl.RenderSurfaceGL;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
+import com.scichart.examples.databinding.ExampleRenderSurfaceSandboxFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.extensions.builders.base.FontStyleBuilder;
 
@@ -60,13 +64,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.OnItemSelected;
-
 import static com.scichart.extensions.builders.base.PenStyleBuilder.SolidPenStyleBuilder;
 import static com.scichart.extensions.builders.base.PenStyleBuilder.TexturePenStyleBuilder;
 
-public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements SeekBar.OnSeekBarChangeListener {
+public class RenderSurfaceSandboxFragment extends ExampleBaseFragment<ExampleRenderSurfaceSandboxFragmentBinding> implements SeekBar.OnSeekBarChangeListener {
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> future;
@@ -75,39 +76,40 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
     private TestRenderSurfaceRenderer renderer;
 
-    @BindView(R.id.renderSurfaceTypeSpinner)
-    Spinner renderSurfaceTypeSpinner;
-
-    @BindView(R.id.rendersurfaceFrame)
-    FrameLayout renderSurfaceFrame;
-
-    @BindView(R.id.rotation)
-    SeekBar rotation;
-
-    @BindView(R.id.translateX)
-    SeekBar translateX;
-
-    @BindView(R.id.translateY)
-    SeekBar translateY;
-
-    @BindView(R.id.opacity)
-    SeekBar opacity;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_render_surface_sandbox_fragment;
+    protected ExampleRenderSurfaceSandboxFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleRenderSurfaceSandboxFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
-        rotation.setOnSeekBarChangeListener(this);
-        translateX.setOnSeekBarChangeListener(this);
-        translateY.setOnSeekBarChangeListener(this);
-        opacity.setOnSeekBarChangeListener(this);
+    protected void initExample(ExampleRenderSurfaceSandboxFragmentBinding binding) {
+        binding.rotation.setOnSeekBarChangeListener(this);
+        binding.translateX.setOnSeekBarChangeListener(this);
+        binding.translateY.setOnSeekBarChangeListener(this);
+        binding.opacity.setOnSeekBarChangeListener(this);
 
+        final Spinner renderSurfaceTypeSpinner = binding.renderSurfaceTypeSpinner;
         final SpinnerStringAdapter adapter = new SpinnerStringAdapter(getActivity(), R.array.render_surface_types);
         renderSurfaceTypeSpinner.setAdapter(adapter);
         renderSurfaceTypeSpinner.setSelection(2);
+        renderSurfaceTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final String itemAtPosition = (String) parent.getItemAtPosition(position);
+                if (itemAtPosition.contains("Canvas")) {
+                    setRenderSurface(new RenderSurface(getActivity()));
+                } else if (itemAtPosition.contains("OpenGL")) {
+                    setRenderSurface(new RenderSurfaceGL(getActivity()));
+                } else if (itemAtPosition.contains("Texture")) {
+                    setRenderSurface(new GLTextureView(getActivity()));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         final IServiceContainer services = new ServiceContainer();
 
@@ -147,18 +149,6 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
         future.cancel(false);
     }
 
-    @OnItemSelected(R.id.renderSurfaceTypeSpinner)
-    public void onRenderSurfaceTypeSelected(int position) {
-        final String itemAtPosition = (String) renderSurfaceTypeSpinner.getItemAtPosition(position);
-        if (itemAtPosition.contains("Canvas")) {
-           setRenderSurface(new RenderSurface(getActivity()));
-        } else if (itemAtPosition.contains("OpenGL")) {
-            setRenderSurface(new RenderSurfaceGL(getActivity()));
-        } else if (itemAtPosition.contains("Texture")) {
-            setRenderSurface(new GLTextureView(getActivity()));
-        }
-    }
-
     private void setRenderSurface(IRenderSurface renderSurface) {
         if(this.renderSurface == renderSurface) return;
 
@@ -166,6 +156,7 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
             this.renderSurface.setRenderer(null);
         }
 
+        final FrameLayout renderSurfaceFrame = binding.renderSurfaceFrame;
         ViewGroupUtil.safeRemoveChild(renderSurfaceFrame, this.renderSurface);
         this.renderSurface = renderSurface;
         ViewGroupUtil.safeAddChild(renderSurfaceFrame, this.renderSurface);
@@ -177,7 +168,7 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
     private void invalidateRS() {
         if(renderSurface != null) {
-            renderer.setTransform(rotation.getProgress(), translateX.getProgress(), translateY.getProgress(), opacity.getProgress() / 1000f);
+            renderer.setTransform(binding.rotation.getProgress(), binding.translateX.getProgress(), binding.translateY.getProgress(), binding.opacity.getProgress() / 1000f);
 
             renderSurface.invalidateElement();
         }
@@ -286,8 +277,8 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment implements
 
         public void setTransform(float degrees, float dx, float dy, float opacity){
             this.degrees = degrees;
-            this.dx = dx  - translateX.getMax() / 2;
-            this.dy = dy - translateY.getMax() / 2;
+            this.dx = dx  - binding.translateX.getMax() / 2f;
+            this.dy = dy - binding.translateY.getMax() / 2f;
             this.opacity = opacity;
         }
 

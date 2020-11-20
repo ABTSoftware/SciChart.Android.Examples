@@ -23,24 +23,12 @@ import com.scichart.charting3d.visuals.camera.Camera3D;
 import com.scichart.charting3d.visuals.pointMarkers.EllipsePointMarker3D;
 import com.scichart.charting3d.visuals.renderableSeries.scatter.ScatterRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
-import butterknife.BindView;
-
-public class CreatePointCloud3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
+public class CreatePointCloud3DChartFragment extends ExampleSingleChart3DBaseFragment {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final DataManager dataManager = DataManager.getInstance();
 
         final XyzDataSeries3D<Double, Double, Double> dataSeries = new XyzDataSeries3D<>(Double.class, Double.class, Double.class);

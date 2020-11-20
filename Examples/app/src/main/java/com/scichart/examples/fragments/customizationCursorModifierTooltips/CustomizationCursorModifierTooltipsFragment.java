@@ -37,25 +37,15 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class CustomizationCursorModifierTooltipsFragment extends ExampleBaseFragment {
+public class CustomizationCursorModifierTooltipsFragment extends ExampleSingleChartBaseFragment {
     private static final int POINTS_COUNT = 200;
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
 

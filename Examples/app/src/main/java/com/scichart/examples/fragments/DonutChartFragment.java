@@ -17,6 +17,9 @@
 package com.scichart.examples.fragments;
 
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.SizingMode;
 import com.scichart.charting.modifiers.PieSegmentSelectionModifier;
@@ -24,26 +27,20 @@ import com.scichart.charting.visuals.SciPieChartSurface;
 import com.scichart.charting.visuals.legend.SciChartLegend;
 import com.scichart.charting.visuals.renderableSeries.IPieRenderableSeries;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleSinglePieChartWithLegendFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class DonutChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.pieChart)
-    SciPieChartSurface pieChartSurface;
-
-    @BindView(R.id.pieChartLegend)
-    SciChartLegend legend;
+public class DonutChartFragment extends ExampleBaseFragment<ExampleSinglePieChartWithLegendFragmentBinding> {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_pie_chart_with_legend_fragment;
+    protected ExampleSinglePieChartWithLegendFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSinglePieChartWithLegendFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleSinglePieChartWithLegendFragmentBinding binding) {
         final float donutSeriesHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getActivity().getResources().getDisplayMetrics());
 
         final IPieRenderableSeries donutSeries = sciChartBuilder.newDonutSeries().withSegments(
@@ -53,8 +50,9 @@ public class DonutChartFragment extends ExampleBaseFragment {
                 sciChartBuilder.newPieSegment().withValue(15).withTitle("Yellow").withRadialGradientColors(0xffFFFF00, 0xfffed325).build()
         ).withHeightSizingMode(SizingMode.Absolute).withHeight(donutSeriesHeight).build();
 
+        final SciPieChartSurface pieChartSurface = binding.pieChart;
         Collections.addAll(pieChartSurface.getRenderableSeries(), donutSeries);
-        Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(legend).withSourceSeries(donutSeries).build(), new PieSegmentSelectionModifier());
+        Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(binding.pieChartLegend).withSourceSeries(donutSeries).build(), new PieSegmentSelectionModifier());
 
         donutSeries.animate(800);
     }

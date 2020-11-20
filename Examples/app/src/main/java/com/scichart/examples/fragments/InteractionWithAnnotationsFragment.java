@@ -31,18 +31,13 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.MarketDataService;
 import com.scichart.examples.data.PriceSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.BindView;
-
-public class InteractionWithAnnotationsFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    public SciChartSurface surface;
+public class InteractionWithAnnotationsFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -50,12 +45,7 @@ public class InteractionWithAnnotationsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final OhlcDataSeries<Date, Double> dataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).build();
 
         final MarketDataService marketDataService = new MarketDataService(Calendar.getInstance().getTime(), 5, 5);

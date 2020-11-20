@@ -24,26 +24,16 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.SplineBandRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class SplineBandChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class SplineBandChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.2, 0.2).build();
 

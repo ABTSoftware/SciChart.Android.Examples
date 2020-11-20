@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@id/bottomIndicatorsGuideline" />
 
     <com.scichart.charting.visuals.SciChartSurface
-        android:id="@+id/chart"
+        android:id="@+id/surface"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomIndicatorsGuideline"

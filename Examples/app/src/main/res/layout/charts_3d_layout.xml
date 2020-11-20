@@ -25,7 +25,7 @@
     android:layout_margin="@dimen/main_screen_example_category_margin" >
 
     <ImageView
-        android:id="@+id/charts3dImage"
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:src="@drawable/ic_3d_icon_white"
@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.35" />
 
     <TextView
-        android:id="@+id/charts3dText"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -47,7 +47,7 @@
         android:textSize="@dimen/main_screen_heading_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charts3dImage" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:layout_width="match_parent"
@@ -58,6 +58,6 @@
         android:textSize="@dimen/main_screen_description_font_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/charts3dText" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,21 +23,12 @@ import com.scichart.charting3d.visuals.camera.Camera3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
-import butterknife.BindView;
-
-public class Style3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
+public class Style3DChartFragment extends ExampleSingleChart3DBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final String font = "RobotoCondensed-BoldItalic";
         FontUtil3D.registerFont(String.format("/system/fonts/%s.ttf", font));
 

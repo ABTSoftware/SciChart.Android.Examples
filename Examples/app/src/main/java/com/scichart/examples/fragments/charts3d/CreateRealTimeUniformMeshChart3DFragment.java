@@ -26,15 +26,12 @@ import com.scichart.charting3d.visuals.renderableSeries.data.GradientColorPalett
 import com.scichart.charting3d.visuals.renderableSeries.surfaceMesh.SurfaceMeshRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Cyan;
@@ -43,9 +40,7 @@ import static com.scichart.drawing.utility.ColorUtil.GreenYellow;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class CreateRealTimeUniformMeshChart3DFragment  extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
+public class CreateRealTimeUniformMeshChart3DFragment extends ExampleSingleChart3DBaseFragment {
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
@@ -53,12 +48,7 @@ public class CreateRealTimeUniformMeshChart3DFragment  extends ExampleBaseFragme
     private int frames = 0;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withAutoRangeMode(AutoRange.Always).build();

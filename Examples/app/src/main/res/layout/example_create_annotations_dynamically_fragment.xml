@@ -54,7 +54,7 @@
     </LinearLayout>
 
     <com.scichart.charting.visuals.SciChartSurface
-        android:id="@+id/chart"
+        android:id="@+id/surface"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 </LinearLayout>

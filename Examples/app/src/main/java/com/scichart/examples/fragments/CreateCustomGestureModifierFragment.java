@@ -36,26 +36,16 @@ import com.scichart.core.IServiceContainer;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.utility.touch.ModifierTouchEventArgs;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class CreateCustomGestureModifierFragment extends ExampleBaseFragment {
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class CreateCustomGestureModifierFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xBottomAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
         final IAxis yRightAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
 

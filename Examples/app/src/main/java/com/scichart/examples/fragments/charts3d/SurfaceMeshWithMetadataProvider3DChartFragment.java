@@ -28,17 +28,14 @@ import com.scichart.charting3d.visuals.renderableSeries.surfaceMesh.SurfaceMeshR
 import com.scichart.charting3d.visuals.renderableSeries.surfaceMesh.SurfaceMeshRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.IntegerValues;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.Collections;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.CadetBlue;
@@ -52,11 +49,8 @@ import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Tomato;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class SurfaceMeshWithMetadataProvider3DChartFragment extends ExampleBaseFragment {
+public class SurfaceMeshWithMetadataProvider3DChartFragment extends ExampleSingleChart3DBaseFragment {
     private static final int X_SIZE = 49, Z_SIZE = 49;
-
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
 
     private final UniformGridDataSeries3D<Double, Double, Double> meshDataSeries0 = new UniformGridDataSeries3D<>(Double.class, Double.class, Double.class, X_SIZE, Z_SIZE);
     private final UniformGridDataSeries3D<Double, Double, Double> meshDataSeries1 = new UniformGridDataSeries3D<>(Double.class, Double.class, Double.class, X_SIZE, Z_SIZE);
@@ -65,12 +59,7 @@ public class SurfaceMeshWithMetadataProvider3DChartFragment extends ExampleBaseF
     private ScheduledFuture<?> schedule;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withDrawMajorBands(false).withDrawLabels(false).withDrawMajorGridLines(false).withDrawMajorTicks(false).withDrawMinorGridLines(false).withDrawMinorTicks(false).withPlaneBoderThickness(0f).build();

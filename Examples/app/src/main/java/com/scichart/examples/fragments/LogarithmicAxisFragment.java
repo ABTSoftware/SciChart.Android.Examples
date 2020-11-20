@@ -39,7 +39,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -49,17 +49,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class LogarithmicAxisFragment extends ExampleBaseFragment {
+public class LogarithmicAxisFragment extends ExampleSingleChartBaseFragment {
 
     private double selectedLogBase = 10d;
 
     private boolean isXLogAxis, isYLogAxis;
     private IAxis xAxis, yAxis;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -76,12 +71,7 @@ public class LogarithmicAxisFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         xAxis = generateLogarithmicAxis();
         yAxis = generateLogarithmicAxis();
         isXLogAxis = isYLogAxis = true;
@@ -197,6 +187,7 @@ public class LogarithmicAxisFragment extends ExampleBaseFragment {
                 isXLogAxis = isChecked;
                 xAxis = isXLogAxis ? generateLogarithmicAxis() : generateLinearAxis();
 
+                final SciChartSurface surface = binding.surface;
                 UpdateSuspender.using(surface, new Runnable() {
                     @Override
                     public void run() {
@@ -215,6 +206,7 @@ public class LogarithmicAxisFragment extends ExampleBaseFragment {
                 isYLogAxis = isChecked;
                 yAxis = isYLogAxis ? generateLogarithmicAxis() : generateLinearAxis();
 
+                final SciChartSurface surface = binding.surface;
                 UpdateSuspender.using(surface, new Runnable() {
                     @Override
                     public void run() {

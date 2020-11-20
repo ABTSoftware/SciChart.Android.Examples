@@ -36,7 +36,7 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.EnumUtils;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
@@ -47,12 +47,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
-public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
+public class UsingRolloverModifierTooltipsFragment extends ExampleSingleChartBaseFragment {
     private static final List<SourceMode> sourceModeValues = unmodifiableList(asList(SourceMode.values()));
     private RolloverModifier rolloverModifier;
 
@@ -60,9 +58,6 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
     private boolean showTooltip = true;
     private boolean showAxisLabels = true;
     private boolean drawVerticalLine = true;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -79,7 +74,7 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.2d, 0.2d)).build();
 
@@ -135,11 +130,6 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleBaseFragment {
                 sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
             }
         });
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
     }
 
     private void openSettingsDialog() {

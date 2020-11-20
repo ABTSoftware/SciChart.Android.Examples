@@ -17,6 +17,8 @@
 package com.scichart.examples.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.scichart.charting.model.RenderableSeriesCollection;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
@@ -33,28 +35,23 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
+import com.scichart.examples.databinding.ExampleAddRemoveSeriesFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class AddRemoveSeriesFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
+public class AddRemoveSeriesFragment extends ExampleBaseFragment<ExampleAddRemoveSeriesFragmentBinding> implements View.OnClickListener {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_add_remove_series_fragment;
+    protected ExampleAddRemoveSeriesFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleAddRemoveSeriesFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleAddRemoveSeriesFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withDrawMajorBands(true).withVisibleRange(0, 150).withAxisTitle("X Axis").build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withDrawMajorBands(true).withVisibleRange(-1.5, -1.5).withAxisTitle("Y Axis").build();
 
+        final SciChartSurface surface = binding.surface;
         surface.getXAxes().add(xAxis);
         surface.getYAxes().add(yAxis);
         surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
@@ -63,6 +60,8 @@ public class AddRemoveSeriesFragment extends ExampleBaseFragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -103,53 +102,52 @@ public class AddRemoveSeriesFragment extends ExampleBaseFragment {
                         .withStrokeStyle(seriesColor)
                         .build();
 
-                surface.getRenderableSeries().add(renderableSeries);
+                binding.surface.getRenderableSeries().add(renderableSeries);
             }
         }
     }
 
-    @OnClick(R.id.addSeries)
-    void onAddSeries() {
-        UpdateSuspender.using(surface, new Runnable() {
-            @Override
-            public void run() {
-                final Random random = new Random();
-                final DoubleSeries randomDoubleSeries = DataManager.getInstance().getRandomDoubleSeries(150);
+    @Override
+    public void onClick(View v) {
+        final int id = v.getId();
 
-                final IXyDataSeries<Double, Double> series = new XyDataSeries<>(Double.class, Double.class);
-                series.append(randomDoubleSeries.xValues, randomDoubleSeries.yValues);
+        final SciChartSurface surface = binding.surface;
+        if (id == R.id.addSeries) {
+            UpdateSuspender.using(surface, new Runnable() {
+                @Override
+                public void run() {
+                    final Random random = new Random();
+                    final DoubleSeries randomDoubleSeries = DataManager.getInstance().getRandomDoubleSeries(150);
 
-                final FastMountainRenderableSeries renderableSeries = sciChartBuilder.newMountainSeries()
-                        .withDataSeries(series)
-                        .withAreaFillColor(ColorUtil.argb(random.nextInt(255), random.nextInt(255), random.nextInt(255), 150))
-                        .withStrokeStyle(ColorUtil.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)))
-                        .build();
+                    final IXyDataSeries<Double, Double> series = new XyDataSeries<>(Double.class, Double.class);
+                    series.append(randomDoubleSeries.xValues, randomDoubleSeries.yValues);
 
-                surface.getRenderableSeries().add(renderableSeries);
-            }
-        });
-    }
+                    final FastMountainRenderableSeries renderableSeries = sciChartBuilder.newMountainSeries()
+                            .withDataSeries(series)
+                            .withAreaFillColor(ColorUtil.argb(random.nextInt(255), random.nextInt(255), random.nextInt(255), 150))
+                            .withStrokeStyle(ColorUtil.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)))
+                            .build();
 
-    @OnClick(R.id.removeSeries)
-    void onRemoveSeries() {
-        UpdateSuspender.using(surface, new Runnable() {
-            @Override
-            public void run() {
-                final RenderableSeriesCollection renderableSeries = surface.getRenderableSeries();
-                if (!renderableSeries.isEmpty()) {
-                    renderableSeries.remove(0);
+                    surface.getRenderableSeries().add(renderableSeries);
                 }
-            }
-        });
-    }
-
-    @OnClick(R.id.reset)
-    void onReset() {
-        UpdateSuspender.using(surface, new Runnable() {
-            @Override
-            public void run() {
-                surface.getRenderableSeries().clear();
-            }
-        });
+            });
+        } else if (id == R.id.removeSeries) {
+            UpdateSuspender.using(surface, new Runnable() {
+                @Override
+                public void run() {
+                    final RenderableSeriesCollection renderableSeries = surface.getRenderableSeries();
+                    if (!renderableSeries.isEmpty()) {
+                        renderableSeries.remove(0);
+                    }
+                }
+            });
+        } else if (id == R.id.reset) {
+            UpdateSuspender.using(surface, new Runnable() {
+                @Override
+                public void run() {
+                    surface.getRenderableSeries().clear();
+                }
+            });
+        }
     }
 }

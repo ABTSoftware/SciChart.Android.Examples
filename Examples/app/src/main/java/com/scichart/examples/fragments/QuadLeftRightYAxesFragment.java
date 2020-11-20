@@ -25,17 +25,14 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class QuadLeftRightYAxesFragment extends ExampleBaseFragment {
+public class QuadLeftRightYAxesFragment extends ExampleSingleChartBaseFragment {
 
     private final static String X_AXIS = "xAxis";
     private final static String Y_LEFT_AXIS_1 = "yLeftAxis1";
@@ -61,21 +58,13 @@ public class QuadLeftRightYAxesFragment extends ExampleBaseFragment {
     // Used to generate Random Walk
     private Random random = new Random(251916);
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     @Override
     public boolean showDefaultModifiersInToolbar() {
         return false;
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

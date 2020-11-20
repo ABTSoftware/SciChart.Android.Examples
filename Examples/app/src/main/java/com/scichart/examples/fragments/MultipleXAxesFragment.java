@@ -27,17 +27,14 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class MultipleXAxesFragment extends ExampleBaseFragment {
+public class MultipleXAxesFragment extends ExampleSingleChartBaseFragment {
 
     private final static String X_TOP_AXIS = "xTopAxis";
     private final static String X_BOTTOM_AXIS = "xBottomAxis";
@@ -49,16 +46,8 @@ public class MultipleXAxesFragment extends ExampleBaseFragment {
     // Used to generate Random Walk
     private final Random random = new Random(251916);
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xTopAxis = sciChartBuilder.newNumericAxis()
                 .withAxisAlignment(AxisAlignment.Top)
                 .withAxisId(X_TOP_AXIS)

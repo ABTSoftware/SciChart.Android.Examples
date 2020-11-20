@@ -16,6 +16,10 @@
 
 package com.scichart.examples.fragments.showcase.lidarPointCloud;
 
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting.visuals.renderableSeries.ColorMap;
 import com.scichart.charting3d.model.dataSeries.grid.UniformGridDataSeries3D;
 import com.scichart.charting3d.model.dataSeries.xyz.XyzDataSeries3D;
@@ -33,12 +37,12 @@ import com.scichart.core.model.IntegerValues;
 import com.scichart.examples.R;
 import com.scichart.examples.data.AscData;
 import com.scichart.examples.data.DataManager;
+import com.scichart.examples.databinding.ExampleSingleChart3dFragmentBinding;
 import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment;
 
 import java.util.Collections;
 import java.util.concurrent.Callable;
 
-import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -46,17 +50,16 @@ import static com.scichart.drawing.utility.ColorUtil.Orange;
 import static com.scichart.drawing.utility.ColorUtil.Purple;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 
-public class LidarPointCloudFragment extends ShowcaseExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
+public class LidarPointCloudFragment extends ShowcaseExampleBaseFragment<ExampleSingleChart3dFragmentBinding> {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
+    protected ExampleSingleChart3dFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSingleChart3dFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleSingleChart3dFragmentBinding binding) {
+        final SciChartSurface3D surface3d = binding.surface3d;
+
         final Camera3D camera3D = sciChart3DBuilder.newCamera3D().withPosition(800, 1000, 800).build();
         camera3D.setFarClip(10000);
         

@@ -17,6 +17,7 @@
 package com.scichart.examples.fragments;
 
 import android.app.Dialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -43,6 +44,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
+import com.scichart.examples.databinding.ExampleThemeProviderChartFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.BillionsLabelProvider;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
@@ -55,9 +57,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class ThemeProviderFragment extends ExampleBaseFragment {
+public class ThemeProviderFragment extends ExampleBaseFragment<ExampleThemeProviderChartFragmentBinding> {
 
     private final static int BLACK_STEEL = 0;
     private final static int BRIGHT_SPARK = 1;
@@ -69,17 +69,17 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
     private final static int SCI_CHART_V4_DARK = 7;
     private final static int BERRY_BLUE = 8;
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
-    @BindView(R.id.themeSelector)
-    Spinner themeSelector;
-
     private CursorModifier cursorModifier;
     private ModifierGroup zoomingModifiers;
 
     @Override
-    protected void initExample() {
+    protected ExampleThemeProviderChartFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleThemeProviderChartFragmentBinding.inflate(inflater);
+    }
+
+    @Override
+    protected void initExample(ExampleThemeProviderChartFragmentBinding binding) {
+        final Spinner themeSelector = binding.themeSelector;
         themeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.style_list));
         themeSelector.setSelection(7);
         themeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
@@ -147,6 +147,7 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
                 .withZoomExtentsModifier().build()
                 .build();
 
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -198,7 +199,7 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
                 break;
         }
 
-        surface.setTheme(themeId);
+        binding.surface.setTheme(themeId);
     }
 
     @Override
@@ -224,8 +225,4 @@ public class ThemeProviderFragment extends ExampleBaseFragment {
         dialog.show();
     }
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_theme_provider_chart_fragment;
-    }
 }

@@ -19,7 +19,10 @@ package com.scichart.examples.fragments;
 import android.os.Bundle;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.viewbinding.ViewBinding;
+
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.scichart.charting.Direction2D;
@@ -53,6 +56,7 @@ import com.scichart.examples.data.MarketDataService;
 import com.scichart.examples.data.MovingAverage;
 import com.scichart.examples.data.PriceBar;
 import com.scichart.examples.data.PriceSeries;
+import com.scichart.examples.databinding.ExampleRealTimeTickingStockChartFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
@@ -63,9 +67,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment {
+public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment<ExampleRealTimeTickingStockChartFragmentBinding> {
 
     private static final int SECONDS_IN_FIVE_MINUTES = 5 * 60;
     public static final int DEFAULT_POINT_COUNT = 150;
@@ -85,12 +87,6 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
     private PriceBar lastPrice;
 
     private OverviewPrototype overviewPrototype;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
-    @BindView(R.id.overview)
-    SciChartSurface overviewSurface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -113,20 +109,20 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_real_time_ticking_stock_chart_fragment;
+    protected ExampleRealTimeTickingStockChartFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleRealTimeTickingStockChartFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleRealTimeTickingStockChartFragmentBinding binding) {
         // Market data service simulates live ticks. We want to load the chart with 150 historical bars then later do real-time ticking as new data comes in
         this.marketDataService = new MarketDataService(new Date(2000, 8, 1, 12, 0, 0), 5, 20);
         initChart();
     }
 
     private void initChart() {
-        initializeMainChart(surface);
-        overviewPrototype = new OverviewPrototype(surface, overviewSurface);
+        initializeMainChart(binding.surface);
+        overviewPrototype = new OverviewPrototype(binding.surface, binding.overview);
     }
 
     private void initializeMainChart(final SciChartSurface surface) {
@@ -168,7 +164,7 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
         savedInstanceState.putInt("count", ohlcDataSeries.getCount());
 
-        IRange range = surface.getXAxes().get(0).getVisibleRange();
+        IRange range = binding.surface.getXAxes().get(0).getVisibleRange();
         savedInstanceState.putDouble("rangeMin", range.getMinAsDouble());
         savedInstanceState.putDouble("rangeMax", range.getMaxAsDouble());
     }
@@ -177,6 +173,7 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -239,7 +236,7 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
                     // If the latest appending point is inside the viewport (i.e. not off the edge of the screen)
                     // then scroll the viewport 1 bar, to keep the latest bar at the same place
-                    final IRange visibleRange = surface.getXAxes().get(0).getVisibleRange();
+                    final IRange visibleRange = binding.surface.getXAxes().get(0).getVisibleRange();
                     if (visibleRange.getMaxAsDouble() > ohlcDataSeries.getCount()) {
                         visibleRange.setMinMaxDouble(visibleRange.getMinAsDouble() + 1, visibleRange.getMaxAsDouble() + 1);
                     }

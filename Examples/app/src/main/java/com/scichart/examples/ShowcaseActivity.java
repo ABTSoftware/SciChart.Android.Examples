@@ -62,7 +62,7 @@ public class ShowcaseActivity extends ExampleActivityBase{
         super.onPostResume();
 
         surface = findViewById(R.id.chart);
-        surface3D = findViewById(R.id.chart3d);
+        surface3D = findViewById(R.id.surface3d);
         showFpsCounter = fpsDrawable.hasTargets();
     }
 

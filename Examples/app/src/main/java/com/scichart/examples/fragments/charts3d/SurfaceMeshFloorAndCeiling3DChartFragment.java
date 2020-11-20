@@ -24,12 +24,9 @@ import com.scichart.charting3d.visuals.renderableSeries.data.DrawMeshAs;
 import com.scichart.charting3d.visuals.renderableSeries.data.GradientColorPalette;
 import com.scichart.charting3d.visuals.renderableSeries.surfaceMesh.SurfaceMeshRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.Collections;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Cyan;
@@ -38,18 +35,10 @@ import static com.scichart.drawing.utility.ColorUtil.GreenYellow;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class SurfaceMeshFloorAndCeiling3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
+public class SurfaceMeshFloorAndCeiling3DChartFragment extends ExampleSingleChart3DBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().withPosition(-1300, 1300, -1300).build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withMaxAutoTicks(7).build();

@@ -17,8 +17,11 @@
 package com.scichart.examples.fragments;
 
 
+import android.view.LayoutInflater;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.RenderableSeriesCollection;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -32,6 +35,7 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
+import com.scichart.examples.databinding.ExampleRealTimeGhostTracesFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
@@ -41,19 +45,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
-public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements SeekBar.OnSeekBarChangeListener{
-
-    @BindView(R.id.seekBar)
-    SeekBar seekBar;
-
-    @BindView(R.id.speedValue)
-    TextView speedValue;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
+public class RealTimeGhostTracesFragment extends ExampleBaseFragment<ExampleRealTimeGhostTracesFragmentBinding> implements SeekBar.OnSeekBarChangeListener{
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
 
@@ -63,14 +55,12 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_real_time_ghost_traces_fragment;
+    protected ExampleRealTimeGhostTracesFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleRealTimeGhostTracesFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
-        seekBar.setOnSeekBarChangeListener(this);
-
+    protected void initExample(ExampleRealTimeGhostTracesFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                 .withAutoRangeMode(AutoRange.Always)
                 .build();
@@ -81,6 +71,7 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
                 .withVisibleRange(new DoubleRange(-2d, 2d))
                 .build();
 
+        final SciChartSurface surface = binding.surface;
         Collections.addAll(surface.getXAxes(), xAxis);
         Collections.addAll(surface.getYAxes(), yAxis);
 
@@ -118,6 +109,8 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
                         .withStrokeStyle(ColorUtil.argb(seriesColor, 0.15f))
                         .build());
 
+        final SeekBar seekBar = binding.seekBar;
+        seekBar.setOnSeekBarChangeListener(this);
         onProgressChanged(seekBar, seekBar.getProgress(), false);
     }
 
@@ -132,7 +125,7 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (progress > 0) {
-            speedValue.setText(String.format("%d ms", progress));
+            binding.speedValue.setText(String.format("%d ms", progress));
 
             if (schedule != null)
                 schedule.cancel(true);
@@ -157,6 +150,7 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
 
         @Override
         public void run() {
+            final SciChartSurface surface = binding.surface;
             UpdateSuspender.using(surface, new Runnable() {
                 @Override
                 public void run() {
@@ -168,13 +162,13 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment implements 
 
                     dataSeries.append(noisySinewave.xValues, noisySinewave.yValues);
 
-                    reassignRenderableSeries(dataSeries);
+                    reassignRenderableSeries(surface, dataSeries);
                 }
             });
         }
     };
 
-    private void reassignRenderableSeries(final XyDataSeries<Double, Double> dataSeries) {
+    private void reassignRenderableSeries(final SciChartSurface surface, final XyDataSeries<Double, Double> dataSeries) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

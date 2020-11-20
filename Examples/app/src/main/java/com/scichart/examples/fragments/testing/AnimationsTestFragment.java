@@ -17,10 +17,13 @@
 package com.scichart.examples.fragments.testing;
 
 import android.animation.Animator;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.dataSeries.HlDataSeries;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
@@ -48,6 +51,7 @@ import com.scichart.drawing.common.SolidPenStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
+import com.scichart.examples.databinding.ExampleAnimationsTestFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.extensions.builders.AnimatorBuilderBase;
@@ -55,9 +59,7 @@ import com.scichart.extensions.builders.AnimatorBuilderBase;
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class AnimationsTestFragment extends ExampleBaseFragment {
+public class AnimationsTestFragment extends ExampleBaseFragment<ExampleAnimationsTestFragmentBinding> {
     private static final int COLUMN = 0;
     private static final int LINE = 1;
     private static final int SPLINE_LINE = 2;
@@ -78,23 +80,6 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
 
     private final Random random = new Random();
 
-    @BindView(R.id.scale)
-    Button scale;
-    @BindView(R.id.wave)
-    Button wave;
-    @BindView(R.id.sweep)
-    Button sweep;
-    @BindView(R.id.translateX)
-    Button translateX;
-    @BindView(R.id.translateY)
-    Button translateY;
-
-    @BindView(R.id.seriesSelector)
-    Spinner seriesSelector;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     private Animator scaleAnimator;
     private Animator waveAnimator;
     private Animator sweepAnimator;
@@ -102,12 +87,13 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
     private Animator translateYAnimator;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_animations_test_fragment;
+    protected ExampleAnimationsTestFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleAnimationsTestFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleAnimationsTestFragmentBinding binding) {
+        final Spinner seriesSelector = binding.seriesSelector;
         seriesSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.series_list));
         seriesSelector.setSelection(0);
         seriesSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
@@ -120,6 +106,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
 
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -130,7 +117,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             }
         });
 
-        scale.setOnClickListener(new View.OnClickListener() {
+        binding.scale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scaleAnimator.cancel();
@@ -138,7 +125,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             }
         });
 
-        wave.setOnClickListener(new View.OnClickListener() {
+        binding.wave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 waveAnimator.cancel();
@@ -146,7 +133,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             }
         });
 
-        sweep.setOnClickListener(new View.OnClickListener() {
+        binding.sweep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sweepAnimator != null) {
@@ -156,7 +143,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             }
         });
 
-        translateX.setOnClickListener(new View.OnClickListener() {
+        binding.translateX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 translateXAnimator.cancel();
@@ -164,7 +151,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
             }
         });
 
-        translateY.setOnClickListener(new View.OnClickListener() {
+        binding.translateY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 translateYAnimator.cancel();
@@ -237,6 +224,7 @@ public class AnimationsTestFragment extends ExampleBaseFragment {
                 rSeries = null;
         }
 
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

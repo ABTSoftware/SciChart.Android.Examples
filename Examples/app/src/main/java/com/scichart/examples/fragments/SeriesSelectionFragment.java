@@ -33,21 +33,15 @@ import com.scichart.charting.visuals.renderableSeries.StyleBase;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class SeriesSelectionFragment extends ExampleBaseFragment {
+public class SeriesSelectionFragment extends ExampleSingleChartBaseFragment {
     private static final int SERIES_POINT_COUNT = 50;
     private static final int SERIES_COUNT = 80;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -55,12 +49,7 @@ public class SeriesSelectionFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).withAutoRangeMode(AutoRange.Always).build();
         final IAxis leftAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId(AxisAlignment.Left.name()).build();
         final IAxis rightAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Right).withAxisId(AxisAlignment.Right.name()).build();

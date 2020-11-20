@@ -32,7 +32,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -46,8 +46,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Crimson;
 import static com.scichart.drawing.utility.ColorUtil.DarkGreen;
@@ -59,7 +57,7 @@ import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Transparent;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class CreateRealTimeWaterfall3DChartFragment extends ExampleBaseFragment {
+public class CreateRealTimeWaterfall3DChartFragment extends ExampleSingleChart3DBaseFragment {
     private static final int POINTS_PER_SLICE = 128;
     private static final int SLICE_COUNT = 10;
 
@@ -80,9 +78,6 @@ public class CreateRealTimeWaterfall3DChartFragment extends ExampleBaseFragment 
     private int currentFillColorPalette = 0; // by default YAxis
     private int currentStrokeColorPalette = 0; // by default YAxis
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
     private int tick = 0;
 
     private final WaterfallDataSeries3D<Double, Double, Double> waterfallDataSeries = new WaterfallDataSeries3D<>(Double.class, Double.class, Double.class, POINTS_PER_SLICE, SLICE_COUNT);
@@ -91,12 +86,7 @@ public class CreateRealTimeWaterfall3DChartFragment extends ExampleBaseFragment 
     private ScheduledFuture<?> schedule;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().build();
@@ -178,6 +168,7 @@ public class CreateRealTimeWaterfall3DChartFragment extends ExampleBaseFragment 
     }
 
     private void openSettingsDialog() {
+        final SciChartSurface3D surface3d = binding.surface3d;
         final WaterfallRenderableSeries3D rs = (WaterfallRenderableSeries3D) surface3d.getRenderableSeries().get(0);
 
         final Dialog dialog = ViewSettingsUtil.createSettingsPopup(getActivity(), R.layout.example_waterfall_3d_popup_layout);

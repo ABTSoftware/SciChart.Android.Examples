@@ -16,7 +16,10 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.ClipMode;
 import com.scichart.charting.Direction2D;
@@ -39,40 +42,22 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.MovingAverage;
 import com.scichart.examples.data.PriceSeries;
+import com.scichart.examples.databinding.ExampleMultipaneStockChartsFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.extensions.builders.SciChartBuilder;
 
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.BindView;
-
-public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
+public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment<ExampleMultipaneStockChartsFragmentBinding> {
     private static final String VOLUME = "Volume";
     private static final String PRICES = "Prices";
     private static final String RSI = "RSI";
     private static final String MACD = "MACD";
 
-    @BindView(R.id.priceChart)
-    SciChartSurface priceChart;
-
-    @BindView(R.id.macdChart)
-    SciChartSurface macdChart;
-
-    @BindView(R.id.rsiChart)
-    SciChartSurface rsiChart;
-
-    @BindView(R.id.volumeChart)
-    SciChartSurface volumeChart;
-
     private final SciChartVerticalGroup verticalGroup = new SciChartVerticalGroup();
 
     private final DoubleRange sharedXRange = new DoubleRange();
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_multipane_stock_charts_fragment;
-    }
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -80,7 +65,12 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected void initExample() {
+    protected ExampleMultipaneStockChartsFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleMultipaneStockChartsFragmentBinding.inflate(inflater);
+    }
+
+    @Override
+    protected void initExample(ExampleMultipaneStockChartsFragmentBinding binding) {
         final PriceSeries priceData = DataManager.getInstance().getPriceDataEurUsd(getActivity());
 
         final PricePaneModel pricePaneModel = new PricePaneModel(sciChartBuilder, priceData);
@@ -88,10 +78,10 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment {
         final RsiPaneModel rsiPaneModel = new RsiPaneModel(sciChartBuilder, priceData);
         final VolumePaneModel volumePaneModel = new VolumePaneModel(sciChartBuilder, priceData);
 
-        initChart(priceChart, pricePaneModel, true);
-        initChart(macdChart, macdPaneModel, false);
-        initChart(rsiChart, rsiPaneModel, false);
-        initChart(volumeChart, volumePaneModel, false);
+        initChart(binding.priceChart, pricePaneModel, true);
+        initChart(binding.macdChart, macdPaneModel, false);
+        initChart(binding.rsiChart, rsiPaneModel, false);
+        initChart(binding.volumeChart, volumePaneModel, false);
     }
 
     private void initChart(SciChartSurface surface, BasePaneModel model, boolean isMainPane) {

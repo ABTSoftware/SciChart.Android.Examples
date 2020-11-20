@@ -34,7 +34,7 @@ import com.scichart.drawing.common.SolidBrushStyle;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.TradeData;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.SeekBarChangeListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -45,12 +45,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class BubbleChartFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class BubbleChartFragment extends ExampleSingleChartBaseFragment {
 
     private final int minSeekBarValue = 5;
     private int zScaleFactor = 30;
@@ -70,12 +65,7 @@ public class BubbleChartFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(0d, 0.1d).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0d, 0.1d).build();
 
@@ -127,6 +117,7 @@ public class BubbleChartFragment extends ExampleBaseFragment {
     }
 
     private void onZScaleFactorChanged() {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

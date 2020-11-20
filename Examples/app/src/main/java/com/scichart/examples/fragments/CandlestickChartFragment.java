@@ -25,27 +25,18 @@ import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.BindView;
 
-public class CandlestickChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class CandlestickChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         PriceSeries priceSeries = DataManager.getInstance().getPriceDataIndu(getActivity());
         int size = priceSeries.size();
 

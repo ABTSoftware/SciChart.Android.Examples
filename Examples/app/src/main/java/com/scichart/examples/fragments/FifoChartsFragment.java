@@ -28,7 +28,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.ISciList;
 import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
@@ -41,9 +41,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
-public class FifoChartsFragment extends ExampleBaseFragment {
+public class FifoChartsFragment extends ExampleSingleChartBaseFragment {
 
     private final static int FIFO_CAPACITY = 50;
     private final static long TIME_INTERVAL = 30;
@@ -59,9 +57,6 @@ public class FifoChartsFragment extends ExampleBaseFragment {
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     private final DoubleRange xVisibleRange = new DoubleRange(-GROW_BY, VISIBLE_RANGE_MAX + GROW_BY);
 
@@ -95,12 +90,7 @@ public class FifoChartsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(xVisibleRange).withAutoRangeMode(AutoRange.Never).build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withAutoRangeMode(AutoRange.Always).build();
 
@@ -189,7 +179,7 @@ public class FifoChartsFragment extends ExampleBaseFragment {
     }
 
     private void resetChart() {
-        UpdateSuspender.using(surface, new Runnable() {
+        UpdateSuspender.using(binding.surface, new Runnable() {
             @Override
             public void run() {
                 ds1.clear();

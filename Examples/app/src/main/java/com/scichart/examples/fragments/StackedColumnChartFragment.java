@@ -27,24 +27,14 @@ import com.scichart.charting.visuals.renderableSeries.HorizontallyStackedColumns
 import com.scichart.charting.visuals.renderableSeries.StackedColumnRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.VerticallyStackedColumnsCollection;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class StackedColumnChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class StackedColumnChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
 

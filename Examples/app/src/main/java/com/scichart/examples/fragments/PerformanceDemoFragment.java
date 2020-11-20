@@ -48,7 +48,7 @@ import com.scichart.drawing.common.PenStyle;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.MovingAverage;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -63,9 +63,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
-public class PerformanceDemoFragment extends ExampleBaseFragment {
+public class PerformanceDemoFragment extends ExampleSingleChartBaseFragment {
     private List<Integer> pointCounts = new ArrayList<Integer>() {{
         add(10);
         add(100);
@@ -86,15 +84,13 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     private MovingAverage maLow = new MovingAverage(MA_LOW);
     private MovingAverage maHigh = new MovingAverage(MA_HIGH);
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
     private ScheduledFuture<?> schedule;
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
     private TextView textView;
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         selectedSeriesType = getResources().getStringArray(R.array.series_types)[0];
 
         initChart();
@@ -133,6 +129,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
                 .withY1(0)
                 .build();
 
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -150,6 +147,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
+            final SciChartSurface surface = binding.surface;
             final int seriesCount = savedInstanceState.getInt("seriesCount");
             for (int i = 0; i < seriesCount; i++) {
                 final ISciList<Integer> xValues = savedInstanceState.getParcelable("xValues" + i);
@@ -166,6 +164,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
         super.onSaveInstanceState(outState);
 
         isRunning = false;
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -203,7 +202,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
 
     private int getPointsCount() {
         int result = 0;
-        RenderableSeriesCollection rsCollection = surface.getRenderableSeries();
+        RenderableSeriesCollection rsCollection = binding.surface.getRenderableSeries();
 
         for (int i = 0; i < rsCollection.size(); i++) {
             IRenderableSeries renderableSeries = rsCollection.get(i);
@@ -234,6 +233,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
             secondYValues.clear();
             thirdYValues.clear();
 
+            final SciChartSurface surface = binding.surface;
             final IXyDataSeries<Integer, Float> mainSeries = (IXyDataSeries<Integer, Float>) surface.getRenderableSeries().get(0).getDataSeries();
             final IXyDataSeries<Integer, Float> maLowSeries = (IXyDataSeries<Integer, Float>) surface.getRenderableSeries().get(1).getDataSeries();
             final IXyDataSeries<Integer, Float> maHighSeries = (IXyDataSeries<Integer, Float>) surface.getRenderableSeries().get(2).getDataSeries();
@@ -269,6 +269,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                final SciChartSurface surface = binding.surface;
                 UpdateSuspender.using(surface, new Runnable() {
                     @Override
                     public void run() {
@@ -340,6 +341,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     }
 
     private void onChangeSeriesType() {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -383,6 +385,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     }
 
     private void onChangeStroke() {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -400,6 +403,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     }
 
     private void onResamplingMode() {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -451,6 +455,7 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     }
 
     private void updateAutoRangeBehavior(boolean isEnabled) {
+        final SciChartSurface surface = binding.surface;
         IAxis xAxis = surface.getXAxes().get(0);
         IAxis yAxis = surface.getYAxes().get(0);
 
@@ -461,14 +466,9 @@ public class PerformanceDemoFragment extends ExampleBaseFragment {
     }
 
     private void updateModifiers(boolean isEnabled) {
-        ChartModifierCollection modifiers = surface.getChartModifiers();
+        ChartModifierCollection modifiers = binding.surface.getChartModifiers();
         for (IChartModifier modifier : modifiers) {
             modifier.setIsEnabled(isEnabled);
         }
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
     }
 }

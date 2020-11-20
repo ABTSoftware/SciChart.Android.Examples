@@ -16,10 +16,10 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.scichart.charting3d.common.math.Vector3;
 import com.scichart.charting3d.model.dataSeries.freeSurface.CustomSurfaceDataSeries3D;
@@ -34,10 +34,9 @@ import com.scichart.charting3d.visuals.renderableSeries.freeSurface.FreeSurfaceR
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
+import com.scichart.examples.databinding.ExampleCreateFreeSurface3dFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Cyan;
@@ -46,20 +45,15 @@ import static com.scichart.drawing.utility.ColorUtil.GreenYellow;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class CreateCustomFreeSurface3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
-    @BindView(R.id.paletteModeSelector)
-    Spinner paletteModeSelector;
+public class CreateCustomFreeSurface3DChartFragment extends ExampleBaseFragment<ExampleCreateFreeSurface3dFragmentBinding> {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_create_free_surface_3d_fragment;
+    protected ExampleCreateFreeSurface3dFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleCreateFreeSurface3dFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleCreateFreeSurface3dFragmentBinding binding) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withNegativeSideClipping(AxisSideClipping.None).withPositiveSideClipping(AxisSideClipping.None).build();
@@ -131,6 +125,7 @@ public class CreateCustomFreeSurface3DChartFragment extends ExampleBaseFragment 
                 .withMeshColorPalette(new GradientColorPalette(colors, stops))
                 .build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
 
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
@@ -147,6 +142,7 @@ public class CreateCustomFreeSurface3DChartFragment extends ExampleBaseFragment 
             }
         });
 
+        final Spinner paletteModeSelector = binding.paletteModeSelector;
         paletteModeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.palette_mode_list));
         paletteModeSelector.setSelection(0);
         paletteModeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
@@ -197,4 +193,6 @@ public class CreateCustomFreeSurface3DChartFragment extends ExampleBaseFragment 
                 throw new UnsupportedOperationException();
         }
     }
+
+
 }

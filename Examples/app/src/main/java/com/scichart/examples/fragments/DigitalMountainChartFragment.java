@@ -24,27 +24,17 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.BindView;
-
-public class DigitalMountainChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class DigitalMountainChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newDateAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
 

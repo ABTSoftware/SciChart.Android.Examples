@@ -16,6 +16,11 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
+import android.view.View;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting3d.model.RenderableSeries3DCollection;
 import com.scichart.charting3d.model.dataSeries.xyz.XyzDataSeries3D;
@@ -27,36 +32,32 @@ import com.scichart.charting3d.visuals.renderableSeries.scatter.ScatterRenderabl
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
+import com.scichart.examples.databinding.ExampleAddRemoveSeries3dFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Locale;
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class AddRemoveSeries3DFragment extends ExampleBaseFragment {
+public class AddRemoveSeries3DFragment extends ExampleBaseFragment<ExampleAddRemoveSeries3dFragmentBinding> implements View.OnClickListener {
     private static final int MAX_SERIES_AMOUNT = 15;
     private static final int DATA_POINTS_COUNT = 15;
 
     private final Random random = new Random();
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_add_remove_series_3d_fragment;
+    protected ExampleAddRemoveSeries3dFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleAddRemoveSeries3dFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleAddRemoveSeries3dFragmentBinding binding) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withAutoRangeMode(AutoRange.Always).withGrowBy(.1, .1).build();
         final NumericAxis3D yAxis = sciChart3DBuilder.newNumericAxis3D().withAutoRangeMode(AutoRange.Always).withGrowBy(.1, .1).build();
         final NumericAxis3D zAxis = sciChart3DBuilder.newNumericAxis3D().withAutoRangeMode(AutoRange.Always).withGrowBy(.1, .1).build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {
@@ -72,16 +73,31 @@ public class AddRemoveSeries3DFragment extends ExampleBaseFragment {
                         .build());
             }
         });
+
+        binding.addSeries.setOnClickListener(this);
+        binding.removeSeries.setOnClickListener(this);
+        binding.reset.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View v) {
+        final int id = v.getId();
 
-    @OnClick(R.id.addSeries)
-    void onAddSeries() {
+        if (id == R.id.addSeries)
+            onAddSeries();
+        else if (id == R.id.removeSeries)
+            onRemoveSeries();
+        else if (id == R.id.reset)
+            onReset();
+    }
+
+    private void onAddSeries() {
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {
                 final RenderableSeries3DCollection renderableSeries = surface3d.getRenderableSeries();
-                if(renderableSeries.size() >= MAX_SERIES_AMOUNT)
+                if (renderableSeries.size() >= MAX_SERIES_AMOUNT)
                     return;
 
                 final XyzDataSeries3D<Double, Double, Double> ds = new XyzDataSeries3D<>(Double.class, Double.class, Double.class);
@@ -136,8 +152,8 @@ public class AddRemoveSeries3DFragment extends ExampleBaseFragment {
         });
     }
 
-    @OnClick(R.id.removeSeries)
     void onRemoveSeries() {
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {
@@ -149,8 +165,8 @@ public class AddRemoveSeries3DFragment extends ExampleBaseFragment {
         });
     }
 
-    @OnClick(R.id.reset)
-    void onReset() {
+    private void onReset() {
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {

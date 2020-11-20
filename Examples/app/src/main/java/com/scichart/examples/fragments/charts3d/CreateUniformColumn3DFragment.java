@@ -23,24 +23,13 @@ import com.scichart.charting3d.visuals.camera.Camera3D;
 import com.scichart.charting3d.visuals.renderableSeries.columns.ColumnRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
-import butterknife.BindView;
-
-public class CreateUniformColumn3DFragment extends ExampleBaseFragment {
+public class CreateUniformColumn3DFragment extends ExampleSingleChart3DBaseFragment {
     private static final int COUNT = 15;
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final UniformGridDataSeries3D<Double, Double, Double> ds = new UniformGridDataSeries3D<>(Double.class, Double.class, Double.class, COUNT, COUNT);
 
         for (int x = 0; x < COUNT; x++) {

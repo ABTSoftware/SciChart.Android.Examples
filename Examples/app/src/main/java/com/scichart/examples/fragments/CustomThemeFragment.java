@@ -32,17 +32,13 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.BillionsLabelProvider;
 import com.scichart.examples.utils.ThousandsLabelProvider;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class CustomThemeFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class CustomThemeFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -50,12 +46,7 @@ public class CustomThemeFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xBottomAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(150, 180).build();
 
         final IAxis yRightAxis = sciChartBuilder.newNumericAxis()

@@ -34,7 +34,7 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.EnumUtils;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
@@ -48,11 +48,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
-import butterknife.BindView;
-
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
-public class OscilloscopeFragment extends ExampleBaseFragment {
+public class OscilloscopeFragment extends ExampleSingleChartBaseFragment {
 
     enum DataSourceEnum {
         FourierSeries,
@@ -74,9 +72,6 @@ public class OscilloscopeFragment extends ExampleBaseFragment {
     private double phase1 = 0.0;
     private double phaseIncrement = Math.PI * 0.1;
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     private FastLineRenderableSeries rSeries;
 
     @Override
@@ -94,12 +89,7 @@ public class OscilloscopeFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -185,6 +175,8 @@ public class OscilloscopeFragment extends ExampleBaseFragment {
         dataSourceSpinner.setOnItemSelectedListener(new ItemSelectedListenerBase() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                final SciChartSurface surface = binding.surface;
+
                 selectedSource = DataSourceEnum.valueOf(dataSourceAdapter.getItem(position));
                 if (selectedSource == DataSourceEnum.FourierSeries) {
                     surface.getXAxes().get(0).setVisibleRange(new DoubleRange(2.5, 4.5));
@@ -202,7 +194,7 @@ public class OscilloscopeFragment extends ExampleBaseFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isDigitalLine = isChecked;
-                ((FastLineRenderableSeries) surface.getRenderableSeries().get(0)).setIsDigitalLine(isDigitalLine);
+                ((FastLineRenderableSeries) binding.surface.getRenderableSeries().get(0)).setIsDigitalLine(isDigitalLine);
             }
         });
 

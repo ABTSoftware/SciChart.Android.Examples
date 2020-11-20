@@ -43,7 +43,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.EnumUtils;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
@@ -54,12 +54,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
-public class LegendFragment extends ExampleBaseFragment {
+public class LegendFragment extends ExampleSingleChartBaseFragment {
     private static final List<SourceMode> sourceModeValues = unmodifiableList(asList(SourceMode.values()));
     private LegendModifier legendModifier;
 
@@ -68,9 +66,6 @@ public class LegendFragment extends ExampleBaseFragment {
     private boolean showLegend = true;
     private boolean showCheckBoxes = true;
     private boolean showSeriesMarkers = true;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -87,12 +82,7 @@ public class LegendFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(0, 150).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withVisibleRange(-1.5, 1.5).build();
 

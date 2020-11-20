@@ -18,8 +18,10 @@ package com.scichart.examples.fragments.base;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import androidx.annotation.LayoutRes;
+
 import androidx.annotation.Nullable;
+import androidx.viewbinding.ViewBinding;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +33,9 @@ import com.scichart.extensions3d.builders.SciChart3DBuilder;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.ButterKnife;
 
-public abstract class ExampleBaseFragment extends Fragment {
+public abstract class ExampleBaseFragment<TViewBinding extends ViewBinding> extends Fragment {
+    protected TViewBinding binding;
 
     protected final SciChartBuilder sciChartBuilder = SciChartBuilder.instance();
     protected final SciChart3DBuilder sciChart3DBuilder = SciChart3DBuilder.instance();
@@ -49,15 +51,14 @@ public abstract class ExampleBaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(getLayoutId(), null);
-        ButterKnife.bind(this, root);
-        initExample();
+        binding = inflateBinding(inflater);
 
-        return root;
+        initExample(binding);
+
+        return binding.getRoot();
     }
 
-    @LayoutRes
-    protected abstract int getLayoutId();
+    protected abstract TViewBinding inflateBinding(LayoutInflater inflater);
 
-    protected abstract void initExample();
+    protected abstract void initExample(TViewBinding binding);
 }

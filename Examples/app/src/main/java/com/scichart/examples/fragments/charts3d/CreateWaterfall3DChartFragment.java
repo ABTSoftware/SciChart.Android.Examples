@@ -33,7 +33,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.Radix2FFT;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -42,8 +42,6 @@ import com.scichart.examples.utils.widgetgeneration.Widget;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Crimson;
@@ -56,7 +54,7 @@ import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Transparent;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class CreateWaterfall3DChartFragment extends ExampleBaseFragment {
+public class CreateWaterfall3DChartFragment extends ExampleSingleChart3DBaseFragment {
     private static final int POINTS_PER_SLICE = 128;
     private static final int SLICE_COUNT = 20;
 
@@ -80,16 +78,8 @@ public class CreateWaterfall3DChartFragment extends ExampleBaseFragment {
     private int currentFillColorPalette = 0; // by default YAxis
     private int currentStrokeColorPalette = 0; // by default YAxis
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().build();
@@ -187,7 +177,7 @@ public class CreateWaterfall3DChartFragment extends ExampleBaseFragment {
     }
 
     private void openSettingsDialog() {
-        final WaterfallRenderableSeries3D rs = (WaterfallRenderableSeries3D) surface3d.getRenderableSeries().get(0);
+        final WaterfallRenderableSeries3D rs = (WaterfallRenderableSeries3D) binding.surface3d.getRenderableSeries().get(0);
 
         final Dialog dialog = ViewSettingsUtil.createSettingsPopup(getActivity(), R.layout.example_waterfall_3d_popup_layout);
 

@@ -18,6 +18,9 @@ package com.scichart.examples.fragments.charts3d;
 
 import android.content.Context;
 import android.text.SpannableStringBuilder;
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting3d.model.dataSeries.xyz.XyzDataSeries3D;
 import com.scichart.charting3d.modifiers.CrosshairMode;
@@ -35,24 +38,19 @@ import com.scichart.charting3d.visuals.renderableSeries.tooltips.XyzSeriesToolti
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
+import com.scichart.examples.databinding.ExampleSingleChart3dWithModifierTipFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
-
-import butterknife.BindView;
 
 import static com.scichart.core.utility.StringUtil.NEW_LINE;
 
-public class SeriesCustomTooltips3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
+public class SeriesCustomTooltips3DChartFragment extends ExampleBaseFragment<ExampleSingleChart3dWithModifierTipFragmentBinding> {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_with_modifier_tip_fragment;
+    protected ExampleSingleChart3dWithModifierTipFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSingleChart3dWithModifierTipFragmentBinding.inflate(inflater);
     }
 
-
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleSingleChart3dWithModifierTipFragmentBinding binding) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withGrowBy(.2, .2).withVisibleRange(-1.1, 1.1).build();
@@ -88,6 +86,7 @@ public class SeriesCustomTooltips3DChartFragment extends ExampleBaseFragment {
                 .withSeriesInfoProvider(new CustomSeriesInfo3DProvider())
                 .build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {

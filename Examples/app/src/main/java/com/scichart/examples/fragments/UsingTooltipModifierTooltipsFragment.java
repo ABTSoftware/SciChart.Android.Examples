@@ -16,8 +16,6 @@
 
 package com.scichart.examples.fragments;
 
-import android.view.animation.DecelerateInterpolator;
-
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.TooltipModifier;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -28,19 +26,13 @@ import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class UsingTooltipModifierTooltipsFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class UsingTooltipModifierTooltipsFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -48,12 +40,7 @@ public class UsingTooltipModifierTooltipsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withAxisAlignment(AxisAlignment.Left).build();
 

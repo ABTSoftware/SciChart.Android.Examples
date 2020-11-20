@@ -16,31 +16,29 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting.modifiers.PieSegmentSelectionModifier;
 import com.scichart.charting.visuals.SciPieChartSurface;
 import com.scichart.charting.visuals.legend.SciChartLegend;
 import com.scichart.charting.visuals.renderableSeries.IPieRenderableSeries;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleSinglePieChartWithLegendFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class PieChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.pieChart)
-    SciPieChartSurface pieChartSurface;
-
-    @BindView(R.id.pieChartLegend)
-    SciChartLegend legend;
+public class PieChartFragment extends ExampleBaseFragment<ExampleSinglePieChartWithLegendFragmentBinding> {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_pie_chart_with_legend_fragment;
+    protected ExampleSinglePieChartWithLegendFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSinglePieChartWithLegendFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleSinglePieChartWithLegendFragmentBinding binding) {
         final IPieRenderableSeries pieSeries = sciChartBuilder.newPieSeries().withSegments(
                 sciChartBuilder.newPieSegment().withValue(40).withTitle("Green").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
                 sciChartBuilder.newPieSegment().withValue(10).withTitle("Red").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
@@ -48,8 +46,9 @@ public class PieChartFragment extends ExampleBaseFragment {
                 sciChartBuilder.newPieSegment().withValue(15).withTitle("Yellow").withRadialGradientColors(0xffFFFF00, 0xfffed325).build()
         ).build();
 
-        Collections.addAll(pieChartSurface.getRenderableSeries(), pieSeries);
-        Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(legend).withSourceSeries(pieSeries).build(), new PieSegmentSelectionModifier());
+        final SciPieChartSurface pieChart = binding.pieChart;
+        Collections.addAll(pieChart.getRenderableSeries(), pieSeries);
+        Collections.addAll(pieChart.getChartModifiers(), sciChartBuilder.newLegendModifier(binding.pieChartLegend).withSourceSeries(pieSeries).build(), new PieSegmentSelectionModifier());
 
         pieSeries.animate(800);
     }

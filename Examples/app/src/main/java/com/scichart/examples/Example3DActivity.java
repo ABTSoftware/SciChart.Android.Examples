@@ -42,7 +42,7 @@ public class Example3DActivity extends ExampleActivityBase{
     protected void onPostResume() {
         super.onPostResume();
 
-        surface = findViewById(R.id.chart3d);
+        surface = findViewById(R.id.surface3d);
         showFpsCounter = surface.getIsFpsCounterVisible();
     }
 

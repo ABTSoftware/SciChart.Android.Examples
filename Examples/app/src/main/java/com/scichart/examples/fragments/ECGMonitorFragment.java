@@ -29,7 +29,7 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.ISciList;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
@@ -41,9 +41,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
-public class ECGMonitorFragment extends ExampleBaseFragment {
+public class ECGMonitorFragment extends ExampleSingleChartBaseFragment {
 
     private final static long TIME_INTERVAL = 20;
 
@@ -61,9 +59,6 @@ public class ECGMonitorFragment extends ExampleBaseFragment {
     private ScheduledFuture<?> schedule;
 
     private volatile boolean isRunning = true;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -91,11 +86,6 @@ public class ECGMonitorFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sourceData = DataManager.getInstance().loadWaveformData(getActivity());
@@ -117,7 +107,7 @@ public class ECGMonitorFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

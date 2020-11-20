@@ -17,6 +17,9 @@
 package com.scichart.examples.fragments;
 
 import androidx.annotation.NonNull;
+import androidx.viewbinding.ViewBinding;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.MarketDataService;
 import com.scichart.examples.data.PriceSeries;
+import com.scichart.examples.databinding.ExampleCreateAnnotationsDynamicallyFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 
@@ -42,25 +46,18 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment implements OnAnnotationCreatedListener {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
-    @BindView(R.id.annotationTypeSelector)
-    Spinner annotationTypeSelector;
+public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment<ExampleCreateAnnotationsDynamicallyFragmentBinding> implements OnAnnotationCreatedListener {
 
     private final AnnotationCreationModifier annotationCreationModifier = new AnnotationCreationModifier();
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_create_annotations_dynamically_fragment;
+    protected ExampleCreateAnnotationsDynamicallyFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleCreateAnnotationsDynamicallyFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleCreateAnnotationsDynamicallyFragmentBinding binding) {
+        final Spinner annotationTypeSelector = binding.annotationTypeSelector;
         annotationTypeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.annotation_type_list));
         annotationTypeSelector.setSelection(1);
         annotationTypeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
@@ -77,6 +74,7 @@ public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment im
 
         dataSeries.append(data.getDateData(), data.getOpenData(), data.getHighData(), data.getLowData(), data.getCloseData());
 
+        final SciChartSurface surface = binding.surface;
         Collections.addAll(surface.getRenderableSeries(), sciChartBuilder.newCandlestickSeries().withDataSeries(dataSeries).build());
         Collections.addAll(surface.getXAxes(), sciChartBuilder.newCategoryDateAxis().build());
         Collections.addAll(surface.getYAxes(), sciChartBuilder.newNumericAxis().withVisibleRange(30d, 37d).build());
@@ -110,16 +108,18 @@ public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment im
         annotationCreationModifier.setAnnotationCreationListener(this);
 
         surface.getChartModifiers().add(sciChartBuilder.newModifierGroup().withModifier(annotationCreationModifier).build());
-    }
 
-    @OnClick(R.id.deleteAnnotation)
-    void deleteSelectedAnnotation() {
-        final AnnotationCollection annotations = surface.getAnnotations();
-        for (int i = annotations.size() - 1; i >= 0; i--) {
-            final IAnnotation annotation = annotations.get(i);
-            if (annotation.isSelected())
-                annotations.remove(i);
-        }
+        binding.deleteAnnotation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AnnotationCollection annotations = surface.getAnnotations();
+                for (int i = annotations.size() - 1; i >= 0; i--) {
+                    final IAnnotation annotation = annotations.get(i);
+                    if (annotation.isSelected())
+                        annotations.remove(i);
+                }
+            }
+        });
     }
 
     @Override

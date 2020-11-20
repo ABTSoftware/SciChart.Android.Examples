@@ -22,6 +22,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.trello.rxlifecycle3.LifecycleProvider;
@@ -33,7 +34,7 @@ import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 
-public abstract class ShowcaseExampleBaseFragment extends ExampleBaseFragment implements LifecycleProvider<FragmentEvent> {
+public abstract class ShowcaseExampleBaseFragment<TViewBinding extends ViewBinding> extends ExampleBaseFragment<TViewBinding> implements LifecycleProvider<FragmentEvent> {
     private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
 
     @Override

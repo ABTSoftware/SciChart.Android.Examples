@@ -24,13 +24,10 @@ import com.scichart.charting3d.visuals.renderableSeries.data.GradientColorPalett
 import com.scichart.charting3d.visuals.renderableSeries.waterfall.WaterfallRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.utility.DateIntervalUtil;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.DarkGreen;
@@ -39,18 +36,10 @@ import static com.scichart.drawing.utility.ColorUtil.Orange;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class DateAxis3DFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
+public class DateAxis3DFragment extends ExampleSingleChart3DBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final DateAxis3D xAxis = sciChart3DBuilder.newDateAxis3D().withSubDayTextFormatting("HH:mm").withMaxAutoTicks(8).build();
         final NumericAxis3D yAxis = sciChart3DBuilder.newNumericAxis3D().withGrowBy(0, .1).build();
         final DateAxis3D zAxis = sciChart3DBuilder.newDateAxis3D().withTextFormatting("dd MMM").withMaxAutoTicks(5).build();

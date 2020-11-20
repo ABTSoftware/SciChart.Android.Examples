@@ -25,30 +25,19 @@ import com.scichart.charting3d.visuals.pointMarkers.PixelPointMarker3D;
 import com.scichart.charting3d.visuals.renderableSeries.pointLine.PointLineRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
-public class Chart3DSandboxFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
+public class Chart3DSandboxFragment extends ExampleSingleChart3DBaseFragment {
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D()
                 .withZoomToFitOnAttach(false)
                 .withPosition(-350, 100, -350)
@@ -110,7 +99,7 @@ public class Chart3DSandboxFragment extends ExampleBaseFragment {
     private final Runnable scheduledRunnable = new Runnable() {
         @Override
         public void run() {
-            final ICameraController camera = surface3d.getCamera();
+            final ICameraController camera = binding.surface3d.getCamera();
             UpdateSuspender.using(camera, new Runnable() {
                 @Override
                 public void run() {

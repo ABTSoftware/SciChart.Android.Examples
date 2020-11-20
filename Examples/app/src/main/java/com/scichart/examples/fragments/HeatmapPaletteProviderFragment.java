@@ -17,8 +17,11 @@
 package com.scichart.examples.fragments;
 
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.dataSeries.UniformHeatmapDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -32,40 +35,32 @@ import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IValues;
 import com.scichart.core.model.IntegerValues;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleHeatmapPaletteFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class HeatmapPaletteProviderFragment extends ExampleBaseFragment implements SeekBar.OnSeekBarChangeListener {
+public class HeatmapPaletteProviderFragment extends ExampleBaseFragment<ExampleHeatmapPaletteFragmentBinding> implements SeekBar.OnSeekBarChangeListener {
     private static final int WIDTH = 300, HEIGHT = 200;
-
-    @BindView(R.id.chart)
-    SciChartSurface chart;
-
-    @BindView(R.id.seekBar)
-    SeekBar seekBar;
-
-    @BindView(R.id.thresholdValue)
-    TextView thresholdValue;
 
     private final CustomUniformHeatMapProvider paletteProvider = new CustomUniformHeatMapProvider();
 
     @Override
-    protected int getLayoutId() { return R.layout.example_heatmap_palette_fragment; }
+    protected ExampleHeatmapPaletteFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleHeatmapPaletteFragmentBinding.inflate(inflater);
+    }
 
     @Override
-    protected void initExample() {
-        seekBar.setOnSeekBarChangeListener(this);
+    protected void initExample(ExampleHeatmapPaletteFragmentBinding binding) {
+        binding.seekBar.setOnSeekBarChangeListener(this);
 
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Right).build();
 
         final UniformHeatmapDataSeries<Integer, Integer, Double> dataSeries = new UniformHeatmapDataSeries<>(Integer.class, Integer.class, Double.class, WIDTH, HEIGHT);
 
-        paletteProvider.setThresholdValue(seekBar.getProgress());
+        paletteProvider.setThresholdValue(binding.seekBar.getProgress());
 
         dataSeries.updateZValues(createValues());
         final FastUniformHeatmapRenderableSeries heatmapRenderableSeries = sciChartBuilder.newUniformHeatmap()
@@ -75,10 +70,11 @@ public class HeatmapPaletteProviderFragment extends ExampleBaseFragment implemen
                 .withPaletteProvider(paletteProvider)
                 .build();
 
-        Collections.addAll(chart.getXAxes(), xAxis);
-        Collections.addAll(chart.getYAxes(), yAxis);
-        Collections.addAll(chart.getRenderableSeries(), heatmapRenderableSeries);
-        Collections.addAll(chart.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+        final SciChartSurface surface = binding.surface;
+        Collections.addAll(surface.getXAxes(), xAxis);
+        Collections.addAll(surface.getYAxes(), yAxis);
+        Collections.addAll(surface.getRenderableSeries(), heatmapRenderableSeries);
+        Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
     }
 
     private static IValues<Double> createValues() {
@@ -103,7 +99,7 @@ public class HeatmapPaletteProviderFragment extends ExampleBaseFragment implemen
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         paletteProvider.setThresholdValue(progress);
-        thresholdValue.setText(String.format("%d", progress));
+        binding.thresholdValue.setText(String.format("%d", progress));
     }
 
     @Override

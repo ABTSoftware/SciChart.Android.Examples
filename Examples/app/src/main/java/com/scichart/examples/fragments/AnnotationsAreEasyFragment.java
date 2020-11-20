@@ -35,15 +35,11 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class AnnotationsAreEasyFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -51,12 +47,7 @@ public class AnnotationsAreEasyFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

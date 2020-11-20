@@ -16,6 +16,10 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting3d.model.dataSeries.xyz.XyzDataSeries3D;
 import com.scichart.charting3d.modifiers.CrosshairMode;
 import com.scichart.charting3d.visuals.SciChartSurface3D;
@@ -27,11 +31,10 @@ import com.scichart.charting3d.visuals.renderableSeries.pointLine.PointLineRende
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleSingleChart3dWithModifierTipFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
-import butterknife.BindView;
-
-public class SeriesTooltips3DChartFragment extends ExampleBaseFragment {
+public class SeriesTooltips3DChartFragment extends ExampleBaseFragment<ExampleSingleChart3dWithModifierTipFragmentBinding> {
     private static final int SEGMENTS_COUNT = 25;
 
     private static final double Y_ANGLE = Math.toRadians(-65);
@@ -41,16 +44,13 @@ public class SeriesTooltips3DChartFragment extends ExampleBaseFragment {
     private final int blueColor = ColorUtil.argb(0xFF, 0x00, 0x84, 0xCF);
     private final int redColor = ColorUtil.argb(0xFF, 0xEE, 0x11, 0x10);
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_with_modifier_tip_fragment;
+    protected ExampleSingleChart3dWithModifierTipFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSingleChart3dWithModifierTipFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleSingleChart3dWithModifierTipFragmentBinding binding) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D()
                 .withPosition(-160, 190, -520)
                 .withTarget(-45, 150, 0)
@@ -88,6 +88,7 @@ public class SeriesTooltips3DChartFragment extends ExampleBaseFragment {
                 .withStrokeThicknes(4f)
                 .build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {

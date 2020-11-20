@@ -32,7 +32,7 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
@@ -41,14 +41,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class DragAreaToZoomFragment extends ExampleBaseFragment {
+public class DragAreaToZoomFragment extends ExampleSingleChartBaseFragment {
 
     private RubberBandXyZoomModifier rubberBandXyZoomModifier;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -70,12 +65,7 @@ public class DragAreaToZoomFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
 

@@ -25,24 +25,14 @@ import com.scichart.charting3d.visuals.pointMarkers.SpherePointMarker3D;
 import com.scichart.charting3d.visuals.renderableSeries.metadataProviders.PointMetadataProvider3D;
 import com.scichart.charting3d.visuals.renderableSeries.pointLine.PointLineRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
-import butterknife.BindView;
-
-public class LogarithmicAxis3DFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
+public class LogarithmicAxis3DFragment extends ExampleSingleChart3DBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final LogarithmicNumericAxis3D xAxis = sciChart3DBuilder.newLogarithmicNumericAxis3D()
                 .withGrowBy(.1, .1)
                 .withDrawMajorBands(false)

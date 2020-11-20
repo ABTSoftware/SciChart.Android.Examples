@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -36,6 +37,8 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
+import com.scichart.examples.databinding.ExampleSparkLinesFragmentBinding;
+import com.scichart.examples.databinding.ExampleSparkLinesItemViewBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.extensions.builders.SciChartBuilder;
 
@@ -43,20 +46,15 @@ import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class SparkLinesChartsFragment extends ExampleBaseFragment {
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-
+public class SparkLinesChartsFragment extends ExampleBaseFragment<ExampleSparkLinesFragmentBinding> {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_spark_lines_fragment;
+    protected ExampleSparkLinesFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSparkLinesFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleSparkLinesFragmentBinding binding) {
+        final RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         final SparkLineItemModel[] dataSet = new SparkLineItemModel[100];
@@ -91,21 +89,14 @@ public class SparkLinesChartsFragment extends ExampleBaseFragment {
         }
     }
     public static class SparkLinesItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.chart)
-        SciChartSurface chart;
-
-        @BindView(R.id.itemName)
-        TextView itemName;
-
-        @BindView(R.id.itemValue)
-        TextView itemValue;
+        private final ExampleSparkLinesItemViewBinding binding;
 
         private final DecimalFormat format = new DecimalFormat("0.##%");
 
         public SparkLinesItemViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this, itemView);
+            this.binding = ExampleSparkLinesItemViewBinding.bind(itemView);
 
             final SciChartBuilder sciChartBuilder = SciChartBuilder.instance();
 
@@ -133,19 +124,20 @@ public class SparkLinesChartsFragment extends ExampleBaseFragment {
 
             final IRenderableSeries rs = sciChartBuilder.newLineSeries().withStrokeStyle(ColorUtil.SteelBlue).build();
 
-            Collections.addAll(chart.getXAxes(), xAxis);
-            Collections.addAll(chart.getYAxes(), yAxis);
-            Collections.addAll(chart.getRenderableSeries(), rs);
+            final SciChartSurface surface = binding.surface;
+            Collections.addAll(surface.getXAxes(), xAxis);
+            Collections.addAll(surface.getYAxes(), yAxis);
+            Collections.addAll(surface.getRenderableSeries(), rs);
 
-            chart.setRenderableSeriesAreaBorderStyle(sciChartBuilder.newPen().withColor(ColorUtil.Transparent).build());
+            surface.setRenderableSeriesAreaBorderStyle(sciChartBuilder.newPen().withColor(ColorUtil.Transparent).build());
         }
 
         public void bindItemModel(SparkLineItemModel itemModel) {
-            itemName.setText(itemModel.itemName);
+            binding.itemName.setText(itemModel.itemName);
 
             setValue(itemModel.itemValue);
 
-            final IRenderableSeries renderableSeries = chart.getRenderableSeries().get(0);
+            final IRenderableSeries renderableSeries = binding.surface.getRenderableSeries().get(0);
 
             renderableSeries.setDataSeries(itemModel.dataSeries);
         }
@@ -155,6 +147,7 @@ public class SparkLinesChartsFragment extends ExampleBaseFragment {
 
             final StringBuilder sb = new StringBuilder();
 
+            final TextView itemValue = binding.itemValue;
             if(value > 0){
                 sb.append("\u21D1 ");
                 itemValue.setTextColor(ColorUtil.Green);

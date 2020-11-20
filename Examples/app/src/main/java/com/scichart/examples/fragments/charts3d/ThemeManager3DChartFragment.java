@@ -16,9 +16,12 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.themes.ThemeManager;
 import com.scichart.charting3d.model.dataSeries.xyz.XyzDataSeries3D;
@@ -33,14 +36,13 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
+import com.scichart.examples.databinding.ExampleThemeManager3dChartFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 
 import java.util.List;
 
-import butterknife.BindView;
-
-public class ThemeManager3DChartFragment extends ExampleBaseFragment {
+public class ThemeManager3DChartFragment extends ExampleBaseFragment<ExampleThemeManager3dChartFragmentBinding> {
     private final static int BLACK_STEEL = 0;
     private final static int BRIGHT_SPARK = 1;
     private final static int CHROME = 2;
@@ -51,19 +53,14 @@ public class ThemeManager3DChartFragment extends ExampleBaseFragment {
     private final static int SCI_CHART_V4_DARK = 7;
     private final static int BERRY_BLUE = 8;
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
-    @BindView(R.id.themeSelector)
-    Spinner themeSelector;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_theme_manager_3d_chart_fragment;
+    protected ExampleThemeManager3dChartFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleThemeManager3dChartFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleThemeManager3dChartFragmentBinding binding) {
+        final Spinner themeSelector = binding.themeSelector;
         themeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.style_list));
         themeSelector.setSelection(7);
         themeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
@@ -108,6 +105,7 @@ public class ThemeManager3DChartFragment extends ExampleBaseFragment {
                 .withMetadataProvider(metadataProvider)
                 .build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {
@@ -159,6 +157,6 @@ public class ThemeManager3DChartFragment extends ExampleBaseFragment {
                 break;
         }
 
-        surface3d.setTheme(themeId);
+        binding.surface3d.setTheme(themeId);
     }
 }

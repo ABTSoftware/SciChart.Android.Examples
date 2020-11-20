@@ -42,18 +42,11 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.utility.ListUtil;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class HitTestDatapointsFragment extends ExampleBaseFragment implements View.OnTouchListener {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
+public class HitTestDatapointsFragment extends ExampleSingleChartBaseFragment implements View.OnTouchListener {
     private Toast toast;
 
     private final PointF touchPoint = new PointF();
@@ -65,12 +58,7 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         IXyDataSeries<Double, Double> dataSeries0 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line Series").build();
         dataSeries0.append(new Double[]{0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d}, new Double[]{0d, 0.1d, 0.3d, 0.5d, 0.4d, 0.35d, 0.3d, 0.25d, 0.2d, 0.1d, 0.05d});
 
@@ -157,13 +145,11 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
         });
 
         surface.setOnTouchListener(this);
-
-        toast = Toast.makeText(getActivity(), null, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        final SciChartSurface surface = (SciChartSurface) v;
 
         touchPoint.set(event.getX(), event.getY());
         surface.translatePoint(touchPoint, surface.getRenderableSeriesArea());
@@ -178,6 +164,10 @@ public class HitTestDatapointsFragment extends ExampleBaseFragment implements Vi
             stringBuilder.append(String.format("\n%s - %s", renderableSeries.getClass().getSimpleName(), Boolean.toString(hitTestInfo.isHit)));
         }
 
+        if(toast != null) toast.cancel();
+
+        toast = Toast.makeText(getActivity(), null, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
         toast.setText(stringBuilder.toString());
         toast.show();
 

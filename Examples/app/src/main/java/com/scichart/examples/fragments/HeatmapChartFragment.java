@@ -16,6 +16,10 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting.model.dataSeries.UniformHeatmapDataSeries;
 import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.visuals.SciChartHeatmapColourMap;
@@ -27,6 +31,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IValues;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleHeatmapChartFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.ArrayList;
@@ -38,8 +43,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
 import static com.scichart.drawing.utility.ColorUtil.Chartreuse;
 import static com.scichart.drawing.utility.ColorUtil.CornflowerBlue;
 import static com.scichart.drawing.utility.ColorUtil.DarkBlue;
@@ -47,7 +50,7 @@ import static com.scichart.drawing.utility.ColorUtil.DarkGreen;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class HeatmapChartFragment extends ExampleBaseFragment {
+public class HeatmapChartFragment extends ExampleBaseFragment<ExampleHeatmapChartFragmentBinding> {
     private static final int WIDTH = 200, HEIGHT = 300;
     private static final int SERIES_PER_PERIOD = 30;
     private static final long TIME_INTERVAL = 40;
@@ -60,19 +63,13 @@ public class HeatmapChartFragment extends ExampleBaseFragment {
     private int timerIndex = 0;
     private final List<IValues<Double>> valuesList = new ArrayList<>(SERIES_PER_PERIOD);
 
-    @BindView(R.id.chart)
-    SciChartSurface chart;
-
-    @BindView(R.id.heatmapColourMap)
-    SciChartHeatmapColourMap colourMap;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_heatmap_chart_fragment;
+    protected ExampleHeatmapChartFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleHeatmapChartFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleHeatmapChartFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().build();
 
@@ -87,24 +84,26 @@ public class HeatmapChartFragment extends ExampleBaseFragment {
             valuesList.add(createValues(i));
         }
 
+        final SciChartHeatmapColourMap colourMap = binding.heatmapColourMap;
         colourMap.setMinimum(heatmapRenderableSeries.getMinimum());
         colourMap.setMaximum(heatmapRenderableSeries.getMaximum());
         colourMap.setColorMap(heatmapRenderableSeries.getColorMap());
 
-        Collections.addAll(chart.getXAxes(), xAxis);
-        Collections.addAll(chart.getYAxes(), yAxis);
-        Collections.addAll(chart.getRenderableSeries(), heatmapRenderableSeries);
+        final SciChartSurface surface = binding.surface;
+        Collections.addAll(surface.getXAxes(), xAxis);
+        Collections.addAll(surface.getYAxes(), yAxis);
+        Collections.addAll(surface.getRenderableSeries(), heatmapRenderableSeries);
 
         ModifierGroup modifiers = sciChartBuilder.newModifierGroupWithDefaultModifiers()
                 .withCursorModifier().withShowTooltip(true).withReceiveHandledEvents(true).build()
                 .build();
 
-        Collections.addAll(chart.getChartModifiers(), modifiers);
+        Collections.addAll(surface.getChartModifiers(), modifiers);
 
         schedule = scheduledExecutorService.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
-                UpdateSuspender.using(chart, updateDataRunnable);
+                UpdateSuspender.using(surface, updateDataRunnable);
             }
         }, 0, TIME_INTERVAL, TimeUnit.MILLISECONDS);
     }

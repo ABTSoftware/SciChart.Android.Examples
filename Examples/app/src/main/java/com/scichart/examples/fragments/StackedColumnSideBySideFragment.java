@@ -29,24 +29,14 @@ import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.HorizontallyStackedColumnsCollection;
 import com.scichart.charting.visuals.renderableSeries.StackedColumnRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class StackedColumnSideBySideFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class StackedColumnSideBySideFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final double[] china = new double[]{1.269, 1.330, 1.356, 1.304};
         final double[] india = new double[]{1.004, 1.173, 1.236, 1.656};
         final double[] usa = new double[]{0.282, 0.310, 0.319, 0.439};

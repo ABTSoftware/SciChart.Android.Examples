@@ -29,16 +29,11 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class VerticalChartsFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class VerticalChartsFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -46,12 +41,7 @@ public class VerticalChartsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisTitle("X-Axis").build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Top).withAxisTitle("Y-Axis").withGrowBy(new DoubleRange(0d, 0.1d)).build();
 

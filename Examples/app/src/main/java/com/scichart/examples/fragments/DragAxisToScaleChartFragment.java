@@ -40,7 +40,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.EnumUtils;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
@@ -51,20 +51,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
 import static com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
 
-public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
+public class DragAxisToScaleChartFragment extends ExampleSingleChartBaseFragment {
 
     private XAxisDragModifier xAxisDragModifier;
     private YAxisDragModifier yAxisDragModifier;
 
     private AxisDragMode selectedDragMode = AxisDragMode.Scale;
     private Direction2D selectedDirection = Direction2D.XyDirection;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -81,12 +76,7 @@ public class DragAxisToScaleChartFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withTextFormatting("0.0").withGrowBy(0.1, 0.1).withVisibleRange(3, 6).build();
         final IAxis rightYAxis = sciChartBuilder.newNumericAxis().withAxisId("RightAxisId").withAxisAlignment(AxisAlignment.Right).withTextColor(0xFF279B27).withGrowBy(0.1, 0.1).build();
         final IAxis leftYAxis = sciChartBuilder.newNumericAxis().withAxisId("LeftAxisId").withAxisAlignment(AxisAlignment.Left).withTextColor(0xFF4083B7).withGrowBy(0.1, 0.1).build();

@@ -28,30 +28,20 @@ import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.IServiceContainer;
 import com.scichart.core.common.Size;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class ShiftedAxesFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
+public class ShiftedAxesFragment extends ExampleSingleChartBaseFragment {
 
     public boolean showDefaultModifiersInToolbar() {
         return false;
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Top).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
 

@@ -16,10 +16,12 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting3d.common.math.Vector3;
 import com.scichart.charting3d.model.dataSeries.freeSurface.PolarDataSeries3D;
@@ -33,12 +35,11 @@ import com.scichart.charting3d.visuals.renderableSeries.freeSurface.FreeSurfaceR
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
+import com.scichart.examples.databinding.ExampleCreateFreeSurface3dFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 
 import java.util.Random;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Cyan;
@@ -47,20 +48,15 @@ import static com.scichart.drawing.utility.ColorUtil.GreenYellow;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class CreatePolarMesh3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
-    @BindView(R.id.paletteModeSelector)
-    Spinner paletteModeSelector;
-
+public class CreatePolarMesh3DChartFragment extends ExampleBaseFragment<ExampleCreateFreeSurface3dFragmentBinding> {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_create_free_surface_3d_fragment;
+    protected ExampleCreateFreeSurface3dFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleCreateFreeSurface3dFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleCreateFreeSurface3dFragmentBinding binding) {
+        final SciChartSurface3D surface3d = binding.surface3d;
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         surface3d.getWorldDimensions().assign(200, 50, 200);
@@ -115,6 +111,7 @@ public class CreatePolarMesh3DChartFragment extends ExampleBaseFragment {
             }
         });
 
+        final Spinner paletteModeSelector = binding.paletteModeSelector;
         paletteModeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.palette_mode_list));
         paletteModeSelector.setSelection(0);
         paletteModeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {

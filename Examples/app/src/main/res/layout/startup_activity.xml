@@ -16,7 +16,6 @@
 <!--*************************************************************************-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_screen_background"
@@ -24,6 +23,7 @@
 
     <include
         layout="@layout/charts_2d_layout"
+        android:id="@+id/charts2d"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -35,6 +35,7 @@
 
     <include
         layout="@layout/charts_3d_layout"
+        android:id="@+id/charts3d"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -46,6 +47,7 @@
 
     <include
         layout="@layout/featured_charts_layout"
+        android:id="@+id/featuredCharts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

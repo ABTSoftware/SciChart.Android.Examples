@@ -33,14 +33,12 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.Blue;
 import static com.scichart.drawing.utility.ColorUtil.Cyan;
@@ -49,12 +47,9 @@ import static com.scichart.drawing.utility.ColorUtil.GreenYellow;
 import static com.scichart.drawing.utility.ColorUtil.Red;
 import static com.scichart.drawing.utility.ColorUtil.Yellow;
 
-public class CreateRealtimeGeoid3DChartFragment extends ExampleBaseFragment {
+public class CreateRealtimeGeoid3DChartFragment extends ExampleSingleChart3DBaseFragment {
     private static int SIZE = 100;
     private static double HEIGHT_OFFSET_SCALE = 0.5;
-
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
 
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
     private ScheduledFuture<?> schedule;
@@ -63,12 +58,7 @@ public class CreateRealtimeGeoid3DChartFragment extends ExampleBaseFragment {
     private final DoubleValues buffer = new DoubleValues();
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withVisibleRange(-8, 8).withAutoRangeMode(AutoRange.Never).build();

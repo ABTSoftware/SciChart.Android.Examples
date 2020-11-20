@@ -19,6 +19,8 @@ package com.scichart.examples.fragments;
 import android.os.Handler;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,8 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleEegChannelViewBinding;
+import com.scichart.examples.databinding.ExampleEegChannelsFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
@@ -47,10 +51,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-public class EegChannelsFragment extends ExampleBaseFragment {
+public class EegChannelsFragment extends ExampleBaseFragment<ExampleEegChannelsFragmentBinding> {
     private static final int CHANNELS_COUNT = 8;
     private static final int SIZE = 1000;
     private static final long TIME_INTERVAL = 10;
@@ -64,9 +65,6 @@ public class EegChannelsFragment extends ExampleBaseFragment {
                     ColorUtil.argb(255, 250, 128, 114), ColorUtil.argb(255, 144, 238, 144), ColorUtil.Orange, ColorUtil.argb(255, 192, 192, 192),
                     ColorUtil.argb(255, 255, 99, 71), ColorUtil.argb(255, 205, 133, 63), ColorUtil.argb(255, 64, 224, 208), ColorUtil.argb(255, 244, 164, 96)
             };
-
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
 
     private volatile boolean isRunning = true;
 
@@ -101,7 +99,13 @@ public class EegChannelsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected void initExample() {
+    protected ExampleEegChannelsFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleEegChannelsFragmentBinding.inflate(inflater);
+    }
+
+    @Override
+    protected void initExample(ExampleEegChannelsFragmentBinding binding) {
+        final RecyclerView recyclerView = binding.recyclerView;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         for (int i = 0; i < CHANNELS_COUNT; i++) {
@@ -228,16 +232,12 @@ public class EegChannelsFragment extends ExampleBaseFragment {
         }
 
         class EegChannelViewHolder extends RecyclerView.ViewHolder {
-            @BindView(R.id.eegChart)
-            SciChartSurface chart;
-
-            @BindView(R.id.channelName)
-            TextView channelName;
+            private final ExampleEegChannelViewBinding binding;
 
             public EegChannelViewHolder(View itemView) {
                 super(itemView);
 
-                ButterKnife.bind(this, itemView);
+                binding = ExampleEegChannelViewBinding.bind(itemView);
 
                 final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                         .withGrowBy(new DoubleRange(0.05d, 0.05d))
@@ -263,15 +263,16 @@ public class EegChannelsFragment extends ExampleBaseFragment {
 
                 final IRenderableSeries rs = sciChartBuilder.newLineSeries().build();
 
+                final SciChartSurface chart = binding.eegChart;
                 Collections.addAll(chart.getXAxes(), xAxis);
                 Collections.addAll(chart.getYAxes(), yAxis);
                 Collections.addAll(chart.getRenderableSeries(), rs);
             }
 
             public void bindEegChannelModel(EegChannelModel channelModel) {
-                channelName.setText(channelModel.getChannelName());
+                binding.channelName.setText(channelModel.getChannelName());
 
-                final IRenderableSeries renderableSeries = chart.getRenderableSeries().get(0);
+                final IRenderableSeries renderableSeries = binding.eegChart.getRenderableSeries().get(0);
 
                 renderableSeries.setDataSeries(channelModel.getDataSeries());
                 renderableSeries.setStrokeStyle(channelModel.getStrokeStyle());
@@ -282,10 +283,5 @@ public class EegChannelsFragment extends ExampleBaseFragment {
     @Override
     public boolean showDefaultModifiersInToolbar() {
         return false;
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_eeg_channels_fragment;
     }
 }

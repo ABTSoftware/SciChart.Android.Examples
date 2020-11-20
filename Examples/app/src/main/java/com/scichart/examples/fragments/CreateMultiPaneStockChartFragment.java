@@ -37,35 +37,25 @@ import com.scichart.charting.visuals.renderableSeries.BaseRenderableSeries;
 import com.scichart.core.common.Func1;
 import com.scichart.core.utility.ListUtil;
 import com.scichart.data.model.DoubleRange;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.MovingAverage;
 import com.scichart.examples.data.PriceSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.extensions.builders.SciChartBuilder;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
-import butterknife.BindView;
 
-public class CreateMultiPaneStockChartFragment extends ExampleBaseFragment {
+public class CreateMultiPaneStockChartFragment extends ExampleSingleChartBaseFragment {
     private static final String VOLUME = "Volume";
     private static final String PRICES = "Prices";
     private static final String RSI = "RSI";
     private static final String MACD = "MACD";
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
 
         final DefaultLayoutManager layoutManager = new DefaultLayoutManager.Builder().setRightOuterAxesLayoutStrategy(new RightAlignedOuterVerticallyStackedYAxisLayoutStrategy()).build();
         surface.setLayoutManager(layoutManager);
@@ -80,10 +70,10 @@ public class CreateMultiPaneStockChartFragment extends ExampleBaseFragment {
         final RsiPaneModel rsiPaneModel = new RsiPaneModel(sciChartBuilder, priceData);
         final VolumePaneModel volumePaneModel = new VolumePaneModel(sciChartBuilder, priceData);
 
-        addModel(pricePaneModel);
-        addModel(macdPaneModel);
-        addModel(rsiPaneModel);
-        addModel(volumePaneModel);
+        addModel(pricePaneModel, surface);
+        addModel(macdPaneModel, surface);
+        addModel(rsiPaneModel, surface);
+        addModel(volumePaneModel, surface);
 
         surface.getChartModifiers().add(sciChartBuilder
                 .newModifierGroup()
@@ -95,13 +85,13 @@ public class CreateMultiPaneStockChartFragment extends ExampleBaseFragment {
                 .build());
     }
 
-    private void addModel(BasePaneModel pricePaneModel) {
+    private void addModel(BasePaneModel pricePaneModel, SciChartSurface surface) {
         surface.getYAxes().add(pricePaneModel.yAxis);
         surface.getRenderableSeries().addAll(pricePaneModel.renderableSeries);
         surface.getAnnotations().addAll(pricePaneModel.annotations);
     }
 
-        private abstract static class BasePaneModel {
+    private abstract static class BasePaneModel {
         public final RenderableSeriesCollection renderableSeries;
         public final AnnotationCollection annotations;
         public final NumericAxis yAxis;

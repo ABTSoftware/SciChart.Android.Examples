@@ -20,7 +20,7 @@
     android:orientation="vertical">
 
     <com.scichart.examples.fragments.testing.accessibility.AccessibleSciChartSurface
-        android:id="@+id/chart"
+        android:id="@+id/surface"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 

@@ -30,34 +30,22 @@ import com.scichart.charting.visuals.axes.AxisLayoutState;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class VerticallyStackedYAxesFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
+public class VerticallyStackedYAxesFragment extends ExampleSingleChartBaseFragment {
     @Override
     public boolean showDefaultModifiersInToolbar() {
         return false;
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final List<IXyDataSeries<Double, Double>> dataSeries = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {

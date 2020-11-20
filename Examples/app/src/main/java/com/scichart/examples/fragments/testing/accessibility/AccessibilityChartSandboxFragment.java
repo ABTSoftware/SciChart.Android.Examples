@@ -16,7 +16,10 @@
 
 package com.scichart.examples.fragments.testing.accessibility;
 
+import android.view.LayoutInflater;
 import android.view.accessibility.AccessibilityEvent;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.axes.IAxisCore;
@@ -27,26 +30,23 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.IRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleAccessibleChartFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
-public class AccessibilityChartSandboxFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    AccessibleSciChartSurface surface;
-
+public class AccessibilityChartSandboxFragment extends ExampleBaseFragment<ExampleAccessibleChartFragmentBinding> {
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_accessible_chart_fragment;
+    protected ExampleAccessibleChartFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleAccessibleChartFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleAccessibleChartFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0, 0.1).build();
 
+        final AccessibleSciChartSurface surface = binding.surface;
         final ArrayList<INode> nodes = surface.helper.nodes;
 
         IXyDataSeries<Integer, Integer> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Integer.class).withSeriesName("Column chart").build();

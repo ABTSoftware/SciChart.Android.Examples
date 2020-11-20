@@ -33,25 +33,15 @@ import com.scichart.drawing.common.RadialGradientBrushStyle;
 import com.scichart.drawing.common.TextureBrushStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class ScatterChartFillFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class ScatterChartFillFragment extends ExampleSingleChartBaseFragment {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final Bitmap texture = BitmapFactory.decodeResource(getResources(), R.drawable.example_scichartlogo);
 
         final IXyDataSeries<Double, Double> ds1 = new XyDataSeries<>(Double.class, Double.class);

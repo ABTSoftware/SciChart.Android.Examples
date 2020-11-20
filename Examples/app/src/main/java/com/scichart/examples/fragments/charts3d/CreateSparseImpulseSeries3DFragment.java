@@ -23,27 +23,16 @@ import com.scichart.charting3d.visuals.camera.Camera3D;
 import com.scichart.charting3d.visuals.renderableSeries.impulse.ImpulseRenderableSeries3D;
 import com.scichart.charting3d.visuals.renderableSeries.metadataProviders.PointMetadataProvider3D;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.List;
 
-import butterknife.BindView;
-
-public class CreateSparseImpulseSeries3DFragment extends ExampleBaseFragment {
+public class CreateSparseImpulseSeries3DFragment extends ExampleSingleChart3DBaseFragment {
     private static final int COUNT = 15;
 
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final DataManager dataManager = DataManager.getInstance();
 
         final XyzDataSeries3D<Double, Double, Double> ds = new XyzDataSeries3D<>(Double.class, Double.class, Double.class);

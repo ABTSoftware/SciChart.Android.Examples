@@ -28,27 +28,17 @@ import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker;
 import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
-import com.scichart.examples.R;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class ScatterChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class ScatterChartFragment extends ExampleSingleChartBaseFragment {
 
     private final Random random = new Random();
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
 

@@ -17,6 +17,9 @@
 package com.scichart.examples.fragments.showcase.audioAnalyzer;
 
 import android.util.Log;
+import android.view.LayoutInflater;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.dataSeries.UniformHeatmapDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -42,30 +45,15 @@ import com.scichart.core.model.IntegerValues;
 import com.scichart.core.utility.NumberUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.Radix2FFT;
+import com.scichart.examples.databinding.ExampleAudioAnalyzerFragmentBinding;
 import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment;
-
-import butterknife.BindView;
 
 import static com.scichart.drawing.utility.ColorUtil.*;
 
-public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
+public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<ExampleAudioAnalyzerFragmentBinding> {
 
     private static final int AUDIO_STREAM_BUFFER_SIZE = 500000;
     private static final int MAX_FREQUENCY = 10000;
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_audio_analyzer_fragment;
-    }
-
-    @BindView(R.id.audioStreamChart)
-    SciChartSurface audioStreamChart;
-
-    @BindView(R.id.fftChart)
-    SciChartSurface fftChart;
-
-    @BindView(R.id.spectrogramChart)
-    SciChartSurface spectrogramChart;
 
     private final IAudioAnalyzerDataProvider dataProvider = createDateProvider();
 
@@ -88,10 +76,15 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
     private final UniformHeatmapDataSeries<Long, Long, Double> spectrogramDS = new UniformHeatmapDataSeries<>(Long.class, Long.class, Double.class, fftSize, fftCount);
 
     @Override
-    protected void initExample() {
-        initAudioStreamChart();
-        initFFTChart();
-        initSpectrogramChart();
+    protected ExampleAudioAnalyzerFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleAudioAnalyzerFragmentBinding.inflate(inflater);
+    }
+
+    @Override
+    protected void initExample(ExampleAudioAnalyzerFragmentBinding binding) {
+        initAudioStreamChart(binding);
+        initFFTChart(binding);
+        initSpectrogramChart(binding);
 
         dataProvider.getData().doOnNext(audioData -> {
             audioDS.append(audioData.xData, audioData.yData);
@@ -111,7 +104,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
         }).compose(bindToLifecycle()).subscribe();
     }
 
-    private void initAudioStreamChart() {
+    private void initAudioStreamChart(ExampleAudioAnalyzerFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                 .withAutoRangeMode(AutoRange.Always)
                 .withDrawLabels(false)
@@ -138,6 +131,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
                 .withStrokeStyle(Grey, 1f)
                 .build();
 
+        final SciChartSurface audioStreamChart = binding.audioStreamChart;
         UpdateSuspender.using(audioStreamChart, () -> {
             audioStreamChart.getXAxes().add(xAxis);
             audioStreamChart.getYAxes().add(yAxis);
@@ -145,7 +139,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
         });
     }
 
-    private void initFFTChart() {
+    private void initFFTChart(ExampleAudioAnalyzerFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                 .withDrawMajorBands(false)
                 .withMaxAutoTicks(5)
@@ -177,6 +171,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
                 .withZeroLine(-30) // set zero line equal to VisibleRange.Min
                 .build();
 
+        final SciChartSurface fftChart = binding.fftChart;
         UpdateSuspender.using(fftChart, () -> {
             fftChart.getXAxes().add(xAxis);
             fftChart.getYAxes().add(yAxis);
@@ -184,7 +179,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
         });
     }
 
-    private void initSpectrogramChart() {
+    private void initSpectrogramChart(ExampleAudioAnalyzerFragmentBinding binding) {
         spectrogramValues.setSize(fftValuesCount);
 
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
@@ -220,6 +215,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment {
                         new float[]{0f, 0.0001f, 0.25f, 0.50f, 0.75f, 1f}
                 )).build();
 
+        final SciChartSurface spectrogramChart = binding.spectrogramChart;
         UpdateSuspender.using(spectrogramChart, () -> {
             spectrogramChart.getXAxes().add(xAxis);
             spectrogramChart.getYAxes().add(yAxis);

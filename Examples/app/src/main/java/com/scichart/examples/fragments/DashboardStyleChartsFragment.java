@@ -18,11 +18,14 @@ package com.scichart.examples.fragments;
 
 import android.content.Context;
 import com.google.android.material.tabs.TabLayout;
+
+import androidx.viewbinding.ViewBinding;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
@@ -35,6 +38,8 @@ import com.scichart.charting.visuals.renderableSeries.VerticallyStackedColumnsCo
 import com.scichart.charting.visuals.renderableSeries.VerticallyStackedMountainsCollection;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleDashboardStyleChartFragmentBinding;
+import com.scichart.examples.databinding.ExampleSingleChartFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.extensions.builders.SciChartBuilder;
 
@@ -42,26 +47,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class DashboardStyleChartsFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.tabLayout)
-    TabLayout tabLayout;
-
-    @BindView(R.id.viewpager)
-    ViewPager viewPager;
+public class DashboardStyleChartsFragment extends ExampleBaseFragment<ExampleDashboardStyleChartFragmentBinding> {
 
     private final List<ChartTypeModel> chartTypesSource = new ArrayList<>();
     private static int[] seriesColors = new int[DashboardDataHelper.seriesColors.length];
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_dashboard_style_chart_fragment;
+    protected ExampleDashboardStyleChartFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleDashboardStyleChartFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleDashboardStyleChartFragmentBinding binding) {
         for (int i = 0; i < DashboardDataHelper.seriesColors.length; i++) {
             int color = getResources().getColor(DashboardDataHelper.seriesColors[i]);
             seriesColors[i] = color;
@@ -74,9 +71,11 @@ public class DashboardStyleChartsFragment extends ExampleBaseFragment {
         chartTypesSource.add(ChartTypeModelFactory.newVerticallyStackedMountains(sciChartBuilder, true));
 
         //this line fixes swiping lag of the viewPager by caching the pages
+        final ViewPager viewPager = binding.viewpager;
         viewPager.setOffscreenPageLimit(5);
         viewPager.setAdapter(new ViewPagerAdapter(this.getActivity().getBaseContext(), chartTypesSource));
-        tabLayout.setupWithViewPager(viewPager);
+
+        binding.tabLayout.setupWithViewPager(viewPager);
     }
 
     class ViewPagerAdapter extends PagerAdapter {
@@ -92,18 +91,21 @@ public class DashboardStyleChartsFragment extends ExampleBaseFragment {
         @Override
         public Object instantiateItem(ViewGroup collection, int position) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            View chartView = inflater.inflate(R.layout.example_single_chart_fragment, collection, false);
+
+            final ExampleSingleChartFragmentBinding binding = ExampleSingleChartFragmentBinding.inflate(inflater, collection, false);
 
             ChartTypeModel chartTypeModel = chartTypesSource.get(position);
 
-            updateSurface(chartTypeModel, chartView);
-            collection.addView(chartView);
+            updateSurface(chartTypeModel, binding);
 
-            return chartView;
+            final LinearLayout root = binding.getRoot();
+            collection.addView(root);
+
+            return root;
         }
 
-        private void updateSurface(ChartTypeModel chartTypeModel, View chartView) {
-            final SciChartSurface surface = (SciChartSurface) chartView.findViewById(R.id.chart);
+        private void updateSurface(ChartTypeModel chartTypeModel, ExampleSingleChartFragmentBinding binding) {
+            final SciChartSurface surface = binding.surface;
 
             final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
             final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
@@ -140,7 +142,6 @@ public class DashboardStyleChartsFragment extends ExampleBaseFragment {
             ChartTypeModel chartTypeModel = chartTypesSource.get(position);
             return chartTypeModel.getTypeName();
         }
-
     }
 
     private static class ChartTypeModelFactory {

@@ -17,11 +17,13 @@
 package com.scichart.examples.fragments.showcase.vitalSignsMonitor;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.layoutManagers.ChartLayoutState;
 import com.scichart.charting.layoutManagers.DefaultLayoutManager;
@@ -46,17 +48,19 @@ import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.components.StepProgressBar;
+import com.scichart.examples.databinding.ExampleVitalSignsBloodOxygenationIndicatorLayoutBinding;
+import com.scichart.examples.databinding.ExampleVitalSignsBloodPressureIndicatorLayoutBinding;
+import com.scichart.examples.databinding.ExampleVitalSignsMonitorFragmentBinding;
 import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragment {
+public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragment<ExampleVitalSignsMonitorFragmentBinding> {
     private static final int FIFO_CAPACITY = 7850;
 
     private final XyDataSeries<Double, Double> ecgDataSeries = newDataSeries(FIFO_CAPACITY);
@@ -75,45 +79,15 @@ public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragme
 
     private final VitalSignsIndicatorsProvider indicatorsProvider = new VitalSignsIndicatorsProvider();
 
-    @BindView(R.id.chart)
-    SciChartSurface chart;
-
-    @BindView(R.id.heartIcon)
-    ImageView heartIcon;
-
-    @BindView(R.id.bpmValueLabel)
-    TextView bpmValue;
-
-    @BindView(R.id.bloodPressureValue)
-    TextView bpValue;
-
-    @BindView(R.id.bloodPressureBar)
-    StepProgressBar bpBar;
-
-    @BindView(R.id.spoValueLabel)
-    TextView spoValue;
-
-    @BindView(R.id.spoClockLabel)
-    TextView spoClockValue;
-
-    @BindView(R.id.bloodVolumeValueLabel)
-    TextView bvValue;
-
-    @BindView(R.id.svBar1)
-    StepProgressBar svBar1;
-
-    @BindView(R.id.svBar2)
-    StepProgressBar svBar2;
-
     private final EcgDataBatch dataBatch = new EcgDataBatch();
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_vital_signs_monitor_fragment;
+    protected ExampleVitalSignsMonitorFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleVitalSignsMonitorFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleVitalSignsMonitorFragmentBinding binding) {
         final DefaultVitalSignsDataProvider dataProvider = new DefaultVitalSignsDataProvider(getActivity());
 
         setUpChart(dataProvider);
@@ -123,7 +97,7 @@ public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragme
 
             dataBatch.updateData(ecgData);
 
-            UpdateSuspender.using(chart, () -> {
+            UpdateSuspender.using(binding.surface, () -> {
                 final DoubleValues xValues = dataBatch.xValues;
 
                 ecgDataSeries.append(xValues, dataBatch.ecgHeartRateValuesA);
@@ -155,22 +129,24 @@ public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragme
     }
 
     private void updateIndicators(long time) {
-        heartIcon.setVisibility(time % 2 == 0 ? View.VISIBLE : View.INVISIBLE);
+        final ExampleVitalSignsBloodOxygenationIndicatorLayoutBinding bloodOxygenationIndicator = binding.bloodOxygenationIndicator;
+        final ExampleVitalSignsBloodPressureIndicatorLayoutBinding bloodPressureIndicator = binding.bloodPressureIndicator;
+        binding.heartRateIndicator.heartIcon.setVisibility(time % 2 == 0 ? View.VISIBLE : View.INVISIBLE);
 
         if(time % 5 == 0) {
             indicatorsProvider.update();
 
-            bpmValue.setText(indicatorsProvider.getBpmValue());
+            binding.heartRateIndicator.bpmValueLabel.setText(indicatorsProvider.getBpmValue());
 
-            bpValue.setText(indicatorsProvider.getBpValue());
-            bpBar.setProgress(indicatorsProvider.getBpbValue());
+            binding.bloodPressureIndicator.bloodPressureValue.setText(indicatorsProvider.getBpValue());
+            binding.bloodPressureIndicator.bloodPressureBar.setProgress(indicatorsProvider.getBpbValue());
 
-            bvValue.setText(indicatorsProvider.getBvValue());
-            svBar1.setProgress(indicatorsProvider.getBvBar1Value());
-            svBar2.setProgress(indicatorsProvider.getBvBar2Value());
+            binding.bloodVolumeIndicator.bloodVolumeValueLabel.setText(indicatorsProvider.getBvValue());
+            binding.bloodVolumeIndicator.svBar1.setProgress(indicatorsProvider.getBvBar1Value());
+            binding.bloodVolumeIndicator.svBar2.setProgress(indicatorsProvider.getBvBar2Value());
 
-            spoValue.setText(indicatorsProvider.getSpoValue());
-            spoClockValue.setText(indicatorsProvider.getSpoClockValue());
+            binding.bloodOxygenationIndicator.spoValueLabel.setText(indicatorsProvider.getSpoValue());
+            binding.bloodOxygenationIndicator.spoClockLabel.setText(indicatorsProvider.getSpoClockValue());
         }
     }
 
@@ -200,11 +176,12 @@ public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragme
         final int bloodVolumeColor = ContextCompat.getColor(context, R.color.blood_volume_color);
         final int bloodOxygenation = ContextCompat.getColor(context, R.color.blood_oxygenation_color);
 
-        UpdateSuspender.using(chart, () -> {
-            Collections.addAll(chart.getXAxes(), xAxis);
-            Collections.addAll(chart.getYAxes(), yAxisEcg, yAxisPressure, yAxisVolume, yAxisOxygenation);
+        final SciChartSurface surface = binding.surface;
+        UpdateSuspender.using(surface, () -> {
+            Collections.addAll(surface.getXAxes(), xAxis);
+            Collections.addAll(surface.getYAxes(), yAxisEcg, yAxisPressure, yAxisVolume, yAxisOxygenation);
 
-            Collections.addAll(chart.getRenderableSeries(),
+            Collections.addAll(surface.getRenderableSeries(),
                     generateLineSeries(ecgId, ecgDataSeries, sciChartBuilder.newPen().withColor(heartRateColor).withThickness(1f).build()),
                     generateLineSeries(ecgId, ecgSweepDataSeries, sciChartBuilder.newPen().withColor(heartRateColor).withThickness(1f).build()),
                     generateScatterForLastAppendedPoint(ecgId, lastEcgSweepDataSeries),
@@ -222,7 +199,7 @@ public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragme
                     generateScatterForLastAppendedPoint(bloodOxygenationId, lastBloodOxygenationSweepDataSeries)
                     );
 
-            chart.setLayoutManager(new DefaultLayoutManager.Builder().setRightOuterAxesLayoutStrategy(new RightAlignedOuterVerticallyStackedYAxisLayoutStrategy()).build());
+            surface.setLayoutManager(new DefaultLayoutManager.Builder().setRightOuterAxesLayoutStrategy(new RightAlignedOuterVerticallyStackedYAxisLayoutStrategy()).build());
 
         });
     }

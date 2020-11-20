@@ -24,9 +24,8 @@ import com.scichart.charting3d.visuals.pointMarkers.EllipsePointMarker3D;
 import com.scichart.charting3d.visuals.renderableSeries.scatter.ScatterRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
-import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChart3DBaseFragment;
 
 import java.util.Random;
 import java.util.concurrent.Executors;
@@ -34,12 +33,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-
-public class CreateRealTimePointCloud3DChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
+public class CreateRealTimePointCloud3DChartFragment extends ExampleSingleChart3DBaseFragment {
     private final XyzDataSeries3D<Double, Double, Double> dataSeries = new XyzDataSeries3D<>(Double.class, Double.class, Double.class);
 
     private final DoubleValues xData = new DoubleValues();
@@ -50,12 +44,7 @@ public class CreateRealTimePointCloud3DChartFragment extends ExampleBaseFragment
     private ScheduledFuture<?> schedule;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart3d_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface3D surface3d) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withGrowBy(.1, .1).build();

@@ -39,7 +39,7 @@ import com.scichart.drawing.common.PenStyle;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.SeekBarChangeListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
@@ -50,11 +50,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.BindView;
-
-public class ErrorBarsChartFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class ErrorBarsChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -76,12 +72,7 @@ public class ErrorBarsChartFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
-    }
-
-    @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = new NumericAxis(getActivity());
         final IAxis yAxis = new NumericAxis(getActivity());
 
@@ -164,6 +155,7 @@ public class ErrorBarsChartFragment extends ExampleBaseFragment {
     }
 
     private void onDataPointWidthChanged(final int dataPointWidth) {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -174,6 +166,7 @@ public class ErrorBarsChartFragment extends ExampleBaseFragment {
     }
 
     private void onStrokeThicknessChanged(final int strokeThickness) {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

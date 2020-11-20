@@ -19,9 +19,12 @@ package com.scichart.examples.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.viewbinding.ViewBinding;
+
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 
@@ -44,13 +47,12 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
+import com.scichart.examples.databinding.ExampleCustomTooltipWithModifiersFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class CustomTooltipsWithModifiersFragment extends ExampleBaseFragment {
+public class CustomTooltipsWithModifiersFragment extends ExampleBaseFragment<ExampleCustomTooltipWithModifiersFragmentBinding> {
     private static final int POINTS_COUNT = 200;
     private static final String ROLLOVER_MODIFIER_NAME = "RolloverModifier";
     private static final String CURSOR_MODIFIER_NAME = "CursorModifier";
@@ -69,20 +71,17 @@ public class CustomTooltipsWithModifiersFragment extends ExampleBaseFragment {
         }
     }
 
-    @BindView(R.id.chart)
-    SciChartSurface surface;
-
     private RolloverModifier rolloverModifier;
     private CursorModifier cursorModifier;
     private TooltipModifier tooltipModifier;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_custom_tooltip_with_modifiers_fragment;
+    protected ExampleCustomTooltipWithModifiersFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleCustomTooltipWithModifiersFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleCustomTooltipWithModifiersFragmentBinding binding) {
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().build();
 
@@ -101,6 +100,7 @@ public class CustomTooltipsWithModifiersFragment extends ExampleBaseFragment {
         final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new FirstCustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2).build();
         final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new SecondCustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2).build();
 
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {

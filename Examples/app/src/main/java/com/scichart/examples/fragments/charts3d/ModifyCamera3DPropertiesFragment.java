@@ -16,10 +16,13 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting3d.common.math.Vector3;
 import com.scichart.charting3d.visuals.SciChartSurface3D;
@@ -30,52 +33,21 @@ import com.scichart.charting3d.visuals.camera.ICameraUpdateListener;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.utility.Dispatcher;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleChart3dCameraPropertiesFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.SeekBarChangeListenerBase;
 
 import java.text.DecimalFormat;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class ModifyCamera3DPropertiesFragment extends ExampleBaseFragment implements ICameraUpdateListener {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
-
-    @BindView(R.id.positionText)
-    TextView positionText;
-
-    @BindView(R.id.pitchSeekBar)
-    SeekBar pitchSeekBar;
-
-    @BindView(R.id.yawSeekBar)
-    SeekBar yawSeekBar;
-
-    @BindView(R.id.radiusSeekBar)
-    SeekBar radiusSeekBar;
-
-    @BindView(R.id.fovSeekBar)
-    SeekBar fovSeekBar;
-
-    @BindView(R.id.orthoWidthSeekBar)
-    SeekBar orthoWidthSeekBar;
-
-    @BindView(R.id.orthoHeightSeekBar)
-    SeekBar orthoHeightSeekBar;
-
-    @BindView(R.id.perspectiveProperties)
-    LinearLayout perspectiveProperties;
-
-    @BindView(R.id.orthogonalProperties)
-    LinearLayout orthogonalProperties;
+public class ModifyCamera3DPropertiesFragment extends ExampleBaseFragment<ExampleChart3dCameraPropertiesFragmentBinding> implements ICameraUpdateListener {
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_chart3d_camera_properties_fragment;
+    protected ExampleChart3dCameraPropertiesFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleChart3dCameraPropertiesFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleChart3dCameraPropertiesFragmentBinding binding) {
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
 
         camera.setCameraUpdateListener(this);
@@ -84,6 +56,7 @@ public class ModifyCamera3DPropertiesFragment extends ExampleBaseFragment implem
         final NumericAxis3D yAxis = sciChart3DBuilder.newNumericAxis3D().build();
         final NumericAxis3D zAxis = sciChart3DBuilder.newNumericAxis3D().build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {
@@ -97,57 +70,79 @@ public class ModifyCamera3DPropertiesFragment extends ExampleBaseFragment implem
             }
         });
 
-        setUpSeekBarListeners();
+        setUpSeekBarListeners(binding, surface3d);
+
+        binding.lhsRadioButton.setOnClickListener(v -> {
+            surface3d.setIsLeftHandedCoordinateSystem(true);
+        });
+
+        binding.rhsRadioButton.setOnClickListener(v -> {
+            surface3d.setIsLeftHandedCoordinateSystem(false);
+        });
+
+        binding.perspectiveRadioButton.setOnClickListener(v -> {
+            surface3d.getCamera().toPerspective();
+
+            binding.perspectiveProperties.setVisibility(View.VISIBLE);
+            binding.orthogonalProperties.setVisibility(View.GONE);
+        });
+
+        binding.orthogonalRadioButton.setOnClickListener(v -> {
+            surface3d.getCamera().toOrthogonal();
+
+            binding.perspectiveProperties.setVisibility(View.GONE);
+            binding.orthogonalProperties.setVisibility(View.VISIBLE);
+        });
     }
 
-    private void setUpSeekBarListeners() {
+    private void setUpSeekBarListeners(ExampleChart3dCameraPropertiesFragmentBinding binding, SciChartSurface3D surface3d) {
         final ICameraController camera = surface3d.getCamera();
 
         updateUIWithValuesFrom(camera);
 
-        pitchSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
+        binding.pitchSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 surface3d.getCamera().setOrbitalPitch(progress);
             }
         });
 
-        yawSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
+        binding.yawSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 surface3d.getCamera().setOrbitalYaw(progress);
             }
         });
 
-        radiusSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
+        binding.radiusSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 surface3d.getCamera().setRadius(progress);
             }
         });
 
-        fovSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
+        binding.fovSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 surface3d.getCamera().setFieldOfView(progress);
             }
         });
 
-        orthoWidthSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
+        binding.orthoWidthSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 surface3d.getCamera().setOrthoWidth(progress);
             }
         });
 
-        orthoHeightSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
+        binding.orthoHeightSeekBar.setOnSeekBarChangeListener(new SeekBarChangeListenerBase() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 surface3d.getCamera().setOrthoHeight(progress);
             }
         });
 
-        orthogonalProperties.setVisibility(View.GONE);
+        binding.orthogonalProperties.setVisibility(View.GONE);
     }
 
     @Override
@@ -185,14 +180,14 @@ public class ModifyCamera3DPropertiesFragment extends ExampleBaseFragment implem
                 .append(", Y=").append(format.format(position.getY()))
                 .append(", Z=").append(format.format(position.getZ()));
 
-        positionText.setText(positionTextBuilder);
+        binding.positionText.setText(positionTextBuilder);
 
-        trySetSeekBarProgress(pitchSeekBar, camera.getOrbitalPitch());
-        trySetSeekBarProgress(yawSeekBar, camera.getOrbitalYaw());
-        trySetSeekBarProgress(radiusSeekBar, camera.getRadius());
-        trySetSeekBarProgress(fovSeekBar, camera.getFieldOfView());
-        trySetSeekBarProgress(orthoWidthSeekBar, camera.getOrthoWidth());
-        trySetSeekBarProgress(orthoHeightSeekBar, camera.getOrthoHeight());
+        trySetSeekBarProgress(binding.pitchSeekBar, camera.getOrbitalPitch());
+        trySetSeekBarProgress(binding.yawSeekBar, camera.getOrbitalYaw());
+        trySetSeekBarProgress(binding.radiusSeekBar, camera.getRadius());
+        trySetSeekBarProgress(binding.fovSeekBar, camera.getFieldOfView());
+        trySetSeekBarProgress(binding.orthoWidthSeekBar, camera.getOrthoWidth());
+        trySetSeekBarProgress(binding.orthoHeightSeekBar, camera.getOrthoHeight());
     }
 
     private void trySetSeekBarProgress(SeekBar seekBar, float value) {
@@ -200,31 +195,5 @@ public class ModifyCamera3DPropertiesFragment extends ExampleBaseFragment implem
         if(seekBar.getProgress() != newProgress) {
             seekBar.setProgress(newProgress);
         }
-    }
-
-    @OnClick(R.id.lhsRadioButton)
-    public void onLeftHandCoorinateSystemSelected() {
-        surface3d.setIsLeftHandedCoordinateSystem(true);
-    }
-
-    @OnClick(R.id.rhsRadioButton)
-    public void onRightHandCoorinateSystemSelected() {
-        surface3d.setIsLeftHandedCoordinateSystem(false);
-    }
-
-    @OnClick(R.id.perspectiveRadioButton)
-    public void onPerspectiveCameraEnabled() {
-        surface3d.getCamera().toPerspective();
-
-        perspectiveProperties.setVisibility(View.VISIBLE);
-        orthogonalProperties.setVisibility(View.GONE);
-    }
-
-    @OnClick(R.id.orthogonalRadioButton)
-    public void onOrthogonalCameraEnabled() {
-        surface3d.getCamera().toOrthogonal();
-
-        perspectiveProperties.setVisibility(View.GONE);
-        orthogonalProperties.setVisibility(View.VISIBLE);
     }
 }

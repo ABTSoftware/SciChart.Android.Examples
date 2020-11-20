@@ -39,7 +39,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
-import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.EnumUtils;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
@@ -50,12 +50,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.BindView;
-
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
 
-public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
+public class UsingCursorModifierTooltipsFragment extends ExampleSingleChartBaseFragment {
     private static final int POINT_COUNT = 500;
 
     private static final List<SourceMode> sourceModeValues = unmodifiableList(asList(SourceMode.values()));
@@ -64,9 +62,6 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
     private int selectedSourceMode = 1;    //1 = SourceMode.AllVisibleSeries
     private boolean showTooltip = true;
     private boolean showAxisLabels = true;
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
 
     @Override
     public List<Widget> getToolbarItems() {
@@ -83,7 +78,7 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(new DoubleRange(3d, 6d)).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withGrowBy(0.05d, 0.05d).build();
 
@@ -124,11 +119,6 @@ public class UsingCursorModifierTooltipsFragment extends ExampleBaseFragment {
                 sciChartBuilder.newAnimator(rs4).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
             }
         });
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.example_single_chart_fragment;
     }
 
     private void openSettingsDialog() {

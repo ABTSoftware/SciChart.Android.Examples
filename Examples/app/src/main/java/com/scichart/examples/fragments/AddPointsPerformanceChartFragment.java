@@ -17,6 +17,8 @@
 package com.scichart.examples.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -30,27 +32,29 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
+import com.scichart.examples.databinding.ExampleAddPointsPerformanceFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class AddPointsPerformanceChartFragment extends ExampleBaseFragment {
-
-    @BindView(R.id.chart)
-    SciChartSurface surface;
+public class AddPointsPerformanceChartFragment extends ExampleBaseFragment<ExampleAddPointsPerformanceFragmentBinding>{
 
     private Random random = new Random();
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_add_points_performance_fragment;
+    protected ExampleAddPointsPerformanceFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleAddPointsPerformanceFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleAddPointsPerformanceFragmentBinding binding) {
+        binding.append10k.setOnClickListener(v -> onAppendPoints(10_000));
+        binding.append100k.setOnClickListener(v -> onAppendPoints(100_00));
+        binding.appendMLN.setOnClickListener(v -> onAppendPoints(1_000_000));
+        binding.reset.setOnClickListener(v -> onReset());
+
+        final SciChartSurface surface = binding.surface;
+
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(0, 10).withAxisTitle("X Axis").build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withVisibleRange(0, 10).withAxisTitle("Y Axis").build();
 
@@ -63,6 +67,8 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -83,6 +89,7 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
+            final SciChartSurface surface = binding.surface;
             final int seriesCount = savedInstanceState.getInt("seriesCount");
             for (int i = 0; i < seriesCount; i++) {
                 final int seriesColor = savedInstanceState.getInt("seriesColor" + i);
@@ -99,6 +106,8 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment {
     }
 
     private void onAppendPoints(int count) {
+        final SciChartSurface surface = binding.surface;
+
         IXyDataSeries<Double, Double> dataSeries = new XyDataSeries<>(Double.class, Double.class);
 
         final FastLineRenderableSeries renderableSeries = sciChartBuilder.newLineSeries()
@@ -115,23 +124,8 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment {
         surface.animateZoomExtents(500);
     }
 
-    @OnClick(R.id.append10k)
-    void onAppend10KPoints() {
-        onAppendPoints(10_000);
-    }
-
-    @OnClick(R.id.append100k)
-    void onAppend100KPoints() {
-        onAppendPoints(100_000);
-    }
-
-    @OnClick(R.id.appendMLN)
-    void onAppendMLNPoints() {
-        onAppendPoints(1_000_000);
-    }
-
-    @OnClick(R.id.reset)
-    void onReset() {
+    private void onReset() {
+        final SciChartSurface surface = binding.surface;
         UpdateSuspender.using(surface, new Runnable() {
             @Override
             public void run() {
@@ -141,4 +135,5 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment {
             }
         });
     }
+
 }

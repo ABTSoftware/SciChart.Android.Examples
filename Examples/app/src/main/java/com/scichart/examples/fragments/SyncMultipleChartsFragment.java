@@ -16,7 +16,10 @@
 
 package com.scichart.examples.fragments;
 
+import android.view.LayoutInflater;
 import android.view.animation.DecelerateInterpolator;
+
+import androidx.viewbinding.ViewBinding;
 
 import com.scichart.charting.model.dataSeries.IDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
@@ -29,23 +32,16 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.IRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
+import com.scichart.examples.databinding.ExampleSyncMultipleChartsFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.Collections;
 
-import butterknife.BindView;
-
-public class SyncMultipleChartsFragment extends ExampleBaseFragment {
+public class SyncMultipleChartsFragment extends ExampleBaseFragment<ExampleSyncMultipleChartsFragmentBinding> {
     private final static int POINTS_COUNT = 500;
 
     private IRange sharedXRange = new DoubleRange(0d, 1d);
     private IRange sharedYRange = new DoubleRange(0d, 1d);
-
-    @BindView(R.id.chart0)
-    SciChartSurface chart0;
-
-    @BindView(R.id.chart1)
-    SciChartSurface chart1;
 
     @Override
     public boolean showDefaultModifiersInToolbar() {
@@ -53,14 +49,14 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment {
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_sync_multiple_charts_fragment;
+    protected ExampleSyncMultipleChartsFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleSyncMultipleChartsFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
-        initChart(chart0);
-        initChart(chart1);
+    protected void initExample(ExampleSyncMultipleChartsFragmentBinding binding) {
+        initChart(binding.chart0);
+        initChart(binding.chart1);
     }
 
     private void initChart(final SciChartSurface surface) {

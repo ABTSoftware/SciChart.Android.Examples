@@ -16,6 +16,11 @@
 
 package com.scichart.examples.fragments.charts3d;
 
+import android.view.LayoutInflater;
+import android.view.View;
+
+import androidx.viewbinding.ViewBinding;
+
 import com.scichart.charting3d.common.math.Vector3;
 import com.scichart.charting3d.model.dataSeries.xyz.XyzDataSeries3D;
 import com.scichart.charting3d.visuals.SciChartSurface3D;
@@ -28,24 +33,20 @@ import com.scichart.charting3d.visuals.renderableSeries.scatter.ScatterRenderabl
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
+import com.scichart.examples.databinding.ExampleChart3dModifiersFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
-public class UseChartModifiers3DFragment extends ExampleBaseFragment {
-    @BindView(R.id.chart3d)
-    SciChartSurface3D surface3d;
+public class UseChartModifiers3DFragment extends ExampleBaseFragment<ExampleChart3dModifiersFragmentBinding>{
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.example_chart3d_modifiers_fragment;
+    protected ExampleChart3dModifiersFragmentBinding inflateBinding(LayoutInflater inflater) {
+        return ExampleChart3dModifiersFragmentBinding.inflate(inflater);
     }
 
     @Override
-    protected void initExample() {
+    protected void initExample(ExampleChart3dModifiersFragmentBinding binding) {
         final DataManager dataManager = DataManager.getInstance();
 
         final Camera3D camera = sciChart3DBuilder.newCamera3D().build();
@@ -79,6 +80,7 @@ public class UseChartModifiers3DFragment extends ExampleBaseFragment {
                 .withMetadataProvider(metadataProvider)
                 .build();
 
+        final SciChartSurface3D surface3d = binding.surface3d;
         UpdateSuspender.using(surface3d, new Runnable() {
             @Override
             public void run() {
@@ -101,29 +103,25 @@ public class UseChartModifiers3DFragment extends ExampleBaseFragment {
                         .build());
             }
         });
-    }
 
-    @OnClick(R.id.rotateHorizontal)
-    public void onRotateHorizontal(){
-        final ICameraController camera = surface3d.getCamera();
-        final float orbitalYaw = camera.getOrbitalYaw();
+        binding.rotateHorizontal.setOnClickListener(v -> {
+            final float orbitalYaw = camera.getOrbitalYaw();
 
-        if(orbitalYaw < 360) {
-            camera.setOrbitalYaw(orbitalYaw + 90);
-        } else {
-            camera.setOrbitalYaw(360 - orbitalYaw);
-        }
-    }
+            if(orbitalYaw < 360) {
+                camera.setOrbitalYaw(orbitalYaw + 90);
+            } else {
+                camera.setOrbitalYaw(360 - orbitalYaw);
+            }
+        });
 
-    @OnClick(R.id.rotateVertical)
-    public void onRotateVertical(){
-        final ICameraController camera = surface3d.getCamera();
-        final float orbitalPitch = camera.getOrbitalPitch();
+        binding.rotateVertical.setOnClickListener(v -> {
+            final float orbitalPitch = camera.getOrbitalPitch();
 
-        if(orbitalPitch < 89) {
-            camera.setOrbitalPitch(orbitalPitch + 90);
-        } else {
-            camera.setOrbitalPitch(-90);
-        }
+            if(orbitalPitch < 89) {
+                camera.setOrbitalPitch(orbitalPitch + 90);
+            } else {
+                camera.setOrbitalPitch(-90);
+            }
+        });
     }
 }

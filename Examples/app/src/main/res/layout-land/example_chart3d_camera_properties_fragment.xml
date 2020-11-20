@@ -216,7 +216,7 @@
     </LinearLayout>
 
     <com.scichart.charting3d.visuals.SciChartSurface3D
-        android:id="@+id/chart3d"
+        android:id="@+id/surface3d"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2" />

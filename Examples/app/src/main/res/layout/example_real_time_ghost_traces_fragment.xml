@@ -53,7 +53,7 @@
     </RelativeLayout>
 
     <com.scichart.charting.visuals.SciChartSurface
-        android:id="@+id/chart"
+        android:id="@+id/surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
