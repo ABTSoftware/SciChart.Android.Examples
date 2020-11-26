@@ -52,9 +52,18 @@ public class AddRemoveSeriesFragment extends ExampleBaseFragment<ExampleAddRemov
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withDrawMajorBands(true).withVisibleRange(-1.5, -1.5).withAxisTitle("Y Axis").build();
 
         final SciChartSurface surface = binding.surface;
-        surface.getXAxes().add(xAxis);
-        surface.getYAxes().add(yAxis);
-        surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+        UpdateSuspender.using(surface, new Runnable() {
+            @Override
+            public void run() {
+                surface.getXAxes().add(xAxis);
+                surface.getYAxes().add(yAxis);
+                surface.getChartModifiers().add(sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+            }
+        });
+
+        binding.addSeries.setOnClickListener(this);
+        binding.removeSeries.setOnClickListener(this);
+        binding.reset.setOnClickListener(this);
     }
 
     @Override
