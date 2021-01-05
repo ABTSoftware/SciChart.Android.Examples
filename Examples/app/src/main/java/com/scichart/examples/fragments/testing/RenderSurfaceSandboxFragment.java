@@ -440,6 +440,42 @@ public class RenderSurfaceSandboxFragment extends ExampleBaseFragment<ExampleRen
             renderContext.drawSprite(sprite3, 0, 0, opacity);
             renderContext.translate(0, sprite3.getHeight() + 10);
 
+            final float[] triangles = new float[8];
+            triangles[0] = 0; triangles[1] = 0;
+            triangles[2] = 100; triangles[3] = 0;
+            triangles[4] = 100; triangles[5] = 200;
+            triangles[6] = 200; triangles[7] = 200;
+
+            renderContext.save();
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, solidBrushPerScreen);
+            renderContext.translate(210, 0);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, linearGradientBrushPerScreen);
+            renderContext.translate(210, 0);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, radialGradientBrushPerScreen);
+            renderContext.translate(210, 0);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, textureBrushPerScreen);
+            renderContext.translate(210, 0);
+
+            renderContext.restore();
+            renderContext.save();
+            renderContext.translate(0, 210);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, solidBrushPerPrimitive);
+            renderContext.translate(210, 0);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, linearGradientBrushPerPrimitive);
+            renderContext.translate(210, 0);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, radialGradientBrushPerPrimitive);
+            renderContext.translate(210, 0);
+
+            renderContext.drawTrianglesStrip(triangles, 0, 8, textureBrushPerPrimitive);
+            renderContext.translate(210, 0);
+
             sprite1.dispose();
             sprite2.dispose();
             sprite3.dispose();
