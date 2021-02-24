@@ -46,7 +46,9 @@ public class AscData {
         for (int i = 0; i < numberRows; i++) {
             final String[] tokens = reader.readLine().split(" ");
             for (int j = 0; j < numberColumns; j++) {
-                final double heightValue = Double.parseDouble(tokens[j]);
+                final double rawValue = Double.parseDouble(tokens[j]);
+
+                final double heightValue = rawValue == noDataValue ? Double.NaN : rawValue;
 
                 xValues.add(j * cellSize);
                 yValues.add(heightValue);
