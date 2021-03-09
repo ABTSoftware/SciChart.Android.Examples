@@ -22,6 +22,7 @@ import android.view.animation.DecelerateInterpolator;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.numerics.labelProviders.FormatterLabelProviderBase;
 import com.scichart.charting.numerics.labelProviders.ILabelFormatter;
+import com.scichart.charting.numerics.labelProviders.LabelFormatterBase;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.IAxis;
@@ -129,7 +130,7 @@ public class StackedColumnSideBySideFragment extends ExampleSingleChartBaseFragm
         });
     }
 
-    private static class YearsLabelFormatter implements ILabelFormatter<NumericAxis> {
+    private static class YearsLabelFormatter<T extends NumericAxis> extends LabelFormatterBase<T> {
         private final String[] _xLabels = {"2000", "2010", "2014", "2050"};
 
         @Override
