@@ -17,7 +17,7 @@
 <ExampleDefinition>
     <IconPath>ic_realtime_feature</IconPath>
     <Description>
-        Demonstrates usage of the SCISeriesValueModifier
+        Demonstrates usage of the SeriesValueModifier
     </Description>
     <CodeFiles>
         <string>res/layout/example_single_chart_fragment.xml.txt</string>
