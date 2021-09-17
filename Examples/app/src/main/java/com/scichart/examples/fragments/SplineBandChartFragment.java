@@ -16,8 +16,6 @@
 
 package com.scichart.examples.fragments;
 
-import com.daasuu.ei.Ease;
-import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.XyyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
@@ -27,6 +25,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.interpolator.ElasticOutInterpolator;
 
 import java.util.Collections;
 
@@ -59,7 +58,7 @@ public class SplineBandChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
         });
     }
 }

@@ -20,8 +20,6 @@ import android.app.Dialog;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.daasuu.ei.Ease;
-import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.IXyzDataSeries;
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier;
 import com.scichart.charting.modifiers.ZoomExtentsModifier;
@@ -37,6 +35,7 @@ import com.scichart.examples.data.TradeData;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.SeekBarChangeListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
+import com.scichart.examples.utils.interpolator.ElasticOutInterpolator;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
@@ -96,8 +95,8 @@ public class BubbleChartFragment extends ExampleSingleChartBaseFragment {
                 Collections.addAll(surface.getChartModifiers(), new RubberBandXyZoomModifier());
                 Collections.addAll(surface.getChartModifiers(), new ZoomExtentsModifier());
 
-                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(10600d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
-                sciChartBuilder.newAnimator(rSeries).withScaleTransformation(10600d).withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(10600d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rSeries).withScaleTransformation(10600d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

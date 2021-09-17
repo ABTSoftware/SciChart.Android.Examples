@@ -16,14 +16,14 @@
 
 package com.scichart.examples.fragments;
 
+import static com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
-import com.daasuu.ei.Ease;
-import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.ClipMode;
 import com.scichart.charting.Direction2D;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
@@ -44,14 +44,13 @@ import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.EnumUtils;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
+import com.scichart.examples.utils.interpolator.CubicInOutInterpolator;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode;
 
 public class DragAxisToScaleChartFragment extends ExampleSingleChartBaseFragment {
 
@@ -114,8 +113,8 @@ public class DragAxisToScaleChartFragment extends ExampleSingleChartBaseFragment
 
                 Collections.addAll(surface.getChartModifiers(), modifiers);
 
-                sciChartBuilder.newAnimator(lineRenderableSeries).withSweepTransformation().withInterpolator(new EasingInterpolator(Ease.CUBIC_IN_OUT)).withDuration(3000).withStartDelay(350).start();
-                sciChartBuilder.newAnimator(mountainRenderableSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.CUBIC_IN_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineRenderableSeries).withSweepTransformation().withInterpolator(new CubicInOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(mountainRenderableSeries).withScaleTransformation().withInterpolator(new CubicInOutInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }

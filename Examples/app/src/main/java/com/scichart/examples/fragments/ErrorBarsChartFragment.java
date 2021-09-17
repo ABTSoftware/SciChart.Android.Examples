@@ -20,8 +20,6 @@ import android.app.Dialog;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.daasuu.ei.Ease;
-import com.daasuu.ei.EasingInterpolator;
 import com.scichart.charting.model.dataSeries.HlDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
@@ -42,6 +40,7 @@ import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 import com.scichart.examples.utils.SeekBarChangeListenerBase;
 import com.scichart.examples.utils.ViewSettingsUtil;
+import com.scichart.examples.utils.interpolator.ElasticOutInterpolator;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
@@ -115,10 +114,10 @@ public class ErrorBarsChartFragment extends ExampleSingleChartBaseFragment {
                 Collections.addAll(surface.getRenderableSeries(), lineSeries, scatterSeries, errorBars0, errorBars1);
                 Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-                sciChartBuilder.newAnimator(errorBars0).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
-                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
-                sciChartBuilder.newAnimator(errorBars1).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
-                sciChartBuilder.newAnimator(scatterSeries).withScaleTransformation().withInterpolator(new EasingInterpolator(Ease.ELASTIC_OUT)).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(errorBars0).withScaleTransformation().withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(errorBars1).withScaleTransformation().withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(scatterSeries).withScaleTransformation().withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
             }
         });
     }
