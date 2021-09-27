@@ -45,8 +45,8 @@ public class ECGMonitorFragment extends ExampleSingleChartBaseFragment {
 
     private final static long TIME_INTERVAL = 20;
 
-    private final IXyDataSeries<Double, Double> series0 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withFifoCapacity(3850).build();
-    private final IXyDataSeries<Double, Double> series1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withFifoCapacity(3850).build();
+    private final IXyDataSeries<Double, Double> series0 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withFifoCapacity(3850).withAcceptsUnsortedData().build();
+    private final IXyDataSeries<Double, Double> series1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withFifoCapacity(3850).withAcceptsUnsortedData().build();
 
     private double[] sourceData;
 
