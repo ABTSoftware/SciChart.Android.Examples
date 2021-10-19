@@ -35,6 +35,7 @@ ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 19
     compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 30
     buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '30.0.2'
+    ndkVersion = project.hasProperty('ndkVersion') ? project.getProperty('ndkVersion') : '21.4.7075529'
     androidxAnnotationVersion = project.hasProperty('androidxAnnotationVersion') ? project.getProperty('androidxAnnotationVersion') : '1.1.0'
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     junitVersion = '4.13'
