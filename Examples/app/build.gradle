@@ -144,13 +144,13 @@ repositories {
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
 }
 dependencies {
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.0.4684', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.0.4684', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.0.4684', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.0.4684', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.0.4684', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.0.4684', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.0.4684', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.0.4686', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.0.4686', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.0.4686', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.0.4686', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.0.4686', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.0.4686', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.0.4686', ext: 'aar')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
