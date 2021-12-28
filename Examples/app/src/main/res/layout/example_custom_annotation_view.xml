@@ -20,7 +20,7 @@
     android:layout_height="match_parent">
 
     <!--need to declare view in this way because CustomView1 is a nested class-->
-    <view class="com.scichart.examples.fragments.AnnotationsAreEasyFragment$CustomView1"
+    <view class="com.scichart.examples.fragments.examples2d.chartAnnotations.AnnotationsAreEasyFragment$CustomView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     

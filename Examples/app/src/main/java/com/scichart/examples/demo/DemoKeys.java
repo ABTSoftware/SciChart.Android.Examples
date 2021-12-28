@@ -19,9 +19,9 @@ package com.scichart.examples.demo;
 public class DemoKeys {
     public final static String CATEGORY_ID = "categoryId";
 
-    public final static String CHARTS_2D = "a2D Charts";
-    public final static String CHARTS_3D = "b3D Charts";
-    public final static String FEATURED = "cFeatured Apps";
+    public final static String CHARTS_2D = "examples2d";
+    public final static String CHARTS_3D = "examples3d";
+    public final static String FEATURED = "featuredApps";
 
     public final static String EXAMPLE_ID = "exampleId";
 
@@ -29,6 +29,7 @@ public class DemoKeys {
     public final static String TITLE = "Title";
     public final static String ICON_PATH = "IconPath";
     public final static String DESCRIPTION = "Description";
+    public final static String FILE_NAME = "FileName";
     public final static String CODE_FILES = "CodeFiles";
     public final static String FEATURES = "Features";
     public final static String PERMISSIONS = "Permissions";

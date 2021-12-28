@@ -13,20 +13,14 @@
 // without any warranty. It is provided "AS IS" without warranty of any kind, either
 // expressed or implied.
 //******************************************************************************
+
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.github.triplet.play'
-def mainFolder = "src/main"
-def assetsFolder = mainFolder + "/assets"
-def resFolder = mainFolder + "/res"
-def javaFolder = mainFolder + "/java"
-def examplesFolder = javaFolder + "/com/scichart/examples"
-def sciChartApp = "SciChartApp.java"
-def utilsFolder = examplesFolder + "/utils"
-def componentsFolder = examplesFolder + "/components"
-def dataFolder = examplesFolder + "/data"
-def exampleFragmentsFolder = examplesFolder + "/fragments"
+
 def apkVersionCode = APK_VERSION_CODE != '' ? APK_VERSION_CODE.toInteger() : rootProject.ext.versionCode
 def apkVersionName = APK_VERSION_NAME != '' ? APK_VERSION_NAME : rootProject.ext.versionName
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -34,25 +28,17 @@ android {
         applicationId "com.scichart.examples"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.compileSdkVersion
+
         versionCode apkVersionCode
         versionName apkVersionName
+
+        multiDexEnabled true
     }
     compileOptions {
         sourceCompatibility rootProject.ext.sourceCompatibility
         targetCompatibility rootProject.ext.sourceCompatibility
     }
-    defaultConfig {
-        buildConfigField "String", "MAIN_FOLDER", "\"$mainFolder\""
-        buildConfigField "String", "ASSETS_FOLDER", "\"$assetsFolder\""
-        buildConfigField "String", "RES_FOLDER", "\"$resFolder\""
-        buildConfigField "String", "JAVA_FOLDER", "\"$javaFolder\""
-        buildConfigField "String", "EXAMPLE_FOLDER", "\"$examplesFolder\""
-        buildConfigField "String", "SCI_CHART_APP", "\"$sciChartApp\""
-        buildConfigField "String", "UTILS_FOLDER", "\"$utilsFolder\""
-        buildConfigField "String", "COMPONENTS_FOLDER", "\"$componentsFolder\""
-        buildConfigField "String", "DATA_FOLDER", "\"$dataFolder\""
-        buildConfigField "String", "EXAMPLES_FRAGMENT_FOLDER", "\"$exampleFragmentsFolder\""
-    }
+
     signingConfigs {
         release {
             storeFile RELEASE_STORE_FILE != '' ? file(RELEASE_STORE_FILE) : null
@@ -61,106 +47,71 @@ android {
             keyPassword RELEASE_KEY_PASSWORD
         }
     }
+
     buildTypes {
         debug {
             minifyEnabled false
         }
+
         release {
             minifyEnabled rootProject.ext.minifyEnabled
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
         signed {
             initWith release
+
             debuggable false
             signingConfig signingConfigs.release
+
             // use release build since we don't provide releaseSigned builds
             matchingFallbacks = ['release']
         }
     }
     productFlavors {
     }
+
     lintOptions {
         checkReleaseBuilds false
     }
+
     buildFeatures {
         viewBinding true
     }
 }
-task cleanExampleAssets(type: Delete) {
-    delete "src/main/assets/app"
-}
-task copySourceSciChartAppToAssets(type: Copy) {
-    from examplesFolder + "/" + sciChartApp
-    into assetsFolder + "/app/" + examplesFolder
-    rename { String fileName ->
-        fileName.replace("java", "java.txt")
-    }
-}
-task copySourceExampleFragmentsToAssets(type: Copy) {
-    from exampleFragmentsFolder
-    into assetsFolder + "/app/" + exampleFragmentsFolder
-    rename { String fileName ->
-        fileName.replace("java", "java.txt")
-    }
-}
-task copySourceExampleUtilsToAssets(type: Copy) {
-    from utilsFolder
-    into assetsFolder + "/app/" + utilsFolder
-    rename { String fileName ->
-        fileName.replace("java", "java.txt")
-    }
-}
-task copySourceExampleDataToAssets(type: Copy) {
-    from dataFolder
-    into assetsFolder + "/app/" + dataFolder
-    rename { String fileName ->
-        fileName.replace("java", "java.txt")
-    }
-}
-task copySourceExampleComponentsToAssets(type: Copy) {
-    from componentsFolder
-    into assetsFolder + "/app/" + componentsFolder
-    rename { String fileName ->
-        fileName.replace("java", "java.txt")
-    }
-}
-task copyResourceExamplesToAssets(type: Copy) {
-    from resFolder
-    into assetsFolder + "/app/" + resFolder
-    include '**/example_*.*'
-    include '**/license.xml'
-    include '**/values/*.xml'
-    includeEmptyDirs = false
-    rename { String fileName ->
-        fileName.replace("xml", "xml.txt")
-    }
-}
-project.afterEvaluate {
-    clean.dependsOn cleanExampleAssets
-    preBuild.dependsOn copySourceSciChartAppToAssets, copySourceExampleFragmentsToAssets, copySourceExampleUtilsToAssets, copySourceExampleDataToAssets, copySourceExampleComponentsToAssets, copySourceExampleComponentsToAssets, copyResourceExamplesToAssets
-}
+
 repositories {
     maven { url 'https://www.myget.org/F/abtsoftware-bleeding-edge/maven' }
     maven { url 'https://www.myget.org/F/abtsoftware/maven' }
+    mavenCentral()
 }
+
 dependencies {
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.0.4686', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.0.4686', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.0.4686', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.0.4686', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.0.4686', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.0.4686', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.0.4686', ext: 'aar')
+//@BEGINDEPENDS
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.0-nightly.4716', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.0-nightly.4716', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.0-nightly.4716', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.0-nightly.4716', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.0-nightly.4716', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.0-nightly.4716', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.0-nightly.4716', ext: 'aar')
+//@ENDDEPENDS
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
+
     implementation 'com.trello.rxlifecycle3:rxlifecycle:3.1.0'
     implementation 'com.trello.rxlifecycle3:rxlifecycle-android:3.1.0'
+
     implementation 'com.github.twalcari:java-prettify:1.2.2'
+    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'org.jetbrains:annotations:16.0.2'
 }
-play {
-    jsonFile API_KEY != '' ? file(API_KEY) : null
-    track TRACK_NAME
-}
+

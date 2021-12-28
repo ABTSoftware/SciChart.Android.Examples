@@ -41,40 +41,45 @@ public class Example {
     public final String iconPath;
     public final String topLevelCategory;
     public final String group;
+    public final String fileName;
     public final String fragment;
+    public final String kotlinFragment;
     public final String fragmentName;
     public final String description;
     public final List<CodeFile> sourceFilePaths;
     public final Map<String, String> sourceFiles;
     public final List<Features> features;
     public final List<Permission> permissions;
-    public final boolean isHeader;
 
-    public Example(UUID id, String title,
-                   String iconPath,
-                   String topLevelCategory,
-                   String group,
-                   String fragment,
-                   String fragmentName,
-                   String description,
-                   List<CodeFile> sourceFilePaths,
-                   Map<String, String> sourceFiles,
-                   List<Features> features,
-                   List<Permission> permissions,
-                   boolean isHeader) {
+    public Example(
+            UUID id, String title,
+            String iconPath,
+            String topLevelCategory,
+            String group,
+            String fileName,
+            String fragment,
+            String kotlinFragment,
+            String fragmentName,
+            String description,
+            List<CodeFile> sourceFilePaths,
+            Map<String, String> sourceFiles,
+            List<Features> features,
+            List<Permission> permissions
+    ) {
         this.id = id;
         this.title = title;
         this.iconPath = iconPath;
         this.topLevelCategory = topLevelCategory;
         this.group = group;
+        this.fileName = fileName;
         this.fragment = fragment;
+        this.kotlinFragment = kotlinFragment;
         this.fragmentName = fragmentName;
         this.description= description;
         this.sourceFilePaths = sourceFilePaths;
         this.sourceFiles = sourceFiles;
         this.features = features;
         this.permissions = permissions;
-        this.isHeader = isHeader;
     }
 
     public static Example createExample(ExampleDefinition exampleDefinition, Map<String, String> sourceFiles) {
@@ -83,8 +88,8 @@ public class Example {
         final String fragmentName = getFragmentName(fragment);
         final UUID id = UUID.randomUUID();
 
-        return new Example(id, exampleDefinition.exampleTitle, exampleDefinition.iconPath,  exampleDefinition.exampleCategory, exampleDefinition.chartGroup,
-                fragment, fragmentName, exampleDefinition.description, sourceFilePaths, sourceFiles, exampleDefinition.features, exampleDefinition.permissions, false);
+        return new Example(id, exampleDefinition.exampleTitle, exampleDefinition.iconPath, exampleDefinition.exampleCategory, exampleDefinition.chartGroup, exampleDefinition.fileName,
+                fragment, fragment, fragmentName, exampleDefinition.description, sourceFilePaths, sourceFiles, exampleDefinition.features, exampleDefinition.permissions);
     }
 
     public static Example prepareExample(ExampleDefinition exampleDefinition, Context context) {
@@ -93,9 +98,9 @@ public class Example {
             try {
                 final InputStream inputStream = context.getAssets().open("app/src/main/" + codeFile);
                 final String fileContent = readFile(inputStream);
-                final String[] splitedPath = codeFile.split("/");
-                if (splitedPath.length > 0) {
-                    final String inputString = splitedPath[splitedPath.length - 1];
+                final String[] splattedPath = codeFile.split("/");
+                if (splattedPath.length > 0) {
+                    final String inputString = splattedPath[splattedPath.length - 1];
                     final String withoutTxt = inputString.substring(0, inputString.length() - 4);
                     sourceFiles.put(withoutTxt, fileContent);
                 }

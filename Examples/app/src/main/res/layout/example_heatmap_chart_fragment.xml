@@ -18,7 +18,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.HeatmapChartFragment">
+    tools:context=".fragments.examples2d.basicChartTypes.HeatmapChartFragment">
 
     <com.scichart.charting.visuals.SciChartSurface
         android:id="@+id/surface"

@@ -16,10 +16,10 @@
 
 package com.scichart.examples.fragments.base;
 
-import android.app.Fragment;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
 import android.view.LayoutInflater;
@@ -44,11 +44,12 @@ public abstract class ExampleBaseFragment<TViewBinding extends ViewBinding> exte
         return true;
     }
 
+    @NonNull
     public List<Widget> getToolbarItems() {
         return Collections.emptyList();
     }
 
-    @Nullable
+    @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = inflateBinding(inflater);
@@ -58,7 +59,8 @@ public abstract class ExampleBaseFragment<TViewBinding extends ViewBinding> exte
         return binding.getRoot();
     }
 
-    protected abstract TViewBinding inflateBinding(LayoutInflater inflater);
+    @NonNull
+    protected abstract TViewBinding inflateBinding(@NonNull LayoutInflater inflater);
 
-    protected abstract void initExample(TViewBinding binding);
+    protected abstract void initExample(@NonNull TViewBinding binding);
 }

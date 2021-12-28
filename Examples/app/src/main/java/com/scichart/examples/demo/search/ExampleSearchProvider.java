@@ -33,22 +33,18 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
-import static com.scichart.examples.demo.search.CreateInvertedIndex.createInvertedCodeIndex;
 import static com.scichart.examples.demo.search.CreateInvertedIndex.createInvertedIndex;
 
 public class ExampleSearchProvider {
 
     private final Map<String, Posting> invertedIndex;
-    private final Map<String, Posting> codeInvertedIndex;
 
     public ExampleSearchProvider(Context context, List<Example> examples) {
         this.invertedIndex = createInvertedIndex(context, examples);
-        this.codeInvertedIndex = createInvertedCodeIndex(context, examples);
     }
 
     public ExampleSearchProvider() {
         this.invertedIndex = Collections.emptyMap();
-        this.codeInvertedIndex = Collections.emptyMap();
     }
 
     public Set<UUID> query(String text) {
@@ -77,15 +73,6 @@ public class ExampleSearchProvider {
             result.addAll(rankDocument(terms, pageIds, invertedIndex));
         }
 
-        final List<UUID> codePageIds = new ArrayList<>();
-        if (codeInvertedIndex.containsKey(term)) {
-            for (TermInfo termInfo : codeInvertedIndex.get(term).termInfos) {
-                if (!pageIds.contains(termInfo.examplePageId)) {
-                    codePageIds.add(termInfo.examplePageId);
-                }
-            }
-            result.addAll(rankDocument(terms, codePageIds, codeInvertedIndex));
-        }
         return result;
     }
 
@@ -167,5 +154,4 @@ public class ExampleSearchProvider {
         }
         return new HashSet<>();
     }
-
 }

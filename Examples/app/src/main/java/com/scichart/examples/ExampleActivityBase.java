@@ -17,27 +17,24 @@
 package com.scichart.examples;
 
 import android.app.Dialog;
-import android.app.FragmentManager;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.scichart.core.common.Action1;
 import com.scichart.examples.components.CustomDrawerLayout;
 import com.scichart.examples.demo.DemoKeys;
 import com.scichart.examples.demo.helpers.Example;
-import com.scichart.examples.demo.highlight.PrettifySourceCodeTask;
-import com.scichart.examples.demo.utils.MailUtils;
+import com.scichart.examples.demo.helpers.Module;
 import com.scichart.examples.demo.utils.Utils;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ViewSettingsUtil;
@@ -49,8 +46,9 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class ExampleActivityBase extends AppCompatActivity {
+
     private Example example;
-    private ExampleBaseFragment exampleFragment;
+    private ExampleBaseFragment<?> exampleFragment;
 
     private CustomDrawerLayout drawerLayout;
 
@@ -77,20 +75,12 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.example_menu_drawer, menu);
 
         final MenuItem menuItem = menu.findItem(R.id.toggle_example_toolbar);
-        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                drawerLayout.onMenuItemClick();
-                return true;
-            }
+        menuItem.setOnMenuItemClickListener(item -> {
+            drawerLayout.onMenuItemClick();
+            return true;
         });
 
-        drawerLayout.setViewsClickableAction(new Action1<Boolean>() {
-            @Override
-            public void execute(Boolean isEnabled) {
-                menuItem.setEnabled(isEnabled);
-            }
-        });
+        drawerLayout.setViewsClickableAction(menuItem::setEnabled);
 
         return true;
     }
@@ -118,28 +108,21 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            appToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBackPressed();
-                }
-            });
+            appToolbar.setNavigationOnClickListener(v -> onBackPressed());
         }
     }
 
     private void setUpExample(Bundle savedInstanceState) {
         final String exampleId = getIntent().getStringExtra(DemoKeys.EXAMPLE_ID);
-        this.example = SciChartApp.getInstance().getModule().getExampleByTitle(exampleId);
+        final Module module = SciChartApp.getInstance().getModule();
 
+        this.example = module.getExampleByTitle(exampleId);
         setTitle(example.title);
-        new PrettifySourceCodeTask(example).execute();
 
-        FragmentManager fragmentManager = getFragmentManager();
-        if (savedInstanceState != null) {
-            exampleFragment = (ExampleBaseFragment) fragmentManager.findFragmentByTag(DemoKeys.FRAGMENT_TAG);
-        } else {
-            exampleFragment = (ExampleBaseFragment) Utils.createObject(example.fragment);
-        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        exampleFragment = savedInstanceState != null
+                ? (ExampleBaseFragment<?>) fragmentManager.findFragmentByTag(DemoKeys.FRAGMENT_TAG)
+                : (ExampleBaseFragment<?>) Utils.createObject(module.getExampleFragmentPath(example));
 
         if (!exampleFragment.isInLayout()) {
             fragmentManager.beginTransaction().replace(R.id.fragment_container, exampleFragment, DemoKeys.FRAGMENT_TAG).commit();
@@ -179,28 +162,15 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
     private List<Widget> getAppWideWidgets() {
         ArrayList<Widget> widgets = new ArrayList<>();
 
-        widgets.add(new ImageViewWidget.Builder().setId(R.drawable.example_toolbar_show_code).setListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent = new Intent(ExampleActivityBase.this, ShowCodeActivity.class);
-                intent.putExtra(DemoKeys.EXAMPLE_ID, example.title);
-                startActivity(intent);
-            }
+        widgets.add(new ImageViewWidget.Builder().setId(R.drawable.example_toolbar_show_code).setListener(v -> {
+            final Module module = SciChartApp.getInstance().getModule();
+            final String githubLink = module.getGitHubLink(example);
+
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
+            startActivity(browserIntent);
         }).build());
 
-        widgets.add(new ImageViewWidget.Builder().setId(R.drawable.ic_share_white).setListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MailUtils.trySendExampleByMail(ExampleActivityBase.this, example);
-            }
-        }).build());
-
-        widgets.add(new ImageViewWidget.Builder().setId(R.drawable.ic_build_white_48px).setListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDevModeSettingsDialog();
-            }
-        }).build());
+        widgets.add(new ImageViewWidget.Builder().setId(R.drawable.ic_build_white_48px).setListener(v -> openDevModeSettingsDialog()).build());
 
         return widgets;
     }
@@ -208,26 +178,14 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
     private void openDevModeSettingsDialog() {
         final Dialog dialog = ViewSettingsUtil.createSettingsPopup(this, R.layout.example_dev_mode_settings_popup_layout);
 
-        ViewSettingsUtil.setUpSwitchCompat(dialog, R.id.show_fps_counter_checkbox, showFpsCounter, new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                showFpsCounter = isChecked;
+        ViewSettingsUtil.setUpSwitchCompat(dialog, R.id.show_fps_counter_checkbox, showFpsCounter, (buttonView, isChecked) -> {
+            showFpsCounter = isChecked;
 
-                onShowFpsCounterChanged(showFpsCounter);
-            }
+            onShowFpsCounterChanged(showFpsCounter);
         });
 
         dialog.show();
     }
 
     protected abstract void onShowFpsCounterChanged(boolean showFpsCounter);
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == MailUtils.EMAIL_PERMISSIONS_REQUEST) {
-            MailUtils.trySendEmail(this, example, grantResults);
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
 }

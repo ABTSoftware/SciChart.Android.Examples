@@ -23,12 +23,12 @@ public class Utils {
     public static Object createObject(String className) {
         Object object = null;
         try {
-            Class classDefinition = Class.forName(className);
+            Class<?> classDefinition = Class.forName(className);
             object = classDefinition.newInstance();
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-            Log.e("Utils", "createObject", e);
+            final String message = String.format("Can't find object with class name: %s\n [CallStack]:", className);
+            Log.e("Utils", message, e);
         }
         return object;
     }
-
 }

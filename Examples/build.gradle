@@ -13,129 +13,66 @@
 // without any warranty. It is provided "AS IS" without warranty of any kind, either
 // expressed or implied.
 //******************************************************************************
+
 apply plugin: 'java'
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.kotlin_version = '1.6.0-RC2'
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.1'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
         classpath 'com.github.triplet.gradle:play-publisher:1.2.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
+
 ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 19
-    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 30
-    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '30.0.2'
+    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 31
+    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '31.0.0'
     ndkVersion = project.hasProperty('ndkVersion') ? project.getProperty('ndkVersion') : '21.4.7075529'
+
     androidxAnnotationVersion = project.hasProperty('androidxAnnotationVersion') ? project.getProperty('androidxAnnotationVersion') : '1.1.0'
+
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     junitVersion = '4.13'
-    junitTestRunnerVersion = '1.1.2'
-    testRunnerVersion = '1.3.0'
+    junitTestRunnerVersion = '1.1.3'
+    testRunnerVersion = '1.4.0'
     hamcrestVersion = '2.2'
     mockitoVersion = '2.27.0'
-    robolectricVersion = '4.4'
+    robolectricVersion = '4.7.3'
     androidTestCore = '1.1.0'
+
     abiFiltersList = ['x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a']
+
     sourceCompatibility = JavaVersion.VERSION_1_8
+
     minifyEnabled = true
+
     versionCode = project.hasProperty('versionCode') ? project.getProperty('versionCode').toInteger() : 1
     versionName = project.hasProperty('versionName') ? project.getProperty('versionName') : "1.0"
     documentationFolder = "${rootDir}/outputJavadoc/"
+
     availableProcessors = Runtime.runtime.availableProcessors()
 }
-task deleteExistingZip(type: Delete) {
-    delete file("outputAar/sciChart.zip")
-}
-gradle.projectsEvaluated {
-    deleteExistingZip.dependsOn "" +
-            ":core:testReleaseUnitTest",
-            ":data:testReleaseUnitTest",
-            ":drawing:testReleaseUnitTest",
-            ":charting:testReleaseUnitTest",
-            ":charting3d:testReleaseUnitTest",
-            ":extensions:testReleaseUnitTest",
-            ":extensions3d:testReleaseUnitTest"
-}
-task zip(type: Zip, dependsOn: deleteExistingZip) {
-    from ('charting/build/outputs/aar') {
-        include 'charting-release.aar'
-    }
-    from ('charting3d/build/outputs/aar') {
-        include 'charting3d-release.aar'
-    }
-    from ('drawing/build/outputs/aar') {
-        include 'drawing-release.aar'
-    }
-    from ('data/build/outputs/aar') {
-        include 'data-release.aar'
-    }
-    from ('core/build/outputs/aar') {
-        include 'core-release.aar'
-    }
-    from ('extensions/build/outputs/aar') {
-        include 'extensions-release.aar'
-    }
-    from ('extensions3d/build/outputs/aar') {
-        include 'extensions3d-release.aar'
-    }
-    destinationDir file("${rootDir}/outputAar/")
-    baseName = 'sciChart'
-}
-task deleteExistingJavadocZip(type: Delete) {
-    delete file("outputAar/sciChartJavadocs.zip")
-}
-gradle.projectsEvaluated {
-    deleteExistingJavadocZip.dependsOn "" +
-            ":core:generateReleaseJavadocJar",
-            ":data:generateReleaseJavadocJar",
-            ":drawing:generateReleaseJavadocJar",
-            ":charting:generateReleaseJavadocJar",
-            ":charting3d:generateReleaseJavadocJar"
-}
-task zipJavadocs(type: Zip, dependsOn: deleteExistingJavadocZip) {
-    from (rootProject.ext.documentationFolder) {
-        include 'charting-release-javadoc.jar'
-    }
-    from (rootProject.ext.documentationFolder) {
-        include 'charting3d-release-javadoc.jar'
-    }
-    from (rootProject.ext.documentationFolder) {
-        include 'drawing-release-javadoc.jar'
-    }
-    from (rootProject.ext.documentationFolder) {
-        include 'data-release-javadoc.jar'
-    }
-    from (rootProject.ext.documentationFolder) {
-        include 'core-release-javadoc.jar'
-    }
-    destinationDir file("${rootDir}/outputAar/")
-    baseName = 'sciChartJavadocs'
-}
+
+
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
-    // workaround for JVM crash when using Robolectric
-    // https://github.com/robolectric/robolectric/issues/3202
-    tasks.withType(Test) {
-        jvmArgs '-XX:CompileCommand=exclude,org/robolectric/internal/bytecode/SandboxClassLoader*.*',
-                '-XX:CompileCommand=exclude,org/robolectric/util/PerfStatsCollector*.*',
-                '-XX:-UseLoopPredicate'
-    }
-    task cleanJavadocOutput(type: Delete, description: 'Clean Javadoc output') {
-        delete("${rootDir}/outputJavadoc/${project.getName()}")
-    }
 }
-subprojects {
-}
+

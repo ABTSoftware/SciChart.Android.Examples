@@ -21,12 +21,15 @@ package com.scichart.examples.fragments.base;
 
 import android.view.LayoutInflater;
 
+import androidx.annotation.NonNull;
+
 import com.scichart.charting3d.visuals.SciChartSurface3D;
 import com.scichart.examples.databinding.ExampleSingleChart3dFragmentBinding;
 
 public abstract class ExampleSingleChart3DBaseFragment extends ExampleBaseFragment<ExampleSingleChart3dFragmentBinding> {
+    @NonNull
     @Override
-    protected ExampleSingleChart3dFragmentBinding inflateBinding(LayoutInflater inflater) {
+    protected ExampleSingleChart3dFragmentBinding inflateBinding(@NonNull LayoutInflater inflater) {
         return ExampleSingleChart3dFragmentBinding.inflate(inflater);
     }
 
@@ -35,5 +38,5 @@ public abstract class ExampleSingleChart3DBaseFragment extends ExampleBaseFragme
         initExample(binding.surface3d);
     }
 
-    protected abstract void initExample(SciChartSurface3D surface3d);
+    protected abstract void initExample(@NonNull SciChartSurface3D surface3d);
 }

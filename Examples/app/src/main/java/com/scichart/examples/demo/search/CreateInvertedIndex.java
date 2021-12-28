@@ -20,7 +20,6 @@ import android.content.Context;
 
 import com.scichart.examples.demo.Features;
 import com.scichart.examples.demo.helpers.Example;
-import com.scichart.examples.demo.parser.ExampleSourceCodeParser;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,25 +50,6 @@ public class CreateInvertedIndex {
         }
 
         return invertedIndex;
-    }
-
-    public static Map<String, Posting> createInvertedCodeIndex(Context context, List<Example> examples) {
-        final Set<String> codeStopwords = getStopWords(context, "codeStopwords.dat");
-
-        final Map<String, Posting> codeInvertedIndex = new LinkedHashMap<>();
-        for (Example example : examples) {
-            final String lines = ExampleSourceCodeParser.getSearchWords(example);
-
-            final List<String> terms = getTerms(lines, " |:|\\.", codeStopwords);
-            calculateIndex(example, terms, codeInvertedIndex);
-        }
-
-        for (Map.Entry<String, Posting> entry : codeInvertedIndex.entrySet()) {
-            final Posting value = entry.getValue();
-            value.invertedDocumentFrequency = Math.log(examples.size() / value.invertedDocumentFrequency);
-        }
-
-        return codeInvertedIndex;
     }
 
     private static void calculateIndex(final Example example, List<String> terms, Map<String, Posting> invertedIndex) {

@@ -39,18 +39,8 @@ public class MarketDataService implements IMarketDataService {
     @Override
     public void subscribePriceUpdate(final Action1<PriceBar> callback) {
         if (!generator.isRunning()) {
-            generator.newDataObserver = new INewDataObserver() {
-                @Override
-                public void onNewData(PriceBar data) {
-                    callback.execute(data);
-                }
-            };
-            generator.updateDataObserver = new IUpdateDataObserver() {
-                @Override
-                public void onUpdateData(PriceBar data) {
-                    callback.execute(data);
-                }
-            };
+            generator.newDataObserver = callback::execute;
+            generator.updateDataObserver = callback::execute;
 
             generator.startGeneratePriceBars();
         }

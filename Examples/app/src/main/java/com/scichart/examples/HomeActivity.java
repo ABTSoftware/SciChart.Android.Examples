@@ -16,6 +16,10 @@
 
 package com.scichart.examples;
 
+import static com.scichart.examples.ExceptionActivity.EXCEPTION_MESSAGE_KEY;
+import static com.scichart.examples.ExceptionActivity.STACK_TRACE_KEY;
+import static com.scichart.examples.demo.DemoKeys.EXAMPLE_ID;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -36,7 +40,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.demo.CustomAdapter;
@@ -56,10 +59,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.scichart.examples.ExceptionActivity.EXCEPTION_MESSAGE_KEY;
-import static com.scichart.examples.ExceptionActivity.STACK_TRACE_KEY;
-import static com.scichart.examples.demo.DemoKeys.EXAMPLE_ID;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity implements Thread.UncaughtExceptionHandler,
         AdapterView.OnItemSelectedListener,
@@ -105,13 +105,12 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
             category = savedInstanceState.getString(DemoKeys.CATEGORY_ID);
         } else {
             final Bundle extras = getIntent().getExtras();
-            if(extras != null) {
+            if (extras != null) {
                 category = extras.getString(DemoKeys.CATEGORY_ID);
             }
         }
 
         Toolbar toolbar = findViewById(R.id.appToolbar);
-
         setSupportActionBar(toolbar);
 
         final ActionBar supportActionBar = getSupportActionBar();
@@ -121,24 +120,19 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
             supportActionBar.setHomeAsUpIndicator(R.drawable.ic_home_24dp);
         }
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        catTitle = (TextView) findViewById(R.id.category_title);
-        catIcon = (ImageView) findViewById(R.id.category_icon);
+        catTitle = findViewById(R.id.category_title);
+        catIcon = findViewById(R.id.category_icon);
 
-        sortBySpinner = (Spinner) findViewById(R.id.sortBy);
+        sortBySpinner = findViewById(R.id.sortBy);
         sortBySpinner.setOnItemSelectedListener(HomeActivity.this);
 
-        searchResultsDialog = (SearchResultsDialog) findViewById(R.id.search_results_dialog);
+        searchResultsDialog = findViewById(R.id.search_results_dialog);
         searchResultsDialog.setOnSearchItemClickListener(this);
         searchResultsDialog.setData(searchProvider.dataAdapter);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(this);
         adapter = new CustomAdapter(this);
 
@@ -153,9 +147,15 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu_search, menu);
 
-        searchMenuItem = menu.findItem(R.id.action_search);
+        final MenuItem isKotlinMenuItem = menu.findItem(R.id.isKotlin);
+        isKotlinMenuItem.setOnMenuItemClickListener(menuItem -> {
+            module.toggleKotlin();
+            isKotlinMenuItem.setTitle(module.isKotlin() ? "Kotlin" : "Java");
+            return true;
+        });
 
-        searchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
+        searchMenuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) searchMenuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -170,13 +170,10 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
             }
         });
 
-        ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchResultsDialog.hide();
-                searchView.setQuery("", false);
-            }
+        final ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
+        closeButton.setOnClickListener(v -> {
+            searchResultsDialog.hide();
+            searchView.setQuery("", false);
         });
 
         return true;
@@ -194,12 +191,12 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
 
 
     @Override
-    public void uncaughtException(Thread thread, Throwable throwable) {
+    public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
         handleUncaughtException(throwable);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putString(DemoKeys.CATEGORY_ID, category);
@@ -282,8 +279,9 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     private void hideKeyboard() {
         final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         final View currentFocus = getCurrentFocus();
-        if(imm != null && currentFocus != null)
+        if (imm != null && currentFocus != null) {
             imm.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+        }
     }
 
     private void openFragment(final String exampleId) {
@@ -306,12 +304,13 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         final Class<?> activityType;
 
         final String category = example.topLevelCategory;
-        if(category.contains("3D"))
+        if (category.toLowerCase(Locale.ROOT).contains("3d")) {
             activityType = Example3DActivity.class;
-        else if(category.contains("Featured"))
+        } else if (category.toLowerCase(Locale.ROOT).contains("featured")) {
             activityType = ShowcaseActivity.class;
-        else
+        } else {
             activityType = ExampleActivity.class;
+        }
 
         Intent exampleActivity = new Intent(this, activityType);
         exampleActivity.putExtra(EXAMPLE_ID, example.title);
@@ -322,14 +321,5 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     @Override
     public void onSearchItemClick(String exampleId) {
         openFragment(exampleId);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == EXAMPLE_REQUEST_CODE && example != null) {
-            startExampleActivity(example);
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 }

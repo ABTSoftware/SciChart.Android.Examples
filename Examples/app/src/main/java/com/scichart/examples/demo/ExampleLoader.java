@@ -87,5 +87,4 @@ public class ExampleLoader {
         }
         return new ExampleKey(parts[1], parts[2], parts[3].split("\\.")[0]);
     }
-
 }

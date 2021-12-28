@@ -72,36 +72,16 @@ public class ExampleActivity extends ExampleActivityBase {
         if (surface != null) {
             final ChartModifierCollection chartModifiers = surface.getChartModifiers();
 
-            widgets.add(attachModifierAndCreateWidget(null, R.drawable.example_toolbar_zoom_extents, surface, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    surface.animateZoomExtents(ZoomExtentsModifier.DEFAULT_ANIMATION_DURATION);
-                }
-            }));
-            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_x, surface, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipXAxes();
-                }
-            }));
-            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_y, surface, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipYAxes();
-                }
-            }));
-            widgets.add(attachModifierAndCreateWidget(CustomRotateChartModifier.class, R.drawable.example_toolbar_rotate, surface, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((CustomRotateChartModifier) SideMenuHelper.getModifier(CustomRotateChartModifier.class, chartModifiers)).rotateChart();
-                }
-            }));
+            widgets.add(attachModifierAndCreateWidget(null, R.drawable.example_toolbar_zoom_extents, surface, v -> surface.animateZoomExtents(ZoomExtentsModifier.DEFAULT_ANIMATION_DURATION)));
+            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_x, surface, v -> ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipXAxes()));
+            widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_y, surface, v -> ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipYAxes()));
+            widgets.add(attachModifierAndCreateWidget(CustomRotateChartModifier.class, R.drawable.example_toolbar_rotate, surface, v -> ((CustomRotateChartModifier) SideMenuHelper.getModifier(CustomRotateChartModifier.class, chartModifiers)).rotateChart()));
         }
         return widgets;
     }
 
     private SciChartSurface getTargetChart() {
-        return findViewById(R.id.chart);
+        return findViewById(R.id.surface);
     }
 
     private Widget attachModifierAndCreateWidget(Class<?> modifierType, @DrawableRes int drawableRes, SciChartSurface surface, View.OnClickListener listener) {

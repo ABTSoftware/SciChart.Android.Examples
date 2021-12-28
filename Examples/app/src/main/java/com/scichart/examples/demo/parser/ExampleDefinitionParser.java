@@ -34,6 +34,7 @@ import static com.scichart.examples.demo.DemoKeys.CODE_FILES;
 import static com.scichart.examples.demo.DemoKeys.DESCRIPTION;
 import static com.scichart.examples.demo.DemoKeys.EXAMPLE_DEFINITION;
 import static com.scichart.examples.demo.DemoKeys.FEATURES;
+import static com.scichart.examples.demo.DemoKeys.FILE_NAME;
 import static com.scichart.examples.demo.DemoKeys.ICON_PATH;
 import static com.scichart.examples.demo.DemoKeys.IS_VISIBLE;
 import static com.scichart.examples.demo.DemoKeys.PERMISSIONS;
@@ -65,6 +66,7 @@ public class ExampleDefinitionParser {
         String title = "";
         String iconPath = "";
         String description = "";
+        String fileName = "";
         final List<String> codeFiles = new ArrayList<>();
         final List<Features> features = new ArrayList<>();
         final List<Permission> permissions = new ArrayList<>();
@@ -84,6 +86,9 @@ public class ExampleDefinitionParser {
                 case DESCRIPTION:
                     description = parseDescription(readElement(parser, DESCRIPTION));
                     break;
+                case FILE_NAME:
+                    fileName = readElement(parser, FILE_NAME);
+                    break;
                 case CODE_FILES:
                     codeFiles.addAll(readCodeFiles(parser));
                     break;
@@ -101,7 +106,7 @@ public class ExampleDefinitionParser {
                     break;
             }
         }
-        return new ExampleDefinition(title, "", "", iconPath, description, codeFiles, features, permissions, isVisible);
+        return new ExampleDefinition(title, "", "", iconPath, description, fileName, codeFiles, features, permissions, isVisible);
     }
 
     private String readElement(XmlPullParser parser, String element) throws IOException, XmlPullParserException {

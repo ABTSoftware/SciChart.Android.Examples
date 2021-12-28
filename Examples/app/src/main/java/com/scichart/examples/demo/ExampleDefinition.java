@@ -27,6 +27,7 @@ public class ExampleDefinition {
     public final String chartGroup;
     public final String iconPath;
     public final String description;
+    public final String fileName;
     public final List<String> codeFiles;
     public final List<Features> features;
     public final List<Permission> permissions;
@@ -37,6 +38,7 @@ public class ExampleDefinition {
                              String chartGroup,
                              String iconPath,
                              String description,
+                             String fileName,
                              List<String> codeFiles,
                              List<Features> features,
                              List<Permission> permissions,
@@ -46,10 +48,10 @@ public class ExampleDefinition {
         this.chartGroup = chartGroup;
         this.iconPath = iconPath;
         this.description = description;
+        this.fileName = fileName;
         this.codeFiles = codeFiles;
         this.features = features;
         this.permissions = permissions;
         this.isVisible = isVisible;
     }
-
 }
