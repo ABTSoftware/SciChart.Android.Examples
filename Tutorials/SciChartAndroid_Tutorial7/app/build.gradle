@@ -23,9 +23,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     // Declare SciChart libraries as module dependencies
-    implementation (group: 'com.scichart.library', name: 'core', version: '3.0.0.4091', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '3.0.0.4091', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '3.0.0.4091', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '3.0.0.4091', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '3.0.0.4091', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.0.4707', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.0.4707', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.0.4707', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.0.4707', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.0.4707', ext: 'aar')
 }
