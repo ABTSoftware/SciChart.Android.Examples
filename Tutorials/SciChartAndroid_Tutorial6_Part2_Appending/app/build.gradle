@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
     defaultConfig {
         applicationId "com.example.tutorials.scichart.scichartandroid_tutorial1"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
     }
@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
 
     // Declare SciChart libraries as module dependencies
     implementation (group: 'com.scichart.library', name: 'core', version: '4.3.0.4707', ext: 'aar')
