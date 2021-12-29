@@ -1,6 +1,6 @@
 /v2.x/lastbuild.txt
 .DS_Store
-.idea
+**/.idea
 **/.gradle
 **/build/**
 Lib
