@@ -88,13 +88,13 @@ repositories {
 
 dependencies {
 //@BEGINDEPENDS
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.1-alpha.4720', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.1-alpha.4720', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.1-alpha.4720', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.1-alpha.4720', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.1-alpha.4720', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.1-alpha.4720', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.1-alpha.4720', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.1-alpha.4721', ext: 'aar')
 //@ENDDEPENDS
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
@@ -115,20 +115,3 @@ dependencies {
     implementation 'org.jetbrains:annotations:16.0.2'
 }
 
-//@BEGINDELETE
-play {
-    jsonFile API_KEY != '' ? file(API_KEY) : null
-    track TRACK_NAME
-}
-
-// Disable publishing of this module
-model {
-    tasks.generatePomFileForAarPublication {
-        enabled = false
-    }
-    tasks.publishAarPublicationToMavenRepository {
-        enabled = false
-    }
-}
-tasks.publish.enabled = false
-//@ENDDELETE
