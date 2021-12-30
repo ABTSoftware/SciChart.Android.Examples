@@ -88,13 +88,13 @@ repositories {
 
 dependencies {
 //@BEGINDEPENDS
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.1-alpha.4721', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.1-alpha.4721', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.1-alpha.4721', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.1-alpha.4721', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.1-alpha.4721', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.1-alpha.4721', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.1-alpha.4721', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.1-alpha.4723', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.1-alpha.4723', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.1-alpha.4723', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.1-alpha.4723', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.1-alpha.4723', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.1-alpha.4723', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.1-alpha.4723', ext: 'aar')
 //@ENDDEPENDS
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
