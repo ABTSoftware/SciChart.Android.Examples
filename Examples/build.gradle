@@ -68,11 +68,184 @@ ext {
     availableProcessors = Runtime.runtime.availableProcessors()
 }
 
+//@BEGINDELETE
+task deleteExistingZip(type: Delete) {
+    delete file("outputAar/sciChart.zip")
+}
+
+task publishSciChartToMaven() {
+    description "Publishes SciChart libraries to Maven"
+}
+
+gradle.projectsEvaluated {
+    deleteExistingZip.dependsOn "" +
+            ":core:testReleaseUnitTest",
+            ":data:testReleaseUnitTest",
+            ":drawing:testReleaseUnitTest",
+            ":charting:testReleaseUnitTest",
+            ":charting3d:testReleaseUnitTest",
+            ":extensions:testReleaseUnitTest",
+            ":extensions3d:testReleaseUnitTest"
+
+    tasks.findByPath(":core:publishAarPublicationToMavenRepository").dependsOn ":core:generateReleaseJavadocJar"
+    tasks.findByPath(":data:publishAarPublicationToMavenRepository").dependsOn ":data:generateReleaseJavadocJar"
+    tasks.findByPath(":drawing:publishAarPublicationToMavenRepository").dependsOn ":drawing:generateReleaseJavadocJar"
+    tasks.findByPath(":charting:publishAarPublicationToMavenRepository").dependsOn ":charting:generateReleaseJavadocJar"
+    tasks.findByPath(":charting3d:publishAarPublicationToMavenRepository").dependsOn ":charting3d:generateReleaseJavadocJar"
+    tasks.findByPath(":extensions:publishAarPublicationToMavenRepository").dependsOn ":extensions:generateReleaseJavadocJar"
+    tasks.findByPath(":extensions3d:publishAarPublicationToMavenRepository").dependsOn ":extensions3d:generateReleaseJavadocJar"
+
+    publishSciChartToMaven.dependsOn "" +
+            ":core:publish",
+            ":data:publish",
+            ":drawing:publish",
+            ":charting:publish",
+            ":charting3d:publish",
+            ":extensions:publish",
+            ":extensions3d:publish"
+}
+
+task zip(type: Zip, dependsOn: deleteExistingZip) {
+    from ('charting/build/outputs/aar') {
+        include 'charting-release.aar'
+    }
+    from ('charting3d/build/outputs/aar') {
+        include 'charting3d-release.aar'
+    }
+    from ('drawing/build/outputs/aar') {
+        include 'drawing-release.aar'
+    }
+    from ('data/build/outputs/aar') {
+        include 'data-release.aar'
+    }
+    from ('core/build/outputs/aar') {
+        include 'core-release.aar'
+    }
+    from ('extensions/build/outputs/aar') {
+        include 'extensions-release.aar'
+    }
+    from ('extensions3d/build/outputs/aar') {
+        include 'extensions3d-release.aar'
+    }
+    destinationDir file("${rootDir}/outputAar/")
+    baseName = 'sciChart'
+}
+
+task deleteExistingJavadocZip(type: Delete) {
+    delete file("outputAar/sciChartJavadocs.zip")
+}
+
+gradle.projectsEvaluated {
+    deleteExistingJavadocZip.dependsOn "" +
+            ":core:generateReleaseJavadocJar",
+            ":data:generateReleaseJavadocJar",
+            ":drawing:generateReleaseJavadocJar",
+            ":charting:generateReleaseJavadocJar",
+            ":charting3d:generateReleaseJavadocJar"
+}
+
+task zipJavadocs(type: Zip, dependsOn: deleteExistingJavadocZip) {
+    from (rootProject.ext.documentationFolder) {
+        include 'charting-release-javadoc.jar'
+    }
+    from (rootProject.ext.documentationFolder) {
+        include 'charting3d-release-javadoc.jar'
+    }
+    from (rootProject.ext.documentationFolder) {
+        include 'drawing-release-javadoc.jar'
+    }
+    from (rootProject.ext.documentationFolder) {
+        include 'data-release-javadoc.jar'
+    }
+    from (rootProject.ext.documentationFolder) {
+        include 'core-release-javadoc.jar'
+    }
+
+    destinationDir file("${rootDir}/outputAar/")
+    baseName = 'sciChartJavadocs'
+}
+//@ENDDELETE
 
 allprojects {
     repositories {
         google()
         mavenCentral()
     }
+//@BEGINDELETE
+    // workaround for JVM crash when using Robolectric
+    // https://github.com/robolectric/robolectric/issues/3202
+    tasks.withType(Test) {
+        jvmArgs '-XX:CompileCommand=exclude,org/robolectric/internal/bytecode/SandboxClassLoader*.*',
+                '-XX:CompileCommand=exclude,org/robolectric/util/PerfStatsCollector*.*',
+                '-XX:-UseLoopPredicate'
+    }
+
+    task cleanJavadocOutput(type: Delete, description: 'Clean Javadoc output') {
+        delete("${rootDir}/outputJavadoc/${project.getName()}")
+    }
+//@ENDDELETE
 }
 
+//@BEGINDELETE
+subprojects {
+    apply plugin: 'maven-publish'
+
+    def publishVersion = project.hasProperty('publishVersion') ? project.property('publishVersion') : System.getenv('publish_VERSION')
+    def publishUser = project.hasProperty('publishUser') ? project.property('publishUser') : System.getenv('publish_USER')
+    def publishPassword = project.hasProperty('publishPassword') ? project.property('publishPassword') : System.getenv('publish_PASSWORD')
+    def publishUrl = project.hasProperty('publishUrl') ? project.property('publishUrl') : System.getenv('publish_URL')
+
+    publishing {
+        publications {
+            aar(MavenPublication) {
+                groupId 'com.scichart.library'
+                artifactId project.getName()
+                version publishVersion
+
+                artifact source: file("$buildDir/outputs/aar/${project.getName()}-release.aar") ,extension:"aar"
+                artifact source: file("$rootDir/outputJavadoc/${project.getName()}-release-javadoc.jar"), classifier:"javadoc", extension:"jar"
+
+                pom.withXml {
+                    def organizationsNode = asNode().appendNode('organization')
+                    organizationsNode.appendNode('name','SciChart Ltd')
+                    def dependenciesNode = asNode().appendNode('dependencies')
+
+                    // List all compile dependencies and write to POM
+                    configurations.api.getAllDependencies().each { Dependency dep ->
+                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                            return // ignore invalid dependencies
+
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dep.group)
+                        dependencyNode.appendNode('artifactId', dep.name)
+                        dependencyNode.appendNode('version', dep.version)
+
+                        if (!dep.transitive) {
+                            // If this dependency is transitive, we should force exclude all its dependencies them from the POM
+                            def exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            exclusionNode.appendNode('groupId', '*')
+                            exclusionNode.appendNode('artifactId', '*')
+                        } else if (!dep.properties.excludeRules.empty) {
+                            // Otherwise add specified exclude rules
+                            def exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+                            dep.properties.excludeRules.each { ExcludeRule rule ->
+                                exclusionNode.appendNode('groupId', rule.group ?: '*')
+                                exclusionNode.appendNode('artifactId', rule.module ?: '*')
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                credentials {
+                    username publishUser
+                    password publishPassword
+                }
+                url publishUrl
+            }
+        }
+    }
+}
+//@ENDDELETE
