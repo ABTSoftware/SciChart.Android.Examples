@@ -14,9 +14,11 @@
 // expressed or implied.
 //******************************************************************************
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.github.triplet.play'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'com.github.triplet.play' version '3.7.0'
+}
 
 def apkVersionCode = APK_VERSION_CODE != '' ? APK_VERSION_CODE.toInteger() : rootProject.ext.versionCode
 def apkVersionName = APK_VERSION_NAME != '' ? APK_VERSION_NAME : rootProject.ext.versionName
@@ -88,18 +90,18 @@ repositories {
 
 dependencies {
 //@BEGINDEPENDS
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.1-alpha.4724', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.1-alpha.4724', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.1-alpha.4724', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.1-alpha.4724', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.1-alpha.4724', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.1-alpha.4724', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.1-alpha.4724', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.3.1-alpha.4729', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.3.1-alpha.4729', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.3.1-alpha.4729', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.3.1-alpha.4729', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.3.1-alpha.4729', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.3.1-alpha.4729', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.3.1-alpha.4729', ext: 'aar')
 //@ENDDEPENDS
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
@@ -108,10 +110,13 @@ dependencies {
     implementation 'com.trello.rxlifecycle3:rxlifecycle-android:3.1.0'
 
     implementation 'com.github.twalcari:java-prettify:1.2.2'
-    implementation "androidx.core:core-ktx:1.6.0"
+    implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.fragment:fragment-ktx:1.4.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'org.jetbrains:annotations:16.0.2'
+}
+
+play {
+    track.set("internal")
+    defaultToAppBundles.set(true)
 }
 

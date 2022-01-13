@@ -24,7 +24,7 @@
 -keep public class android.support.v7.widget.SearchView { *; }
 
 # need to save example fragments and default ctor because we're using reflection when open examples
--keepclassmembers class * extends com.scichart.examples.fragments.base.ExampleBaseFragment {
+-keep public class * extends com.scichart.examples.fragments.base.ExampleBaseFragment {
     public <init>(...);
 }
 

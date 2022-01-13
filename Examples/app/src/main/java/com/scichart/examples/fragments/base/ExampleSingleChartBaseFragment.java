@@ -26,8 +26,6 @@ import androidx.annotation.NonNull;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.examples.databinding.ExampleSingleChartFragmentBinding;
 
-import org.jetbrains.annotations.NotNull;
-
 public abstract class ExampleSingleChartBaseFragment extends ExampleBaseFragment<ExampleSingleChartFragmentBinding> {
     @NonNull
     @Override
@@ -40,5 +38,5 @@ public abstract class ExampleSingleChartBaseFragment extends ExampleBaseFragment
         initExample(binding.surface);
     }
 
-    protected abstract void initExample(@NotNull SciChartSurface surface);
+    protected abstract void initExample(@NonNull SciChartSurface surface);
 }
