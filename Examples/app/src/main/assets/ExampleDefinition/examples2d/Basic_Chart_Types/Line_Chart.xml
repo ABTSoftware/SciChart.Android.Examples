@@ -18,7 +18,7 @@
     <Title>Line chart</Title>
     <IconPath>ic_lines_feature</IconPath>
     <Description>
-        Generates an Line-Chart in code. The FastLineRenderableSeries can be used to render an XyDataSeries.
+        Generates a Line-Chart in code. The FastLineRenderableSeries can be used to render an XyDataSeries.
     </Description>
     <FileName>LineChartFragment</FileName>
     <Features>

@@ -19,6 +19,7 @@ package com.scichart.examples.demo;
 public enum Features {
     Axis,
     AddPoints,
+    Animation,
     Annotations,
     DataSeries,
     Fan,

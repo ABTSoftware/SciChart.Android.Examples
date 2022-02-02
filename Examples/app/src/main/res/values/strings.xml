@@ -225,6 +225,11 @@
     </string-array>
     <!-- end: CreateWaterfall3DChartFragment -->
 
+    <!--fragment: AnimatingStackedColumnChartFragment-->
+    <string name="refresh_data">Refresh data</string>
+
+    <!-- end: AnimatingStackedColumnChartFragment-->
+
     <!-- fragment: ALL -->
     <string name="action_settings">Settings</string>
     <string name="show_fps_counter">Show FPS Counter</string>
