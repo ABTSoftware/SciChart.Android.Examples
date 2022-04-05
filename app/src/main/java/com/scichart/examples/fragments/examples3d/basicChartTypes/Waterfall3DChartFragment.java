@@ -80,7 +80,7 @@ public class Waterfall3DChartFragment extends ExampleSingleChart3DBaseFragment {
     private int currentStrokeColorPalette = 0; // by default YAxis
 
     final WaterfallRenderableSeries3D rSeries = sciChart3DBuilder.newWaterfallSeries3D()
-            .withStrokeThicknes(1f)
+            .withStrokeThickness(1f)
             .withSliceThickness(0f)
             .withYColorMapping(gradientFillColorPalette)
             .withYStrokeColorMapping(gradientStrokeColorPalette)

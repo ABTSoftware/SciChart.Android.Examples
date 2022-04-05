@@ -79,7 +79,7 @@ public class DateAxis3DFragment extends ExampleSingleChart3DBaseFragment {
         final WaterfallRenderableSeries3D rs = sciChart3DBuilder.newWaterfallSeries3D()
                 .withDataSeries(ds)
                 .withStroke(Blue)
-                .withStrokeThicknes(1f)
+                .withStrokeThickness(1f)
                 .withSliceThickness(2f)
                 .withYColorMapping(gradientFillColorPalette)
                 .build();

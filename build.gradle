@@ -63,6 +63,7 @@ ext {
     versionCode = project.hasProperty('versionCode') ? project.getProperty('versionCode').toInteger() : 1
     versionName = project.hasProperty('versionName') ? project.getProperty('versionName') : "1.0"
     documentationFolder = "${rootDir}/outputJavadoc/"
+    apiDocumentationFolder = "${rootDir}/outputApiDocs/"
 
     availableProcessors = Runtime.runtime.availableProcessors()
 }

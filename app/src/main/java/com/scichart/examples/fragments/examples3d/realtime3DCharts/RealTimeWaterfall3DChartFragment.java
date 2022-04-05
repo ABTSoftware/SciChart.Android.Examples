@@ -103,7 +103,7 @@ public class RealTimeWaterfall3DChartFragment extends ExampleSingleChart3DBaseFr
 
         final WaterfallRenderableSeries3D waterfall = sciChart3DBuilder.newWaterfallSeries3D()
                 .withDataSeries(waterfallDataSeries)
-                .withStrokeThicknes(1f)
+                .withStrokeThickness(1f)
                 .withSliceThickness(5f)
                 .withYColorMapping(gradientFillColorPalette)
                 .withYStrokeColorMapping(gradientStrokeColorPalette)

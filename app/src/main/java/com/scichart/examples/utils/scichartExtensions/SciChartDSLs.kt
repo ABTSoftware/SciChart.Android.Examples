@@ -52,7 +52,6 @@ import com.scichart.charting3d.visuals.SciChartSurface3D
 import com.scichart.charting3d.visuals.axes.DateAxis3D
 import com.scichart.charting3d.visuals.axes.LogarithmicNumericAxis3D
 import com.scichart.charting3d.visuals.axes.NumericAxis3D
-import com.scichart.charting3d.visuals.camera.Camera3D
 import com.scichart.charting3d.visuals.camera.ICameraController
 import com.scichart.charting3d.visuals.pointMarkers.*
 import com.scichart.charting3d.visuals.renderableSeries.IRenderableSeries3D
@@ -336,7 +335,7 @@ fun IRenderableSeries3D.cubePointMarker3D(init: CubePointMarker3D.() -> Unit = {
 
 fun IRenderableSeries3D.ellipsePointMarker3D(init: EllipsePointMarker3D.() -> Unit = {}) { pointMarker = EllipsePointMarker3D().apply(init) }
 fun IRenderableSeries3D.quadPointMarker3D(init: QuadPointMarker3D.() -> Unit = {}) { pointMarker = QuadPointMarker3D().apply(init) }
-fun IRenderableSeries3D.trianglePointerMarker3D(init: TrianglePointerMarker3D.() -> Unit = {}) { pointMarker = TrianglePointerMarker3D().apply(init) }
+fun IRenderableSeries3D.trianglePointMarker3D(init: TrianglePointMarker3D.() -> Unit = {}) { pointMarker = TrianglePointMarker3D().apply(init) }
 fun IRenderableSeries3D.pixelPointMarker3D(init: PixelPointMarker3D.() -> Unit = {}) { pointMarker = PixelPointMarker3D().apply(init) }
 fun IRenderableSeries3D.customPointMarker3D(texture: Bitmap, init: CustomPointMarker3D.() -> Unit = {}) { pointMarker = CustomPointMarker3D(texture).apply(init) }
 // endregion

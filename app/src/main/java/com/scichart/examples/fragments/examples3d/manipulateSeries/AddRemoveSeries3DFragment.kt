@@ -81,7 +81,7 @@ class AddRemoveSeries3DFragment : ExampleBaseFragment<ExampleAddRemoveSeries3dFr
                         2 -> pyramidPointMarker3D()
                         3 -> quadPointMarker3D()
                         4 -> spherePointMarker3D()
-                        5 -> trianglePointerMarker3D()
+                        5 -> trianglePointMarker3D()
                     }
                 }
             }
