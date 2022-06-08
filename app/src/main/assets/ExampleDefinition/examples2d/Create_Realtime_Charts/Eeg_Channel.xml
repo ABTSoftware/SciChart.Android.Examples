@@ -20,11 +20,7 @@
     <Description>
         This examples showcases the performance of SciChart when rendering a real-time FIFO chart on 16 SciChartSurface instances at the same time.
     </Description>
-    <CodeFiles>
-        <string>res/layout/example_eeg_channels_fragment.xml.txt</string>
-        <string>res/layout/example_eeg_channel_view.xml.txt</string>
-        <string>java/com/scichart/examples/fragments/EegChannelsFragment.java.txt</string>
-    </CodeFiles>
+    <FileName>EegChannelsFragment</FileName>
     <Features>
         <Features>Realtime</Features>
         <Features>Performance</Features>

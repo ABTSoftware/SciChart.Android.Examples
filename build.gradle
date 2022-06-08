@@ -1,5 +1,5 @@
 //******************************************************************************
-// SCICHART® Copyright SciChart Ltd. 2011-2016. All rights reserved.
+// SCICHART® Copyright SciChart Ltd. 2011-2022. All rights reserved.
 //
 // Web: http://www.scichart.com
 // Support: support@scichart.com
@@ -23,11 +23,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.2.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
     }
 }
 
@@ -38,8 +38,8 @@ java {
 
 ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 19
-    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 31
-    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '31.0.0'
+    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 32
+    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '32.0.0'
     ndkVersion = project.hasProperty('ndkVersion') ? project.getProperty('ndkVersion') : '21.4.7075529'
 
     androidxAnnotationVersion = project.hasProperty('androidxAnnotationVersion') ? project.getProperty('androidxAnnotationVersion') : '1.1.0'
