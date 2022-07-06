@@ -120,6 +120,7 @@ fun CollectionContext<IAxis>.numericAxis(init: NumericAxis.() -> Unit = {}) = co
 fun CollectionContext<IAxis>.dateAxis(init: DateAxis.() -> Unit = {}) = collection.add(DateAxis(context).apply(init))
 fun CollectionContext<IAxis>.categoryDateAxis(init: CategoryDateAxis.() -> Unit = {}) = collection.add(CategoryDateAxis(context).apply(init))
 fun CollectionContext<IAxis>.logarithmicAxis(init: LogarithmicNumericAxis.() -> Unit = {}) = collection.add(LogarithmicNumericAxis(context).apply(init))
+fun CollectionContext<IAxis>.indexDateAxis(init: IndexDateAxis.() -> Unit = {}) = collection.add(IndexDateAxis(context).apply(init))
 // endregion
 
 // region Renderable Series
