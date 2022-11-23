@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--*************************************************************************-->
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
 <!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
@@ -15,7 +14,23 @@
 <!-- expressed or implied. -->
 <!--*************************************************************************-->
 
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--    <item android:drawable="@color/listView_item_clicked" android:state_enabled="true" android:state_pressed="true" />-->
+<!--    <item android:drawable="@color/listView_item" />-->
+<!--</selector>-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/listView_item_clicked" android:state_enabled="true" android:state_pressed="true" />
-    <item android:drawable="@color/listView_item" />
+    <item android:state_enabled="true" android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/listView_item_clicked"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/listView_item"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
 </selector>

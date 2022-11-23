@@ -46,10 +46,10 @@ public class DonutChartFragment extends ExampleBaseFragment<ExampleSinglePieChar
         final float donutSeriesHeight = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getActivity().getResources().getDisplayMetrics());
 
         final IPieRenderableSeries donutSeries = sciChartBuilder.newDonutSeries().withSegments(
-                sciChartBuilder.newPieSegment().withValue(40).withTitle("Green").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
-                sciChartBuilder.newPieSegment().withValue(10).withTitle("Red").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(20).withTitle("Blue").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build(),
-                sciChartBuilder.newPieSegment().withValue(15).withTitle("Yellow").withRadialGradientColors(0xffFFFF00, 0xfffed325).build()
+                sciChartBuilder.newPieSegment().withValue(40).withTitle("Glazed Doughnut").withRadialGradientColors(0xff47bde6, 0xff47bde6).build(),
+                sciChartBuilder.newPieSegment().withValue(10).withTitle("Strawberry Frosted Doughnut").withRadialGradientColors(0xffae418d, 0xffae418d).build(),
+                sciChartBuilder.newPieSegment().withValue(20).withTitle("Apple-Crumb Doughnut").withRadialGradientColors(0xff68bcae, 0xff68bcae).build(),
+                sciChartBuilder.newPieSegment().withValue(15).withTitle("Cinnamon Twist Doughnut").withRadialGradientColors(0xffe97064, 0xffe97064).build()
         ).withHeightSizingMode(SizingMode.Absolute).withHeight(donutSeriesHeight).build();
 
         final SciPieChartSurface pieChartSurface = binding.pieChart;

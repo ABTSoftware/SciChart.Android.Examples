@@ -66,8 +66,8 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleSingleCh
         ds1.append(data1.xValues, data1.yValues);
         ds2.append(data2.xValues, data2.yValues);
 
-        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2, true).build();
-        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2, true).build();
+        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xffae418d, 2, true).build();
+        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new CustomSeriesInfoProvider()).withStrokeStyle(0xff68bcae, 2, true).build();
 
         final CursorModifier cursorModifier = new CursorModifier(R.layout.example_custom_cursor_modifier_tooltip_container);
 
@@ -79,7 +79,7 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleSingleCh
 
             final DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
             final float thickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, displayMetrics);
-            new SolidPenStyle(0xAAFFA500, false, thickness, null).initPaint(cursorModifier.getCrosshairPaint());
+            new SolidPenStyle(0xAA47bde6, false, thickness, null).initPaint(cursorModifier.getCrosshairPaint());
 
             sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
             sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
@@ -116,8 +116,8 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleSingleCh
                 sb.append(" Y: ").append(seriesInfo.getFormattedYValue());
                 setText(sb);
 
-                setTooltipBackgroundColor(0xff6495ed);
-                setTooltipStroke(0xff4d81dd);
+                setTooltipBackgroundColor(0xff4781ed);
+                setTooltipStroke(0xff4781ed);
                 setTooltipTextColor(ColorUtil.White);
             }
         }

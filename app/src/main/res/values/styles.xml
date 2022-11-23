@@ -61,7 +61,9 @@
         <item name="android:shadowRadius">5</item>
     </style>
 
-    <style name="AppTheme.AppBarLayout" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarLayout" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">#2A3852</item>
+    </style>
 
     <style name="AppTheme.AppBar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:minHeight">?attr/actionBarSize</item>
@@ -169,14 +171,14 @@
 
     <style name="SwitchTheme" parent="ThemeOverlay.AppCompat.Dark">
         <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimary">#E97064</item>
         <!-- colorPrimaryDark is used for the status bar -->
-        <item name="colorPrimaryDark">@android:color/white</item>
+        <item name="colorPrimaryDark">#E97064</item>
         <!-- colorAccent is used as the default value for colorControlActivated, which is used to tint widgets -->
-        <item name="colorAccent">@android:color/white</item>
-        <item name="colorControlActivated">@android:color/white</item>
-        <item name="colorControlHighlight">@android:color/white</item>
-        <item name="colorSwitchThumbNormal">@color/color_primary_dark</item>
+        <item name="colorAccent">#E97064</item>
+        <item name="colorControlActivated">#E97064</item>
+        <item name="colorControlHighlight">#E97064</item>
+        <item name="colorSwitchThumbNormal">@android:color/white</item>
     </style>
 
     <style name="SwitchStyle" parent="ThemeOverlay.AppCompat.Dark">
@@ -185,4 +187,8 @@
         <item name="android:layout_gravity">center_vertical|fill_horizontal</item>
     </style>
 
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMajor">80%</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
 </resources>

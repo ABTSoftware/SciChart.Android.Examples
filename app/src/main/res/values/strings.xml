@@ -40,6 +40,12 @@
     <string name="speed_text">Speed (ms) :</string>
     <string name="no_results_found">It\'s looking lonely in here&#x2026; Have you tried searching for something simpler? e.g. \"Realtime Charts\"</string>
 
+    <string name="sort_text_formatter">Sort: %1$s</string>
+    <string name="category">Category</string>
+    <string name="feature">Feature</string>
+    <string name="name">Name</string>
+    <string name="most_used">Most Used</string>
+
     <string-array name="sort_by">
         <item>Category</item>
         <item>Feature</item>

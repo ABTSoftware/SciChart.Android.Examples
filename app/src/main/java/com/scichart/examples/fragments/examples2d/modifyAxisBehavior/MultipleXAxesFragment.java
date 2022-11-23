@@ -52,13 +52,13 @@ public class MultipleXAxesFragment extends ExampleSingleChartBaseFragment {
         final IAxis xTopAxis = sciChartBuilder.newNumericAxis()
                 .withAxisAlignment(AxisAlignment.Top)
                 .withAxisId(X_TOP_AXIS)
-                .withTextColor(0xFF279B27)
+                .withTextColor(0xFFAE418D)
                 .build();
 
         final IAxis xBottomAxis = sciChartBuilder.newNumericAxis()
                 .withAxisAlignment(AxisAlignment.Bottom)
                 .withAxisId(X_BOTTOM_AXIS)
-                .withTextColor(0xFFFF1919)
+                .withTextColor(0xFF47BDE6)
                 .build();
 
         final IAxis yLeftAxis = sciChartBuilder.newNumericAxis()
@@ -66,7 +66,7 @@ public class MultipleXAxesFragment extends ExampleSingleChartBaseFragment {
                 .withAxisAlignment(AxisAlignment.Left)
                 .withAxisId(Y_LEFT_AXIS)
                 .withTextFormatting("#.0")
-                .withTextColor(0xFFFC9C29)
+                .withTextColor(0xFF68BCAE)
                 .build();
 
         final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
@@ -74,13 +74,13 @@ public class MultipleXAxesFragment extends ExampleSingleChartBaseFragment {
                 .withAxisAlignment(AxisAlignment.Right)
                 .withAxisId(Y_RIGHT_AXIS)
                 .withTextFormatting("#.0")
-                .withTextColor(0xFF4083B7)
+                .withTextColor(0xFFE97064)
                 .build();
 
-        final IXyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Red line").build();
-        final IXyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Green line").build();
-        final IXyDataSeries<Double, Double> ds3 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Orange line").build();
-        final IXyDataSeries<Double, Double> ds4 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Blue line").build();
+        final IXyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line 1").build();
+        final IXyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line 2").build();
+        final IXyDataSeries<Double, Double> ds3 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line 3").build();
+        final IXyDataSeries<Double, Double> ds4 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Line 4").build();
 
         fillDataSeries(ds1);
         fillDataSeries(ds2);
@@ -91,28 +91,28 @@ public class MultipleXAxesFragment extends ExampleSingleChartBaseFragment {
                 .withDataSeries(ds1)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
-                .withStrokeStyle(0xFFFF1919, 1f, true)
+                .withStrokeStyle(0xFF47BDE6, 1f, true)
                 .build();
 
         final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds2)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
-                .withStrokeStyle(0xFF279B27, 1f, true)
+                .withStrokeStyle(0xFFAE418D, 1f, true)
                 .build();
 
         final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds3)
                 .withXAxisId(X_TOP_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
-                .withStrokeStyle(0xFFFC9C29, 1f, true)
+                .withStrokeStyle(0xFF68BCAE, 1f, true)
                 .build();
 
         final FastLineRenderableSeries rs4 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds4)
                 .withXAxisId(X_TOP_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
-                .withStrokeStyle(0xFF4083B7, 1f, true)
+                .withStrokeStyle(0xFFE97064, 1f, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

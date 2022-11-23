@@ -17,6 +17,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingVertical="10dp"
+    android:paddingHorizontal="16dp"
+    android:layout_marginHorizontal="16dp"
     android:background="@drawable/bottom_list_item_selector"
     android:gravity="center_vertical" >
 
@@ -31,6 +34,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
         android:padding="10dp"
         android:textColor="@android:color/white" />
 

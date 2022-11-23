@@ -48,7 +48,7 @@ public class UniformColumn3DFragment extends ExampleSingleChart3DBaseFragment {
         final NumericAxis3D zAxis = sciChart3DBuilder.newNumericAxis3D().withGrowBy(.1, .1).build();
 
         final ColumnRenderableSeries3D rs = sciChart3DBuilder.newColumnSeries3D()
-                .withFill(ColorUtil.DodgerBlue)
+                .withFill(0xFFae418d)
                 .withDataSeries(ds)
                 .build();
 

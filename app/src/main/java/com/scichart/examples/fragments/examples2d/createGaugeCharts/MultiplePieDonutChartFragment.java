@@ -42,24 +42,24 @@ public class MultiplePieDonutChartFragment extends ExampleBaseFragment<ExampleSi
     @Override
     protected void initExample(ExampleSinglePieChartWithLegendFragmentBinding binding) {
         final IPieRenderableSeries pieSeries = sciChartBuilder.newPieSeries().withSeriesName("HowPeopleTravel").withSegments(
-                sciChartBuilder.newPieSegment().withValue(34).withTitle("Ecologic").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
-                sciChartBuilder.newPieSegment().withValue(34.4).withTitle("Municipal").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(31.6).withTitle("Personal").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build()
+                sciChartBuilder.newPieSegment().withValue(34).withTitle("Ecologic").withRadialGradientColors(0xff68bcae, 0xff68bcae).build(),
+                sciChartBuilder.newPieSegment().withValue(34.4).withTitle("Municipal").withRadialGradientColors(0xffe97064, 0xffe97064).build(),
+                sciChartBuilder.newPieSegment().withValue(31.6).withTitle("Personal").withRadialGradientColors(0xff47bde6, 0xff47bde6).build()
         ).build();
 
         final IPieRenderableSeries donutSeries = sciChartBuilder.newDonutSeries().withSeriesName("DetailedGroup").withSegments(
-                sciChartBuilder.newPieSegment().withValue(28.8).withTitle("Walking").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
-                sciChartBuilder.newPieSegment().withValue(5.2).withTitle("Bicycle").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
+                sciChartBuilder.newPieSegment().withValue(28.8).withTitle("Walking").withRadialGradientColors(0xff68bcae, 0xff68bcae).build(),
+                sciChartBuilder.newPieSegment().withValue(5.2).withTitle("Bicycle").withRadialGradientColors(0xff68bcae, 0xff68bcae).build(),
 
-                sciChartBuilder.newPieSegment().withValue(12.3).withTitle("Metro").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(3.5).withTitle("Tram").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(5.9).withTitle("Rail").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(9.7).withTitle("Bus").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(3.0).withTitle("Taxi").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
+                sciChartBuilder.newPieSegment().withValue(12.3).withTitle("Metro").withRadialGradientColors(0xffe97064, 0xffe97064).build(),
+                sciChartBuilder.newPieSegment().withValue(3.5).withTitle("Tram").withRadialGradientColors(0xffe97064, 0xffe97064).build(),
+                sciChartBuilder.newPieSegment().withValue(5.9).withTitle("Rail").withRadialGradientColors(0xffe97064, 0xffe97064).build(),
+                sciChartBuilder.newPieSegment().withValue(9.7).withTitle("Bus").withRadialGradientColors(0xffe97064, 0xffe97064).build(),
+                sciChartBuilder.newPieSegment().withValue(3.0).withTitle("Taxi").withRadialGradientColors(0xffe97064, 0xffe97064).build(),
 
-                sciChartBuilder.newPieSegment().withValue(23.2).withTitle("Car").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build(),
-                sciChartBuilder.newPieSegment().withValue(3.1).withTitle("Motorcycle").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build(),
-                sciChartBuilder.newPieSegment().withValue(5.3).withTitle("Other").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build()
+                sciChartBuilder.newPieSegment().withValue(23.2).withTitle("Car").withRadialGradientColors(0xff47bde6, 0xff47bde6).build(),
+                sciChartBuilder.newPieSegment().withValue(3.1).withTitle("Motorcycle").withRadialGradientColors(0xff47bde6, 0xff47bde6).build(),
+                sciChartBuilder.newPieSegment().withValue(5.3).withTitle("Other").withRadialGradientColors(0xff47bde6, 0xff47bde6).build()
         ).build();
 
         final SciPieChartSurface pieChart = binding.pieChart;

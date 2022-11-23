@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--*************************************************************************-->
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
 <!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
 <!--   -->
 <!-- Web: http://www.scichart.com -->
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- startup_activity.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- activity_home.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -14,38 +13,170 @@
 <!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
 <!-- expressed or implied. -->
 <!--*************************************************************************-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_screen_background"
-    android:orientation="horizontal">
+    android:background="@drawable/start_screen_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <include layout="@layout/charts_2d_layout"
-        android:id="@+id/charts2d"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/start_screen_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/main_screen_vertical_separator" />
+        <ImageView
+            android:id="@+id/start_activity_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/app_name_with_logo" />
 
-    <include layout="@layout/charts_3d_layout"
-        android:id="@+id/charts3d"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
 
-    <View
-        android:layout_width="2dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/main_screen_vertical_separator" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/charts2d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/startup_screen_card_background"
+            android:paddingVertical="24dp">
 
-    <include layout="@layout/featured_charts_layout"
-        android:id="@+id/featuredCharts"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/start_activity_2d_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_2d_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/start_activity_2d_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/charts2D"
+                android:textColor="#47BDE6"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/start_activity_2d_sub_header"
+                app:layout_constraintStart_toEndOf="@id/start_activity_2d_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/start_activity_2d_sub_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/charts2D_description"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/start_activity_2d_header"
+                app:layout_constraintTop_toBottomOf="@+id/start_activity_2d_header" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/charts3d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/startup_screen_card_background"
+            android:paddingVertical="24dp">
+
+            <ImageView
+                android:id="@+id/start_activity_3d_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_3d_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/start_activity_3d_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/charts3D"
+                android:textColor="#47BDE6"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/start_activity_3d_sub_header"
+                app:layout_constraintStart_toEndOf="@id/start_activity_3d_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/start_activity_3d_sub_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/charts3D_description"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/start_activity_3d_header"
+                app:layout_constraintTop_toBottomOf="@+id/start_activity_3d_header" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/featuredCharts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/startup_screen_card_background"
+            android:paddingVertical="24dp">
+
+            <ImageView
+                android:id="@+id/start_activity_featured_icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="24dp"
+                android:src="@drawable/ic_featured_charts_icon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/start_activity_featured_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/featured"
+                android:textColor="#47BDE6"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/start_activity_featured_sub_header"
+                app:layout_constraintStart_toEndOf="@id/start_activity_featured_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/start_activity_featured_sub_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/featured_description"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/start_activity_featured_header"
+                app:layout_constraintTop_toBottomOf="@+id/start_activity_featured_header" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</ScrollView>

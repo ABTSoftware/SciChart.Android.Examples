@@ -46,7 +46,7 @@ public class DigitalLineChartFragment extends ExampleSingleChartBaseFragment {
 
         final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFF99EE99, 1f, true)
+                .withStrokeStyle(0xFFe97064, 1f, true)
                 .withIsDigitalLine(true)
                 .build();
 

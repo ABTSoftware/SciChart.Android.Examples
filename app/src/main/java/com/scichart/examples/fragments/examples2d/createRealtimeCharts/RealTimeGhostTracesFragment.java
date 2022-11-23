@@ -74,7 +74,7 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment<ExampleReal
         Collections.addAll(surface.getXAxes(), xAxis);
         Collections.addAll(surface.getYAxes(), yAxis);
 
-        final int seriesColor = ColorUtil.LimeGreen;
+        final int seriesColor = 0xFF68bcae;
         Collections.addAll(surface.getRenderableSeries(),
                 sciChartBuilder.newLineSeries().withStrokeStyle(seriesColor).build(),
                 sciChartBuilder.newLineSeries().withStrokeStyle(ColorUtil.argb(seriesColor, 0.9f)).build(),

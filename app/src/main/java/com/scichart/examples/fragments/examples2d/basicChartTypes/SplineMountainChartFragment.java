@@ -48,8 +48,8 @@ public class SplineMountainChartFragment extends ExampleSingleChartBaseFragment 
 
         final SplineMountainRenderableSeries rSeries = sciChartBuilder.newSplineMountainSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xAAFFC9A8, 1f, true)
-                .withAreaFillLinearGradientColors(0xAAFF8D42, 0x88090E11)
+                .withStrokeStyle(0xAA47bde6, 1f, true)
+                .withAreaFillLinearGradientColors(0xAA84d2f6, 0x33e2f4fd)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF006400, 1).withFill(0xFFFFFFFF).build())
                 .build();
 

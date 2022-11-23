@@ -66,7 +66,7 @@ public class UsePointMarkersFragment extends ExampleSingleChartBaseFragment {
         final IPointMarker pointMarker1 = sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(15,15).withFill(0x990077ff).withStroke(ColorUtil.LightBlue, 2).build();
         final IPointMarker pointMarker2 = sciChartBuilder.newPointMarker(new SquarePointMarker()).withSize(20, 20).withFill(0x99ff0000).withStroke(ColorUtil.Red, 2).build();
         final IPointMarker pointMarker3 = sciChartBuilder.newPointMarker(new TrianglePointMarker()).withSize(20, 20).withFill(0xffffdd00).withStroke(0xffff6600, 2).build();
-        final IPointMarker pointMarker4 = sciChartBuilder.newPointMarker(new CrossPointMarker()).withSize(25, 25).withStroke(ColorUtil.Magenta, 4).build();
+        final IPointMarker pointMarker4 = sciChartBuilder.newPointMarker(new CrossPointMarker()).withSize(25, 25).withStroke(ColorUtil.Magenta, 15).build();
         final IPointMarker pointMarker5 = sciChartBuilder.newPointMarker(new SpritePointMarker(new CustomPointMarkerDrawer(requireContext(), R.drawable.example_weather_storm))).withSize(40, 40).build();
 
         IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withPointMarker(pointMarker1).withStrokeStyle(ColorUtil.LightBlue, 2f).build();

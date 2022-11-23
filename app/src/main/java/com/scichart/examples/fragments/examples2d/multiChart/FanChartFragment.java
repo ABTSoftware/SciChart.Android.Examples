@@ -66,7 +66,7 @@ public class FanChartFragment extends ExampleSingleChartBaseFragment {
         final FastBandRenderableSeries projectedVar3 = sciChartBuilder.newBandSeries().withDataSeries(var3DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
         final FastBandRenderableSeries projectedVar2 = sciChartBuilder.newBandSeries().withDataSeries(var2DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
         final FastBandRenderableSeries projectedVar = sciChartBuilder.newBandSeries().withDataSeries(var1DataSeries).withStrokeY1Style(ColorUtil.Transparent).withStrokeStyle(ColorUtil.Transparent).build();
-        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(actualDataSeries).withStrokeStyle(ColorUtil.Red, 1f).build();
+        final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries().withDataSeries(actualDataSeries).withStrokeStyle(0xFFe97064, 1f).build();
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);

@@ -18,6 +18,7 @@ package com.scichart.examples;
 
 import android.os.Bundle;
 
+import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting3d.visuals.SciChartSurface3D;
 import com.scichart.extensions3d.builders.SciChart3DBuilder;
 
@@ -43,6 +44,7 @@ public class Example3DActivity extends ExampleActivityBase{
         super.onPostResume();
 
         surface = findViewById(R.id.surface3d);
+        surface.setTheme(R.style.SciChart_SciChart_NavyBlue);
         showFpsCounter = surface.getIsFpsCounterVisible();
     }
 

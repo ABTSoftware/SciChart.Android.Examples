@@ -66,9 +66,9 @@ public class RealtimeSeriesValuesOnAxisFragment extends ExampleSingleChartBaseFr
                 .withGrowBy(0.1d, 0.1d)
                 .build();
 
-        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFFFF8C00, 2f, true).build();
-        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFF4682B4, 2f, true).build();
-        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withStrokeStyle(0xFF556B2F, 2f, true).build();
+        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFFe97064, 2f, true).build();
+        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFF47bde6, 2f, true).build();
+        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withStrokeStyle(0xFF68bcae, 2f, true).build();
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);

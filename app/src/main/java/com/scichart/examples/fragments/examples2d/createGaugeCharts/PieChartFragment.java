@@ -42,10 +42,10 @@ public class PieChartFragment extends ExampleBaseFragment<ExampleSinglePieChartW
     @Override
     protected void initExample(ExampleSinglePieChartWithLegendFragmentBinding binding) {
         final IPieRenderableSeries pieSeries = sciChartBuilder.newPieSeries().withSegments(
-                sciChartBuilder.newPieSegment().withValue(40).withTitle("Green").withRadialGradientColors(0xff84BC3D, 0xff5B8829).build(),
-                sciChartBuilder.newPieSegment().withValue(10).withTitle("Red").withRadialGradientColors(0xffe04a2f, 0xffB7161B).build(),
-                sciChartBuilder.newPieSegment().withValue(20).withTitle("Blue").withRadialGradientColors(0xff4AB6C1, 0xff2182AD).build(),
-                sciChartBuilder.newPieSegment().withValue(15).withTitle("Yellow").withRadialGradientColors(0xffFFFF00, 0xfffed325).build()
+                sciChartBuilder.newPieSegment().withValue(40).withTitle("Oregon Blackberry Pie").withRadialGradientColors(0xff47bde6, 0xff47bde6).build(),
+                sciChartBuilder.newPieSegment().withValue(10).withTitle("French Coconut Pie").withRadialGradientColors(0xffae418d, 0xffae418d).build(),
+                sciChartBuilder.newPieSegment().withValue(20).withTitle("Rhubarb Custard Pie").withRadialGradientColors(0xff68bcae, 0xff68bcae).build(),
+                sciChartBuilder.newPieSegment().withValue(15).withTitle("Lemon Chiffon Pie").withRadialGradientColors(0xffe97064, 0xffe97064).build()
         ).build();
 
         final SciPieChartSurface pieChart = binding.pieChart;

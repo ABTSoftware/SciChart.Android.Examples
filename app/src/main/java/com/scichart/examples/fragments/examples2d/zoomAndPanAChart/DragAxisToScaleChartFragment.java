@@ -76,8 +76,8 @@ public class DragAxisToScaleChartFragment extends ExampleSingleChartBaseFragment
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withTextFormatting("0.0").withAxisAlignment(AxisAlignment.Top).withGrowBy(0.1, 0.1).withVisibleRange(3, 6).build();
-        final IAxis rightYAxis = sciChartBuilder.newNumericAxis().withAxisId("RightAxisId").withAxisAlignment(AxisAlignment.Right).withTextColor(0xFF279B27).withGrowBy(0.1, 0.1).build();
-        final IAxis leftYAxis = sciChartBuilder.newNumericAxis().withAxisId("LeftAxisId").withAxisAlignment(AxisAlignment.Left).withTextColor(0xFF4083B7).withGrowBy(0.1, 0.1).build();
+        final IAxis rightYAxis = sciChartBuilder.newNumericAxis().withAxisId("RightAxisId").withAxisAlignment(AxisAlignment.Right).withTextColor(0xFF47bde6).withGrowBy(0.1, 0.1).build();
+        final IAxis leftYAxis = sciChartBuilder.newNumericAxis().withAxisId("LeftAxisId").withAxisAlignment(AxisAlignment.Left).withTextColor(0xFFae418d).withGrowBy(0.1, 0.1).build();
 
         final DoubleSeries fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
         final DoubleSeries dampedSinewave = DataManager.getInstance().getDampedSinewave(1500, 3.0, 0.0, 0.005, 5000, 10);
@@ -88,8 +88,8 @@ public class DragAxisToScaleChartFragment extends ExampleSingleChartBaseFragment
         mountainDS.append(fourierSeries.xValues, fourierSeries.yValues);
         lineDS.append(dampedSinewave.xValues, dampedSinewave.yValues);
 
-        final FastMountainRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDS).withAreaFillColor(0x771964FF).withStrokeStyle(0xFF0944CF, 2f, true).withYAxisId("LeftAxisId").build();
-        final FastLineRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDS).withStrokeStyle(0xFF279B27, 2f, true).withYAxisId("RightAxisId").build();
+        final FastMountainRenderableSeries mountainRenderableSeries = sciChartBuilder.newMountainSeries().withDataSeries(mountainDS).withAreaFillColor(0x77ae418d).withStrokeStyle(0xFFc43360, 2f, true).withYAxisId("LeftAxisId").build();
+        final FastLineRenderableSeries lineRenderableSeries = sciChartBuilder.newLineSeries().withDataSeries(lineDS).withStrokeStyle(0xFF47bde6, 2f, true).withYAxisId("RightAxisId").build();
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);

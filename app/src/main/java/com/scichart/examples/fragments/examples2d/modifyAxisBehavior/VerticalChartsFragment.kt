@@ -44,13 +44,13 @@ class VerticalChartsFragment: ExampleSingleChartBaseFragment() {
             renderableSeries {
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { append(ds1Points.xValues, ds1Points.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.SteelBlue, 2f)
+                    strokeStyle = SolidPenStyle(0xFFe97064, 2f)
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { append(ds2Points.xValues, ds2Points.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.Lime, 2f)
+                    strokeStyle = SolidPenStyle(0xFF274b92, 2f)
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }

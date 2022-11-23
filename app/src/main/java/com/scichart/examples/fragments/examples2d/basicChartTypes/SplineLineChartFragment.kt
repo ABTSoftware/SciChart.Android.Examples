@@ -41,16 +41,16 @@ class SplineLineChartFragment : ExampleSingleChartBaseFragment() {
             renderableSeries {
                 splineLineRenderableSeries {
                     this.dataSeries = dataSeries
-                    strokeStyle = SolidPenStyle(0xFF006400)
+                    strokeStyle = SolidPenStyle(0xFFae418d)
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     this.dataSeries = dataSeries
-                    strokeStyle = SolidPenStyle(0xFF4282B4)
+                    strokeStyle = SolidPenStyle(0xFFe97064)
                     ellipsePointMarker {
                         setSize(7)
-                        strokeStyle = SolidPenStyle(0xFF006400)
+                        strokeStyle = SolidPenStyle(0xFFae418d)
                         fillStyle = SolidBrushStyle(0xFFFFFFFF)
                     }
 

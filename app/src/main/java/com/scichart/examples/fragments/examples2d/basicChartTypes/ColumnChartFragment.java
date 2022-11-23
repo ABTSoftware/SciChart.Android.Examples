@@ -71,7 +71,7 @@ public class ColumnChartFragment extends ExampleSingleChartBaseFragment {
 
     private class ColumnsPaletteProvider extends PaletteProviderBase<FastColumnRenderableSeries> implements IFillPaletteProvider {
         private final IntegerValues colors = new IntegerValues();
-        private final int[] desiredColors = new int[]{0xFFa9d34f, 0xFFfc9930, 0xFFd63b3f};
+        private final int[] desiredColors = new int[]{0xFF21a0d8, 0xFFc43360, 0xFF34c19c};
 
         protected ColumnsPaletteProvider() {
             super(FastColumnRenderableSeries.class);

@@ -62,18 +62,18 @@ class UsingCursorModifierTooltipsFragment : ExampleSingleChartBaseFragment() {
 
             renderableSeries {
                 fastLineRenderableSeries {
-                    xyDataSeries<Double, Double>("Green Series") {
+                    xyDataSeries<Double, Double>("Blue Series") {
                         append(data1.xValues, data1.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFF177B17, 2f)
+                    strokeStyle = SolidPenStyle(0xFF47bde6, 2f)
 
                     sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }
                 fastLineRenderableSeries {
-                    xyDataSeries<Double, Double>("Red Series") {
+                    xyDataSeries<Double, Double>("Orange Series") {
                         append(data2.xValues, data2.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFFDD0909, 2f)
+                    strokeStyle = SolidPenStyle(0xFFe97064, 2f)
 
                     sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }

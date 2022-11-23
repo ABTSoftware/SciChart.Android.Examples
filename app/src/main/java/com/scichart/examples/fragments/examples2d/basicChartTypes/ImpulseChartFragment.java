@@ -49,13 +49,13 @@ public class ImpulseChartFragment extends ExampleSingleChartBaseFragment {
 
         final EllipsePointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker())
                 .withSize(10, 10)
-                .withStroke(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF), 1)
-                .withFill(ColorUtil.argb(0xFF, 0x00, 0x66, 0xFF))
+                .withStroke(ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6), 1)
+                .withFill(ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6))
                 .build();
 
         final FastImpulseRenderableSeries rSeries = sciChartBuilder.newImpulseSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFF0066FF)
+                .withStrokeStyle(0xFF47BDE6)
                 .withPointMarker(pointMarker)
                 .build();
 

@@ -129,7 +129,7 @@ class SparkLinesChartsFragment : ExampleBaseFragment<ExampleSparkLinesFragmentBi
             val itemValue: TextView = binding.itemValue
             if (value > 0) {
                 sb.append("\u21D1 ")
-                itemValue.setTextColor(ColorUtil.Green)
+                itemValue.setTextColor(ColorUtil.argb(0xFF, 0x34, 0xc1, 0x9c))
             } else {
                 sb.append("\u21D3 ")
                 itemValue.setTextColor(ColorUtil.Red)

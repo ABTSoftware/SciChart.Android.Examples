@@ -34,10 +34,10 @@ class PieChartFragment : ExampleBaseFragment<ExampleSinglePieChartWithLegendFrag
     override fun initExample(binding: ExampleSinglePieChartWithLegendFragmentBinding) {
         val pieSeries = PieRenderableSeries().apply {
             segmentsCollection {
-                pieSegment { value = 40.0; title = "Green"; fillStyle = RadialGradientBrushStyle(0xff84BC3D, 0xff5B8829) }
-                pieSegment { value = 10.0; title = "Red"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 20.0; title = "Blue"; fillStyle = RadialGradientBrushStyle(0xff4AB6C1, 0xff2182AD) }
-                pieSegment { value = 15.0; title = "Yellow"; fillStyle = RadialGradientBrushStyle(0xffFFFF00, 0xfffed325) }
+                pieSegment { value = 40.0; title = "Oregon Blackberry Pie"; fillStyle = RadialGradientBrushStyle(0xff47bde6, 0xff47bde6) }
+                pieSegment { value = 10.0; title = "French Coconut Pie"; fillStyle = RadialGradientBrushStyle(0xffae418d, 0xffae418d) }
+                pieSegment { value = 20.0; title = "Rhubarb Custard Pie"; fillStyle = RadialGradientBrushStyle(0xff68bcae, 0xff68bcae) }
+                pieSegment { value = 15.0; title = "Lemon Chiffon Pie"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
             }
         }
 

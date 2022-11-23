@@ -46,8 +46,8 @@ public class StackedMountainChartFragment extends ExampleSingleChartBaseFragment
         for (int i = 0; i < yValues1.length; i++) ds1.append((double) i, yValues1[i]);
         for (int i = 0; i < yValues2.length; i++) ds2.append((double) i, yValues2[i]);
 
-        final StackedMountainRenderableSeries s1 = sciChartBuilder.newStackedMountain().withDataSeries(ds1).withLinearGradientColors(0xDDDBE0E1, 0x88B6C1C3).build();
-        final StackedMountainRenderableSeries s2 = sciChartBuilder.newStackedMountain().withDataSeries(ds2).withLinearGradientColors(0xDDACBCCA, 0x88439AAF).build();
+        final StackedMountainRenderableSeries s1 = sciChartBuilder.newStackedMountain().withDataSeries(ds1).withLinearGradientColors(0xDD47bde6, 0x88e2f4fd).build();
+        final StackedMountainRenderableSeries s2 = sciChartBuilder.newStackedMountain().withDataSeries(ds2).withLinearGradientColors(0xDDae418d, 0x88efb4d3).build();
 
         final VerticallyStackedMountainsCollection seriesCollection = new VerticallyStackedMountainsCollection();
         seriesCollection.add(s1);

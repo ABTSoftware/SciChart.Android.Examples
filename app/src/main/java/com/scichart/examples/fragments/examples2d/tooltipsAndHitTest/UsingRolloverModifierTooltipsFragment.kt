@@ -71,21 +71,21 @@ class UsingRolloverModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
             renderableSeries {
                 fastLineRenderableSeries {
                     dataSeries = ds1
-                    strokeStyle = SolidPenStyle(ColorUtil.SteelBlue, 2f)
+                    strokeStyle = SolidPenStyle(0xFF47bde6, 2f)
                     ellipsePointMarker { setSize(7); fillStyle = SolidBrushStyle(ColorUtil.Lavender) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }
                 fastLineRenderableSeries {
                     dataSeries = ds2
-                    strokeStyle = SolidPenStyle(ColorUtil.DarkGreen, 2f)
+                    strokeStyle = SolidPenStyle(0xFFae418d, 2f)
                     ellipsePointMarker { setSize(7); fillStyle = SolidBrushStyle(ColorUtil.Lavender) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }
                 fastLineRenderableSeries {
                     dataSeries = ds3
-                    strokeStyle = SolidPenStyle(ColorUtil.LightSteelBlue, 2f)
+                    strokeStyle = SolidPenStyle(0xFF68bcae, 2f)
 
                     sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }

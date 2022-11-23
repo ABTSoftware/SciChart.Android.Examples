@@ -52,9 +52,9 @@ class LogarithmicAxisFragment : ExampleSingleChartBaseFragment() {
         val ds2Points = DataManager.getInstance().getExponentialCurve(2.25, 100)
         val ds3Points = DataManager.getInstance().getExponentialCurve(3.59, 100)
 
-        val line1Color = ColorUtil.argb(0xFF, 0xFF, 0xFF, 0x00)
-        val line2Color = ColorUtil.argb(0xFF, 0x27, 0x9B, 0x27)
-        val line3Color = ColorUtil.argb(0xFF, 0xFF, 0x19, 0x19)
+        val line1Color = ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6)
+        val line2Color = ColorUtil.argb(0xFF, 0xAE, 0x41, 0x8D)
+        val line3Color = ColorUtil.argb(0xFF, 0x68, 0xBC, 0xAE)
 
         binding.surface.suspendUpdates {
             xAxes { generateAxis(isXLogAxis) }

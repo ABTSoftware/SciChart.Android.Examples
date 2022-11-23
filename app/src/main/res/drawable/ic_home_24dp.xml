@@ -1,21 +1,25 @@
-<!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2019. All rights reserved. -->
-<!--   -->
-<!-- Web: http://www.scichart.com -->
-<!-- Support: support@scichart.com -->
-<!-- Sales:   sales@scichart.com -->
-<!--  -->
-<!-- ic_home_black_24dp.xml is part of the SCICHART® Examples. Permission is hereby granted -->
-<!-- to modify, create derivative works, distribute and publish any part of this source -->
-<!-- code whether for commercial, private or personal use. -->
-<!--  -->
-<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
-<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
-<!-- expressed or implied. -->
-<!--*************************************************************************-->
-
-<vector android:height="24dp" android:tint="#FFFFFF"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="30"
+    android:viewportHeight="30">
+  <path
+      android:pathData="M8,0L22,0A8,8 0,0 1,30 8L30,22A8,8 0,0 1,22 30L8,30A8,8 0,0 1,0 22L0,8A8,8 0,0 1,8 0z"
+      android:strokeAlpha="0.7"
+      android:fillColor="#000000"
+      android:fillAlpha="0.21"/>
+  <path
+      android:strokeWidth="1"
+      android:pathData="M8,0.5L22,0.5A7.5,7.5 0,0 1,29.5 8L29.5,22A7.5,7.5 0,0 1,22 29.5L8,29.5A7.5,7.5 0,0 1,0.5 22L0.5,8A7.5,7.5 0,0 1,8 0.5z"
+      android:strokeAlpha="0.49"
+      android:fillColor="#00000000"
+      android:strokeColor="#4C5156"
+      android:fillAlpha="0.7"/>
+  <group>
+    <clip-path
+        android:pathData="M3,3h24v24h-24z"/>
+    <path
+        android:pathData="M13,22V17H17V22C17,22.55 17.45,23 18,23H21C21.55,23 22,22.55 22,22V15H23.7C24.16,15 24.38,14.43 24.03,14.13L15.67,6.6C15.29,6.26 14.71,6.26 14.33,6.6L5.97,14.13C5.63,14.43 5.84,15 6.3,15H8V22C8,22.55 8.45,23 9,23H12C12.55,23 13,22.55 13,22Z"
+        android:fillColor="#919395"/>
+  </group>
 </vector>

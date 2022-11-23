@@ -50,9 +50,9 @@ public class UniformImpulseSeries3DFragment extends ExampleSingleChart3DBaseFrag
 
         final ImpulseRenderableSeries3D rs = sciChart3DBuilder.newImpulseSeries3D()
                 .withDataSeries(ds)
-                .withStroke(ColorUtil.DodgerBlue)
+                .withStroke(0xFFe97064)
                 .withStrokeThicknes(1f)
-                .withPointMarker(sciChart3DBuilder.newSpherePointMarker3D().withSize(5).withFill(ColorUtil.DodgerBlue).build())
+                .withPointMarker(sciChart3DBuilder.newSpherePointMarker3D().withSize(5).withFill(0xFFe97064).build())
                 .build();
 
         UpdateSuspender.using(surface3d, () -> {

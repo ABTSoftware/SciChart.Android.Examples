@@ -44,7 +44,7 @@ class UniformColumn3DFragment : ExampleSingleChart3DBaseFragment() {
                             }
                         }
                     }
-                    fill = ColorUtil.DodgerBlue
+                    fill = 0xFFae418d.toInt()
                 }
             }
 

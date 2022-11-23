@@ -49,13 +49,13 @@ public class SplineLineChartFragment extends ExampleSingleChartBaseFragment {
 
         final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries)
-                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF006400, 1).withFill(0xFFFFFFFF).build())
-                .withStrokeStyle(0xFF4282B4, 1f, true)
+                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFFae418d, 1).withFill(0xFFFFFFFF).build())
+                .withStrokeStyle(0xFFe97064, 1f, true)
                 .build();
 
         final SplineLineRenderableSeries rSeries = sciChartBuilder.newSplineLineSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFF006400, 2f, true)
+                .withStrokeStyle(0xFFae418d, 2f, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

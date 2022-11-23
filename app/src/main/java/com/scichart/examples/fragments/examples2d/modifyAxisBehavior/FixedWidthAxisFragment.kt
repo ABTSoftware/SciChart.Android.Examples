@@ -41,7 +41,7 @@ class FixedWidthAxisFragment : ExampleSingleChartBaseFragment() {
     private var isIncreasing = true
 
     override fun initExample(surface: SciChartSurface) {
-        val line1Color = ColorUtil.argb(0xFF, 0xFF, 0xFF, 0x00)
+        val line1Color = ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6)
 
         binding.surface.suspendUpdates {
             xAxes {

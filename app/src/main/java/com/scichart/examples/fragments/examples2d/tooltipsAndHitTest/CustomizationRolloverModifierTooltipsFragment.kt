@@ -56,7 +56,7 @@ class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFrag
                     xyDataSeries<Double, Double>("Series #1") {
                         append(data1.xValues, data1.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xff6495ed, 2f)
+                    strokeStyle = SolidPenStyle(0xffe97064, 2f)
                     seriesInfoProvider = FirstCustomSeriesInfoProvider()
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
@@ -65,7 +65,7 @@ class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFrag
                     xyDataSeries<Double, Double>("Series #2") {
                         append(data2.xValues, data2.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xffe2460c, 2f)
+                    strokeStyle = SolidPenStyle(0xff274b92, 2f)
                     seriesInfoProvider = SecondCustomSeriesInfoProvider()
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
@@ -97,8 +97,8 @@ class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFrag
                 sb.append(MODIFIER_NAME)
                 text = sb
 
-                setTooltipBackgroundColor(0xff6495ed.toInt())
-                setTooltipStroke(0xff4d81dd.toInt())
+                setTooltipBackgroundColor(0xffe97064.toInt())
+                setTooltipStroke(0xfff4840b.toInt())
                 setTooltipTextColor(ColorUtil.White)
             }
         }
@@ -124,8 +124,8 @@ class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFrag
                 sb.append(" Y: ").append(seriesInfo.formattedYValue)
                 text = sb
 
-                setTooltipBackgroundColor(0xffe2460c.toInt())
-                setTooltipStroke(0xffff4500.toInt())
+                setTooltipBackgroundColor(0xff274b92.toInt())
+                setTooltipStroke(0xff112cce.toInt())
                 setTooltipTextColor(ColorUtil.White)
             }
         }

@@ -53,7 +53,7 @@ class AnimatingLineChartFragment : ExampleSingleChartBaseFragment() {
     private val dataSeries = XyDataSeries<Double, Double>().apply { fifoCapacity = FIFO_CAPACITY }
     private val rSeries = FastLineRenderableSeries().apply {
         dataSeries = this@AnimatingLineChartFragment.dataSeries
-        strokeStyle = SolidPenStyle(0xFF4083B7, 3f)
+        strokeStyle = SolidPenStyle(0xFF47bde6, 3f)
     }
     private val xVisibleRange = DoubleRange(-1.0, VISIBLE_RANGE_MAX)
     private var currentXValue = 0.0

@@ -107,6 +107,7 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
             setSupportActionBar(appToolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
 
             appToolbar.setNavigationOnClickListener(v -> onBackPressed());
         }

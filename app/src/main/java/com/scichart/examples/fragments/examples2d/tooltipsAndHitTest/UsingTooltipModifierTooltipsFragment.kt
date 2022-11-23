@@ -49,8 +49,8 @@ class UsingTooltipModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(ColorUtil.SteelBlue)
                     ellipsePointMarker {
                         setSize(5)
-                        strokeStyle = SolidPenStyle(ColorUtil.SteelBlue)
-                        fillStyle = SolidBrushStyle(ColorUtil.SteelBlue)
+                        strokeStyle = SolidPenStyle(0xFF47bde6)
+                        fillStyle = SolidBrushStyle(0xFF47bde6)
                     }
 
                     opacityAnimation { duration = 1000 }
@@ -60,11 +60,11 @@ class UsingTooltipModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
                         acceptsUnsortedData = true
                         append(ds2Points.xValues, ds2Points.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFFFF3333)
+                    strokeStyle = SolidPenStyle(0xFFae418d)
                     ellipsePointMarker {
                         setSize(5)
-                        strokeStyle = SolidPenStyle(0xFFFF3333)
-                        fillStyle = SolidBrushStyle(0xFFFF3333)
+                        strokeStyle = SolidPenStyle(0xFFae418d)
+                        fillStyle = SolidBrushStyle(0xFFae418d)
                     }
 
                     opacityAnimation { duration = 1000 }

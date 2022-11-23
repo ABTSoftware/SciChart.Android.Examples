@@ -55,7 +55,7 @@ class SyncMultipleChartsFragment: ExampleBaseFragment<ExampleSyncMultipleChartsF
                             append(i.toDouble(), POINTS_COUNT * sin(i * Math.PI * 0.1) / i)
                         }
                     }
-                    strokeStyle = SolidPenStyle(ColorUtil.Green)
+                    strokeStyle = SolidPenStyle(0xFF47bde6)
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }

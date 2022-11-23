@@ -19,10 +19,10 @@
 <item>
     <shape android:shape="rectangle">
         <gradient
-            android:startColor="#550000FF"
-            android:endColor="#55FFFF00"
+            android:startColor="#55274b92"
+            android:endColor="#55ae418d"
             android:angle="270" />
-        <stroke android:width="1dp" android:color="#279B27" />
+        <stroke android:width="1dp" android:color="#ae418d" />
         <corners android:radius="3dp" />
     </shape>
 </item>

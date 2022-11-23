@@ -44,9 +44,9 @@ class UniformImpulseSeries3DFragment : ExampleSingleChart3DBaseFragment() {
                             }
                         }
                     }
-                    stroke = ColorUtil.DodgerBlue
+                    stroke = 0xFFe97064.toInt()
                     strokeThickness = 1f
-                    spherePointMarker3D { size = 5f; fill = ColorUtil.DodgerBlue }
+                    spherePointMarker3D { size = 5f; fill = 0xFFe97064.toInt() }
                 }
             }
 

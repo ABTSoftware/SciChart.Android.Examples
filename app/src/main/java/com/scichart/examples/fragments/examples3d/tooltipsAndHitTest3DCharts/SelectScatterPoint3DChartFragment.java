@@ -51,7 +51,7 @@ public class SelectScatterPoint3DChartFragment extends ExampleSingleChart3DBaseF
         }
 
         final EllipsePointMarker3D pointMarker3D = sciChart3DBuilder.newEllipsePointMarker3D()
-                .withFill(ColorUtil.LimeGreen)
+                .withFill(0xFF47bde6)
                 .withSize(5f)
                 .build();
 

@@ -74,7 +74,7 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
                 }
                 fastLineRenderableSeries {
                     dataSeries = actualDataSeries
-                    strokeStyle = SolidPenStyle(Red)
+                    strokeStyle = SolidPenStyle(0xFFe97064)
 
                     waveAnimation { interpolator = DecelerateInterpolator() }
                 }

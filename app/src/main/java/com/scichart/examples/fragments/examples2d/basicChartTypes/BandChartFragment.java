@@ -47,8 +47,8 @@ public class BandChartFragment extends ExampleSingleChartBaseFragment {
 
         final FastBandRenderableSeries rSeries = sciChartBuilder.newBandSeries()
                 .withDataSeries(dataSeries)
-                .withFillColor(0x33279B27).withFillY1Color(0x33FF1919)
-                .withStrokeStyle(0xFFFF1919, 1f, true).withStrokeY1Style(0xFF279B27, 1f, true)
+                .withFillColor(0x3347BDE6).withFillY1Color(0x33AE418D)
+                .withStrokeStyle(0xFFAE418D, 1f, true).withStrokeY1Style(0xFF47BDE6, 1f, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?><!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2022. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- layout_custom_alert.xml is part of SCICHART®, High Performance Scientific Charts -->
+<!-- For full terms and conditions of the license, see http://www.scichart.com/scichart-eula/ -->
+<!--  -->
+<!-- This source code is protected by international copyright law. Unauthorized -->
+<!-- reproduction, reverse-engineering, or distribution of all or any portion of -->
+<!-- this source code is strictly prohibited. -->
+<!--  -->
+<!-- This source code contains confidential and proprietary trade secrets of -->
+<!-- SciChart Ltd., and should at no time be copied, transferred, sold, -->
+<!-- distributed or made available without express written permission. -->
+<!--*************************************************************************-->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/example_popup_background"
+    android:padding="16dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/custom_alert_rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="300dp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/custom_alert_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/cancel_button_background"
+        android:gravity="center"
+        android:paddingVertical="16dp"
+        android:text="Cancel"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/custom_alert_submit"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/custom_alert_rv" />
+
+    <TextView
+        android:id="@+id/custom_alert_submit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1"
+        android:background="@drawable/submit_button_background"
+        android:gravity="center"
+        android:paddingVertical="16dp"
+        android:text="Submit"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/custom_alert_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/custom_alert_rv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

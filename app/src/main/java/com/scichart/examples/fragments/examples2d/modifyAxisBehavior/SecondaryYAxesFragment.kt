@@ -50,7 +50,7 @@ class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
                     axisId = Y_LEFT_AXIS
                     axisAlignment = Left
                     axisTitle = "Left Axis"
-                    setTextColor(0xFF4083B7)
+                    setTextColor(0xFF47bde6)
                 }
 
                 numericAxis {
@@ -58,7 +58,7 @@ class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
                     axisId = Y_RIGHT_AXIS
                     axisAlignment = Right
                     axisTitle = "Right Axis"
-                    setTextColor(0xFF279B27)
+                    setTextColor(0xFFae418d)
                 }
             }
 
@@ -66,7 +66,7 @@ class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
                 fastLineRenderableSeries {
                     xAxisId = X_BOTTOM_AXIS
                     yAxisId = Y_RIGHT_AXIS
-                    strokeStyle = SolidPenStyle(0xFF279B27)
+                    strokeStyle = SolidPenStyle(0xFFae418d)
                     xyDataSeries<Double, Double> { append(ds1Points.xValues, ds1Points.yValues) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
@@ -74,7 +74,7 @@ class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
                 fastLineRenderableSeries {
                     xAxisId = X_BOTTOM_AXIS
                     yAxisId = Y_LEFT_AXIS
-                    strokeStyle = SolidPenStyle(0xFF4083B7)
+                    strokeStyle = SolidPenStyle(0xFF47bde6)
                     xyDataSeries<Double, Double> { append(ds2Points.xValues, ds2Points.yValues) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }

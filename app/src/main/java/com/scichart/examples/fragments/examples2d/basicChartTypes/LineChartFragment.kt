@@ -39,7 +39,7 @@ class LineChartFragment : ExampleSingleChartBaseFragment() {
                     dataSeries = XyDataSeries<Double, Double>().apply {
                         append(fourierSeries.xValues, fourierSeries.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFF279B27)
+                    strokeStyle = SolidPenStyle(0xFFae418d)
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }

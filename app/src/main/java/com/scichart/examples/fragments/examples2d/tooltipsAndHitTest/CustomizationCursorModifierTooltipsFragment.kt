@@ -54,7 +54,7 @@ class CustomizationCursorModifierTooltipsFragment: ExampleSingleChartBaseFragmen
                     xyDataSeries<Double, Double>("Series #1") {
                         append(data1.xValues, data1.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xff6495ed, 2f)
+                    strokeStyle = SolidPenStyle(0xffae418d, 2f)
                     seriesInfoProvider = CustomSeriesInfoProvider()
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
@@ -63,7 +63,7 @@ class CustomizationCursorModifierTooltipsFragment: ExampleSingleChartBaseFragmen
                     xyDataSeries<Double, Double>("Series #2") {
                         append(data2.xValues, data2.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xffe2460c, 2f)
+                    strokeStyle = SolidPenStyle(0xff68bcae, 2f)
                     seriesInfoProvider = CustomSeriesInfoProvider()
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
@@ -72,7 +72,7 @@ class CustomizationCursorModifierTooltipsFragment: ExampleSingleChartBaseFragmen
 
             val cursorModifier = CursorModifier(R.layout.example_custom_cursor_modifier_tooltip_container).apply {
                 val thickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, resources.displayMetrics)
-                SolidPenStyle(0xAAFFA500,  thickness).initPaint(crosshairPaint)
+                SolidPenStyle(0xAA47bde6,  thickness).initPaint(crosshairPaint)
             }
 
             chartModifiers { modifier(cursorModifier) }
@@ -103,8 +103,8 @@ class CustomizationCursorModifierTooltipsFragment: ExampleSingleChartBaseFragmen
                 sb.append(" Y: ").append(seriesInfo.formattedYValue)
                 text = sb
 
-                setTooltipBackgroundColor(0xff6495ed.toInt())
-                setTooltipStroke(0xff4d81dd.toInt())
+                setTooltipBackgroundColor(0xff4781ed.toInt())
+                setTooltipStroke(0xff4781ed.toInt())
                 setTooltipTextColor(ColorUtil.White)
             }
         }

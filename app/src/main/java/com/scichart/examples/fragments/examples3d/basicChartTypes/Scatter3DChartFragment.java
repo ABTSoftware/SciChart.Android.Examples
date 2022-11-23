@@ -50,7 +50,7 @@ public class Scatter3DChartFragment extends ExampleSingleChart3DBaseFragment {
         }
 
         final EllipsePointMarker3D pointMarker3D = sciChart3DBuilder.newEllipsePointMarker3D()
-                .withFill(ColorUtil.LimeGreen)
+                .withFill(0xFF47bde6)
                 .withSize(2f)
                 .build();
 

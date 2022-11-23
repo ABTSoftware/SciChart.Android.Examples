@@ -44,22 +44,22 @@ class PanAndZoomChartFragment : ExampleSingleChartBaseFragment() {
 
             renderableSeries {
                 fastMountainRenderableSeries {
-                    areaStyle = SolidBrushStyle(0xFF177B17)
-                    strokeStyle = SolidPenStyle(0xFF177B17)
+                    areaStyle = SolidBrushStyle(0xFF47bde6)
+                    strokeStyle = SolidPenStyle(0xFF47bde6)
                     xyDataSeries<Double, Double> { append(data1.xValues, data1.yValues) }
 
                     scaleAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }
                 fastMountainRenderableSeries {
-                    areaStyle = SolidBrushStyle(0x77FF1919)
-                    strokeStyle = SolidPenStyle(0xFFDD0909)
+                    areaStyle = SolidBrushStyle(0x77ae418d)
+                    strokeStyle = SolidPenStyle(0xFFae418d)
                     xyDataSeries<Double, Double> { append(data2.xValues, data2.yValues) }
 
                     scaleAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }
                 fastMountainRenderableSeries {
-                    areaStyle = SolidBrushStyle(0x771964FF)
-                    strokeStyle = SolidPenStyle(0xFF0944CF)
+                    areaStyle = SolidBrushStyle(0x77e97064)
+                    strokeStyle = SolidPenStyle(0xFFefcdb4)
                     xyDataSeries<Double, Double> { append(data3.xValues, data3.yValues) }
 
                     scaleAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }

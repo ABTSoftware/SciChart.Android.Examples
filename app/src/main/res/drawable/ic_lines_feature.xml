@@ -1,29 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
-<!--   -->
-<!-- Web: http://www.scichart.com -->
-<!-- Support: support@scichart.com -->
-<!-- Sales:   sales@scichart.com -->
-<!--  -->
-<!-- ic_lines_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
-<!-- to modify, create derivative works, distribute and publish any part of this source -->
-<!-- code whether for commercial, private or personal use. -->
-<!--  -->
-<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
-<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
-<!-- expressed or implied. -->
-<!--*************************************************************************-->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="106.1"
-    android:viewportHeight="106.1">
-
+    android:width="37dp"
+    android:height="36dp"
+    android:viewportWidth="37"
+    android:viewportHeight="36">
+  <group>
+    <clip-path
+        android:pathData="M0,0h36.5v36h-36.5z"/>
     <path
-        android:fillColor="#ffffffff"
-        android:pathData="M6.4,101.1 L25.4,57.6 L37.7,81 L56.4,32.2 L71.6,65.4 L83.2,32 L99.3,10.2
-L95.3,7.2 L78.8,29.6 L71,52 L56,19.3 L37,68.9 L25,46 L5,91.6 L5,0 L0,0 L0,106.1
-L106.1,106.1 L106.1,101.1 L6.4,101.1 Z" />
+        android:pathData="M1,35.5C1,35.5 0.91,35.5 0.86,35.48C0.6,35.4 0.44,35.12 0.52,34.86L5.52,17.86C5.58,17.66 5.75,17.52 5.96,17.5C6.17,17.48 6.36,17.59 6.45,17.77L11.91,28.69L17.53,11.84C17.59,11.65 17.77,11.51 17.97,11.5C18.18,11.48 18.36,11.59 18.45,11.77L24,22.88L29.55,11.77C29.55,11.77 29.61,11.68 29.64,11.64L35.64,5.64C35.84,5.44 36.15,5.44 36.35,5.64C36.55,5.84 36.55,6.15 36.35,6.35L30.41,12.29L24.45,24.22C24.28,24.56 23.73,24.56 23.56,24.22L18.1,13.3L12.48,30.15C12.42,30.34 12.24,30.48 12.04,30.49C11.83,30.5 11.65,30.4 11.56,30.22L6.13,19.36L1.48,35.14C1.42,35.36 1.22,35.5 1,35.5Z"
+        android:fillColor="#47BDE6"/>
+    <path
+        android:pathData="M1,0H0V36H1V0Z"
+        android:fillColor="#4C4F60"/>
+    <path
+        android:pathData="M36,35H0V36H36V35Z"
+        android:fillColor="#4C4F60"/>
+    <path
+        android:pathData="M12,30.5C11.95,30.5 11.89,30.5 11.84,30.47C11.58,30.38 11.44,30.1 11.52,29.84L17.52,11.84C17.61,11.58 17.89,11.44 18.15,11.52C18.41,11.61 18.55,11.89 18.47,12.15L12.47,30.15C12.4,30.36 12.21,30.49 12,30.49V30.5Z"
+        android:fillColor="#E97064"/>
+    <path
+        android:pathData="M24,24.5C23.82,24.5 23.64,24.4 23.55,24.22L17.55,12.22C17.43,11.97 17.53,11.67 17.77,11.55C18.02,11.43 18.32,11.53 18.44,11.77L24.44,23.77C24.56,24.02 24.46,24.32 24.22,24.44C24.15,24.48 24.07,24.49 24,24.49V24.5Z"
+        android:fillColor="#E97064"/>
+  </group>
 </vector>

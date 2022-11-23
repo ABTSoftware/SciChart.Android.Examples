@@ -129,11 +129,11 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
 
                     sciChartBuilder.newLineAnnotation()
                             .withPosition(1d, 4d, 2d, 6d)
-                            .withStroke(2f, 0xFF555555)
+                            .withStroke(2f, 0xFF68bcae)
                             .build(),
                     sciChartBuilder.newLineArrowAnnotation()
                             .withPosition(1.2d, 3.8d, 2.5d, 6d)
-                            .withStroke(2f, 0xFF555555)
+                            .withStroke(2f, 0xFF68bcae)
                             .withArrowHeadLength(4)
                             .withArrowHeadWidth(8)
                             .build(),
@@ -179,12 +179,12 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
                     sciChartBuilder.newHorizontalLineAnnotation()
                             .withPosition(5d, 3.2d)
                             .withHorizontalGravity(Gravity.RIGHT)
-                            .withStroke(2, ColorUtil.Orange)
+                            .withStroke(2, 0xFF47bde6)
                             .withAnnotationLabel(LabelPlacement.TopLeft, "Right Aligned, with text on left")
                             .build(),
                     sciChartBuilder.newHorizontalLineAnnotation()
                             .withPosition(7d, 2.8d)
-                            .withStroke(2, ColorUtil.Orange)
+                            .withStroke(2, 0xFF47bde6)
                             .withAnnotationLabel(LabelPlacement.Axis)
                             .build(),
 
@@ -192,12 +192,12 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
                     sciChartBuilder.newVerticalLineAnnotation()
                             .withPosition(9d, 4d)
                             .withVerticalGravity(Gravity.BOTTOM)
-                            .withStroke(2, ColorUtil.Brown)
+                            .withStroke(2, 0xFFae418d)
                             .withAnnotationLabel()
                             .build(),
                     sciChartBuilder.newVerticalLineAnnotation()
                             .withPosition(9.5d, 3d)
-                            .withStroke(2, ColorUtil.Brown)
+                            .withStroke(2, 0xFFae418d)
                             .withAnnotationLabel()
                             .withAnnotationLabel(LabelPlacement.TopRight, "Bottom-aligned", 90)
                             .build());
@@ -208,8 +208,8 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
 
     public static class CustomView1 extends View {
 
-        private final int FILL_COLOR = Color.parseColor("#571CB61C");
-        private final int STROKE_COLOR = Color.parseColor("#FF00B400");
+        private final int FILL_COLOR = Color.parseColor("#5768bcae");
+        private final int STROKE_COLOR = Color.parseColor("#FF68bcae");
 
         private final Path path = new Path();
         private final Paint paintFill = new Paint();
@@ -254,8 +254,8 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
 
     public static class CustomView2 extends View {
 
-        private final int FILL_COLOR = Color.parseColor("#57B22020");
-        private final int STROKE_COLOR = Color.parseColor("#FF990000");
+        private final int FILL_COLOR = Color.parseColor("#57ae418d");
+        private final int STROKE_COLOR = Color.parseColor("#FFae418d");
 
         private final Path path = new Path();
         private final Paint paintFill = new Paint();

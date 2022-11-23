@@ -54,7 +54,7 @@ public class FixedWidthAxisFragment extends ExampleSingleChartBaseFragment {
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
 
-        final int line1Color = ColorUtil.argb(0xFF, 0xFF, 0xFF, 0x00);
+        final int line1Color = ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6);
 
         final IPointMarker pointMarker1 = sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withFill(line1Color).build();
 

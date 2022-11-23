@@ -16,7 +16,7 @@
 
 <ExampleDefinition>
     <Title>Digital Bands chart</Title>
-    <IconPath>ic_bands_feature</IconPath>
+    <IconPath>ic_digital_bands_feature</IconPath>
     <Description>
         Generates a simple Digital Band Series chart in code.
     </Description>

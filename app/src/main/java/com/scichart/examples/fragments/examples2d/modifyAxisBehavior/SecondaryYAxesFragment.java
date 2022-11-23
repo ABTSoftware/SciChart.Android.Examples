@@ -59,14 +59,14 @@ public class SecondaryYAxesFragment extends ExampleSingleChartBaseFragment {
                 .withAxisAlignment(AxisAlignment.Left)
                 .withAxisId(Y_LEFT_AXIS)
                 .withAxisTitle("Left Axis")
-                .withTextColor(0xFF4083B7)
+                .withTextColor(0xFF47bde6)
                 .build();
         final IAxis yRightAxis = sciChartBuilder.newNumericAxis()
                 .withGrowBy(0.1d, 0.1d)
                 .withAxisAlignment(AxisAlignment.Right)
                 .withAxisId(Y_RIGHT_AXIS)
                 .withAxisTitle("Right Axis")
-                .withTextColor(0xFF279B27)
+                .withTextColor(0xFFae418d)
                 .build();
 
         final DoubleSeries ds1Points = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
@@ -81,14 +81,14 @@ public class SecondaryYAxesFragment extends ExampleSingleChartBaseFragment {
                 .withDataSeries(ds1)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_RIGHT_AXIS)
-                .withStrokeStyle(0xFF279B27, 1f, true)
+                .withStrokeStyle(0xFFae418d, 1f, true)
                 .build();
 
         final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds2)
                 .withXAxisId(X_BOTTOM_AXIS)
                 .withYAxisId(Y_LEFT_AXIS)
-                .withStrokeStyle(0xFF4083B7, 1f, true)
+                .withStrokeStyle(0xFF47bde6, 1f, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

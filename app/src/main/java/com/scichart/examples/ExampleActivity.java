@@ -62,6 +62,8 @@ public class ExampleActivity extends ExampleActivityBase {
         super.onPostResume();
 
         showFpsCounter = fpsDrawable.hasTargets();
+        getTargetChart().setTheme(R.style.SciChart_SciChart_NavyBlue);
+
     }
 
     @Override

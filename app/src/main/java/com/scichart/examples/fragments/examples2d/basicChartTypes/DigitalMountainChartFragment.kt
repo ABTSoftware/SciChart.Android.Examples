@@ -41,8 +41,8 @@ class DigitalMountainChartFragment : ExampleSingleChartBaseFragment() {
                     xyDataSeries<Date, Double> {
                         append(priceData.dateData, priceData.closeData)
                     }
-                    strokeStyle = SolidPenStyle(0xAAFFC9A8)
-                    areaStyle = LinearGradientBrushStyle(0xAAFF8D42, 0x88090E11)
+                    strokeStyle = SolidPenStyle(0xAAe97064)
+                    areaStyle = LinearGradientBrushStyle(0xAAe97064, 0x88e97064)
 
                     waveAnimation { interpolator = DecelerateInterpolator() }
                 }

@@ -37,7 +37,7 @@ class Scatter3DChartFragment : ExampleSingleChart3DBaseFragment() {
 
             renderableSeries {
                 scatterRenderableSeries3D {
-                    ellipsePointMarker3D { fill = LimeGreen; size = 2f }
+                    ellipsePointMarker3D { fill = 0xFF47bde6.toInt(); size = 2f }
                     xyzDataSeries3D<Double, Double, Double> {
                         for (i in 0 until 1000) {
                             val x = dataManager.getGaussianRandomNumber(5.0, 1.5)

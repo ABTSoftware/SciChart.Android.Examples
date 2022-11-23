@@ -36,27 +36,27 @@ class MultiplePieDonutChartFragment : ExampleBaseFragment<ExampleSinglePieChartW
         val pieSeries = PieRenderableSeries().apply {
             seriesName = "HowPeopleTravel"
             segmentsCollection {
-                pieSegment { value = 34.0; title = "Ecologic"; fillStyle = RadialGradientBrushStyle(0xff84BC3D, 0xff5B8829) }
-                pieSegment { value = 34.4; title = "Municipal"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 31.6; title = "Personal"; fillStyle = RadialGradientBrushStyle(0xff4AB6C1, 0xff2182AD) }
+                pieSegment { value = 34.0; title = "Ecologic"; fillStyle = RadialGradientBrushStyle(0xff68bcae, 0xff68bcae) }
+                pieSegment { value = 34.4; title = "Municipal"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
+                pieSegment { value = 31.6; title = "Personal"; fillStyle = RadialGradientBrushStyle(0xff47bde6, 0xff47bde6) }
             }
         }
 
         val donutSeries = DonutRenderableSeries().apply {
             seriesName = "DetailedGroup"
             segmentsCollection {
-                pieSegment { value = 28.8; title = "Walking"; fillStyle = RadialGradientBrushStyle(0xff84BC3D, 0xff5B8829) }
-                pieSegment { value = 5.2; title = "Bicycle"; fillStyle = RadialGradientBrushStyle(0xff84BC3D, 0xff5B8829) }
+                pieSegment { value = 28.8; title = "Walking"; fillStyle = RadialGradientBrushStyle(0xff68bcae, 0xff68bcae) }
+                pieSegment { value = 5.2; title = "Bicycle"; fillStyle = RadialGradientBrushStyle(0xff68bcae, 0xff68bcae) }
 
-                pieSegment { value = 12.3; title = "Metro"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 3.5; title = "Tram"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 5.9; title = "Rail"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 9.7; title = "Bus"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 3.0; title = "Taxi"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
+                pieSegment { value = 12.3; title = "Metro"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
+                pieSegment { value = 3.5; title = "Tram"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
+                pieSegment { value = 5.9; title = "Rail"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
+                pieSegment { value = 9.7; title = "Bus"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
+                pieSegment { value = 3.0; title = "Taxi"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
                 
-                pieSegment { value = 23.2; title = "Car"; fillStyle = RadialGradientBrushStyle(0xff4AB6C1, 0xff2182AD) }
-                pieSegment { value = 3.1; title = "Motorcycle"; fillStyle = RadialGradientBrushStyle(0xff4AB6C1, 0xff2182AD) }
-                pieSegment { value = 5.3; title = "Other"; fillStyle = RadialGradientBrushStyle(0xff4AB6C1, 0xff2182AD) }
+                pieSegment { value = 23.2; title = "Car"; fillStyle = RadialGradientBrushStyle(0xff47bde6, 0xff47bde6) }
+                pieSegment { value = 3.1; title = "Motorcycle"; fillStyle = RadialGradientBrushStyle(0xff47bde6, 0xff47bde6) }
+                pieSegment { value = 5.3; title = "Other"; fillStyle = RadialGradientBrushStyle(0xff47bde6, 0xff47bde6) }
             }
         }
 

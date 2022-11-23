@@ -47,10 +47,10 @@ public class ScatterChartFragment extends ExampleSingleChartBaseFragment {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).build();
 
-        final XyScatterRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFFFEB01, false);
-        final XyScatterRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffA300, false);
-        final XyScatterRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFFff6501, true);
-        final XyScatterRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFffa300, true);
+        final XyScatterRenderableSeries rSeries1 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFF47bd36, false);
+        final XyScatterRenderableSeries rSeries2 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFae418d, false);
+        final XyScatterRenderableSeries rSeries3 = getScatterRenderableSeries(new TrianglePointMarker(), 0xFF68bcae, true);
+        final XyScatterRenderableSeries rSeries4 = getScatterRenderableSeries(new EllipsePointMarker(), 0xFFe97064, true);
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);

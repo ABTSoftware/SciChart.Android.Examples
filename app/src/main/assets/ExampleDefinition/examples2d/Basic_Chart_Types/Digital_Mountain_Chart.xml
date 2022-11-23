@@ -15,7 +15,7 @@
 <!--*************************************************************************-->
 
 <ExampleDefinition>
-    <IconPath>ic_mountain_feature</IconPath>
+    <IconPath>ic_digital_mountain_feature</IconPath>
     <Description>
         Generates a Digital Mountain (Area) Chart in code. The FastMountainRenderableSeries can be used to render an XyDataSeries.
     </Description>

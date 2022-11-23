@@ -115,9 +115,9 @@ public class PerformanceDemoFragment extends ExampleSingleChartBaseFragment {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
 
-        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFF4083B7).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
-        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFFFFA500).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
-        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFFE13219).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
+        final IRenderableSeries rs1 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFFae418d).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
+        final IRenderableSeries rs2 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFF68bcae).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
+        final IRenderableSeries rs3 = sciChartBuilder.newLineSeries().withStrokeStyle(0xFFe97064).withDataSeries(new XyDataSeries<>(Integer.class, Float.class)).build();
 
         textView = new TextView(getActivity());
         textView.setPadding(20, 20, 20, 20);

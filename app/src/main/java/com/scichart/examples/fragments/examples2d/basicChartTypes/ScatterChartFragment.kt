@@ -35,10 +35,10 @@ class ScatterChartFragment : ExampleSingleChartBaseFragment() {
     private val random = Random()
 
     override fun initExample(surface: SciChartSurface) {
-        val rSeries1 = getScatterRenderableSeries(TrianglePointMarker(), 0xFFFFEB01, false)
-        val rSeries2 = getScatterRenderableSeries(EllipsePointMarker(), 0xFFffA300, false)
-        val rSeries3 = getScatterRenderableSeries(TrianglePointMarker(), 0xFFff6501, true)
-        val rSeries4 = getScatterRenderableSeries(EllipsePointMarker(), 0xFFffa300, true)
+        val rSeries1 = getScatterRenderableSeries(TrianglePointMarker(), 0xFF47bde6, false)
+        val rSeries2 = getScatterRenderableSeries(EllipsePointMarker(), 0xFFae418d, false)
+        val rSeries3 = getScatterRenderableSeries(TrianglePointMarker(), 0xFF68bcae, true)
+        val rSeries4 = getScatterRenderableSeries(EllipsePointMarker(), 0xFFe97064, true)
 
         surface.suspendUpdates {
             xAxes { numericAxis { growBy = DoubleRange(0.1, 0.1) }}

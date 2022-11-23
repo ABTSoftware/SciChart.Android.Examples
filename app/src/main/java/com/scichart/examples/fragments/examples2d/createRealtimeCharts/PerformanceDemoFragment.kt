@@ -95,9 +95,9 @@ class PerformanceDemoFragment : ExampleSingleChartBaseFragment() {
             xAxes { numericAxis  { autoRange = AutoRange.Always } }
             yAxes { numericAxis  { autoRange = AutoRange.Always } }
             renderableSeries {
-                fastLineRenderableSeries { dataSeries = XyDataSeries<Int, Float>(); strokeStyle = SolidPenStyle(0xFF4083B7) }
-                fastLineRenderableSeries { dataSeries = XyDataSeries<Int, Float>(); strokeStyle = SolidPenStyle(0xFFFFA500) }
-                fastLineRenderableSeries { dataSeries = XyDataSeries<Int, Float>(); strokeStyle = SolidPenStyle(0xFFE13219) }
+                fastLineRenderableSeries { dataSeries = XyDataSeries<Int, Float>(); strokeStyle = SolidPenStyle(0xFFae418d) }
+                fastLineRenderableSeries { dataSeries = XyDataSeries<Int, Float>(); strokeStyle = SolidPenStyle(0xFF68bcae) }
+                fastLineRenderableSeries { dataSeries = XyDataSeries<Int, Float>(); strokeStyle = SolidPenStyle(0xFFe97064) }
             }
             chartModifiers { defaultModifiers() }
             annotations {

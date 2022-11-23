@@ -89,17 +89,17 @@ public class UsingRolloverModifierTooltipsFragment extends ExampleSingleChartBas
 
         final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds1)
-                .withStrokeStyle(ColorUtil.SteelBlue, 2)
+                .withStrokeStyle(0xFF47bde6, 2)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withFill(ColorUtil.Lavender).build())
                 .build();
         final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds2)
-                .withStrokeStyle(ColorUtil.DarkGreen, 2)
+                .withStrokeStyle(0xFFae418d, 2)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withFill(ColorUtil.Lavender).build())
                 .build();
         final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries()
                 .withDataSeries(ds3)
-                .withStrokeStyle(ColorUtil.LightSteelBlue, 2, true)
+                .withStrokeStyle(0xFF68bcae, 2, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

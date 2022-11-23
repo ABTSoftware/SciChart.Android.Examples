@@ -26,7 +26,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.scichart.examples.databinding.StartupActivityBinding;
 import com.scichart.examples.demo.DemoKeys;
@@ -40,18 +43,25 @@ public class StartupActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
+//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//        }
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         final SciChartApp instance = SciChartApp.getInstance();
         if(!instance.getModule().isInitialized()) {
             new ParseExampleTasks(this).execute();
         }
 
-        binding.charts2d.charts2dCard.setOnClickListener(v -> openExampleListActivity(DemoKeys.CHARTS_2D));
-        binding.charts3d.charts3dCard.setOnClickListener(v -> openExampleListActivity(DemoKeys.CHARTS_3D));
-        binding.featuredCharts.featuredChartsCard.setOnClickListener(v -> openExampleListActivity(DemoKeys.FEATURED));
+        int statusBarHeightId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int statusBarHeight = getResources().getDimensionPixelSize(statusBarHeightId);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0,statusBarHeight,0,0);
+        binding.startActivityLogo.setLayoutParams(lp);
+
+        binding.charts2d.setOnClickListener(v -> openExampleListActivity(DemoKeys.CHARTS_2D));
+        binding.charts3d.setOnClickListener(v -> openExampleListActivity(DemoKeys.CHARTS_3D));
+        binding.featuredCharts.setOnClickListener(v -> openExampleListActivity(DemoKeys.FEATURED));
     }
 
     private void openExampleListActivity(String category) {

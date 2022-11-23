@@ -60,12 +60,12 @@ public class VerticalChartsFragment extends ExampleSingleChartBaseFragment {
 
         final FastLineRenderableSeries lineSeries0 = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries0)
-                .withStrokeStyle(ColorUtil.SteelBlue, 2, true)
+                .withStrokeStyle(0xFFe97064, 2, true)
                 .build();
 
         final FastLineRenderableSeries lineSeries1 = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries1)
-                .withStrokeStyle(ColorUtil.Lime, 2, true)
+                .withStrokeStyle(0xFF274b92, 2, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

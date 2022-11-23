@@ -38,7 +38,7 @@ class StackedMountainChartFragment: ExampleSingleChartBaseFragment() {
                         xyDataSeries<Double, Double> {
                             for (i in yValues1.indices) append(i.toDouble(), yValues1[i])
                         }
-                        areaStyle = LinearGradientBrushStyle(0xDDDBE0E1, 0x88B6C1C3)
+                        areaStyle = LinearGradientBrushStyle(0xDD47bde6, 0x88e2f4fd)
 
                         waveAnimation { interpolator = DecelerateInterpolator() }
                     }
@@ -46,7 +46,7 @@ class StackedMountainChartFragment: ExampleSingleChartBaseFragment() {
                         xyDataSeries<Double, Double> {
                             for (i in yValues2.indices) append(i.toDouble(), yValues1[i])
                         }
-                        areaStyle = LinearGradientBrushStyle(0xDDACBCCA, 0x88439AAF)
+                        areaStyle = LinearGradientBrushStyle(0xDDae418d, 0x88efb4d3)
 
                         waveAnimation { interpolator = DecelerateInterpolator() }
                     }

@@ -97,10 +97,10 @@ public class LegendFragment extends ExampleSingleChartBaseFragment {
         dataSeries3.append(ds3Points.xValues, ds3Points.yValues);
         dataSeries4.append(ds4Points.xValues, ds4Points.yValues);
 
-        final int line1Color = ColorUtil.argb(0xFF, 0xFF, 0xFF, 0x00);
-        final int line2Color = ColorUtil.argb(0xFF, 0x27, 0x9B, 0x27);
-        final int line3Color = ColorUtil.argb(0xFF, 0xFF, 0x19, 0x19);
-        final int line4Color = ColorUtil.argb(0xFF, 0x19, 0x64, 0xFF);
+        final int line1Color = ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6);
+        final int line2Color = ColorUtil.argb(0xFF, 0xAE, 0x41, 0x8D);
+        final int line3Color = ColorUtil.argb(0xFF, 0x68, 0xBC, 0xA8);
+        final int line4Color = ColorUtil.argb(0xFF, 0xE9, 0x70, 0x64);
 
         final FastLineRenderableSeries line1 = sciChartBuilder.newLineSeries().withStrokeStyle(line1Color, 1f, true).withDataSeries(dataSeries1).build();
         final FastLineRenderableSeries line2 = sciChartBuilder.newLineSeries().withStrokeStyle(line2Color, 1f, true).withDataSeries(dataSeries2).build();

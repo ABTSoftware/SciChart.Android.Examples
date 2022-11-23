@@ -1,25 +1,21 @@
-<!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
-<!--   -->
-<!-- Web: http://www.scichart.com -->
-<!-- Support: support@scichart.com -->
-<!-- Sales:   sales@scichart.com -->
-<!--  -->
-<!-- example_toolbar_menu.xml is part of the SCICHART® Examples. Permission is hereby granted -->
-<!-- to modify, create derivative works, distribute and publish any part of this source -->
-<!-- code whether for commercial, private or personal use. -->
-<!--  -->
-<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
-<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
-<!-- expressed or implied. -->
-<!--*************************************************************************-->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="48dp"
-        android:height="48dp"
-        android:viewportWidth="24.0"
-        android:viewportHeight="24.0">
-    <path
-        android:pathData="M3,18h18v-2L3,16v2zM3,13h18v-2L3,11v2zM3,6v2h18L21,6L3,6z"
-        android:fillColor="#FFFFFF"/>
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportWidth="30"
+    android:viewportHeight="30">
+  <path
+      android:pathData="M8,0L22,0A8,8 0,0 1,30 8L30,22A8,8 0,0 1,22 30L8,30A8,8 0,0 1,0 22L0,8A8,8 0,0 1,8 0z"
+      android:strokeAlpha="0.7"
+      android:fillColor="#17243D"
+      android:fillAlpha="0.21"/>
+  <path
+      android:strokeWidth="1"
+      android:pathData="M8,0.5L22,0.5A7.5,7.5 0,0 1,29.5 8L29.5,22A7.5,7.5 0,0 1,22 29.5L8,29.5A7.5,7.5 0,0 1,0.5 22L0.5,8A7.5,7.5 0,0 1,8 0.5z"
+      android:strokeAlpha="0.49"
+      android:fillColor="#00000000"
+      android:strokeColor="#4C5156"
+      android:fillAlpha="0.7"/>
+  <path
+      android:pathData="M15,11C16.1,11 17,10.1 17,9C17,7.9 16.1,7 15,7C13.9,7 13,7.9 13,9C13,10.1 13.9,11 15,11ZM15,13C13.9,13 13,13.9 13,15C13,16.1 13.9,17 15,17C16.1,17 17,16.1 17,15C17,13.9 16.1,13 15,13ZM15,19C13.9,19 13,19.9 13,21C13,22.1 13.9,23 15,23C16.1,23 17,22.1 17,21C17,19.9 16.1,19 15,19Z"
+      android:fillColor="#919395"/>
 </vector>

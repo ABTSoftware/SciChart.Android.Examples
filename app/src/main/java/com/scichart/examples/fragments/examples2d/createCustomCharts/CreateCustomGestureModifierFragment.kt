@@ -52,10 +52,10 @@ class CreateCustomGestureModifierFragment : ExampleSingleChartBaseFragment() {
                     }
                     ellipsePointMarker {
                         setSize(10)
-                        strokeStyle = SolidPenStyle(0xFF0066FF)
-                        fillStyle = SolidBrushStyle(0xFF0066FF)
+                        strokeStyle = SolidPenStyle(0xFFe97064)
+                        fillStyle = SolidBrushStyle(0xFFe97064)
                     }
-                    strokeStyle = SolidPenStyle(0xFF0066FF)
+                    strokeStyle = SolidPenStyle(0xFFe97064)
 
                     waveAnimation { interpolator = DecelerateInterpolator() }
                 }

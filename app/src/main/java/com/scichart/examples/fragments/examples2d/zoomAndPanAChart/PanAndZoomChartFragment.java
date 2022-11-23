@@ -45,9 +45,9 @@ public class PanAndZoomChartFragment extends ExampleSingleChartBaseFragment {
         final XyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
         final XyDataSeries<Double, Double> ds3 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
 
-        final FastMountainRenderableSeries rs1 = sciChartBuilder.newMountainSeries().withDataSeries(ds1).withAreaFillColor(0xFF177B17).withStrokeStyle(0xFF177B17, 1f, true).build();
-        final FastMountainRenderableSeries rs2 = sciChartBuilder.newMountainSeries().withDataSeries(ds2).withAreaFillColor(0x77FF1919).withStrokeStyle(0xFFDD0909, 1f, true).build();
-        final FastMountainRenderableSeries rs3 = sciChartBuilder.newMountainSeries().withDataSeries(ds3).withAreaFillColor(0x771964FF).withStrokeStyle(0xFF0944CF, 1f, true).build();
+        final FastMountainRenderableSeries rs1 = sciChartBuilder.newMountainSeries().withDataSeries(ds1).withAreaFillColor(0xFF47bde6).withStrokeStyle(0xFF47bde6, 1f, true).build();
+        final FastMountainRenderableSeries rs2 = sciChartBuilder.newMountainSeries().withDataSeries(ds2).withAreaFillColor(0x77ae418d).withStrokeStyle(0xFFae418d, 1f, true).build();
+        final FastMountainRenderableSeries rs3 = sciChartBuilder.newMountainSeries().withDataSeries(ds3).withAreaFillColor(0x77e97064).withStrokeStyle(0xFFefcdb4, 1f, true).build();
 
         final DoubleSeries data1 = DataManager.getInstance().getDampedSinewave(300, 1.0, 0.0, 0.01, 1000, 10);
         final DoubleSeries data2 = DataManager.getInstance().getDampedSinewave(300, 1.0, 0.0, 0.024, 1000, 10);

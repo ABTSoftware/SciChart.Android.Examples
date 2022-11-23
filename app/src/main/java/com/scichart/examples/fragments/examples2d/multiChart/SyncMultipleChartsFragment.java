@@ -70,7 +70,7 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment<ExampleSyncM
             dataSeries.append((double) i, POINTS_COUNT * Math.sin(i * Math.PI * 0.1) / i);
         }
 
-        final FastLineRenderableSeries line = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(ColorUtil.Green, 1f, true).build();
+        final FastLineRenderableSeries line = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xFF47bde6, 1f, true).build();
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);

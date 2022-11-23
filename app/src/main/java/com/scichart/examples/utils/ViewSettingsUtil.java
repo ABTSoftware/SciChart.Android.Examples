@@ -38,6 +38,7 @@ public class ViewSettingsUtil {
     public static Dialog createSettingsPopup(Activity activity, @LayoutRes int id) {
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(id);
 
         return dialog;

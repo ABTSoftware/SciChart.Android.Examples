@@ -35,8 +35,8 @@ class MultipleXAxesFragment: ExampleSingleChartBaseFragment() {
 
         surface.suspendUpdates {
             xAxes {
-                numericAxis { axisAlignment = Top; axisId = X_TOP_AXIS; setTextColor(0xFF279B27) }
-                numericAxis { axisAlignment = Bottom; axisId = X_BOTTOM_AXIS; setTextColor(0xFFFF1919) }
+                numericAxis { axisAlignment = Top; axisId = X_TOP_AXIS; setTextColor(0xFFAE418D) }
+                numericAxis { axisAlignment = Bottom; axisId = X_BOTTOM_AXIS; setTextColor(0xFF47BDE6) }
             }
             yAxes {
                 numericAxis {
@@ -44,14 +44,14 @@ class MultipleXAxesFragment: ExampleSingleChartBaseFragment() {
                     axisId = Y_LEFT_AXIS
                     growBy = DoubleRange(0.1, 0.1)
                     textFormatting = "#.0"
-                    setTextColor(0xFFFC9C29)
+                    setTextColor(0xFF68BCAE)
                 }
                 numericAxis {
                     axisAlignment = Right
                     axisId = Y_RIGHT_AXIS
                     growBy = DoubleRange(0.1, 0.1)
                     textFormatting = "#.0"
-                    setTextColor(0xFF4083B7)
+                    setTextColor(0xFFE97064)
                 }
             }
 
@@ -59,32 +59,32 @@ class MultipleXAxesFragment: ExampleSingleChartBaseFragment() {
                 fastLineRenderableSeries {
                     xAxisId = X_BOTTOM_AXIS
                     yAxisId = Y_LEFT_AXIS
-                    strokeStyle = SolidPenStyle(0xFFFF1919)
-                    xyDataSeries<Double, Double>("Red Line") { fillDataSeries(this) }
+                    strokeStyle = SolidPenStyle(0xFF47BDE6)
+                    xyDataSeries<Double, Double>("Line 1") { fillDataSeries(this) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_BOTTOM_AXIS
                     yAxisId = Y_LEFT_AXIS
-                    strokeStyle = SolidPenStyle(0xFF279B27)
-                    xyDataSeries<Double, Double>("Green Line") { fillDataSeries(this) }
+                    strokeStyle = SolidPenStyle(0xFFAE418D)
+                    xyDataSeries<Double, Double>("Line 2") { fillDataSeries(this) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_TOP_AXIS
                     yAxisId = Y_RIGHT_AXIS
-                    strokeStyle = SolidPenStyle(0xFFFC9C29)
-                    xyDataSeries<Double, Double>("Orange Line") { fillDataSeries(this) }
+                    strokeStyle = SolidPenStyle(0xFF68BCAE)
+                    xyDataSeries<Double, Double>("Line 3") { fillDataSeries(this) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_TOP_AXIS
                     yAxisId = Y_RIGHT_AXIS
-                    strokeStyle = SolidPenStyle(0xFF4083B7)
-                    xyDataSeries<Double, Double>("Blue Line") { fillDataSeries(this) }
+                    strokeStyle = SolidPenStyle(0xFFE97064)
+                    xyDataSeries<Double, Double>("Line 4") { fillDataSeries(this) }
 
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }

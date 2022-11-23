@@ -52,8 +52,8 @@ public class SplineBandChartFragment extends ExampleSingleChartBaseFragment {
 
         final SplineBandRenderableSeries rSeries = sciChartBuilder.newSplineBandSeries()
                 .withDataSeries(dataSeries)
-                .withFillColor(0x33279B27).withFillY1Color(0x33FF1919)
-                .withStrokeStyle(0xFFFF1919, 1f, true).withStrokeY1Style(0xFF279B27, 1f, true)
+                .withFillColor(0x33e97064).withFillY1Color(0x33634e96)
+                .withStrokeStyle(0xFF634e96, 1f, true).withStrokeY1Style(0xFFe97064, 1f, true)
                 .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF006400, 1).withFill(0xFFFFFFFF).build())
                 .build();
 

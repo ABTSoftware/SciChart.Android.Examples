@@ -65,8 +65,8 @@ public class CustomizationRolloverModifierTooltipsFragment extends ExampleSingle
         ds1.append(data1.xValues, data1.yValues);
         ds2.append(data2.xValues, data2.yValues);
 
-        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new FirstCustomSeriesInfoProvider()).withStrokeStyle(0xff6495ed, 2, true).build();
-        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new SecondCustomSeriesInfoProvider()).withStrokeStyle(0xffe2460c, 2, true).build();
+        final FastLineRenderableSeries lineRs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withSeriesInfoProvider(new FirstCustomSeriesInfoProvider()).withStrokeStyle(0xffe97064, 2, true).build();
+        final FastLineRenderableSeries lineRs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withSeriesInfoProvider(new SecondCustomSeriesInfoProvider()).withStrokeStyle(0xff274b92, 2, true).build();
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), sciChartBuilder.newNumericAxis().withAxisInfoProvider(new CustomAxisInfoProvider()).build());
@@ -107,8 +107,8 @@ public class CustomizationRolloverModifierTooltipsFragment extends ExampleSingle
                 sb.append(MODIFIER_NAME);
                 setText(sb);
 
-                setTooltipBackgroundColor(0xff6495ed);
-                setTooltipStroke(0xff4d81dd);
+                setTooltipBackgroundColor(0xffe97064);
+                setTooltipStroke(0xfff4840b);
                 setTooltipTextColor(ColorUtil.White);
             }
         }
@@ -142,8 +142,8 @@ public class CustomizationRolloverModifierTooltipsFragment extends ExampleSingle
 
                 setText(sb);
 
-                setTooltipBackgroundColor(0xffe2460c);
-                setTooltipStroke(0xffff4500);
+                setTooltipBackgroundColor(0xff274b92);
+                setTooltipStroke(0xff112cce);
                 setTooltipTextColor(ColorUtil.White);
             }
         }

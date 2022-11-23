@@ -72,13 +72,13 @@ class DragAxisToScaleChartFragment : ExampleSingleChartBaseFragment() {
                 numericAxis {
                     axisId = "RightAxisId"
                     axisAlignment = Right
-                    setTextColor(0xFF279B27)
+                    setTextColor(0xFF47bde6)
                     growBy = DoubleRange(0.1, 0.1)
                 }
                 numericAxis {
                     axisId = "LeftAxisId"
                     axisAlignment = Left
-                    setTextColor(0xFF4083B7)
+                    setTextColor(0xFFae418d)
                     growBy = DoubleRange(0.1, 0.1)
                 }
             }
@@ -86,15 +86,15 @@ class DragAxisToScaleChartFragment : ExampleSingleChartBaseFragment() {
             renderableSeries {
                 fastMountainRenderableSeries {
                     yAxisId = "LeftAxisId"
-                    areaStyle = SolidBrushStyle(0x771964FF)
-                    strokeStyle = SolidPenStyle(0xFF0944CF, 2f)
+                    areaStyle = SolidBrushStyle(0x77ae418d)
+                    strokeStyle = SolidPenStyle(0xFFc43360, 2f)
                     xyDataSeries<Double, Double> { append(fourierSeries.xValues, fourierSeries.yValues) }
 
                     scaleAnimation { interpolator = CubicInOutInterpolator() }
                 }
                 fastLineRenderableSeries {
                     yAxisId = "RightAxisID"
-                    strokeStyle = SolidPenStyle(0xFF279B27, 2f)
+                    strokeStyle = SolidPenStyle(0xFF47bde6, 2f)
                     xyDataSeries<Double, Double> { append(dampedSinewave.xValues, dampedSinewave.yValues) }
 
                     sweepAnimation { interpolator = CubicInOutInterpolator() }

@@ -39,8 +39,8 @@ class SplineMountainChartFragment : ExampleSingleChartBaseFragment() {
                             append(i, yValues[i])
                         }
                     }
-                    strokeStyle = SolidPenStyle(0xAAFFC9A8)
-                    areaStyle = LinearGradientBrushStyle(0xAAFF8D42, 0x88090E11)
+                    strokeStyle = SolidPenStyle(0xAA47bde6)
+                    areaStyle = LinearGradientBrushStyle(0xAA84d2f6, 0x33e2f4fd)
                     ellipsePointMarker {
                         setSize(7)
                         strokeStyle = SolidPenStyle(0xFF006400)

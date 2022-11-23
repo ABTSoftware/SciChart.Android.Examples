@@ -69,7 +69,7 @@ public class DragAreaToZoomFragment extends ExampleSingleChartBaseFragment {
         final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
         dataSeries.append(data.xValues, data.yValues);
 
-        final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(ColorUtil.argb(255, 9, 68, 27), 1, true).build();
+        final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries().withDataSeries(dataSeries).withStrokeStyle(0xFF47bde6, 1, true).build();
 
         rubberBandXyZoomModifier = new RubberBandXyZoomModifier();
         rubberBandXyZoomModifier.setIsXAxisOnly(true);

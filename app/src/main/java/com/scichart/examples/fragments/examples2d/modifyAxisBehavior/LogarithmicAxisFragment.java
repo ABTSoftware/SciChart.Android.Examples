@@ -82,9 +82,9 @@ public class LogarithmicAxisFragment extends ExampleSingleChartBaseFragment {
         dataSeries2.append(ds2Points.xValues, ds2Points.yValues);
         dataSeries3.append(ds3Points.xValues, ds3Points.yValues);
 
-        final int line1Color = ColorUtil.argb(0xFF, 0xFF, 0xFF, 0x00);
-        final int line2Color = ColorUtil.argb(0xFF, 0x27, 0x9B, 0x27);
-        final int line3Color = ColorUtil.argb(0xFF, 0xFF, 0x19, 0x19);
+        final int line1Color = ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6);
+        final int line2Color = ColorUtil.argb(0xFF, 0xAE, 0x41, 0x8D);
+        final int line3Color = ColorUtil.argb(0xFF, 0x68, 0xBC, 0xAE);
 
         final IPointMarker pointMarker1 = sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withFill(line1Color).build();
         final IPointMarker pointMarker2 = sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(5).withFill(line2Color).build();

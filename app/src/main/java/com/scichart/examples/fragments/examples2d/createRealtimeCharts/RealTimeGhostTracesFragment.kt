@@ -56,7 +56,7 @@ class RealTimeGhostTracesFragment : ExampleBaseFragment<ExampleRealTimeGhostTrac
                 visibleRange = DoubleRange(-2.0, 2.0)
             }}
             renderableSeries {
-                val seriesColor = ColorUtil.LimeGreen
+                val seriesColor = (0xff68bcae).toInt();
                 fastLineRenderableSeries { strokeStyle = SolidPenStyle(seriesColor) }
                 fastLineRenderableSeries { strokeStyle = SolidPenStyle(ColorUtil.argb(seriesColor, 0.9f)) }
                 fastLineRenderableSeries { strokeStyle = SolidPenStyle(ColorUtil.argb(seriesColor, 0.8f)) }

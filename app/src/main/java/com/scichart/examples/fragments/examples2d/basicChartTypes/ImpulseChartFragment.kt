@@ -39,11 +39,11 @@ class ImpulseChartFragment : ExampleSingleChartBaseFragment() {
                     xyDataSeries<Double, Double> {
                         append(ds1Points.xValues, ds1Points.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFF0066FF)
+                    strokeStyle = SolidPenStyle(0xFF47bde6)
                     ellipsePointMarker {
                         setSize(10)
-                        strokeStyle = SolidPenStyle(0xFF0066FF)
-                        fillStyle = SolidBrushStyle(0xFF0066FF)
+                        strokeStyle = SolidPenStyle(0xFF47bde6)
+                        fillStyle = SolidBrushStyle(0xFF47bde6)
                     }
 
                     waveAnimation { interpolator = DecelerateInterpolator() }

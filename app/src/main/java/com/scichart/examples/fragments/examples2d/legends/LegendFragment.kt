@@ -67,22 +67,22 @@ class LegendFragment : ExampleSingleChartBaseFragment() {
             renderableSeries {
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve A") { append(ds1Points.xValues, ds1Points.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0xFF, 0xFF, 0x00))
+                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6))
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve B") { append(ds2Points.xValues, ds2Points.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0x27, 0x9B, 0x27))
+                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0xAE, 0x41, 0x8D))
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve C") { append(ds3Points.xValues, ds3Points.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0xFF, 0x19, 0x19))
+                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0x68, 0xBC, 0xA8))
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve D") { append(ds4Points.xValues, ds4Points.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0x19, 0x64, 0xFF))
+                    strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0xE9, 0x70, 0x64))
                     sweepAnimation { interpolator = DecelerateInterpolator() }
                 }
             }

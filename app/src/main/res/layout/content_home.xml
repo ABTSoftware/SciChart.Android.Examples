@@ -23,12 +23,12 @@
     tools:showIn="@layout/activity_home">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/background_color"
+        android:id="@+id/mainScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_color"
         android:gravity="bottom"
-        android:id="@+id/mainScreen" >
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="fill_parent"
@@ -38,47 +38,65 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="3dp">
+                android:layout_marginTop="3dp"
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/sort_drop_down_ll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/menu_list_header_background"
-                    android:layout_marginBottom="3dp"
-                    android:paddingStart="10dp">
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="11dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_sort" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/sort_text_tv"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="11dp"
+                        android:layout_weight="1"
                         android:textColor="@android:color/white"
-                        android:text="SORT BY"/>
+                        android:textSize="16sp"
+                        tools:text="Sort: Category" />
 
-                    <Spinner
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/SciChart_ExampleSpinnerStyle"
-                        android:id="@+id/sortBy"/>
+                        android:src="@drawable/ic_arrow_drop_down" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#4C5156" />
 
                 <ListView
                     android:id="@+id/listView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@android:color/transparent"
-                    android:dividerHeight="3dp" />
+                    android:dividerHeight="16dp"
+                    android:paddingHorizontal="16dp"
+                    tools:listitem="@layout/general_list_item" />
 
             </LinearLayout>
 
             <!--Search Result Frame-->
+
             <com.scichart.examples.demo.components.SearchResultsDialog
                 android:id="@+id/search_results_dialog"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </FrameLayout>
     </LinearLayout>

@@ -68,7 +68,7 @@ class SeriesCustomTooltips3DChartFragment : ExampleBaseFragment<ExampleSingleCha
                             append(x, y, z)
                         }
                     }
-                    spherePointMarker3D { fill = 0x88FFFFFF.toInt(); size = 7f }
+                    spherePointMarker3D { fill = 0xFF47bde6.toInt(); size = 7f }
                     seriesInfoProvider = CustomSeriesInfo3DProvider()
                 }
             }
@@ -80,7 +80,7 @@ class SeriesCustomTooltips3DChartFragment : ExampleBaseFragment<ExampleSingleCha
                 tooltipModifier3D {
                     receiveHandledEvents = true
                     crosshairMode = Lines
-                    crosshairPlanesFill = 0x33FF6600
+                    crosshairPlanesFill = 0x3347bde6
                     executeOnPointerCount = 1
                 }
             }

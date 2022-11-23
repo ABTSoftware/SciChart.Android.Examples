@@ -41,10 +41,10 @@ class DigitalBandChartFragment : ExampleSingleChartBaseFragment() {
                     xyyDataSeries<Double, Double> {
                         append(data.xValues, data.yValues, moreData.yValues)
                     }
-                    fillBrushStyle = SolidBrushStyle(0x33279B27)
-                    fillY1BrushStyle = SolidBrushStyle(0x33FF1919)
-                    strokeStyle = SolidPenStyle(0xFFFF1919)
-                    strokeY1Style = SolidPenStyle(0xFF279B27)
+                    fillBrushStyle = SolidBrushStyle(0x3347BDE6)
+                    fillY1BrushStyle = SolidBrushStyle(0x33AE418D)
+                    strokeStyle = SolidPenStyle(0xFFAE418D)
+                    strokeY1Style = SolidPenStyle(0xFF47BDE6)
 
                     scaleAnimation { interpolator = DecelerateInterpolator() }
                 }

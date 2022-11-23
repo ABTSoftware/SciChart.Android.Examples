@@ -51,7 +51,7 @@ class DragAreaToZoomFragment : ExampleSingleChartBaseFragment() {
             renderableSeries {
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { append(data.xValues, data.yValues) }
-                    strokeStyle = SolidPenStyle(ColorUtil.argb(255, 9, 68, 27))
+                    strokeStyle = SolidPenStyle(0xFF47bde6)
 
                     sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
                 }

@@ -54,7 +54,7 @@ public class RealTimePointCloud3DChartFragment extends ExampleSingleChart3DBaseF
         final NumericAxis3D zAxis = sciChart3DBuilder.newNumericAxis3D().withGrowBy(.1, .1).build();
 
         final EllipsePointMarker3D pointMarker3D = sciChart3DBuilder.newEllipsePointMarker3D()
-                .withFill(0x77ADFF2F)
+                .withFill(0x7747bde6)
                 .withSize(3f)
                 .build();
 

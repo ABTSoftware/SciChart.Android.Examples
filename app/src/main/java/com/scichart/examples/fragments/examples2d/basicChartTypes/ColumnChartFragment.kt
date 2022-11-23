@@ -59,7 +59,7 @@ class ColumnChartFragment : ExampleSingleChartBaseFragment() {
 
     private class ColumnsPaletteProvider : PaletteProviderBase<FastColumnRenderableSeries>(FastColumnRenderableSeries::class.java), IFillPaletteProvider {
         private val colors = IntegerValues()
-        private val desiredColors = longArrayOf(0xFFa9d34f, 0xFFfc9930, 0xFFd63b3f)
+        private val desiredColors = longArrayOf(0xFF21a0d8, 0xFFc43360, 0xFF34c19c)
 
         override fun update() {
             val currentRenderPassData = renderableSeries!!.currentRenderPassData as XSeriesRenderPassData

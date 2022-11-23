@@ -76,7 +76,7 @@ public class SeriesCustomTooltips3DChartFragment extends ExampleBaseFragment<Exa
         }
 
         final SpherePointMarker3D pointMarker3D = sciChart3DBuilder.newSpherePointMarker3D()
-                .withFill(0x88FFFFFF)
+                .withFill(0xFF47bde6)
                 .withSize(7f)
                 .build();
 
@@ -100,7 +100,7 @@ public class SeriesCustomTooltips3DChartFragment extends ExampleBaseFragment<Exa
                     .withTooltipModifier()
                         .withReceiveHandledEvents(true)
                         .withCrosshairMode(CrosshairMode.Lines)
-                        .withCrosshairPlanesFill(0x33FF6600)
+                        .withCrosshairPlanesFill(0x3347bde6)
                         .withExecuteOnPointerCount(1)
                         .build()
                     .build());

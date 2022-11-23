@@ -46,7 +46,7 @@ class DigitalLineChartFragment : ExampleSingleChartBaseFragment() {
                     xyDataSeries<Double, Double> {
                         append(fourierSeries.xValues, fourierSeries.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFF99EE99)
+                    strokeStyle = SolidPenStyle(0xFFe97064)
 
                     waveAnimation { interpolator = DecelerateInterpolator() }
                 }

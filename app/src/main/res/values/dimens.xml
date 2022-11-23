@@ -24,7 +24,7 @@
     <dimen name="sliding_menu_height">50dp</dimen>
 
     <dimen name="example_popup_padding_horizontal">8dp</dimen>
-    <dimen name="example_popup_control_corner">2dp</dimen>
+    <dimen name="example_popup_control_corner">12dp</dimen>
 
     <dimen name="main_screen_example_category_margin">30dp</dimen>
     <dimen name="main_screen_heading_font_size">16sp</dimen>

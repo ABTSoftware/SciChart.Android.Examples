@@ -61,7 +61,7 @@ public class RoundedColumnsExampleFragment extends ExampleSingleChartBaseFragmen
 
         final RoundedColumnsRenderableSeries rSeries = new RoundedColumnsRenderableSeries.Builder(requireContext())
                 .withDataSeries(dataSeries)
-                .withFillColor(0xFF3CF3A6)
+                .withFillColor(0xFF634e96)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

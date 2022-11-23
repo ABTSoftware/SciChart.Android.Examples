@@ -99,11 +99,11 @@ class AnnotationsAreEasyFragment : ExampleSingleChartBaseFragment() {
                 }
                 lineAnnotation {
                     x1 = 1.0; y1 = 4.0; x2 = 2.0; y2 = 6.0
-                    stroke = SolidPenStyle(0xFF555555, 2f)
+                    stroke = SolidPenStyle(0xFF68bcae, 2f)
                 }
                 lineArrowAnnotation {
                     x1 = 1.2; y1 = 3.8; x2 = 2.5; y2 = 6.0
-                    stroke = SolidPenStyle(0xFF555555, 2f)
+                    stroke = SolidPenStyle(0xFF68bcae, 2f)
                     headLength = 4f
                     headWidth = 8f
                 }
@@ -145,7 +145,7 @@ class AnnotationsAreEasyFragment : ExampleSingleChartBaseFragment() {
                 horizontalLineAnnotation {
                     x1 = 5.0; y1 = 3.2
                     horizontalGravity = Gravity.END
-                    stroke = SolidPenStyle(ColorUtil.Orange, 2f)
+                    stroke = SolidPenStyle(0xFF47bde6, 2f)
                     annotationLabels {
                         annotationLabel {
                             labelPlacement = LabelPlacement.TopLeft
@@ -155,7 +155,7 @@ class AnnotationsAreEasyFragment : ExampleSingleChartBaseFragment() {
                 }
                 horizontalLineAnnotation {
                     x1 = 7.0; y1 = 2.8
-                    stroke = SolidPenStyle(ColorUtil.Orange, 2f)
+                    stroke = SolidPenStyle(0xFF47bde6, 2f)
                     annotationLabels {
                         annotationLabel { labelPlacement = LabelPlacement.Axis }
                     }
@@ -164,14 +164,14 @@ class AnnotationsAreEasyFragment : ExampleSingleChartBaseFragment() {
                 verticalLineAnnotation {
                     x1 = 9.0; y1 = 4.0
                     verticalGravity = Gravity.BOTTOM
-                    stroke = SolidPenStyle(ColorUtil.Brown, 2f)
+                    stroke = SolidPenStyle(0xFFae418d, 2f)
                     annotationLabels {
                         annotationLabel { labelPlacement = LabelPlacement.Auto }
                     }
                 }
                 verticalLineAnnotation {
                     x1 = 9.5; y1 = 3.0
-                    stroke = SolidPenStyle(ColorUtil.Brown, 2f)
+                    stroke = SolidPenStyle(0xFFae418d, 2f)
                     annotationLabels {
                         annotationLabel { labelPlacement = LabelPlacement.Auto }
                         annotationLabel {

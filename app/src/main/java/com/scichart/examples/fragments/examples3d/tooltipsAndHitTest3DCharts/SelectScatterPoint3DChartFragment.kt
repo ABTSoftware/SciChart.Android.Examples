@@ -46,7 +46,7 @@ class SelectScatterPoint3DChartFragment : ExampleSingleChart3DBaseFragment() {
 
                             append(x, y, z)
                         }
-                        ellipsePointMarker3D { fill = ColorUtil.LimeGreen; size = 5f }
+                        ellipsePointMarker3D { fill = 0xFF47bde6.toInt(); size = 5f }
                         //set ISelectableMetadataProvider3D because we're going to use vertex selection for this series
                         metadataProvider = DefaultSelectableMetadataProvider3D()
                     }

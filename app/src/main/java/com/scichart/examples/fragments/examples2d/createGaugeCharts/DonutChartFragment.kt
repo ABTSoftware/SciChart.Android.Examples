@@ -34,10 +34,10 @@ class DonutChartFragment : ExampleBaseFragment<ExampleSinglePieChartWithLegendFr
     override fun initExample(binding: ExampleSinglePieChartWithLegendFragmentBinding) {
         val donutSeries = DonutRenderableSeries().apply {
             segmentsCollection {
-                pieSegment { value = 40.0; title = "Green"; fillStyle = RadialGradientBrushStyle(0xff84BC3D, 0xff5B8829) }
-                pieSegment { value = 10.0; title = "Red"; fillStyle = RadialGradientBrushStyle(0xffe04a2f, 0xffB7161B) }
-                pieSegment { value = 20.0; title = "Blue"; fillStyle = RadialGradientBrushStyle(0xff4AB6C1, 0xff2182AD) }
-                pieSegment { value = 15.0; title = "Yellow"; fillStyle = RadialGradientBrushStyle(0xffFFFF00, 0xfffed325) }
+                pieSegment { value = 40.0; title = "Glazed Doughnut"; fillStyle = RadialGradientBrushStyle(0xff47bde6, 0xff47bde6) }
+                pieSegment { value = 10.0; title = "Strawberry Frosted Doughnut"; fillStyle = RadialGradientBrushStyle(0xffae418d, 0xffae418d) }
+                pieSegment { value = 20.0; title = "Apple-Crumb Doughnut"; fillStyle = RadialGradientBrushStyle(0xff68bcae, 0xff68bcae) }
+                pieSegment { value = 15.0; title = "Cinnamon Twist Doughnut"; fillStyle = RadialGradientBrushStyle(0xffe97064, 0xffe97064) }
             }
         }
 

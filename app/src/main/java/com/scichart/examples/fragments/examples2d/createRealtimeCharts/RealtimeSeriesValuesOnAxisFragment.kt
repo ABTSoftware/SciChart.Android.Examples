@@ -56,9 +56,9 @@ class RealtimeSeriesValuesOnAxisFragment : ExampleSingleChartBaseFragment() {
                 growBy = DoubleRange(0.1, 0.1)
             }}
             renderableSeries {
-                fastLineRenderableSeries { dataSeries = ds1; strokeStyle = SolidPenStyle(0xFFFF8C00, 2f) }
-                fastLineRenderableSeries { dataSeries = ds2; strokeStyle = SolidPenStyle(0xFF4682B4, 2f) }
-                fastLineRenderableSeries { dataSeries = ds3; strokeStyle = SolidPenStyle(0xFF556B2F, 2f) }
+                fastLineRenderableSeries { dataSeries = ds1; strokeStyle = SolidPenStyle(0xFFe97064, 2f) }
+                fastLineRenderableSeries { dataSeries = ds2; strokeStyle = SolidPenStyle(0xFF47bde6, 2f) }
+                fastLineRenderableSeries { dataSeries = ds3; strokeStyle = SolidPenStyle(0xFF68bcae, 2f) }
             }
             chartModifiers {
                 seriesValueModifier()

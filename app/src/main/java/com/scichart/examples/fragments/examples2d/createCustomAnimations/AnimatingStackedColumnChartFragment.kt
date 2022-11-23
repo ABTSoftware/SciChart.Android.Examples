@@ -83,8 +83,8 @@ class AnimatingStackedColumnChartFragment : ExampleBaseFragment<ExampleAnimating
             }
         }
 
-        configureRenderableSeries(rSeries1, dataSeries1, 0xff226fb7)
-        configureRenderableSeries(rSeries2, dataSeries2, 0xffff9a2e)
+        configureRenderableSeries(rSeries1, dataSeries1, 0xff47bde6)
+        configureRenderableSeries(rSeries2, dataSeries2, 0xffae418d)
 
         fillWithInitialData()
 

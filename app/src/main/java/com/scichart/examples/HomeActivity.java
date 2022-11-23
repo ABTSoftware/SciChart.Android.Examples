@@ -32,7 +32,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,7 +40,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.scichart.examples.components.SpinnerStringAdapter;
+import com.scichart.examples.databinding.ActivityHomeBinding;
 import com.scichart.examples.demo.CustomAdapter;
 import com.scichart.examples.demo.DemoKeys;
 import com.scichart.examples.demo.SortByCategory;
@@ -53,13 +52,18 @@ import com.scichart.examples.demo.helpers.Example;
 import com.scichart.examples.demo.helpers.Module;
 import com.scichart.examples.demo.search.ExampleSearchHelper;
 import com.scichart.examples.demo.viewobjects.ExampleView;
+import com.scichart.examples.utils.CustomListAlert;
 import com.scichart.examples.utils.PermissionManager;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class HomeActivity extends AppCompatActivity implements Thread.UncaughtExceptionHandler,
         AdapterView.OnItemSelectedListener,
@@ -76,14 +80,18 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
 
     private String category = DemoKeys.CHARTS_2D;
 
-    private Spinner sortBySpinner;
+    //    private Spinner sortBySpinner;
     private ListView listView;
     private CustomAdapter adapter;
 
     private TextView catTitle;
-    private ImageView catIcon;
+    //    private ImageView catIcon;
     private SearchView searchView;
     private MenuItem searchMenuItem;
+
+    private int selectedSortId = 0;
+
+    private ActivityHomeBinding binding;
 
     public HomeActivity() {
     }
@@ -91,13 +99,13 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         module = SciChartApp.getInstance().getModule();
         searchProvider = new ExampleSearchHelper(this, module.getExamples());
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
@@ -123,10 +131,34 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         catTitle = findViewById(R.id.category_title);
-        catIcon = findViewById(R.id.category_icon);
+//        catIcon = findViewById(R.id.category_icon);
 
-        sortBySpinner = findViewById(R.id.sortBy);
-        sortBySpinner.setOnItemSelectedListener(HomeActivity.this);
+//        sortBySpinner = findViewById(R.id.sortBy);
+//        sortBySpinner.setOnItemSelectedListener(HomeActivity.this);
+
+
+        binding.contentHome.sortTextTv.setText(getString(R.string.sort_text_formatter, getString(R.string.category)));
+
+        binding.contentHome.sortDropDownLl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] list = getResources().getStringArray(R.array.sort_by);
+                CustomListAlert.Companion.showAlert(
+                        HomeActivity.this,
+                        Arrays.asList(list),
+                        selectedSortId,
+                        new Function1<Integer, Unit>() {
+                            @Override
+                            public Unit invoke(Integer integer) {
+                                selectedSortId = integer;
+                                onSortSubmit();
+                                binding.contentHome.sortTextTv.setText(getString(R.string.sort_text_formatter, list[integer]));
+                                return null;
+                            }
+                        });
+            }
+        });
+
 
         searchResultsDialog = findViewById(R.id.search_results_dialog);
         searchResultsDialog.setOnSearchItemClickListener(this);
@@ -136,11 +168,35 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         listView.setOnItemClickListener(this);
         adapter = new CustomAdapter(this);
 
-        sortBySpinner.setAdapter(new SpinnerStringAdapter(this, R.array.sort_by));
+//        sortBySpinner.setAdapter(new SpinnerStringAdapter(this, R.array.sort_by));
 
         updateLoadExamples();
 
         Thread.setDefaultUncaughtExceptionHandler(this);
+    }
+
+
+
+    private void onSortSubmit() {
+        if (module == null) return;
+        final List<Example> examples = module.getExamples();
+        final List<Example> exampleItems = convertToAdapterItems(examples, category);
+        switch (selectedSortId) {
+            case 0:
+                adapter.setSortStrategy(new SortByCategory(exampleItems));
+                break;
+            case 1:
+                adapter.setSortStrategy(new SortByFeatures(exampleItems));
+                break;
+            case 2:
+                adapter.setSortStrategy(new SortByName(exampleItems));
+                break;
+            case 3:
+                adapter.setSortStrategy(new SortByMostUsed(exampleItems));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -171,6 +227,7 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         });
 
         final ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
+        closeButton.setBackgroundResource(R.drawable.ic_arrow_back);
         closeButton.setOnClickListener(v -> {
             searchResultsDialog.hide();
             searchView.setQuery("", false);
@@ -237,10 +294,10 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         adapter.setSortStrategy(new SortByCategory(exampleItems));
 
         listView.setAdapter(adapter);
-        sortBySpinner.setSelection(0);
+//        sortBySpinner.setSelection(0);
 
         catTitle.setText(module.getCategoryName(category));
-        catIcon.setImageDrawable(module.getIconForCategory(category));
+//        catIcon.setImageDrawable(module.getIconForCategory(category));
     }
 
     @Override

@@ -50,8 +50,8 @@ public class DigitalMountainChartFragment extends ExampleSingleChartBaseFragment
         final FastMountainRenderableSeries rSeries = sciChartBuilder.newMountainSeries()
                 .withDataSeries(dataSeries)
                 .withIsDigitalLine(true)
-                .withStrokeStyle(0xAAFFC9A8, 1, true)
-                .withAreaFillLinearGradientColors(0xAAFF8D42, 0x88090E11)
+                .withStrokeStyle(0xAAe97064, 1, true)
+                .withAreaFillLinearGradientColors(0xAAe97064, 0x88e97064)
                 .build();
 
         UpdateSuspender.using(surface, () -> {

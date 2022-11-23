@@ -38,7 +38,7 @@ class VerticallyStackedYAxesFragment: ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
-        val colors = arrayListOf(0xFFFF1919, 0xFFFC9C29, 0xFFFF1919, 0xFFFC9C29, 0xFF4083B7)
+        val colors = arrayListOf(0xFF47bde6, 0xFFe97064, 0xFF47bde6, 0xFFe97064, 0xFF274b92)
 
         surface.suspendUpdates {
             layoutManager = DefaultLayoutManager.Builder().setLeftOuterAxesLayoutStrategy(LeftAlignedOuterVerticallyStackedYAxisLayoutStrategy()).build()

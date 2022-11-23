@@ -61,11 +61,11 @@ public class VerticallyStackedYAxesFragment extends ExampleSingleChartBaseFragme
             ds.append(sineWave.xValues, sineWave.yValues);
         }
 
-        final FastLineRenderableSeries ch0 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(0)).withStrokeStyle(0xFFFF1919, 1f, true).withYAxisId("Ch0").build();
-        final FastLineRenderableSeries ch1 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(1)).withStrokeStyle(0xFFFC9C29, 1f, true).withYAxisId("Ch1").build();
-        final FastLineRenderableSeries ch2 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(2)).withStrokeStyle(0xFFFF1919, 1f, true).withYAxisId("Ch2").build();
-        final FastLineRenderableSeries ch3 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(3)).withStrokeStyle(0xFFFC9C29, 1f, true).withYAxisId("Ch3").build();
-        final FastLineRenderableSeries ch4 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(4)).withStrokeStyle(0xFF4083B7, 1f, true).withYAxisId("Ch4").build();
+        final FastLineRenderableSeries ch0 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(0)).withStrokeStyle(0xFF47bde6, 1f, true).withYAxisId("Ch0").build();
+        final FastLineRenderableSeries ch1 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(1)).withStrokeStyle(0xFFe97064, 1f, true).withYAxisId("Ch1").build();
+        final FastLineRenderableSeries ch2 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(2)).withStrokeStyle(0xFF47bde6, 1f, true).withYAxisId("Ch2").build();
+        final FastLineRenderableSeries ch3 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(3)).withStrokeStyle(0xFFe97064, 1f, true).withYAxisId("Ch3").build();
+        final FastLineRenderableSeries ch4 = sciChartBuilder.newLineSeries().withDataSeries(dataSeries.get(4)).withStrokeStyle(0xFF274b92, 1f, true).withYAxisId("Ch4").build();
 
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).build();
         final IAxis yAxis0 = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId("Ch0").withAxisTitle("Ch0").withVisibleRange(-2, 2).withAutoRangeMode(AutoRange.Never).withDrawMajorGridLines(false).withDrawMinorGridLines(false).withDrawMajorBands(false).build();

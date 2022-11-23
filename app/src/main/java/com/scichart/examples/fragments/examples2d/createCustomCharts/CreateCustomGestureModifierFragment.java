@@ -60,13 +60,13 @@ public class CreateCustomGestureModifierFragment extends ExampleSingleChartBaseF
 
         final EllipsePointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker())
                 .withSize(10, 10)
-                .withStroke(0xFF0066FF, 1)
-                .withFill(0xFF0066FF)
+                .withStroke(0xFFe97064, 1)
+                .withFill(0xFFe97064)
                 .build();
 
         final FastImpulseRenderableSeries rSeries = sciChartBuilder.newImpulseSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFF0066FF)
+                .withStrokeStyle(0xFFe97064)
                 .withPointMarker(pointMarker)
                 .build();
 

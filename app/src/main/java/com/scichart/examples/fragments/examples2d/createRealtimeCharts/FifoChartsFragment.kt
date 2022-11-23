@@ -71,9 +71,9 @@ class FifoChartsFragment : ExampleSingleChartBaseFragment() {
                 autoRange = AutoRange.Always }
             }
             renderableSeries {
-                fastLineRenderableSeries { dataSeries = ds1; strokeStyle = SolidPenStyle(0xFF4083B7, 2f) }
-                fastLineRenderableSeries { dataSeries = ds2; strokeStyle = SolidPenStyle(0xFFFFA500, 2f) }
-                fastLineRenderableSeries { dataSeries = ds3; strokeStyle = SolidPenStyle(0xFFE13219, 2f) }
+                fastLineRenderableSeries { dataSeries = ds1; strokeStyle = SolidPenStyle(0xFF634e96, 2f) }
+                fastLineRenderableSeries { dataSeries = ds2; strokeStyle = SolidPenStyle(0xFF47bde6, 2f) }
+                fastLineRenderableSeries { dataSeries = ds3; strokeStyle = SolidPenStyle(0xFFae418d, 2f) }
             }
         }
 

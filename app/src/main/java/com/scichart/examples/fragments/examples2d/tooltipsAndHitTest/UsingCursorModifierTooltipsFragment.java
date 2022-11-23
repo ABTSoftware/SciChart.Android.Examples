@@ -72,8 +72,8 @@ public class UsingCursorModifierTooltipsFragment extends ExampleSingleChartBaseF
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(new DoubleRange(3d, 6d)).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).withGrowBy(0.05d, 0.05d).build();
 
-        final XyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Green Series").build();
-        final XyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Red Series").build();
+        final XyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Blue Series").build();
+        final XyDataSeries<Double, Double> ds2 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Orange Series").build();
         final XyDataSeries<Double, Double> ds3 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Grey Series").build();
         final XyDataSeries<Double, Double> ds4 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withSeriesName("Gold Series").build();
 
@@ -87,8 +87,8 @@ public class UsingCursorModifierTooltipsFragment extends ExampleSingleChartBaseF
         ds3.append(data3.xValues, data3.yValues);
         ds4.append(data4.xValues, data4.yValues);
 
-        final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFF177B17, 2, true).build();
-        final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFFDD0909, 2, true).build();
+        final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries().withDataSeries(ds1).withStrokeStyle(0xFF47bde6, 2, true).build();
+        final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries().withDataSeries(ds2).withStrokeStyle(0xFFe97064, 2, true).build();
         final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries().withDataSeries(ds3).withStrokeStyle(ColorUtil.Grey, 2, true).build();
         final FastLineRenderableSeries rs4 = sciChartBuilder.newLineSeries().withDataSeries(ds4).withStrokeStyle(ColorUtil.Gold, 2, true).withIsVisible(false).build();
 

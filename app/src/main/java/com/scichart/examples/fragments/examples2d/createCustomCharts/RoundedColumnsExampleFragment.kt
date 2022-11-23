@@ -48,7 +48,7 @@ class RoundedColumnsExampleFragment : ExampleSingleChartBaseFragment() {
                             append(i, yValues[i])
                         }
                     }
-                    fillBrushStyle = SolidBrushStyle(0xFF3CF3A6)
+                    fillBrushStyle = SolidBrushStyle(0xFF634e96)
 
                     scaleAnimation { interpolator = OvershootInterpolator(); duration = 1500 }
                 }

@@ -57,7 +57,7 @@ class RealTimePointCloud3DChartFragment : ExampleSingleChart3DBaseFragment() {
             renderableSeries {
                 scatterRenderableSeries3D {
                     dataSeries = this@RealTimePointCloud3DChartFragment.dataSeries
-                    ellipsePointMarker3D { fill = 0x77ADFF2F; size = 3f }
+                    ellipsePointMarker3D { fill = 0x7747bde6; size = 3f }
                 }
             }
 

@@ -39,20 +39,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/category_icon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/category_icon"-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_alignParentStart="true"-->
+<!--                    android:layout_centerVertical="true" />-->
 
                 <TextView
                     android:id="@+id/category_title"
                     android:layout_width="wrap_content"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="3dp"
-                    android:layout_toEndOf="@+id/category_icon"
+                    tools:text="@string/charts2D"
                     android:textSize="@dimen/toolbar_title_size" />
 
             </RelativeLayout>
@@ -60,6 +62,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
+        android:id="@+id/content_home"
         layout="@layout/content_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

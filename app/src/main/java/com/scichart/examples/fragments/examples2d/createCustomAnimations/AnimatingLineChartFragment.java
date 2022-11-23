@@ -74,7 +74,7 @@ public class AnimatingLineChartFragment extends ExampleSingleChartBaseFragment {
 
     private final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries()
             .withDataSeries(dataSeries)
-            .withStrokeStyle(sciChartBuilder.newPen().withColor(0xFF4083B7).withThickness(3f).build())
+            .withStrokeStyle(sciChartBuilder.newPen().withColor(0xFF47bde6).withThickness(3f).build())
             .build();
 
     private final DoubleRange xVisibleRange = new DoubleRange(-1.0, VISIBLE_RANGE_MAX);

@@ -18,8 +18,8 @@
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="@dimen/example_popup_control_corner" />
-    <solid android:color="@color/color_primary" />
-    <stroke android:color="@color/color_primary_dark"/>
+    <solid android:color="@color/pop_up_bg_color" />
+    <stroke android:color="@color/pop_up_bg_color"/>
     <padding
         android:bottom="0dp"
         android:left="@dimen/example_popup_padding_horizontal"
