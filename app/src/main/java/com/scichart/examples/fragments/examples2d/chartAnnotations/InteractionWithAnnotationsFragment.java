@@ -50,6 +50,8 @@ public class InteractionWithAnnotationsFragment extends ExampleSingleChartBaseFr
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final OhlcDataSeries<Date, Double> dataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).build();
 
         final MarketDataService marketDataService = new MarketDataService(Calendar.getInstance().getTime(), 5, 5);

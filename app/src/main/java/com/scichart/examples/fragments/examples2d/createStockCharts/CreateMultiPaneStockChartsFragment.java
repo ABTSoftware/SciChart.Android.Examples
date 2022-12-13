@@ -40,6 +40,7 @@ import com.scichart.charting.visuals.renderableSeries.BaseRenderableSeries;
 import com.scichart.charting.visuals.synchronization.SciChartVerticalGroup;
 import com.scichart.core.utility.ListUtil;
 import com.scichart.data.model.DoubleRange;
+import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.MovingAverage;
 import com.scichart.examples.data.PriceSeries;
@@ -72,6 +73,11 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment<Exam
 
     @Override
     protected void initExample(ExampleMultipaneStockChartsFragmentBinding binding) {
+        binding.macdChart.setTheme(R.style.SciChart_NavyBlue);
+        binding.priceChart.setTheme(R.style.SciChart_NavyBlue);
+        binding.rsiChart.setTheme(R.style.SciChart_NavyBlue);
+        binding.volumeChart.setTheme(R.style.SciChart_NavyBlue);
+
         final PriceSeries priceData = DataManager.getInstance().getPriceDataEurUsd(getActivity());
 
         final PricePaneModel pricePaneModel = new PricePaneModel(sciChartBuilder, priceData);

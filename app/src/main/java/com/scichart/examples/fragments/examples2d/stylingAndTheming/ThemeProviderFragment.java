@@ -72,6 +72,7 @@ public class ThemeProviderFragment extends ExampleBaseFragment<ExampleThemeProvi
     private final static int OSCILLOSCOPE = 6;
     private final static int SCI_CHART_V4_DARK = 7;
     private final static int BERRY_BLUE = 8;
+    private final static int SCI_CHART_NAVY_BLUE = 9;
 
     private CursorModifier cursorModifier;
     private ModifierGroup zoomingModifiers;
@@ -86,7 +87,7 @@ public class ThemeProviderFragment extends ExampleBaseFragment<ExampleThemeProvi
     protected void initExample(ExampleThemeProviderChartFragmentBinding binding) {
         final Spinner themeSelector = binding.themeSelector;
         themeSelector.setAdapter(new SpinnerStringAdapter(getActivity(), R.array.style_list));
-        themeSelector.setSelection(7);
+        themeSelector.setSelection(9);
         themeSelector.setOnItemSelectedListener(new ItemSelectedListenerBase() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -196,6 +197,9 @@ public class ThemeProviderFragment extends ExampleBaseFragment<ExampleThemeProvi
             case BERRY_BLUE:
                 themeId = R.style.SciChart_BerryBlue;
                 break;
+            case SCI_CHART_NAVY_BLUE:
+                themeId = R.style.SciChart_NavyBlue;
+                break;
             default:
                 themeId = ThemeManager.DEFAULT_THEME;
                 break;
@@ -208,7 +212,7 @@ public class ThemeProviderFragment extends ExampleBaseFragment<ExampleThemeProvi
     @Override
     public List<Widget> getToolbarItems() {
         return new ArrayList<Widget>() {{
-                add(new ImageViewWidget.Builder().setId(R.drawable.example_toolbar_settings).setListener(v -> openSettingsDialog()).build());
+            add(new ImageViewWidget.Builder().setId(R.drawable.example_toolbar_settings).setListener(v -> openSettingsDialog()).build());
         }};
     }
 

@@ -23,7 +23,7 @@ import android.view.LayoutInflater
 import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
-import com.scichart.drawing.utility.ColorUtil
+import com.scichart.examples.R
 import com.scichart.examples.databinding.ExampleSyncMultipleChartsFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
@@ -45,6 +45,8 @@ class SyncMultipleChartsFragment: ExampleBaseFragment<ExampleSyncMultipleChartsF
     }
 
     private fun initChart(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         surface.suspendUpdates {
             xAxes { numericAxis { growBy = DoubleRange(0.1, 0.1); visibleRange = sharedXRange} }
             yAxes { numericAxis { growBy = DoubleRange(0.1, 0.1); visibleRange = sharedYRange} }

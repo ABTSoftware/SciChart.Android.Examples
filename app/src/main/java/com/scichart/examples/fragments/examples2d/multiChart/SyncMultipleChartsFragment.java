@@ -32,7 +32,7 @@ import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.data.model.IRange;
-import com.scichart.drawing.utility.ColorUtil;
+import com.scichart.examples.R;
 import com.scichart.examples.databinding.ExampleSyncMultipleChartsFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
@@ -62,6 +62,8 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment<ExampleSyncM
     }
 
     private void initChart(final SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedXRange).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1d, 0.1d).withVisibleRange(sharedYRange).build();
 

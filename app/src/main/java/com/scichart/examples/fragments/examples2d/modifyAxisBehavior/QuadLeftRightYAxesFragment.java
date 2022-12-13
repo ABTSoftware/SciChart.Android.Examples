@@ -29,6 +29,7 @@ import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.data.model.DoubleRange;
+import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
@@ -63,6 +64,8 @@ public class QuadLeftRightYAxesFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         UpdateSuspender.using(surface, () -> {
             fillDataSeries(ds1);
             fillDataSeries(ds2);

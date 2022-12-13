@@ -53,6 +53,8 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         UpdateSuspender.using(surface, () -> {
             final IAxis xAxis = sciChartBuilder.newNumericAxis()
                     .withVisibleRange(0d, 10d)

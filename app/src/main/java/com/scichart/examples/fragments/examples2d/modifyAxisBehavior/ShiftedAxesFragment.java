@@ -33,6 +33,7 @@ import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.IServiceContainer;
 import com.scichart.core.common.Size;
 import com.scichart.core.framework.UpdateSuspender;
+import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
@@ -47,6 +48,8 @@ public class ShiftedAxesFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Top).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withMajorTickLineStyle(0xFFFFFFFF, 2f, true).withTextFormatting("0.00").withDrawMinorTicks(false).withIsCenterAxis(true).withGrowBy(0.1, 0.1).build();
 

@@ -29,6 +29,7 @@ import com.scichart.charting.visuals.renderableSeries.IRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.StyleBase
 import com.scichart.drawing.common.PenStyle
 import com.scichart.drawing.utility.ColorUtil
+import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
@@ -38,6 +39,8 @@ class SeriesSelectionFragment : ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         surface.suspendUpdates {
             xAxes { numericAxis { axisAlignment = Bottom; autoRange = Always } }
             yAxes {

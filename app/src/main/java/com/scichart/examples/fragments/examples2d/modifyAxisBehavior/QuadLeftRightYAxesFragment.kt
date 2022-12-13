@@ -24,6 +24,7 @@ import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AxisAlignment.*
 import com.scichart.core.model.DoubleValues
 import com.scichart.data.model.DoubleRange
+import com.scichart.examples.R
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
@@ -33,6 +34,7 @@ class QuadLeftRightYAxesFragment : ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
 
         surface.suspendUpdates {
             xAxes {

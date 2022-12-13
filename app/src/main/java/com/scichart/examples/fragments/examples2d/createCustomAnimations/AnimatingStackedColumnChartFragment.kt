@@ -72,6 +72,8 @@ class AnimatingStackedColumnChartFragment : ExampleBaseFragment<ExampleAnimating
     }
 
     override fun initExample(binding: ExampleAnimatingStackedColumnChartFragmentBinding) {
+        binding.surface.theme = R.style.SciChart_NavyBlue
+
         binding.refreshData.setOnClickListener {
             if (isRunning) {
                 if (schedule != null) {

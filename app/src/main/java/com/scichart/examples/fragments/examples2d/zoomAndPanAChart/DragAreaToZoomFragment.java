@@ -31,7 +31,6 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
-import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
@@ -62,6 +61,8 @@ public class DragAreaToZoomFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
 

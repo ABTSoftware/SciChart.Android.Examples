@@ -71,6 +71,9 @@ class CreateRealTimeTickingStockChartFragment: ExampleBaseFragment<ExampleRealTi
     }
 
     override fun initExample(binding: ExampleRealTimeTickingStockChartFragmentBinding) {
+        binding.surface.theme = R.style.SciChart_NavyBlue
+        binding.overview.theme = R.style.SciChart_NavyBlue
+
         // Market data service simulates live ticks. We want to load the chart with 150 historical bars then later do real-time ticking as new data comes in
         marketDataService = MarketDataService(Date(2000, 8, 1, 12, 0, 0), 5, 20)
         initChart()

@@ -34,6 +34,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.utility.NumberUtil;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
+import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.databinding.ExampleRealTimeGhostTracesFragmentBinding;
@@ -63,6 +64,8 @@ public class RealTimeGhostTracesFragment extends ExampleBaseFragment<ExampleReal
 
     @Override
     protected void initExample(ExampleRealTimeGhostTracesFragmentBinding binding) {
+        binding.surface.setTheme(R.style.SciChart_NavyBlue);
+
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always) .build();
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis()
                 .withGrowBy(new DoubleRange(0.1d, 0.1d))

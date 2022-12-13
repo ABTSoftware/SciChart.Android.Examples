@@ -54,7 +54,7 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
     override fun initExample(binding: ExampleThemeProviderChartFragmentBinding) {
         binding.themeSelector.run {
             adapter = SpinnerStringAdapter(activity, R.array.style_list)
-            setSelection(7)
+            setSelection(9)
             onItemSelectedListener = object : ItemSelectedListenerBase() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
                     setTheme(position)
@@ -153,6 +153,7 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
             OSCILLOSCOPE -> R.style.SciChart_OscilloscopeStyle
             SCI_CHART_V4_DARK -> R.style.SciChart_SciChartv4DarkStyle
             BERRY_BLUE -> R.style.SciChart_BerryBlue
+            SCI_CHART_NAVY_BLUE -> R.style.SciChart_NavyBlue
             else -> ThemeManager.DEFAULT_THEME
         }
 
@@ -182,5 +183,6 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
         private const val OSCILLOSCOPE = 6
         private const val SCI_CHART_V4_DARK = 7
         private const val BERRY_BLUE = 8
+        private const val SCI_CHART_NAVY_BLUE = 9
     }
 }

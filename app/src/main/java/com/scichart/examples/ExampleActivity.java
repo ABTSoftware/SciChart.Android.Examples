@@ -62,7 +62,6 @@ public class ExampleActivity extends ExampleActivityBase {
         super.onPostResume();
 
         showFpsCounter = fpsDrawable.hasTargets();
-        getTargetChart().setTheme(R.style.SciChart_SciChart_NavyBlue);
 
     }
 
@@ -78,6 +77,9 @@ public class ExampleActivity extends ExampleActivityBase {
             widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_x, surface, v -> ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipXAxes()));
             widgets.add(attachModifierAndCreateWidget(FlipAxesCoordsChartModifier.class, R.drawable.example_toolbar_flip_y, surface, v -> ((FlipAxesCoordsChartModifier) SideMenuHelper.getModifier(FlipAxesCoordsChartModifier.class, chartModifiers)).flipYAxes()));
             widgets.add(attachModifierAndCreateWidget(CustomRotateChartModifier.class, R.drawable.example_toolbar_rotate, surface, v -> ((CustomRotateChartModifier) SideMenuHelper.getModifier(CustomRotateChartModifier.class, chartModifiers)).rotateChart()));
+
+            getTargetChart().setTheme(R.style.SciChart_NavyBlue);
+
         }
         return widgets;
     }

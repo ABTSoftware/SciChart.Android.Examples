@@ -43,6 +43,7 @@ class DashboardStyleChartsFragment : ExampleBaseFragment<ExampleDashboardStyleCh
     }
 
     override fun initExample(binding: ExampleDashboardStyleChartFragmentBinding) {
+
         val seriesColors = colors.map { ResourcesCompat.getColor(resources, it, null) }
 
         val chartTypesSource = listOf(
@@ -106,6 +107,8 @@ class DashboardStyleChartsFragment : ExampleBaseFragment<ExampleDashboardStyleCh
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
             val binding: ExampleSingleChartFragmentBinding = ExampleSingleChartFragmentBinding.inflate(inflater, collection, false)
+
+            binding.surface.theme = R.style.SciChart_NavyBlue
 
             val chartTypeModel = chartTypesSource[position]
             updateSurface(chartTypeModel, binding)

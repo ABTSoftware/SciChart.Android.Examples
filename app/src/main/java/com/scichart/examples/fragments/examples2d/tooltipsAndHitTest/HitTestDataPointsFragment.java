@@ -32,7 +32,6 @@ import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
-import com.scichart.charting.model.dataSeries.OhlcDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
@@ -47,6 +46,7 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.utility.ListUtil;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
+import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
 
 import java.util.Collections;
@@ -65,6 +65,8 @@ public class HitTestDataPointsFragment extends ExampleSingleChartBaseFragment im
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final Double[] xValues = {0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d};
         final Double[] yValues = {0d, 0.1d, 0.3d, 0.5d, 0.4d, 0.35d, 0.3d, 0.25d, 0.2d, 0.1d, 0.05d};
 

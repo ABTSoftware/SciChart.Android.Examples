@@ -30,6 +30,7 @@ import com.scichart.charting.visuals.renderableSeries.paletteProviders.IUniformH
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase
 import com.scichart.core.model.DoubleValues
 import com.scichart.core.model.IValues
+import com.scichart.examples.R
 import com.scichart.examples.databinding.ExampleHeatmapPaletteFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
@@ -46,6 +47,8 @@ class HeatmapPaletteProviderFragment : ExampleBaseFragment<ExampleHeatmapPalette
     }
 
     override fun initExample(binding: ExampleHeatmapPaletteFragmentBinding) {
+        binding.surface.theme = R.style.SciChart_NavyBlue
+
         binding.seekBar.run {
             setOnSeekBarChangeListener(this@HeatmapPaletteProviderFragment)
             heatmapPaletteProvider.setThresholdValue(progress.toDouble())

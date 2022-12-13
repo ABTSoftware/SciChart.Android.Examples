@@ -111,6 +111,8 @@ public class AnimatingLineChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         UpdateSuspender.using(surface, () -> {
             final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
                     .withAutoRangeMode(AutoRange.Never)

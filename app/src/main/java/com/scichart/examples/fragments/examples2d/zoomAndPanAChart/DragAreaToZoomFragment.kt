@@ -23,7 +23,6 @@ import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
-import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
@@ -42,6 +41,8 @@ class DragAreaToZoomFragment : ExampleSingleChartBaseFragment() {
     }
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         val data = RandomWalkGenerator(0).setBias(0.0001).getRandomWalkSeries(10000)
 
         surface.suspendUpdates {

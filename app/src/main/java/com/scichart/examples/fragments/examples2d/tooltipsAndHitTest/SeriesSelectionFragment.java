@@ -38,6 +38,7 @@ import com.scichart.charting.visuals.renderableSeries.StyleBase;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.common.PenStyle;
 import com.scichart.drawing.utility.ColorUtil;
+import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
@@ -55,6 +56,8 @@ public class SeriesSelectionFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).withAutoRangeMode(AutoRange.Always).build();
         final IAxis leftAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Left).withAxisId(AxisAlignment.Left.name()).build();
         final IAxis rightAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Right).withAxisId(AxisAlignment.Right.name()).build();

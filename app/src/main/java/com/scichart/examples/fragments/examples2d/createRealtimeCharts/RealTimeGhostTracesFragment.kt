@@ -28,6 +28,7 @@ import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.core.utility.NumberUtil
 import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil
+import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.databinding.ExampleRealTimeGhostTracesFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
@@ -48,6 +49,8 @@ class RealTimeGhostTracesFragment : ExampleBaseFragment<ExampleRealTimeGhostTrac
     }
 
     override fun initExample(binding: ExampleRealTimeGhostTracesFragmentBinding) {
+        binding.surface.theme = R.style.SciChart_NavyBlue
+
         binding.surface.run {
             xAxes { numericAxis  { autoRange = AutoRange.Always } }
             yAxes { numericAxis  {

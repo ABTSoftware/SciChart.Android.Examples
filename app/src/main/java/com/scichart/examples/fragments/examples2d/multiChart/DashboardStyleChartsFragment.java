@@ -31,7 +31,6 @@ import android.widget.LinearLayout;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.HorizontallyStackedColumnsCollection;
 import com.scichart.charting.visuals.renderableSeries.StackedColumnRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.StackedMountainRenderableSeries;
@@ -95,6 +94,8 @@ public class DashboardStyleChartsFragment extends ExampleBaseFragment<ExampleDas
         public Object instantiateItem(@NonNull ViewGroup collection, int position) {
             final LayoutInflater inflater = LayoutInflater.from(context);
             final ExampleSingleChartFragmentBinding binding = ExampleSingleChartFragmentBinding.inflate(inflater, collection, false);
+
+            binding.surface.setTheme(R.style.SciChart_NavyBlue);
 
             ChartTypeModel chartTypeModel = chartTypesSource.get(position);
             updateSurface(chartTypeModel, binding);

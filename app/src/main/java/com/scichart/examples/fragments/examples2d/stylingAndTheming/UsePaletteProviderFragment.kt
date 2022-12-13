@@ -50,6 +50,8 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         val dataManager = DataManager.getInstance()
         val priceBars = dataManager.getPriceDataIndu(context)
         val dataOffset = -1000.0

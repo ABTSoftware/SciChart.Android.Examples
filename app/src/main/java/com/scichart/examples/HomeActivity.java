@@ -227,7 +227,7 @@ public class HomeActivity extends AppCompatActivity implements Thread.UncaughtEx
         });
 
         final ImageView closeButton = searchView.findViewById(R.id.search_close_btn);
-        closeButton.setBackgroundResource(R.drawable.ic_arrow_back);
+//        closeButton.setBackgroundResource(R.drawable.ic_arrow_back);
         closeButton.setOnClickListener(v -> {
             searchResultsDialog.hide();
             searchView.setQuery("", false);

@@ -68,6 +68,8 @@ public class UsePaletteProviderFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withVisibleRange(150d, 165d).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withLabelProvider(new ThousandsLabelProvider()).withGrowBy(0, 0.1).withAutoRangeMode(AutoRange.Always).build();
 

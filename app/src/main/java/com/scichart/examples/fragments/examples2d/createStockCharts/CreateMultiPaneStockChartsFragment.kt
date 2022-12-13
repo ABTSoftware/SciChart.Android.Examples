@@ -28,6 +28,7 @@ import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.charting.visuals.synchronization.SciChartVerticalGroup
 import com.scichart.data.model.DoubleRange
+import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.data.MovingAverage
 import com.scichart.examples.data.PriceSeries
@@ -47,6 +48,11 @@ class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneS
     }
 
     override fun initExample(binding: ExampleMultipaneStockChartsFragmentBinding) {
+        binding.macdChart.theme = R.style.SciChart_NavyBlue
+        binding.priceChart.theme = R.style.SciChart_NavyBlue
+        binding.rsiChart.theme = R.style.SciChart_NavyBlue
+        binding.volumeChart.theme = R.style.SciChart_NavyBlue
+
         val priceData = DataManager.getInstance().getPriceDataEurUsd(activity)
 
         initPriceChart(binding.priceChart, priceData)

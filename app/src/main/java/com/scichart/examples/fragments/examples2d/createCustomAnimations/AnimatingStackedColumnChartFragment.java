@@ -99,6 +99,8 @@ public class AnimatingStackedColumnChartFragment extends ExampleBaseFragment<Exa
 
     @Override
     protected void initExample(@NonNull ExampleAnimatingStackedColumnChartFragmentBinding binding) {
+        binding.surface.setTheme(R.style.SciChart_NavyBlue);
+
         binding.refreshData.setOnClickListener(v -> {
             if (isRunning) {
                 if (schedule != null) {

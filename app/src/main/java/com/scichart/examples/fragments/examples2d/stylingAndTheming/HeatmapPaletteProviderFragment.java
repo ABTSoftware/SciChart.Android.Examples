@@ -36,6 +36,7 @@ import com.scichart.charting.visuals.renderableSeries.data.UniformHeatmapRenderP
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IValues;
 import com.scichart.core.model.IntegerValues;
+import com.scichart.examples.R;
 import com.scichart.examples.databinding.ExampleHeatmapPaletteFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
 
@@ -56,6 +57,8 @@ public class HeatmapPaletteProviderFragment extends ExampleBaseFragment<ExampleH
 
     @Override
     protected void initExample(ExampleHeatmapPaletteFragmentBinding binding) {
+        binding.surface.setTheme(R.style.SciChart_NavyBlue);
+
         binding.seekBar.setOnSeekBarChangeListener(this);
 
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAxisAlignment(AxisAlignment.Bottom).build();

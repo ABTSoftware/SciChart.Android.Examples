@@ -240,7 +240,7 @@ public class SearchResultsDataAdapter extends BaseAdapter {
                 Collections.reverse(ranges);
                 for (Pair<Integer, Integer> range : ranges) {
                     result.insert(range.first + range.second, "</font>");
-                    result.insert(range.first, "<font color='green'>");
+                    result.insert(range.first, "<font color='#47bde6'>");
                 }
             }
         }

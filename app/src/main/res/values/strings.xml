@@ -63,6 +63,7 @@
         <item>Oscilloscope</item>
         <item>SciChartv4Dark</item>
         <item>BerryBlue</item>
+        <item>SciChartNavyBlue</item>
     </string-array>
 
     <string-array name="series_list">

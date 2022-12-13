@@ -36,7 +36,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class Module {
-    private final static String BASE_GITHUB_PATH = "https://github.com/ABTSoftware/SciChart.Android.Examples/tree/SciChart_v4_Release/Examples/app/src/main/java/";
+    private final static String BASE_GITHUB_PATH = "https://github.com/ABTSoftware/SciChart.Android.Examples/tree/SciChart_v4_Release/app/src/main/java/";
     private final static String BASE_FRAGMENT_NAMESPACE = "com.scichart.examples.fragments";
     private boolean isInitialized = false;
     private boolean isKotlin = false;

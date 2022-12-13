@@ -39,6 +39,8 @@ class InteractionWithAnnotationsFragment : ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         surface.suspendUpdates {
             xAxes { categoryDateAxis { } }
             yAxes { numericAxis { visibleRange = DoubleRange(30.0, 37.0) } }

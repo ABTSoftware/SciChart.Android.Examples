@@ -28,6 +28,7 @@ import com.scichart.charting.visuals.axes.AutoRange.Never
 import com.scichart.charting.visuals.axes.AxisAlignment.Bottom
 import com.scichart.charting.visuals.axes.AxisAlignment.Left
 import com.scichart.data.model.DoubleRange
+import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
@@ -38,6 +39,8 @@ class VerticallyStackedYAxesFragment: ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         val colors = arrayListOf(0xFF47bde6, 0xFFe97064, 0xFF47bde6, 0xFFe97064, 0xFF274b92)
 
         surface.suspendUpdates {

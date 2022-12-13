@@ -48,7 +48,7 @@ import java.util.concurrent.TimeUnit;
 import static com.scichart.drawing.utility.ColorUtil.*;
 
 public class HeatmapChartFragment extends ExampleBaseFragment<ExampleHeatmapChartFragmentBinding> {
-    private static final int WIDTH = 200, HEIGHT = 300;
+    private static final int WIDTH = 300, HEIGHT = 200;
     private static final int SERIES_PER_PERIOD = 30;
     private static final long TIME_INTERVAL = 40;
 
@@ -77,8 +77,8 @@ public class HeatmapChartFragment extends ExampleBaseFragment<ExampleHeatmapChar
 
         final FastUniformHeatmapRenderableSeries heatmapRenderableSeries = sciChartBuilder.newUniformHeatmap()
                 .withColorMap(new ColorMap(
-                        new int[]{DarkBlue, CornflowerBlue, DarkGreen, Chartreuse, Yellow, Red},
-                        new float[]{0f, 0.2f, 0.4f, 0.6f, 0.8f, 1})
+                        new int[]{0xFF14233C, 0xFF264B93, 0xFF50C7E0, 0xFF67BDAF, 0xFFDC7969, 0xFFF48420, 0xFFEC0F6C},
+                        new float[]{0f, 0.2f, 0.3f, 0.5f, 0.7f, 0.9f, 1})
                 )
                 .withMinimum(0)
                 .withMaximum(200)
@@ -115,13 +115,15 @@ public class HeatmapChartFragment extends ExampleBaseFragment<ExampleHeatmapChar
         final Random random = new Random();
         final double angle = Math.PI * 2 * index / SERIES_PER_PERIOD;
         final double cx = 150, cy = 100;
+        final double cpMax = 200;
+        // When appending data to IValues<Double> for the heatmap, always go Y then X
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
-                final double v = (1 + Math.sin(y * 0.04 + angle)) * 50 + (1 + Math.sin(x * 0.1 + angle)) * 50 * (1 + Math.sin(angle * 2));
-                final double r = Math.sqrt((y - cx) * (y - cx) + (x - cy) * (x - cy));
+                final double v = (1 + Math.sin(x * 0.04 + angle)) * 50 + (1 + Math.sin(y * 0.1 + angle)) * 50 * (1 + Math.sin(angle * 2));
+                final double r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
                 final double exp = Math.max(0, 1 - r * 0.008);
-
-                values.add(v * exp + random.nextDouble() * 50);
+                double zValue = v * exp + Math.random() * 10;
+                values.add(zValue > cpMax ? cpMax : zValue);
             }
         }
 

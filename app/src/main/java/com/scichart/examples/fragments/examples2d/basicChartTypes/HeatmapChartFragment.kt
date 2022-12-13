@@ -31,9 +31,6 @@ import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
-import kotlin.math.max
-import kotlin.math.sin
-import kotlin.math.sqrt
 
 class HeatmapChartFragment : ExampleBaseFragment<ExampleHeatmapChartFragmentBinding>() {
 
@@ -62,8 +59,16 @@ class HeatmapChartFragment : ExampleBaseFragment<ExampleHeatmapChartFragmentBind
                     minimum = 0.0
                     maximum = 200.0
                     colorMap = ColorMap(
-                        intArrayOf(DarkBlue, CornflowerBlue, DarkGreen, Chartreuse, Yellow, Red),
-                        floatArrayOf(0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f)
+                        // Colours in ARGB format
+                        intArrayOf(0xFF14233C.toInt(),
+                            0xFF264B93.toInt(),
+                            0xFF50C7E0.toInt(),
+                            0xFF67BDAF.toInt(),
+                            0xFFDC7969.toInt(),
+                            0xFFF48420.toInt(),
+                            0xFFEC0F6C.toInt()
+                        ),
+                        floatArrayOf(0f, 0.2f, 0.3f, 0.5f, 0.7f, 0.9f, 1f)
                     )
                     dataSeries = this@HeatmapChartFragment.dataSeries
 
@@ -99,13 +104,18 @@ class HeatmapChartFragment : ExampleBaseFragment<ExampleHeatmapChartFragmentBind
         val random = Random()
         val angle = Math.PI * 2 * index / SERIES_PER_PERIOD
         val cx = 150.0; val cy = 100.0
+        val cpMax = 200.0
+        // When appending data to DoubleValues for the heatmap, always go Y then X
         for (y in 0 until HEIGHT) {
             for (x in 0 until WIDTH) {
-                val v = (1 + sin(y * 0.04 + angle)) * 50 + (1 + sin(x * 0.1 + angle)) * 50 * (1 + sin(angle * 2))
-                val r = sqrt((y - cx) * (y - cx) + (x - cy) * (x - cy))
-                val exp = max(0.0, 1 - r * 0.008)
-
-                values.add(v * exp + random.nextDouble() * 50)
+                val v =
+                    (1 + Math.sin(x * 0.04 + angle)) * 50 + (1 + Math.sin(y * 0.1 + angle)) * 50 * (1 + Math.sin(
+                        angle * 2
+                    ))
+                val r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy))
+                val exp = Math.max(0.0, 1 - r * 0.008)
+                val zValue = v * exp + Math.random() * 10
+                values.add(if (zValue > cpMax) cpMax else zValue)
             }
         }
 
@@ -119,8 +129,8 @@ class HeatmapChartFragment : ExampleBaseFragment<ExampleHeatmapChartFragmentBind
     }
 
     companion object {
-        private const val WIDTH = 200
-        private const val HEIGHT = 300
+        private const val WIDTH = 300
+        private const val HEIGHT = 200
         private const val SERIES_PER_PERIOD = 30
         private const val TIME_INTERVAL: Long = 40
     }

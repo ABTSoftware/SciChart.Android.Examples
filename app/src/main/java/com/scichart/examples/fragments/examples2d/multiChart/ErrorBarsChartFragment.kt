@@ -45,6 +45,8 @@ class ErrorBarsChartFragment : ExampleSingleChartBaseFragment() {
     }
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         val data = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5.0, 5.15, 5000)
         val dataSeries0 = HlDataSeries<Double, Double>().apply { fillSeries(this, data,1.0) }
         val dataSeries1 = HlDataSeries<Double, Double>().apply { fillSeries(this, data,1.3) }

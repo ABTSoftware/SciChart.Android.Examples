@@ -35,6 +35,7 @@ import com.scichart.charting.visuals.axes.AxisLayoutState;
 import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
+import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
@@ -51,6 +52,8 @@ public class VerticallyStackedYAxesFragment extends ExampleSingleChartBaseFragme
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final List<IXyDataSeries<Double, Double>> dataSeries = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {

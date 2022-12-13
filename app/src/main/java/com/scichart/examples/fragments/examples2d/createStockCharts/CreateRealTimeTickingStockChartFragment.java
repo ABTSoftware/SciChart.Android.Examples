@@ -115,6 +115,9 @@ public class CreateRealTimeTickingStockChartFragment extends ExampleBaseFragment
 
     @Override
     protected void initExample(@NonNull ExampleRealTimeTickingStockChartFragmentBinding binding) {
+        binding.surface.setTheme(R.style.SciChart_NavyBlue);
+        binding.overview.setTheme(R.style.SciChart_NavyBlue);
+
         // Market data service simulates live ticks. We want to load the chart with 150 historical bars then later do real-time ticking as new data comes in
         this.marketDataService = new MarketDataService(new Date(2000, 8, 1, 12, 0, 0), 5, 20);
         initChart();

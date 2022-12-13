@@ -24,6 +24,7 @@ import com.scichart.charting.visuals.axes.AxisAlignment.Left
 import com.scichart.core.model.DoubleValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil
+import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
@@ -33,6 +34,8 @@ class UsingTooltipModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         val ds1Points = DataManager.getInstance().getLissajousCurve(0.8, 0.2, 0.43, 500)
         val ds2Points = DataManager.getInstance().getSinewave(1.5, 1.0, 500)
         val scaledXValues = getScaledValues(ds1Points.xValues)

@@ -20,15 +20,12 @@
 package com.scichart.examples.fragments.examples2d.multiChart;
 
 import android.app.Dialog;
-import android.view.View;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.HlDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
-import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.ErrorDirection;
 import com.scichart.charting.visuals.renderableSeries.ErrorType;
@@ -71,6 +68,8 @@ public class ErrorBarsChartFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         final HlDataSeries<Double, Double> dataSeries0 = new HlDataSeries<>(Double.class, Double.class);
         final HlDataSeries<Double, Double> dataSeries1 = new HlDataSeries<>(Double.class, Double.class);
 

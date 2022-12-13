@@ -37,6 +37,8 @@ class AnnotationsAreEasyFragment : ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         surface.suspendUpdates {
             xAxes { numericAxis {
                 visibleRange = DoubleRange(0.0, 10.0)

@@ -81,6 +81,8 @@ class AnimatingLineChartFragment : ExampleSingleChartBaseFragment() {
     }
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         surface.suspendUpdates {
             xAxes {
                 numericAxis {

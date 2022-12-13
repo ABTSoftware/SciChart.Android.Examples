@@ -32,6 +32,7 @@ import com.scichart.charting.visuals.axes.IAxis
 import com.scichart.core.IServiceContainer
 import com.scichart.core.common.Size
 import com.scichart.data.model.DoubleRange
+import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.scichartExtensions.*
@@ -41,6 +42,8 @@ class ShiftedAxesFragment : ExampleSingleChartBaseFragment() {
     override fun showDefaultModifiersInToolbar(): Boolean = false
 
     override fun initExample(surface: SciChartSurface) {
+        surface.theme = R.style.SciChart_NavyBlue
+
         val butterflyCurve = DataManager.getInstance().getButterflyCurve(20000)
 
         surface.suspendUpdates {
