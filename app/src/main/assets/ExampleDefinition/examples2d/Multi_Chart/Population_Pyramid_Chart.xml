@@ -19,7 +19,7 @@
 
 <ExampleDefinition>
     <Title>Population Pyramid Chart</Title>
-    <IconPath>ic_stacked_columns_feature</IconPath>
+    <IconPath>ic_population_pyramid</IconPath>
     <Description>
         Demonstrates how to create a Pyramid Chart.
     </Description>

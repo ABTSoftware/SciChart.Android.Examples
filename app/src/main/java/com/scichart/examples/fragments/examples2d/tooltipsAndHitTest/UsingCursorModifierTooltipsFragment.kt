@@ -34,9 +34,11 @@ import com.scichart.examples.R
 import com.scichart.examples.components.SpinnerStringAdapter
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.EnumUtils
 import com.scichart.examples.utils.ItemSelectedListenerBase
 import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
@@ -67,7 +69,11 @@ class UsingCursorModifierTooltipsFragment : ExampleSingleChartBaseFragment() {
                     }
                     strokeStyle = SolidPenStyle(0xFF47bde6, 2f)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Orange Series") {
@@ -75,7 +81,11 @@ class UsingCursorModifierTooltipsFragment : ExampleSingleChartBaseFragment() {
                     }
                     strokeStyle = SolidPenStyle(0xFFe97064, 2f)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Grey Series") {
@@ -83,7 +93,11 @@ class UsingCursorModifierTooltipsFragment : ExampleSingleChartBaseFragment() {
                     }
                     strokeStyle = SolidPenStyle(ColorUtil.Grey, 2f)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Gold Series") {
@@ -92,7 +106,11 @@ class UsingCursorModifierTooltipsFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(ColorUtil.Gold, 2f)
                     isVisible = false
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
             }
 

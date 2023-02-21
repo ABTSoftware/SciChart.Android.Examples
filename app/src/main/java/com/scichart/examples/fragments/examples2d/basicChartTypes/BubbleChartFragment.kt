@@ -19,62 +19,76 @@
 
 package com.scichart.examples.fragments.examples2d.basicChartTypes.kt
 
+import android.view.animation.DecelerateInterpolator
 import android.widget.SeekBar
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier
 import com.scichart.charting.modifiers.ZoomExtentsModifier
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.renderableSeries.FastBubbleRenderableSeries
+import com.scichart.charting.visuals.renderableSeries.XyzRenderableSeriesBase
+import com.scichart.charting.visuals.renderableSeries.data.XyzRenderPassData
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IPointMarkerPaletteProvider
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase
+import com.scichart.core.model.IntegerValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
-import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.*
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
+import com.scichart.examples.utils.SeekBarChangeListenerBase
+import com.scichart.examples.utils.ViewSettingsUtil
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
-import java.util.*
+import kotlin.math.sin
 
 class BubbleChartFragment : ExampleSingleChartBaseFragment() {
     private val minSeekBarValue = 5
     private var zScaleFactor = 30
 
     override fun getToolbarItems(): List<Widget> = ArrayList<Widget>().apply {
-        add(ImageViewWidget.Builder().setId(R.drawable.example_toolbar_settings).setListener { openSettingsDialog() }.build())
+        add(
+            ImageViewWidget.Builder().setId(R.drawable.example_toolbar_settings)
+                .setListener { openSettingsDialog() }.build()
+        )
     }
 
     override fun initExample(surface: SciChartSurface) {
-        val dataSeries = XyzDataSeries<Date, Double, Double>().apply {
-            val tradeTicks = DataManager.getInstance().getTradeTicks(activity)
-            for (i in tradeTicks.indices) {
-                val tradeData = tradeTicks[i]
-                append(tradeData.tradeDate, tradeData.tradePrice, tradeData.tradeSize)
+        val dataSeries = XyzDataSeries<Double, Double, Double>().apply {
+            var prevYValue = 0
+            for (i in 0..19) {
+                val curYValue = sin(i.toDouble()) * 10 + 5
+                val size = sin(i.toDouble()) * 60 + 3
+                append(i.toDouble(), prevYValue + curYValue, size)
+                prevYValue += curYValue.toInt()
             }
         }
 
         surface.suspendUpdates {
-            xAxes { dateAxis { growBy = DoubleRange(0.0, 0.1) } }
+            xAxes { numericAxis { growBy = DoubleRange(0.0, 0.1) } }
             yAxes { numericAxis { growBy = DoubleRange(0.0, 0.1) } }
             renderableSeries {
-                fastLineRenderableSeries {
+                splineLineRenderableSeries {
                     this.dataSeries = dataSeries
-                    strokeStyle = SolidPenStyle(0xffff3333, 2f)
+                    strokeStyle = SolidPenStyle(0xffE4F5FC, 2f)
 
-                    scaleAnimation {
-                        interpolator = ElasticOutInterpolator()
-                        zeroLine = 10600.0
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
                     }
                 }
                 fastBubbleRenderableSeries {
                     this.dataSeries = dataSeries
-                    this.zScaleFactor = this@BubbleChartFragment.zScaleFactor.toDouble() / 10f
-                    bubbleBrushStyle = SolidBrushStyle(0x77CCCCCC)
-                    strokeStyle = SolidPenStyle(0xFFCCCCCC, 2f)
                     autoZRange = false
+                    paletteProvider = BubblePaletteProvider(XyzRenderableSeriesBase::class.java)
 
-                    scaleAnimation {
-                        interpolator = ElasticOutInterpolator()
-                        zeroLine = 10600.0
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
                     }
                 }
             }
@@ -86,7 +100,10 @@ class BubbleChartFragment : ExampleSingleChartBaseFragment() {
     }
 
     private fun openSettingsDialog() {
-        val dialog = ViewSettingsUtil.createSettingsPopup(activity, R.layout.example_bubble_chart_popop_layout)
+        val dialog = ViewSettingsUtil.createSettingsPopup(
+            activity,
+            R.layout.example_bubble_chart_popop_layout
+        )
         with(dialog.findViewById<SeekBar>(R.id.z_scale_seek_bar)) {
             progress = zScaleFactor
             setOnSeekBarChangeListener(object : SeekBarChangeListenerBase() {
@@ -104,6 +121,41 @@ class BubbleChartFragment : ExampleSingleChartBaseFragment() {
         binding.surface.suspendUpdates {
             val rSeries = renderableSeries[1] as FastBubbleRenderableSeries
             rSeries.zScaleFactor = (zScaleFactor / 10f).toDouble()
+        }
+    }
+
+    internal open class BubblePaletteProvider (renderableSeriesType: Class<XyzRenderableSeriesBase>) :
+        PaletteProviderBase<XyzRenderableSeriesBase>(renderableSeriesType),
+        IPointMarkerPaletteProvider, IFillPaletteProvider {
+
+        private val colors = IntegerValues()
+        override fun update() {
+            val currentRenderPassData =
+                renderableSeries.currentRenderPassData as XyzRenderPassData
+            val xValues = currentRenderPassData.xValues
+
+            val size = currentRenderPassData.pointsCount()
+            colors.setSize(size)
+
+            val colorsArray = colors.itemsArray
+            val valuesArray = xValues.itemsArray
+
+            for (i in 0 until size) {
+                val value = valuesArray[i]
+                if (value in 9.0..12.0) {
+                    colorsArray[i] = -0x780b7be0
+                } else {
+                    colorsArray[i] = -0x78af3820
+                }
+            }
+        }
+
+        override fun getPointMarkerColors(): IntegerValues {
+            return colors
+        }
+
+        override fun getFillColors(): IntegerValues {
+            return colors
         }
     }
 }

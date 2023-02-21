@@ -24,6 +24,7 @@ import com.scichart.charting.visuals.renderableSeries.DonutRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.PieRenderableSeries
 import com.scichart.examples.databinding.ExampleSinglePieChartWithLegendFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.scichartExtensions.*
 
 class MultiplePieDonutChartFragment : ExampleBaseFragment<ExampleSinglePieChartWithLegendFragmentBinding>() {
@@ -74,7 +75,7 @@ class MultiplePieDonutChartFragment : ExampleBaseFragment<ExampleSinglePieChartW
             }
         }
 
-        pieSeries.animate(800)
-        donutSeries.animate(800)
+        pieSeries.animate(Constant.ANIMATION_DURATION)
+        donutSeries.animate(Constant.ANIMATION_DURATION)
     }
 }

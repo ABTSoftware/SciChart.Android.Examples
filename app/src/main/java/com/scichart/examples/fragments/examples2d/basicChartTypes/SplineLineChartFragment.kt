@@ -23,6 +23,8 @@ import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class SplineLineChartFragment : ExampleSingleChartBaseFragment() {
@@ -41,20 +43,28 @@ class SplineLineChartFragment : ExampleSingleChartBaseFragment() {
             renderableSeries {
                 splineLineRenderableSeries {
                     this.dataSeries = dataSeries
-                    strokeStyle = SolidPenStyle(0xFFae418d)
+                    strokeStyle = SolidPenStyle(0xFF50C7E0)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     this.dataSeries = dataSeries
-                    strokeStyle = SolidPenStyle(0xFFe97064)
+                    strokeStyle = SolidPenStyle(0xFFF48420)
                     ellipsePointMarker {
                         setSize(7)
-                        strokeStyle = SolidPenStyle(0xFFae418d)
+                        strokeStyle = SolidPenStyle(0xFF50C7E0)
                         fillStyle = SolidBrushStyle(0xFFFFFFFF)
                     }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

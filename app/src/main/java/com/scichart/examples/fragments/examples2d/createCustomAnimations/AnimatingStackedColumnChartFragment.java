@@ -58,7 +58,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AnimatingStackedColumnChartFragment extends ExampleBaseFragment<ExampleAnimatingStackedColumnChartFragmentBinding> {
     private final static long TIME_INTERVAL = 1000;
-    private final static long ANIMATION_DURATION = 500;
+    private final static long ANIMATION_DURATION = 250;
     private final static int X_VALUES_COUNT = 12;
     private final static double MAX_Y_VALUE = 100.0;
 

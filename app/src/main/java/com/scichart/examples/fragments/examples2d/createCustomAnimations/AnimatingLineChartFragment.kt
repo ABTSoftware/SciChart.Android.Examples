@@ -21,6 +21,7 @@ package com.scichart.examples.fragments.examples2d.createCustomAnimations.kt
 
 import android.animation.FloatEvaluator
 import android.os.Bundle
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.animations.AnimationsHelper
@@ -64,7 +65,7 @@ class AnimatingLineChartFragment : ExampleSingleChartBaseFragment() {
         AppendedPointTransformation(),
         ANIMATION_DURATION,
         0,
-        DecelerateInterpolator(),
+        AccelerateDecelerateInterpolator(),
         FloatEvaluator(),
         0f, 1f
     )
@@ -177,8 +178,8 @@ class AnimatingLineChartFragment : ExampleSingleChartBaseFragment() {
 
     companion object {
         private const val FIFO_CAPACITY = 50
-        private const val TIME_INTERVAL: Long = 1000
-        private const val ANIMATION_DURATION: Long = 500
+        private const val TIME_INTERVAL: Long = 400
+        private const val ANIMATION_DURATION: Long = 200
         private const val X_RANGE_STEP = 1.0
         private const val VISIBLE_RANGE_MAX = 10.0
         private const val MAX_Y_VALUE = 100.0

@@ -1,32 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--*************************************************************************-->
-<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
-<!--   -->
-<!-- Web: http://www.scichart.com -->
-<!-- Support: support@scichart.com -->
-<!-- Sales:   sales@scichart.com -->
-<!--  -->
-<!-- ic_fan_chart_feature.xml is part of the SCICHART® Examples. Permission is hereby granted -->
-<!-- to modify, create derivative works, distribute and publish any part of this source -->
-<!-- code whether for commercial, private or personal use. -->
-<!--  -->
-<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
-<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
-<!-- expressed or implied. -->
-<!--*************************************************************************-->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="106"
-    android:viewportHeight="106">
-
-    <path
-        android:fillColor="#ffffffff"
-        android:pathData="M9.3,101 L14.8,93.3 L26.2,62 L41.6,78.7 L70.9,86.8 L93.1,82.4 L97.5,82.4
-L97.5,77.4 L92.6,77.4 L71.1,81.6 L54.9,77.2 L71.4,77.2 L92.2,59.2 L98.5,56.5
-L98.5,51.1 L89.5,54.9 L69.5,72.2 L50.8,72.2 L69.5,61.6 L85.2,41.7 L98.8,33
-L98.7,27.1 L81.8,38 L66.1,57.8 L48.7,67.6 L58.5,52.3 L83.1,20.4 L98.6,12.8
-L98.6,7.5 L79.9,16.4 L54.4,49.3 L40.9,70.6 L24.3,52.6 L10.4,90.9 L5,98.5 L5,0
-L0,0 L0,106 L106,106 L106,101 L9.3,101 Z" />
+    android:width="60dp"
+    android:height="60dp"
+    android:viewportWidth="60"
+    android:viewportHeight="60">
+  <path
+      android:pathData="M31.53,35.91A12.19,12.19 0,0 1,24.84 34l0.54,-0.85c5.67,3.6 11.48,1.13 17.63,-1.5a55.09,55.09 0,0 1,7.22 -2.69l0.26,1a52.64,52.64 0,0 0,-7.08 2.64C39.5,34.21 35.5,35.91 31.53,35.91Z"
+      android:fillColor="#e96f64"/>
+  <path
+      android:pathData="M28.88,34.57a10,10 0,0 1,-4 -1l0.39,-0.92c3.75,1.6 6.52,1.39 12.08,-4.18 5.26,-5.26 8.29,-5.26 10.95,-5.26v1c-2.47,0 -5.27,0 -10.24,5C34.16,33.15 31.45,34.57 28.88,34.57Z"
+      android:fillColor="#e96f64"/>
+  <path
+      android:pathData="M24.72,33.64a1.34,1.34 0,0 1,-0.48 -0.08l0.34,-0.94c0.87,0.31 3.2,-2.11 5.46,-4.45 4.07,-4.23 9.15,-9.5 14.44,-9.75l0,1c-4.88,0.23 -10,5.56 -13.77,9.44C28,31.68 26.15,33.64 24.72,33.64Z"
+      android:fillColor="#e96f64"/>
+  <path
+      android:pathData="M50.36,52.71H9.64a0.5,0.5 0,0 1,-0.5 -0.5V7.79a0.5,0.5 0,1 1,1 0V51.71H50.36a0.5,0.5 0,0 1,0 1Z"
+      android:fillColor="#48bde6"/>
+  <path
+      android:pathData="M9.64,46.65a0.5,0.5 0,0 1,-0.44 -0.27,0.51 0.51,0 0,1 0.21,-0.68c3.12,-1.62 4.42,-5.66 4.95,-8.77 0.16,-0.9 0.28,-1.81 0.4,-2.72a25.32,25.32 0,0 1,2 -8.13,0.52 0.52,0 0,1 0.4,-0.27 0.47,0.47 0,0 1,0.44 0.2C25.09,36 38.77,40.26 50.19,36.1a0.5,0.5 0,0 1,0.64 0.3,0.5 0.5,0 0,1 -0.3,0.64c-11.57,4.22 -25.38,0.11 -33.18,-9.77a27.85,27.85 0,0 0,-1.6 7.07c-0.12,0.93 -0.25,1.85 -0.4,2.76 -0.83,4.78 -2.72,8.06 -5.48,9.49A0.46,0.46 0,0 1,9.64 46.65Z"
+      android:fillColor="#48bde6"/>
 </vector>

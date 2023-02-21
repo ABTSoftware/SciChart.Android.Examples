@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.multiChart.kt
 
+import android.view.animation.LinearInterpolator
 import android.widget.SeekBar
 import com.scichart.charting.model.dataSeries.HlDataSeries
 import com.scichart.charting.visuals.SciChartSurface
@@ -31,6 +32,7 @@ import com.scichart.examples.data.DoubleSeries
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.SeekBarChangeListenerBase
 import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
@@ -63,7 +65,12 @@ class ErrorBarsChartFragment : ExampleSingleChartBaseFragment() {
                     errorDirection = Vertical
                     errorType = Absolute
 
-                    scaleAnimation { interpolator = ElasticOutInterpolator() }
+                    waveAnimation {
+                        zeroLine = 2.5
+                        duration = 500
+                        startDelay = 100
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     dataSeries = dataSeries0
@@ -73,7 +80,7 @@ class ErrorBarsChartFragment : ExampleSingleChartBaseFragment() {
                         fillStyle = SolidBrushStyle(color)
                     }
 
-                    scaleAnimation { interpolator = ElasticOutInterpolator() }
+//                    scaleAnimation { interpolator = ElasticOutInterpolator() }
                 }
 
                 fastErrorBarsRenderableSeries {
@@ -82,7 +89,12 @@ class ErrorBarsChartFragment : ExampleSingleChartBaseFragment() {
                     errorDirection = Vertical
                     errorType = Absolute
 
-                    scaleAnimation { interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 3.5
+                        duration = 500
+                        startDelay = 600
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 xyScatterRenderableSeries {
                     dataSeries = dataSeries1
@@ -92,7 +104,7 @@ class ErrorBarsChartFragment : ExampleSingleChartBaseFragment() {
                         strokeStyle = SolidPenStyle(color)
                     }
 
-                    scaleAnimation { interpolator = ElasticOutInterpolator() }
+//                    scaleAnimation { interpolator = ElasticOutInterpolator() }
                 }
             }
 

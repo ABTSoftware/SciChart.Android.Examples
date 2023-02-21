@@ -48,6 +48,8 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -118,10 +120,10 @@ public class HitTestDataPointsFragment extends ExampleSingleChartBaseFragment im
             Collections.addAll(surface.getYAxes(), yAxis);
             Collections.addAll(surface.getRenderableSeries(), lineSeries, mountainSeries, columnSeries, candlestickSeries);
 
-            sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(0.3d).withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(columnSeries).withScaleTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(0.3d).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(lineSeries).withScaleTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(columnSeries).withScaleTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
 
         surface.setOnTouchListener(this);

@@ -24,6 +24,8 @@ import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AxisAlignment.Bottom
 import com.scichart.charting.visuals.axes.AxisAlignment.Left
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class StackedBarChartFragment: ExampleSingleChartBaseFragment() {
@@ -42,7 +44,11 @@ class StackedBarChartFragment: ExampleSingleChartBaseFragment() {
                         fillBrushStyle = LinearGradientBrushStyle(0xff567893, 0xff3D5568)
                         strokeStyle = SolidPenStyle(0xff567893, 0f)
 
-                        waveAnimation { interpolator = DecelerateInterpolator() }
+                        waveAnimation {
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                            interpolator = DefaultInterpolator.getInterpolator()
+                        }
                     }
                     stackedColumnRenderableSeries {
                         xyDataSeries<Double, Double>("Data 2") {
@@ -52,7 +58,11 @@ class StackedBarChartFragment: ExampleSingleChartBaseFragment() {
                         fillBrushStyle = LinearGradientBrushStyle(0xffACBCCA, 0xff439AAF)
                         strokeStyle = SolidPenStyle(0xffACBCCA, 0f)
 
-                        waveAnimation { interpolator = DecelerateInterpolator() }
+                        waveAnimation {
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                            interpolator = DefaultInterpolator.getInterpolator()
+                        }
                     }
                     stackedColumnRenderableSeries {
                         xyDataSeries<Double, Double>("Data 3") {
@@ -62,7 +72,11 @@ class StackedBarChartFragment: ExampleSingleChartBaseFragment() {
                         fillBrushStyle = LinearGradientBrushStyle(0xffDBE0E1, 0xffB6C1C3)
                         strokeStyle = SolidPenStyle(0xffDBE0E1, 0f)
 
-                        waveAnimation { interpolator = DecelerateInterpolator() }
+                        waveAnimation {
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                            interpolator = DefaultInterpolator.getInterpolator()
+                        }
                     }
                 }
             }

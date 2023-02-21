@@ -199,7 +199,7 @@ class AnimatingStackedColumnChartFragment : ExampleBaseFragment<ExampleAnimating
 
     companion object {
         private const val TIME_INTERVAL: Long = 1000
-        private const val ANIMATION_DURATION: Long = 500
+        private const val ANIMATION_DURATION: Long = 250
         private const val X_VALUES_COUNT = 12
         private const val MAX_Y_VALUE = 100.0
 

@@ -19,10 +19,13 @@
 
 package com.scichart.examples.fragments.examples2d.basicChartTypes.kt
 
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
@@ -43,17 +46,21 @@ class SplineBandChartFragment : ExampleSingleChartBaseFragment() {
                             append(data.xValues[index], data.yValues[index], moreData.yValues[index])
                         }
                     }
-                    fillBrushStyle = SolidBrushStyle(0x33e97064)
-                    fillY1BrushStyle = SolidBrushStyle(0x33634e96)
-                    strokeStyle = SolidPenStyle(0xFF634e96)
-                    strokeY1Style = SolidPenStyle(0xFFe97064)
+                    fillBrushStyle = SolidBrushStyle(0x33F48420)
+                    fillY1BrushStyle = SolidBrushStyle(0x3350C7E0)
+                    strokeStyle = SolidPenStyle(0xFFF48420)
+                    strokeY1Style = SolidPenStyle(0xFF50C7E0)
                     ellipsePointMarker {
                         setSize(7)
                         strokeStyle = SolidPenStyle(0xFF006400)
                         fillStyle = SolidBrushStyle(0xFFFFFFFF)
                     }
 
-                    scaleAnimation { interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

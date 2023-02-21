@@ -45,6 +45,8 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.common.FontStyle;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 import java.util.Date;
@@ -160,10 +162,10 @@ public class AxisRotationFragment extends ExampleSingleChartBaseFragment {
                     .withYAxisDragModifier().withReceiveHandledEvents(true).build()
                     .build());
 
-            sciChartBuilder.newAnimator(rs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(rs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(rs4).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rs1).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs2).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs4).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

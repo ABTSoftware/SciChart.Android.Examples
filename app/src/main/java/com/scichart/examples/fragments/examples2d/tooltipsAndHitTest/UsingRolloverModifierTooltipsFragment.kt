@@ -32,9 +32,11 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.components.SpinnerStringAdapter
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.EnumUtils
 import com.scichart.examples.utils.ItemSelectedListenerBase
 import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
@@ -74,20 +76,32 @@ class UsingRolloverModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFF47bde6, 2f)
                     ellipsePointMarker { setSize(7); fillStyle = SolidBrushStyle(ColorUtil.Lavender) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastLineRenderableSeries {
                     dataSeries = ds2
                     strokeStyle = SolidPenStyle(0xFFae418d, 2f)
                     ellipsePointMarker { setSize(7); fillStyle = SolidBrushStyle(ColorUtil.Lavender) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastLineRenderableSeries {
                     dataSeries = ds3
                     strokeStyle = SolidPenStyle(0xFF68bcae, 2f)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
             }
 

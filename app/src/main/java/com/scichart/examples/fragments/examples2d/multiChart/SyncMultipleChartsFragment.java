@@ -35,6 +35,8 @@ import com.scichart.data.model.IRange;
 import com.scichart.examples.R;
 import com.scichart.examples.databinding.ExampleSyncMultipleChartsFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -89,7 +91,7 @@ public class SyncMultipleChartsFragment extends ExampleBaseFragment<ExampleSyncM
 
             surface.zoomExtents();
 
-            sciChartBuilder.newAnimator(line).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(line).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

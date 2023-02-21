@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior.kt
 
+import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.model.dataSeries.IXyDataSeries
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AxisAlignment.*
@@ -26,6 +27,8 @@ import com.scichart.core.model.DoubleValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
 
@@ -116,41 +119,81 @@ class QuadLeftRightYAxesFragment : ExampleSingleChartBaseFragment() {
                     xyDataSeries<Double, Double>("Red line") { fillDataSeries(this) }
                     yAxisId = Y_LEFT_AXIS_1
                     strokeStyle = SolidPenStyle(0xFFFF1919)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Black line") { fillDataSeries(this) }
                     yAxisId = Y_LEFT_AXIS_2
                     strokeStyle = SolidPenStyle(0xFFCCCCCC)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Orange line") { fillDataSeries(this) }
                     yAxisId = Y_LEFT_AXIS_3
                     strokeStyle = SolidPenStyle(0xFFFC9C29)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Blue line") { fillDataSeries(this) }
                     yAxisId = Y_LEFT_AXIS_4
                     strokeStyle = SolidPenStyle(0xFF4083B7)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Another Blue") { fillDataSeries(this) }
                     yAxisId = Y_RIGHT_AXIS_1
                     strokeStyle = SolidPenStyle(0xFF4083B7)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Green line") { fillDataSeries(this) }
                     yAxisId = Y_RIGHT_AXIS_2
                     strokeStyle = SolidPenStyle(0xFF279B27)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Another Red") { fillDataSeries(this) }
                     yAxisId = Y_RIGHT_AXIS_3
                     strokeStyle = SolidPenStyle(0xFFFF1919)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Another Black") { fillDataSeries(this) }
                     yAxisId = Y_RIGHT_AXIS_4
                     strokeStyle = SolidPenStyle(0xFFCCCCCC)
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

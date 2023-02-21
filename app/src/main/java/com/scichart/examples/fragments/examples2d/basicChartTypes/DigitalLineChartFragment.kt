@@ -21,34 +21,42 @@ package com.scichart.examples.fragments.examples2d.basicChartTypes.kt
 
 import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
-import com.scichart.data.model.DoubleRange
-import com.scichart.examples.data.DataManager
+import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker
+import com.scichart.drawing.common.SolidBrushStyle
+import com.scichart.drawing.common.SolidPenStyle
+import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class DigitalLineChartFragment : ExampleSingleChartBaseFragment() {
 
     override fun initExample(surface: SciChartSurface) {
-        val fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000)
+//        val fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000)
+        val randomWalk = RandomWalkGenerator(1337).getRandomWalkSeries(25)
 
         surface.suspendUpdates {
-            xAxes { numericAxis {
-                growBy = DoubleRange(0.1, 0.1)
-                visibleRange = DoubleRange(1.0, 1.25)
-            }}
-            yAxes { numericAxis {
-                growBy = DoubleRange(0.5, 0.5)
-                visibleRange = DoubleRange(2.3, 3.3)
-            }}
+            xAxes { numericAxis {} }
+            yAxes { numericAxis {} }
             renderableSeries {
                 fastLineRenderableSeries {
                     setIsDigitalLine(true)
                     xyDataSeries<Double, Double> {
-                        append(fourierSeries.xValues, fourierSeries.yValues)
+                        append(randomWalk.xValues, randomWalk.yValues)
                     }
-                    strokeStyle = SolidPenStyle(0xFFe97064)
+                    ellipsePointMarker {
+                        setSize(25,25)
+                        fillStyle = SolidBrushStyle(0xFFEC0F6C)
+                        strokeStyle = SolidPenStyle(0xFFE4F5FC.toInt(), true, 2f, null)
+                    }
+                    strokeStyle = SolidPenStyle(0xFFEC0F6C)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

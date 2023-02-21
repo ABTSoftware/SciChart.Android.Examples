@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.tooltipsAndHitTest.kt
 
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AutoRange.Always
@@ -32,6 +33,8 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class SeriesSelectionFragment : ExampleSingleChartBaseFragment() {
@@ -62,7 +65,11 @@ class SeriesSelectionFragment : ExampleSingleChartBaseFragment() {
                             append(straightLine.xValues, straightLine.yValues)
                         }
 
-                        sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                        sweepAnimation {
+                            interpolator = DefaultInterpolator.getInterpolator()
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                        }
                     }
 
                     val red = ColorUtil.red(initialColor)

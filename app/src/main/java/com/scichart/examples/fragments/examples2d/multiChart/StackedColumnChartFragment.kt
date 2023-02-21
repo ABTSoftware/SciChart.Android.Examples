@@ -23,6 +23,8 @@ import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.modifiers.ZoomExtentsModifier
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class StackedColumnChartFragment: ExampleSingleChartBaseFragment() {
@@ -42,7 +44,11 @@ class StackedColumnChartFragment: ExampleSingleChartBaseFragment() {
                             fillBrushStyle = SolidBrushStyle(0xff226fb7)
                             strokeStyle = SolidPenStyle(0xff22579D, 0f)
 
-                            waveAnimation { interpolator = DecelerateInterpolator() }
+                            waveAnimation {
+                                duration = Constant.ANIMATION_DURATION
+                                startDelay = Constant.ANIMATION_START_DELAY
+                                interpolator = DefaultInterpolator.getInterpolator()
+                            }
                         }
                         stackedColumnRenderableSeries {
                             xyDataSeries<Double, Double>("Veal Series") {
@@ -51,7 +57,11 @@ class StackedColumnChartFragment: ExampleSingleChartBaseFragment() {
                             fillBrushStyle = SolidBrushStyle(0xffff9a2e)
                             strokeStyle = SolidPenStyle(0xffBE642D, 0f)
 
-                            waveAnimation { interpolator = DecelerateInterpolator() }
+                            waveAnimation {
+                                duration = Constant.ANIMATION_DURATION
+                                startDelay = Constant.ANIMATION_START_DELAY
+                                interpolator = DefaultInterpolator.getInterpolator()
+                            }
                         }
                     }
                     verticallyStackedColumnsCollection {
@@ -62,7 +72,11 @@ class StackedColumnChartFragment: ExampleSingleChartBaseFragment() {
                             fillBrushStyle = SolidBrushStyle(0xffdc443f)
                             strokeStyle = SolidPenStyle(0xffA33631, 0f)
 
-                            waveAnimation { interpolator = DecelerateInterpolator() }
+                            waveAnimation {
+                                duration = Constant.ANIMATION_DURATION
+                                startDelay = Constant.ANIMATION_START_DELAY
+                                interpolator = DefaultInterpolator.getInterpolator()
+                            }
                         }
                         stackedColumnRenderableSeries {
                             xyDataSeries<Double, Double>("Cucumber Series") {
@@ -71,7 +85,11 @@ class StackedColumnChartFragment: ExampleSingleChartBaseFragment() {
                             fillBrushStyle = SolidBrushStyle(0xffaad34f)
                             strokeStyle = SolidPenStyle(0xff73953D, 0f)
 
-                            waveAnimation { interpolator = DecelerateInterpolator() }
+                            waveAnimation {
+                                duration = Constant.ANIMATION_DURATION
+                                startDelay = Constant.ANIMATION_START_DELAY
+                                interpolator = DefaultInterpolator.getInterpolator()
+                            }
                         }
                         stackedColumnRenderableSeries {
                             xyDataSeries<Double, Double>("Pepper Series") {
@@ -80,7 +98,11 @@ class StackedColumnChartFragment: ExampleSingleChartBaseFragment() {
                             fillBrushStyle = SolidBrushStyle(0xff8562b4)
                             strokeStyle = SolidPenStyle(0xff64458A, 0f)
 
-                            waveAnimation { interpolator = DecelerateInterpolator() }
+                            waveAnimation {
+                                duration = Constant.ANIMATION_DURATION
+                                startDelay = Constant.ANIMATION_START_DELAY
+                                interpolator = DefaultInterpolator.getInterpolator()
+                            }
                         }
                     }
                 }

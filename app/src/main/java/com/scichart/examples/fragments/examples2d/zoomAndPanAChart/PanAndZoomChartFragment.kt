@@ -24,6 +24,8 @@ import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class PanAndZoomChartFragment : ExampleSingleChartBaseFragment() {
@@ -48,21 +50,33 @@ class PanAndZoomChartFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFF47bde6)
                     xyDataSeries<Double, Double> { append(data1.xValues, data1.yValues) }
 
-                    scaleAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    scaleAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastMountainRenderableSeries {
                     areaStyle = SolidBrushStyle(0x77ae418d)
                     strokeStyle = SolidPenStyle(0xFFae418d)
                     xyDataSeries<Double, Double> { append(data2.xValues, data2.yValues) }
 
-                    scaleAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    scaleAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastMountainRenderableSeries {
                     areaStyle = SolidBrushStyle(0x77e97064)
                     strokeStyle = SolidPenStyle(0xFFefcdb4)
                     xyDataSeries<Double, Double> { append(data3.xValues, data3.yValues) }
 
-                    scaleAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    scaleAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
             }
 

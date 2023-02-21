@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.stylingAndTheming.kt
 
+import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AutoRange.Always
 import com.scichart.charting.visuals.axes.AxisAlignment.Left
@@ -28,7 +29,9 @@ import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.BillionsLabelProvider
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.ThousandsLabelProvider
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
@@ -74,7 +77,11 @@ class CustomThemeFragment: ExampleSingleChartBaseFragment() {
                         append(priceBars.indexesAsDouble, dataManager.offset(priceBars.lowData, -1000.0))
                     }
 
-                    scaleAnimation { zeroLine = 10500.0; interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastCandlestickRenderableSeries {
                     yAxisId = "PrimaryAxisId"
@@ -82,7 +89,12 @@ class CustomThemeFragment: ExampleSingleChartBaseFragment() {
                         append(priceBars.indexesAsDouble, priceBars.openData, priceBars.highData, priceBars.lowData, priceBars.closeData)
                     }
 
-                    scaleAnimation { zeroLine = 11700.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 11700.0
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     yAxisId = "PrimaryAxisId"
@@ -90,7 +102,11 @@ class CustomThemeFragment: ExampleSingleChartBaseFragment() {
                         append(priceBars.indexesAsDouble, dataManager.computeMovingAverage(priceBars.closeData, 50))
                     }
 
-                    scaleAnimation { zeroLine = 12250.0; interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastColumnRenderableSeries {
                     yAxisId = "SecondaryAxisId"
@@ -98,7 +114,12 @@ class CustomThemeFragment: ExampleSingleChartBaseFragment() {
                         append(priceBars.indexesAsDouble, priceBars.volumeData)
                     }
 
-                    scaleAnimation { zeroLine = 10500.0; interpolator = ElasticOutInterpolator() }
+                    waveAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        zeroLine = 10500.0;
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

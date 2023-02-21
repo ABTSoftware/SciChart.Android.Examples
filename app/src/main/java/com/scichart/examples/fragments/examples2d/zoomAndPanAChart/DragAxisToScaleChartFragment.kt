@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.zoomAndPanAChart.kt
 
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import android.widget.Spinner
 import com.scichart.charting.ClipMode.None
@@ -36,10 +37,12 @@ import com.scichart.examples.R
 import com.scichart.examples.components.SpinnerStringAdapter
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.EnumUtils
 import com.scichart.examples.utils.ItemSelectedListenerBase
 import com.scichart.examples.utils.ViewSettingsUtil
 import com.scichart.examples.utils.interpolator.CubicInOutInterpolator
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
@@ -90,14 +93,22 @@ class DragAxisToScaleChartFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFFc43360, 2f)
                     xyDataSeries<Double, Double> { append(fourierSeries.xValues, fourierSeries.yValues) }
 
-                    scaleAnimation { interpolator = CubicInOutInterpolator() }
+                    scaleAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
                 fastLineRenderableSeries {
                     yAxisId = "RightAxisID"
                     strokeStyle = SolidPenStyle(0xFF47bde6, 2f)
                     xyDataSeries<Double, Double> { append(dampedSinewave.xValues, dampedSinewave.yValues) }
 
-                    sweepAnimation { interpolator = CubicInOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

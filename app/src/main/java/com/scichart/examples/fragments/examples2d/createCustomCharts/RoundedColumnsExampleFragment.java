@@ -21,6 +21,8 @@ package com.scichart.examples.fragments.examples2d.createCustomCharts;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 
 import androidx.annotation.NonNull;
@@ -43,6 +45,8 @@ import com.scichart.drawing.common.IBrush2D;
 import com.scichart.drawing.common.IRenderContext2D;
 import com.scichart.drawing.common.SolidBrushStyle;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -70,7 +74,7 @@ public class RoundedColumnsExampleFragment extends ExampleSingleChartBaseFragmen
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new OvershootInterpolator()).withDuration(1500).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

@@ -43,6 +43,8 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -81,8 +83,8 @@ public class CustomizationCursorModifierTooltipsFragment extends ExampleSingleCh
             final float thickness = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2f, displayMetrics);
             new SolidPenStyle(0xAA47bde6, false, thickness, null).initPaint(cursorModifier.getCrosshairPaint());
 
-            sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

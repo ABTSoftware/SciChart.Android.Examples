@@ -30,6 +30,8 @@ import com.scichart.core.model.DateValues
 import com.scichart.core.model.DoubleValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
 
@@ -91,7 +93,11 @@ class AxisRotationFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFFFF1919)
                     xyDataSeries<Date, Double>("Red Line") { fillDataSeries(this) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_BOTTOM_AXIS
@@ -99,7 +105,11 @@ class AxisRotationFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFF279B27)
                     xyDataSeries<Date, Double>("Green Line") { fillDataSeries(this) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_TOP_AXIS
@@ -107,7 +117,11 @@ class AxisRotationFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFFFC9C29)
                     xyDataSeries<Date, Double>("Orange Line") { fillDataSeries(this) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_TOP_AXIS
@@ -115,7 +129,11 @@ class AxisRotationFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFF4083B7)
                     xyDataSeries<Date, Double>("Blue Line") { fillDataSeries(this) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

@@ -31,6 +31,7 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
 
@@ -50,7 +51,10 @@ class UsePointMarkersFragment : ExampleSingleChartBaseFragment() {
                         strokeStyle = SolidPenStyle(ColorUtil.LightBlue, 2f)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation {
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        duration = Constant.ANIMATION_DURATION
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { fillDataSeries(this, 1.0) }
@@ -61,7 +65,10 @@ class UsePointMarkersFragment : ExampleSingleChartBaseFragment() {
                         strokeStyle = SolidPenStyle(ColorUtil.Red, 2f)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation {
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        duration = Constant.ANIMATION_DURATION
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { fillDataSeries(this, 2.5) }
@@ -72,7 +79,10 @@ class UsePointMarkersFragment : ExampleSingleChartBaseFragment() {
                         strokeStyle = SolidPenStyle(0xffff6600, 2f)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation {
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        duration = Constant.ANIMATION_DURATION
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { fillDataSeries(this, 4.0) }
@@ -82,7 +92,10 @@ class UsePointMarkersFragment : ExampleSingleChartBaseFragment() {
                         strokeStyle = SolidPenStyle(ColorUtil.Magenta, 4f)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation {
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        duration = Constant.ANIMATION_DURATION
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double> { fillDataSeries(this, 5.5) }
@@ -93,7 +106,10 @@ class UsePointMarkersFragment : ExampleSingleChartBaseFragment() {
                         strokeStyle = SolidPenStyle(ColorUtil.LightBlue, 2f)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation {
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        duration = Constant.ANIMATION_DURATION
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

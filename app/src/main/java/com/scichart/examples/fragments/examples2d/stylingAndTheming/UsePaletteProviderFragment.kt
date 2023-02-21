@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.stylingAndTheming.kt
 
+import android.view.animation.AccelerateDecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode.RelativeY
 import com.scichart.charting.visuals.annotations.BoxAnnotation
@@ -39,7 +40,9 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.ThousandsLabelProvider
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import kotlin.math.max
@@ -104,7 +107,12 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(ColorUtil.Magenta)
                     paletteProvider = XyCustomPaletteProvider(ColorUtil.Red, boxAnnotation)
 
-                    scaleAnimation { zeroLine = 6000.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 6000.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Line Series") {
@@ -118,7 +126,12 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
                     }
                     paletteProvider = XyCustomPaletteProvider(ColorUtil.Red, boxAnnotation)
 
-                    scaleAnimation { zeroLine = 12250.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 12250.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastOhlcRenderableSeries {
                     ohlcDataSeries<Double, Double>("Candlestick Series") {
@@ -126,7 +139,12 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
                     }
                     paletteProvider = OhlcCustomPaletteProvider(ColorUtil.CornflowerBlue, boxAnnotation)
 
-                    scaleAnimation { zeroLine = 11750.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 11750.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastCandlestickRenderableSeries {
                     ohlcDataSeries<Double, Double>("Candlestick Series") {
@@ -139,7 +157,12 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
                     }
                     paletteProvider = OhlcCustomPaletteProvider(ColorUtil.Green, boxAnnotation)
 
-                    scaleAnimation { zeroLine = 10750.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 10750.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastColumnRenderableSeries {
                     xyDataSeries<Double, Double>("Column Series") {
@@ -151,7 +174,12 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
                     fillBrushStyle = SolidBrushStyle(ColorUtil.Blue)
                     paletteProvider = XyCustomPaletteProvider(ColorUtil.Purple, boxAnnotation)
 
-                    scaleAnimation { zeroLine = 6000.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 6000.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 xyScatterRenderableSeries {
                     xyDataSeries<Double, Double>("Scatter Series") {
@@ -164,7 +192,12 @@ class UsePaletteProviderFragment : ExampleSingleChartBaseFragment() {
                     }
                     paletteProvider = XyCustomPaletteProvider(ColorUtil.LimeGreen, boxAnnotation)
 
-                    scaleAnimation { zeroLine = 9000.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 9000.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

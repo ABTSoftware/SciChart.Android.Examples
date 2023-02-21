@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.basicChartTypes;
 
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 
@@ -64,7 +65,7 @@ public class CandlestickChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+//            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(1000).withStartDelay(350).start();
         });
     }
 }

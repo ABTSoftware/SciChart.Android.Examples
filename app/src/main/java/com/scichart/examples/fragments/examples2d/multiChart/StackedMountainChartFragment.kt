@@ -22,6 +22,8 @@ package com.scichart.examples.fragments.examples2d.multiChart.kt
 import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class StackedMountainChartFragment: ExampleSingleChartBaseFragment() {
@@ -40,7 +42,11 @@ class StackedMountainChartFragment: ExampleSingleChartBaseFragment() {
                         }
                         areaStyle = LinearGradientBrushStyle(0xDD47bde6, 0x88e2f4fd)
 
-                        waveAnimation { interpolator = DecelerateInterpolator() }
+                        waveAnimation {
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                            interpolator = DefaultInterpolator.getInterpolator()
+                        }
                     }
                     stackedMountainRenderableSeries {
                         xyDataSeries<Double, Double> {
@@ -48,7 +54,11 @@ class StackedMountainChartFragment: ExampleSingleChartBaseFragment() {
                         }
                         areaStyle = LinearGradientBrushStyle(0xDDae418d, 0x88efb4d3)
 
-                        waveAnimation { interpolator = DecelerateInterpolator() }
+                        waveAnimation {
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                            interpolator = DefaultInterpolator.getInterpolator()
+                        }
                     }
                 }
             }

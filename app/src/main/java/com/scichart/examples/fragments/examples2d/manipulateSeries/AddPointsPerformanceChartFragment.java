@@ -81,7 +81,7 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment<Examp
                 .build()
         );
 
-        surface.animateZoomExtents(500);
+        surface.animateZoomExtents(250);
     }
 
     private void onReset() {

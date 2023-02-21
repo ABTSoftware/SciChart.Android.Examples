@@ -19,6 +19,8 @@
 
 package com.scichart.examples.fragments.examples2d.stylingAndTheming;
 
+import android.view.animation.AccelerateDecelerateInterpolator;
+
 import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
@@ -54,7 +56,9 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
 import com.scichart.examples.utils.ThousandsLabelProvider;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator;
 
 import java.util.Collections;
@@ -165,12 +169,12 @@ public class UsePaletteProviderFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
             Collections.addAll(surface.getAnnotations(), annotation);
 
-            sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation(6000d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(12500d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(ohlcSeries).withScaleTransformation(11750d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(10750d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(columnSeries).withScaleTransformation(6000d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(xyScatterSeries).withScaleTransformation(9000d).withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(mountainSeries).withScaleTransformation(6000d).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(lineSeries).withScaleTransformation(12500d).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(ohlcSeries).withScaleTransformation(11750d).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(candlestickSeries).withScaleTransformation(10750d).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(columnSeries).withScaleTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(xyScatterSeries).withScaleTransformation(9000d).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

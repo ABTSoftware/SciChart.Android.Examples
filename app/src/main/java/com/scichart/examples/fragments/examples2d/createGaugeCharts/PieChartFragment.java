@@ -28,6 +28,7 @@ import com.scichart.charting.visuals.SciPieChartSurface;
 import com.scichart.charting.visuals.renderableSeries.IPieRenderableSeries;
 import com.scichart.examples.databinding.ExampleSinglePieChartWithLegendFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.utils.Constant;
 
 import java.util.Collections;
 
@@ -52,6 +53,6 @@ public class PieChartFragment extends ExampleBaseFragment<ExampleSinglePieChartW
         Collections.addAll(pieChart.getRenderableSeries(), pieSeries);
         Collections.addAll(pieChart.getChartModifiers(), sciChartBuilder.newLegendModifier(binding.pieChartLegend).withSourceSeries(pieSeries).build(), new PieSegmentSelectionModifier());
 
-        pieSeries.animate(800);
+        pieSeries.animate(Constant.ANIMATION_DURATION);
     }
 }

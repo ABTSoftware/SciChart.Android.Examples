@@ -34,6 +34,8 @@ import com.scichart.core.utility.touch.ModifierTouchEventArgs
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import kotlin.math.abs
 
@@ -57,7 +59,11 @@ class CreateCustomGestureModifierFragment : ExampleSingleChartBaseFragment() {
                     }
                     strokeStyle = SolidPenStyle(0xFFe97064)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    waveAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

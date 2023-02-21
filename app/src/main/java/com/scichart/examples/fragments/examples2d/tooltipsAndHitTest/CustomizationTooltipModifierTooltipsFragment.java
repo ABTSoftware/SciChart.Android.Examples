@@ -40,6 +40,8 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -69,8 +71,8 @@ public class CustomizationTooltipModifierTooltipsFragment extends ExampleSingleC
             Collections.addAll(surface.getRenderableSeries(), lineRs1, lineRs2);
             Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
 
-            sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(lineRs1).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(lineRs2).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

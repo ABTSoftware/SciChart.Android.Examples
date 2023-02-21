@@ -34,6 +34,7 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
 
 import java.util.Collections;
 
@@ -79,8 +80,8 @@ public class UsingTooltipModifierTooltipsFragment extends ExampleSingleChartBase
             Collections.addAll(surface.getRenderableSeries(), line1, line2);
             Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
 
-            sciChartBuilder.newOpacityAnimator(line1).withDuration(1000).withStartDelay(350).start();
-            sciChartBuilder.newOpacityAnimator(line2).withDuration(1000).withStartDelay(350).start();
+            sciChartBuilder.newOpacityAnimator(line1).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newOpacityAnimator(line2).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

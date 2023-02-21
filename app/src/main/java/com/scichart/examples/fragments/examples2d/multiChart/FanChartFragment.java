@@ -34,6 +34,7 @@ import com.scichart.core.utility.IterableUtil;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.data.RandomWalkGenerator;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,10 +75,10 @@ public class FanChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), projectedVar3, projectedVar2, projectedVar, lineSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(lineSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(projectedVar).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(projectedVar2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(projectedVar3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(lineSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(100).start();
+            sciChartBuilder.newAnimator(projectedVar).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(600).start();
+            sciChartBuilder.newAnimator(projectedVar2).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(600).start();
+            sciChartBuilder.newAnimator(projectedVar3).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(600).start();
         });
     }
 

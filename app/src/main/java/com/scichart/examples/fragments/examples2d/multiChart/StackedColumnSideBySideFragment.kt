@@ -28,6 +28,8 @@ import com.scichart.charting.visuals.axes.AutoRange.Always
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class StackedColumnSideBySideFragment : ExampleSingleChartBaseFragment() {
@@ -78,7 +80,11 @@ class StackedColumnSideBySideFragment : ExampleSingleChartBaseFragment() {
                             fillBrushStyle = SolidBrushStyle(fills[i])
                             strokeStyle = SolidPenStyle(strokes[i], 0f)
 
-                            waveAnimation { interpolator = DecelerateInterpolator() }
+                            waveAnimation {
+                                duration = Constant.ANIMATION_DURATION
+                                startDelay = Constant.ANIMATION_START_DELAY
+                                interpolator = DefaultInterpolator.getInterpolator()
+                            }
                         }
                     }
                 }

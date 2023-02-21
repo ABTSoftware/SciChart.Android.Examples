@@ -30,6 +30,8 @@ import com.scichart.charting.visuals.renderableSeries.StackedMountainRenderableS
 import com.scichart.charting.visuals.renderableSeries.VerticallyStackedMountainsCollection;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -59,8 +61,8 @@ public class StackedMountainChartFragment extends ExampleSingleChartBaseFragment
             Collections.addAll(surface.getYAxes(), sciChartBuilder.newNumericAxis().build());
             Collections.addAll(surface.getChartModifiers(), new TooltipModifier());
 
-            sciChartBuilder.newAnimator(s1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(s2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(s1).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(s2).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

@@ -20,6 +20,8 @@
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior;
 
 import android.graphics.Color;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 
@@ -32,7 +34,9 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.common.SolidBrushStyle;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
 import com.scichart.examples.utils.TextLabelFormatter;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,6 +83,8 @@ public class AxisLabelProviderFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getXAxes(), xAxis);
             Collections.addAll(surface.getYAxes(), yAxis);
             Collections.addAll(surface.getRenderableSeries(), fastColumnRenderableSeries);
+
+            sciChartBuilder.newAnimator(fastColumnRenderableSeries).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
 
         });
     }

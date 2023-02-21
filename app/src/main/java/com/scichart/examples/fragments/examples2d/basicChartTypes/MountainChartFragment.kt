@@ -20,10 +20,13 @@
 package com.scichart.examples.fragments.examples2d.basicChartTypes.kt
 
 import android.view.animation.DecelerateInterpolator
+import android.view.animation.LinearInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
 
@@ -40,10 +43,14 @@ class MountainChartFragment : ExampleSingleChartBaseFragment() {
                     xyDataSeries<Date, Double> {
                         append(priceData.dateData, priceData.closeData)
                     }
-                    strokeStyle = SolidPenStyle(0xAAFFC9A8)
-                    areaStyle = LinearGradientBrushStyle(0xAAFF8D42, 0x88090E11)
+                    strokeStyle = SolidPenStyle(0xFF50C7E0, 2f)
+                    areaStyle = LinearGradientBrushStyle(0xAA83D2F5, 0x0083D2F5)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

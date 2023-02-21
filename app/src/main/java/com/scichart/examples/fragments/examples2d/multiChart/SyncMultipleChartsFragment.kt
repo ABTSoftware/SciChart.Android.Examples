@@ -26,6 +26,8 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.databinding.ExampleSyncMultipleChartsFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import kotlin.math.sin
 
@@ -59,7 +61,11 @@ class SyncMultipleChartsFragment: ExampleBaseFragment<ExampleSyncMultipleChartsF
                     }
                     strokeStyle = SolidPenStyle(0xFF47bde6)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

@@ -44,6 +44,8 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -86,7 +88,7 @@ public class CreateCustomGestureModifierFragment extends ExampleSingleChartBaseF
             Collections.addAll(surface.getAnnotations(), annotation);
             Collections.addAll(surface.getChartModifiers(), new CustomZoomGestureModifier());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

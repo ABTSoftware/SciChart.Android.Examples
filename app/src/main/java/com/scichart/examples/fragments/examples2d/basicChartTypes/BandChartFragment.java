@@ -19,6 +19,8 @@
 
 package com.scichart.examples.fragments.examples2d.basicChartTypes;
 
+import android.view.animation.DecelerateInterpolator;
+
 import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.XyyDataSeries;
@@ -29,6 +31,8 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator;
 
 import java.util.Collections;
@@ -47,8 +51,8 @@ public class BandChartFragment extends ExampleSingleChartBaseFragment {
 
         final FastBandRenderableSeries rSeries = sciChartBuilder.newBandSeries()
                 .withDataSeries(dataSeries)
-                .withFillColor(0x3347BDE6).withFillY1Color(0x33AE418D)
-                .withStrokeStyle(0xFFAE418D, 1f, true).withStrokeY1Style(0xFF47BDE6, 1f, true)
+                .withFillColor(0x33F48420).withFillY1Color(0x3350C7E0)
+                .withStrokeStyle(0xFFF48420, 1f, true).withStrokeY1Style(0xFF50C7E0, 1f, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {
@@ -57,7 +61,7 @@ public class BandChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(new ElasticOutInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

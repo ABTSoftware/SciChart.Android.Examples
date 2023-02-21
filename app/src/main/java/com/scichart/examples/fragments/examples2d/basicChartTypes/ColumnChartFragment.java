@@ -34,6 +34,8 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.IntegerValues;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -44,19 +46,23 @@ public class ColumnChartFragment extends ExampleSingleChartBaseFragment {
         final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).build();
         final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0, 0.1).build();
 
-        IXyDataSeries<Integer, Integer> dataSeries = sciChartBuilder.newXyDataSeries(Integer.class, Integer.class).build();
-        final int[] yValues = {50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60};
+        final int[] xValues = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+        final int[] yValues = {1, 2, 4, 8, 11, 15, 24, 46, 81, 117, 144, 160, 137, 101, 64, 35, 25, 14, 4, 1};
 
-        for (int i = 0; i < yValues.length; i++) {
-            dataSeries.append(i, yValues[i]);
+        IXyDataSeries<Integer, Integer> dataSeries = sciChartBuilder
+                .newXyDataSeries(Integer.class, Integer.class)
+                .build();
+
+        for (int i = 0; i < xValues.length; i++) {
+            dataSeries.append(xValues[i], yValues[i]);
         }
 
         final FastColumnRenderableSeries rSeries = sciChartBuilder.newColumnSeries()
-                .withStrokeStyle(0xFF232323, 0.4f)
+                .withStrokeStyle(0xFFE4F5FC, 0.4f)
                 .withDataPointWidth(0.7)
                 .withLinearGradientColors(ColorUtil.LightSteelBlue, ColorUtil.SteelBlue)
                 .withDataSeries(dataSeries)
-                .withPaletteProvider(new ColumnsPaletteProvider())
+//                .withPaletteProvider(new ColumnsPaletteProvider())
                 .build();
 
         UpdateSuspender.using(surface, () -> {
@@ -65,7 +71,7 @@ public class ColumnChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

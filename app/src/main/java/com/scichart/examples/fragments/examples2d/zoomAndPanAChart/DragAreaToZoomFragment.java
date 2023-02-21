@@ -35,7 +35,9 @@ import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.data.RandomWalkGenerator;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
 import com.scichart.examples.utils.ViewSettingsUtil;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
 import com.scichart.examples.utils.widgetgeneration.Widget;
 
@@ -85,7 +87,7 @@ public class DragAreaToZoomFragment extends ExampleSingleChartBaseFragment {
                     .withModifier(rubberBandXyZoomModifier)
                     .build());
 
-            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(2000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

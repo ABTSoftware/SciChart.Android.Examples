@@ -19,18 +19,23 @@
 
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior;
 
+import android.view.animation.DecelerateInterpolator;
+
 import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.IAxis;
+import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.IRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 import java.util.Random;
@@ -157,49 +162,49 @@ public class QuadLeftRightYAxesFragment extends ExampleSingleChartBaseFragment {
                     .withIsCenterAxis(true)
                     .build();
 
-            final IRenderableSeries rs1 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs1 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds1)
                     .withYAxisId(yLeftAxis1.getAxisId())
                     .withStrokeStyle(0xFFFF1919, 1f, true)
                     .build();
 
-            final IRenderableSeries rs2 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs2 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds2)
                     .withYAxisId(yLeftAxis2.getAxisId())
                     .withStrokeStyle(0xFFCCCCCC, 1f, true)
                     .build();
 
-            final IRenderableSeries rs3 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs3 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds3)
                     .withYAxisId(yLeftAxis3.getAxisId())
                     .withStrokeStyle(0xFFFC9C29, 1f, true)
                     .build();
 
-            final IRenderableSeries rs4 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs4 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds4)
                     .withYAxisId(yLeftAxis4.getAxisId())
                     .withStrokeStyle(0xFF4083B7, 1f, true)
                     .build();
 
-            final IRenderableSeries rs5 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs5 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds5)
                     .withYAxisId(yRightAxis1.getAxisId())
                     .withStrokeStyle(0xFF4083B7, 1f, true)
                     .build();
 
-            final IRenderableSeries rs6 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs6 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds6)
                     .withYAxisId(yRightAxis2.getAxisId())
                     .withStrokeStyle(0xFF279B27, 1f, true)
                     .build();
 
-            final IRenderableSeries rs7 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs7 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds7)
                     .withYAxisId(yRightAxis3.getAxisId())
                     .withStrokeStyle(0xFFFF1919, 1f, true)
                     .build();
 
-            final IRenderableSeries rs8 = sciChartBuilder.newLineSeries()
+            final FastLineRenderableSeries rs8 = sciChartBuilder.newLineSeries()
                     .withDataSeries(ds8)
                     .withYAxisId(Y_RIGHT_AXIS_4)
                     .withStrokeStyle(0xFFCCCCCC, 1f, true)
@@ -209,6 +214,17 @@ public class QuadLeftRightYAxesFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getYAxes(), yLeftAxis1, yLeftAxis2, yLeftAxis3, yLeftAxis4, yRightAxis1, yRightAxis2, yRightAxis3, yRightAxis4);
             Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3, rs4, rs5, rs6, rs7, rs8);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
+
+            sciChartBuilder.newAnimator(rs1).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs2).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs3).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs4).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs5).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs6).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs7).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(rs8).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+
+
         });
     }
 

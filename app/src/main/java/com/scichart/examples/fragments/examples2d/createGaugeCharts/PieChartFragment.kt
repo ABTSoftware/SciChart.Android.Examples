@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import com.scichart.charting.visuals.renderableSeries.PieRenderableSeries
 import com.scichart.examples.databinding.ExampleSinglePieChartWithLegendFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.scichartExtensions.*
 
 class PieChartFragment : ExampleBaseFragment<ExampleSinglePieChartWithLegendFragmentBinding>() {
@@ -49,6 +50,6 @@ class PieChartFragment : ExampleBaseFragment<ExampleSinglePieChartWithLegendFrag
             }
         }
 
-        pieSeries.animate(800)
+        pieSeries.animate(Constant.ANIMATION_DURATION)
     }
 }

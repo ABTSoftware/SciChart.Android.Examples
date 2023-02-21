@@ -20,9 +20,12 @@
 package com.scichart.examples.fragments.examples2d.basicChartTypes.kt
 
 import android.view.animation.DecelerateInterpolator
+import android.view.animation.LinearInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class SplineMountainChartFragment : ExampleSingleChartBaseFragment() {
@@ -39,15 +42,19 @@ class SplineMountainChartFragment : ExampleSingleChartBaseFragment() {
                             append(i, yValues[i])
                         }
                     }
-                    strokeStyle = SolidPenStyle(0xAA47bde6)
-                    areaStyle = LinearGradientBrushStyle(0xAA84d2f6, 0x33e2f4fd)
+                    strokeStyle = SolidPenStyle(0xFF50C7E0, 2f)
+                    areaStyle = LinearGradientBrushStyle(0xAA83D2F5, 0x0083D2F5)
                     ellipsePointMarker {
                         setSize(7)
-                        strokeStyle = SolidPenStyle(0xFF006400)
+                        strokeStyle = SolidPenStyle(0xFF50C7E0)
                         fillStyle = SolidBrushStyle(0xFFFFFFFF)
                     }
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    scaleAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

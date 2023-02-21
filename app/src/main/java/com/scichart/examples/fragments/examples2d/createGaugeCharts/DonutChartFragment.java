@@ -30,6 +30,7 @@ import com.scichart.charting.visuals.SciPieChartSurface;
 import com.scichart.charting.visuals.renderableSeries.IPieRenderableSeries;
 import com.scichart.examples.databinding.ExampleSinglePieChartWithLegendFragmentBinding;
 import com.scichart.examples.fragments.base.ExampleBaseFragment;
+import com.scichart.examples.utils.Constant;
 
 import java.util.Collections;
 
@@ -56,6 +57,6 @@ public class DonutChartFragment extends ExampleBaseFragment<ExampleSinglePieChar
         Collections.addAll(pieChartSurface.getRenderableSeries(), donutSeries);
         Collections.addAll(pieChartSurface.getChartModifiers(), sciChartBuilder.newLegendModifier(binding.pieChartLegend).withSourceSeries(donutSeries).build(), new PieSegmentSelectionModifier());
 
-        donutSeries.animate(800);
+        donutSeries.animate(Constant.ANIMATION_DURATION);
     }
 }

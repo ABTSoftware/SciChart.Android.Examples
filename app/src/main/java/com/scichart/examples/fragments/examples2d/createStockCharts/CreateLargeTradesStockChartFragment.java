@@ -21,6 +21,7 @@ package com.scichart.examples.fragments.examples2d.createStockCharts;
 
 import android.graphics.Color;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 
@@ -108,9 +109,9 @@ public class CreateLargeTradesStockChartFragment extends ExampleSingleChartBaseF
             Collections.addAll(surface.getRenderableSeries(), historicalPrices, largeBuyTrades, largeSellTrades);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(historicalPrices).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(largeBuyTrades).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(largeSellTrades).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+//            sciChartBuilder.newAnimator(historicalPrices).withScaleTransformation().withInterpolator(new LinearInterpolator()).withDuration(1000).withStartDelay(350).start();
+//            sciChartBuilder.newAnimator(largeBuyTrades).withScaleTransformation().withInterpolator(new LinearInterpolator()).withDuration(1000).withStartDelay(350).start();
+//            sciChartBuilder.newAnimator(largeSellTrades).withScaleTransformation().withInterpolator(new LinearInterpolator()).withDuration(1000).withStartDelay(350).start();
         });
     }
 

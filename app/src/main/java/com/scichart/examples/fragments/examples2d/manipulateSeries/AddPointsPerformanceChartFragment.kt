@@ -62,7 +62,7 @@ class AddPointsPerformanceChartFragment: ExampleBaseFragment<ExampleAddPointsPer
                 }
             }
 
-            animateZoomExtents(500)
+            animateZoomExtents(250)
         }
     }
 

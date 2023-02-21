@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.basicChartTypes;
 
+import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
@@ -29,10 +30,13 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastImpulseRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
+import com.scichart.core.model.DoubleValues;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -45,17 +49,20 @@ public class ImpulseChartFragment extends ExampleSingleChartBaseFragment {
 
         final DoubleSeries ds1Points = DataManager.getInstance().getDampedSinewave(1.0, 0.05, 50, 5);
         final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-        dataSeries.append(ds1Points.xValues, ds1Points.yValues);
+
+        for (int i = 0; i <= 70; i++) {
+            dataSeries.append((double) i, Math.sin(i * 0.2) * -Math.log((float) i / 100));
+        }
 
         final EllipsePointMarker pointMarker = sciChartBuilder.newPointMarker(new EllipsePointMarker())
                 .withSize(10, 10)
-                .withStroke(ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6), 1)
-                .withFill(ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6))
+                .withStroke(ColorUtil.argb(0xFF, 0xEC, 0x0F, 0x6C), 1)
+                .withFill(ColorUtil.argb(0xFF, 0xEC, 0x0F, 0x6C))
                 .build();
 
         final FastImpulseRenderableSeries rSeries = sciChartBuilder.newImpulseSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFF47BDE6)
+                .withStrokeStyle(0xFFEC0F6C)
                 .withPointMarker(pointMarker)
                 .build();
 
@@ -65,7 +72,7 @@ public class ImpulseChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

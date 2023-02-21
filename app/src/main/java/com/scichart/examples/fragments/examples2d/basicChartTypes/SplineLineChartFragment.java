@@ -31,6 +31,8 @@ import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.SplineLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -49,13 +51,13 @@ public class SplineLineChartFragment extends ExampleSingleChartBaseFragment {
 
         final FastLineRenderableSeries lineSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries)
-                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFFae418d, 1).withFill(0xFFFFFFFF).build())
-                .withStrokeStyle(0xFFe97064, 1f, true)
+                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF50C7E0, 1).withFill(0xFFFFFFFF).build())
+                .withStrokeStyle(0xFFF48420, 1f, true)
                 .build();
 
         final SplineLineRenderableSeries rSeries = sciChartBuilder.newSplineLineSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFFae418d, 2f, true)
+                .withStrokeStyle(0xFF50C7E0, 2f, true)
                 .build();
 
         UpdateSuspender.using(surface, () -> {
@@ -64,8 +66,8 @@ public class SplineLineChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries, lineSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(lineSeries).withSweepTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(lineSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

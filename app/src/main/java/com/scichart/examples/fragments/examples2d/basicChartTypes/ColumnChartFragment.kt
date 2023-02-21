@@ -29,6 +29,8 @@ import com.scichart.core.model.IntegerValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class ColumnChartFragment : ExampleSingleChartBaseFragment() {
@@ -40,17 +42,22 @@ class ColumnChartFragment : ExampleSingleChartBaseFragment() {
             renderableSeries {
                 fastColumnRenderableSeries {
                     xyDataSeries<Int, Int> {
-                        val yValues = intArrayOf(50, 35, 61, 58, 50, 50, 40, 53, 55, 23, 45, 12, 59, 60)
-                        for (i in yValues.indices) {
-                            append(i, yValues[i])
+                        val xValues = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19)
+                        val yValues = intArrayOf(1, 2, 4, 8, 11, 15, 24, 46, 81, 117, 144, 160, 137, 101, 64, 35, 25, 14, 4, 1)
+                        for (i in xValues.indices) {
+                            append(xValues[i], yValues[i])
                         }
                     }
-                    strokeStyle = SolidPenStyle(0xFF232323, 0.4f)
+                    strokeStyle = SolidPenStyle(0xFFE4F5FC, 0.4f)
                     fillBrushStyle = LinearGradientBrushStyle(ColorUtil.LightSteelBlue, ColorUtil.SteelBlue)
                     dataPointWidth = 0.7
-                    paletteProvider = ColumnsPaletteProvider()
+//                    paletteProvider = ColumnsPaletteProvider()
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    waveAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

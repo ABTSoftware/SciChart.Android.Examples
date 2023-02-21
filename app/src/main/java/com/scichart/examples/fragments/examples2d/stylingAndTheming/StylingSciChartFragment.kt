@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.stylingAndTheming.kt
 
 import android.graphics.Color
+import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.charting.visuals.axes.AutoRange.Always
@@ -33,7 +34,9 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.BillionsLabelProvider
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.ThousandsLabelProvider
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
@@ -127,7 +130,11 @@ class StylingSciChartFragment: ExampleSingleChartBaseFragment() {
                     // setting to true gives jagged mountains. set to false if you want regular mountain chart
                     setIsDigitalLine(true)
 
-                    scaleAnimation { zeroLine = 10500.0; interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
 
                 fastLineRenderableSeries {
@@ -145,7 +152,11 @@ class StylingSciChartFragment: ExampleSingleChartBaseFragment() {
                         setSize(7, 7)
                     }
 
-                    scaleAnimation { zeroLine = 12250.0; interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
 
                 fastColumnRenderableSeries {
@@ -158,7 +169,12 @@ class StylingSciChartFragment: ExampleSingleChartBaseFragment() {
                     // column series outline color and width. It is set to nil to disable outline
                     strokeStyle = sciChartBuilder.newPen().withColor(Color.TRANSPARENT).build()
 
-                    scaleAnimation { zeroLine = 10500.0; interpolator = ElasticOutInterpolator() }
+                    waveAnimation {
+                        zeroLine = 10500.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
 
                 fastCandlestickRenderableSeries {
@@ -176,7 +192,12 @@ class StylingSciChartFragment: ExampleSingleChartBaseFragment() {
                     // candlestick fill color for "down" data
                     fillDownBrushStyle = SolidBrushStyle(0xFFFF0000)
 
-                    scaleAnimation { zeroLine = 11700.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 11700.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

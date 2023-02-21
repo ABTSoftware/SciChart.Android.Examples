@@ -41,6 +41,7 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
 
 import java.util.Collections;
 import java.util.Random;
@@ -80,11 +81,11 @@ public class UsePointMarkersFragment extends ExampleSingleChartBaseFragment {
         Collections.addAll(surface.getRenderableSeries(), rs1, rs2, rs3, rs4, rs5);
         Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-        sciChartBuilder.newOpacityAnimator(rs1).withDuration(1000).withStartDelay(350).start();
-        sciChartBuilder.newOpacityAnimator(rs2).withDuration(1000).withStartDelay(350).start();
-        sciChartBuilder.newOpacityAnimator(rs3).withDuration(1000).withStartDelay(350).start();
-        sciChartBuilder.newOpacityAnimator(rs4).withDuration(1000).withStartDelay(350).start();
-        sciChartBuilder.newOpacityAnimator(rs5).withDuration(1000).withStartDelay(350).start();
+        sciChartBuilder.newOpacityAnimator(rs1).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+        sciChartBuilder.newOpacityAnimator(rs2).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+        sciChartBuilder.newOpacityAnimator(rs3).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+        sciChartBuilder.newOpacityAnimator(rs4).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+        sciChartBuilder.newOpacityAnimator(rs5).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
     }
 
     private void fillDataSeries(IXyDataSeries<Double, Double> dataSeries, double offset) {

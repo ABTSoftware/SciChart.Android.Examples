@@ -28,6 +28,7 @@ import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker
 import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
 
@@ -57,10 +58,10 @@ class ScatterChartFragment : ExampleSingleChartBaseFragment() {
                 yAxisDragModifier { dragMode = AxisDragMode.Pan }
             }
 
-            rSeries1.waveAnimation { interpolator = DecelerateInterpolator(); duration = 3000; startDelay = 350 }
-            rSeries2.waveAnimation { interpolator = DecelerateInterpolator(); duration = 3000; startDelay = 350 }
-            rSeries3.waveAnimation { interpolator = DecelerateInterpolator(); duration = 3000; startDelay = 350 }
-            rSeries4.waveAnimation { interpolator = DecelerateInterpolator(); duration = 3000; startDelay = 350 }
+            rSeries1.waveAnimation { interpolator = DefaultInterpolator.getInterpolator(); duration = 500; startDelay = 100 }
+            rSeries2.waveAnimation { interpolator = DefaultInterpolator.getInterpolator(); duration = 500; startDelay = 200 }
+            rSeries3.waveAnimation { interpolator = DefaultInterpolator.getInterpolator(); duration = 500; startDelay = 300 }
+            rSeries4.waveAnimation { interpolator = DefaultInterpolator.getInterpolator(); duration = 500; startDelay = 400 }
         }
     }
 

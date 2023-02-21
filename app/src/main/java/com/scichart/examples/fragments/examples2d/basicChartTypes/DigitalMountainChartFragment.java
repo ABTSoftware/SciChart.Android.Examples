@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.basicChartTypes;
 
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 
@@ -32,6 +33,8 @@ import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.PriceSeries;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 import java.util.Date;
@@ -50,8 +53,8 @@ public class DigitalMountainChartFragment extends ExampleSingleChartBaseFragment
         final FastMountainRenderableSeries rSeries = sciChartBuilder.newMountainSeries()
                 .withDataSeries(dataSeries)
                 .withIsDigitalLine(true)
-                .withStrokeStyle(0xAAe97064, 1, true)
-                .withAreaFillLinearGradientColors(0xAAe97064, 0x88e97064)
+                .withStrokeStyle(0xFFF48420, 3, true)
+                .withAreaFillLinearGradientColors(0xAAE7C565, 0x00E7C565)
                 .build();
 
         UpdateSuspender.using(surface, () -> {
@@ -60,7 +63,7 @@ public class DigitalMountainChartFragment extends ExampleSingleChartBaseFragment
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

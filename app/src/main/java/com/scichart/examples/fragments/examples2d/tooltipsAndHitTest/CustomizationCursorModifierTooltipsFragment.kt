@@ -34,6 +34,8 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import kotlin.math.roundToInt
 
@@ -57,7 +59,11 @@ class CustomizationCursorModifierTooltipsFragment: ExampleSingleChartBaseFragmen
                     strokeStyle = SolidPenStyle(0xffae418d, 2f)
                     seriesInfoProvider = CustomSeriesInfoProvider()
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Series #2") {
@@ -66,7 +72,11 @@ class CustomizationCursorModifierTooltipsFragment: ExampleSingleChartBaseFragmen
                     strokeStyle = SolidPenStyle(0xff68bcae, 2f)
                     seriesInfoProvider = CustomSeriesInfoProvider()
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

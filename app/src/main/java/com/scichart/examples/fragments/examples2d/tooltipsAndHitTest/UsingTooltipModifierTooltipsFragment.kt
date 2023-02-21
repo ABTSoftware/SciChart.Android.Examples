@@ -27,6 +27,7 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.scichartExtensions.*
 
 class UsingTooltipModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
@@ -56,7 +57,7 @@ class UsingTooltipModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
                         fillStyle = SolidBrushStyle(0xFF47bde6)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation { duration = Constant.ANIMATION_DURATION }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("SineWave") {
@@ -70,7 +71,7 @@ class UsingTooltipModifierTooltipsFragment: ExampleSingleChartBaseFragment() {
                         fillStyle = SolidBrushStyle(0xFFae418d)
                     }
 
-                    opacityAnimation { duration = 1000 }
+                    opacityAnimation { duration = Constant.ANIMATION_START_DELAY }
                 }
             }
             chartModifiers { tooltipModifier() }

@@ -20,13 +20,16 @@
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior.kt
 
 import android.graphics.Color
+import android.view.animation.DecelerateInterpolator
 import androidx.lifecycle.lifecycleScope
 import com.scichart.charting.numerics.labelProviders.NumericLabelProvider
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.NumericAxis
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.TextLabelFormatter
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -74,6 +77,12 @@ class AxisLabelProviderFragment : ExampleSingleChartBaseFragment() {
                     }
                     fillBrushStyle = SolidBrushStyle(Color.CYAN)
                     dataPointWidth = 0.75
+
+                    waveAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

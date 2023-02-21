@@ -37,6 +37,8 @@ import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFragment() {
@@ -59,7 +61,11 @@ class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFrag
                     strokeStyle = SolidPenStyle(0xffe97064, 2f)
                     seriesInfoProvider = FirstCustomSeriesInfoProvider()
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Series #2") {
@@ -68,7 +74,11 @@ class CustomizationRolloverModifierTooltipsFragment : ExampleSingleChartBaseFrag
                     strokeStyle = SolidPenStyle(0xff274b92, 2f)
                     seriesInfoProvider = SecondCustomSeriesInfoProvider()
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

@@ -53,7 +53,11 @@ class CandlestickChartFragment : ExampleSingleChartBaseFragment() {
                     strokeDownStyle = SolidPenStyle(0xFFFF0000)
                     fillDownBrushStyle = SolidBrushStyle(0x88FF0000)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+//                    sweepAnimation {
+//                        duration = 1000
+//                        startDelay = 350
+//                        interpolator = DecelerateInterpolator()
+//                    }
                 }
             }
             chartModifiers { defaultModifiers() }

@@ -26,6 +26,8 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
@@ -72,7 +74,11 @@ class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFFae418d)
                     xyDataSeries<Double, Double> { append(ds1Points.xValues, ds1Points.yValues) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xAxisId = X_BOTTOM_AXIS
@@ -80,7 +86,11 @@ class SecondaryYAxesFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFF47bde6)
                     xyDataSeries<Double, Double> { append(ds2Points.xValues, ds2Points.yValues) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

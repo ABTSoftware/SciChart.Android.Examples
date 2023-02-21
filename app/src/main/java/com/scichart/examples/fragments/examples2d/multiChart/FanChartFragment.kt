@@ -27,6 +27,7 @@ import com.scichart.drawing.utility.ColorUtil.Red
 import com.scichart.drawing.utility.ColorUtil.Transparent
 import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
 
@@ -56,27 +57,43 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
                     strokeY1Style = SolidPenStyle(Transparent)
                     strokeStyle = SolidPenStyle(Transparent)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 600
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastBandRenderableSeries {
                     dataSeries = var2DataSeries
                     strokeY1Style = SolidPenStyle(Transparent)
                     strokeStyle = SolidPenStyle(Transparent)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 600
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastBandRenderableSeries {
                     dataSeries = var1DataSeries
                     strokeY1Style = SolidPenStyle(Transparent)
                     strokeStyle = SolidPenStyle(Transparent)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 600
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     dataSeries = actualDataSeries
                     strokeStyle = SolidPenStyle(0xFFe97064)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 100
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

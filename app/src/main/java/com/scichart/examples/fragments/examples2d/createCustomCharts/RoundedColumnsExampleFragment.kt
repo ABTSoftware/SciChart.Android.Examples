@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.createCustomCharts.kt
 
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.OvershootInterpolator
 import com.scichart.charting.model.RenderableSeriesCollection
 import com.scichart.charting.visuals.SciChartSurface
@@ -32,6 +33,8 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.common.IAssetManager2D
 import com.scichart.drawing.common.IRenderContext2D
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 class RoundedColumnsExampleFragment : ExampleSingleChartBaseFragment() {
@@ -50,7 +53,11 @@ class RoundedColumnsExampleFragment : ExampleSingleChartBaseFragment() {
                     }
                     fillBrushStyle = SolidBrushStyle(0xFF634e96)
 
-                    scaleAnimation { interpolator = OvershootInterpolator(); duration = 1500 }
+                    scaleAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
             }
 

@@ -22,6 +22,7 @@ package com.scichart.examples.fragments.examples2d.createCustomAnimations;
 import android.animation.Animator;
 import android.animation.FloatEvaluator;
 import android.os.Bundle;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
@@ -57,8 +58,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AnimatingLineChartFragment extends ExampleSingleChartBaseFragment {
     private final static int FIFO_CAPACITY = 50;
-    private final static long TIME_INTERVAL = 1000;
-    private final static long ANIMATION_DURATION = 500;
+    private final static long TIME_INTERVAL = 400;
+    private final static long ANIMATION_DURATION = 200;
     private final static double X_RANGE_STEP = 1.0;
     private final static double VISIBLE_RANGE_MAX = 10.0;
     private final static double MAX_Y_VALUE = 100.0;
@@ -86,7 +87,7 @@ public class AnimatingLineChartFragment extends ExampleSingleChartBaseFragment {
             new AppendedPointTransformation(),
             ANIMATION_DURATION,
             0,
-            new DecelerateInterpolator(),
+            new AccelerateDecelerateInterpolator(),
             new FloatEvaluator(),
             0f, 1f
     );

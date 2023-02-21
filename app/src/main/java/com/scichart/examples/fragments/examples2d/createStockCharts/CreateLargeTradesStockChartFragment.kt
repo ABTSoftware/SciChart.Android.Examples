@@ -75,7 +75,7 @@ class CreateLargeTradesStockChartFragment : ExampleSingleChartBaseFragment() {
                     strokeDownStyle = SolidPenStyle(0xFFFF0000)
                     fillDownBrushStyle = SolidBrushStyle(0xAAFF0000)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+//                    waveAnimation { interpolator = DecelerateInterpolator() }
                 }
 
                 fastBubbleRenderableSeries {
@@ -84,7 +84,7 @@ class CreateLargeTradesStockChartFragment : ExampleSingleChartBaseFragment() {
                     bubbleBrushStyle = SolidBrushStyle(0x774248F5)
                     strokeStyle = SolidPenStyle(Color.TRANSPARENT)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+//                    waveAnimation { interpolator = DecelerateInterpolator() }
                 }
 
                 fastBubbleRenderableSeries {
@@ -93,7 +93,7 @@ class CreateLargeTradesStockChartFragment : ExampleSingleChartBaseFragment() {
                     bubbleBrushStyle = SolidBrushStyle(0x77F542AA)
                     strokeStyle = SolidPenStyle(Color.TRANSPARENT)
 
-                    waveAnimation { interpolator = DecelerateInterpolator() }
+//                    waveAnimation { interpolator = DecelerateInterpolator() }
                 }
             }
             chartModifiers { defaultModifiers() }

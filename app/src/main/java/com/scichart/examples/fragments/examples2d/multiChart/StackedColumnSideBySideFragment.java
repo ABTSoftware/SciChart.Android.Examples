@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.multiChart;
 
 import android.view.Gravity;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
@@ -35,6 +36,8 @@ import com.scichart.charting.visuals.renderableSeries.HorizontallyStackedColumns
 import com.scichart.charting.visuals.renderableSeries.StackedColumnRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,7 +80,7 @@ public class StackedColumnSideBySideFragment extends ExampleSingleChartBaseFragm
                         .withFillColor(fills[i])
                         .withStrokeStyle(strokes[i], 0f)
                         .build();
-                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+                sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
 
                 columnsCollection.add(rSeries);
             }

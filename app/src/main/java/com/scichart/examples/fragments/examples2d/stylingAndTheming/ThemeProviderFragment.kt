@@ -21,6 +21,8 @@ package com.scichart.examples.fragments.examples2d.stylingAndTheming.kt
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import com.scichart.charting.modifiers.CursorModifier
 import com.scichart.charting.modifiers.ModifierGroup
@@ -33,10 +35,8 @@ import com.scichart.examples.components.SpinnerStringAdapter
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.databinding.ExampleThemeProviderChartFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
-import com.scichart.examples.utils.BillionsLabelProvider
-import com.scichart.examples.utils.ItemSelectedListenerBase
-import com.scichart.examples.utils.ThousandsLabelProvider
-import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.*
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
@@ -99,7 +99,11 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
                         append(priceBars.indexesAsDouble, dataManager.offset(priceBars.lowData, -1000.0))
                     }
 
-                    scaleAnimation { zeroLine = 10500.0; interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastCandlestickRenderableSeries {
                     yAxisId = "PrimaryAxisId"
@@ -107,7 +111,12 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
                         append(priceBars.indexesAsDouble, priceBars.openData, priceBars.highData, priceBars.lowData, priceBars.closeData)
                     }
 
-                    scaleAnimation { zeroLine = 11700.0; interpolator = ElasticOutInterpolator() }
+                    scaleAnimation {
+                        zeroLine = 11700.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     yAxisId = "PrimaryAxisId"
@@ -115,7 +124,11 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
                         append(priceBars.indexesAsDouble, dataManager.computeMovingAverage(priceBars.closeData, 50))
                     }
 
-                    scaleAnimation { zeroLine = 12250.0; interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastColumnRenderableSeries {
                     yAxisId = "SecondaryAxisId"
@@ -123,7 +136,12 @@ class ThemeProviderFragment : ExampleBaseFragment<ExampleThemeProviderChartFragm
                         append(priceBars.indexesAsDouble, priceBars.volumeData)
                     }
 
-                    scaleAnimation { zeroLine = 10500.0; interpolator = ElasticOutInterpolator() }
+                    waveAnimation {
+                        zeroLine = 10500.0;
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

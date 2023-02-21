@@ -19,10 +19,13 @@
 
 package com.scichart.examples.fragments.examples2d.basicChartTypes.kt
 
+import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.interpolator.ElasticOutInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
@@ -40,12 +43,16 @@ class BandChartFragment : ExampleSingleChartBaseFragment() {
                     xyyDataSeries<Double, Double> {
                         append(data.xValues, data.yValues, moreData.yValues)
                     }
-                    fillBrushStyle = SolidBrushStyle(0x3347BDE6)
-                    fillY1BrushStyle = SolidBrushStyle(0x33AE418D)
-                    strokeStyle = SolidPenStyle(0xFFAE418D)
-                    strokeY1Style = SolidPenStyle(0xFF47BDE6)
+                    fillBrushStyle = SolidBrushStyle(0x33F48420)
+                    fillY1BrushStyle = SolidBrushStyle(0x3350C7E0)
+                    strokeStyle = SolidPenStyle(0xFFF48420)
+                    strokeY1Style = SolidPenStyle(0xFF50C7E0)
 
-                    scaleAnimation { interpolator = ElasticOutInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
             chartModifiers { defaultModifiers() }

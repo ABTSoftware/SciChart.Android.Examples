@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.basicChartTypes;
 
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 
@@ -30,6 +31,8 @@ import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.SplineMountainRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
@@ -48,9 +51,9 @@ public class SplineMountainChartFragment extends ExampleSingleChartBaseFragment 
 
         final SplineMountainRenderableSeries rSeries = sciChartBuilder.newSplineMountainSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xAA47bde6, 1f, true)
-                .withAreaFillLinearGradientColors(0xAA84d2f6, 0x33e2f4fd)
-                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF006400, 1).withFill(0xFFFFFFFF).build())
+                .withStrokeStyle(0xFF50C7E0, 2f, true)
+                .withAreaFillLinearGradientColors(0xAA83D2F5, 0x0083D2F5)
+                .withPointMarker(sciChartBuilder.newPointMarker(new EllipsePointMarker()).withSize(7, 7).withStroke(0xFF50C7E0, 1).withFill(0xFFFFFFFF).build())
                 .build();
 
         UpdateSuspender.using(surface, () -> {
@@ -59,7 +62,7 @@ public class SplineMountainChartFragment extends ExampleSingleChartBaseFragment 
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withScaleTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

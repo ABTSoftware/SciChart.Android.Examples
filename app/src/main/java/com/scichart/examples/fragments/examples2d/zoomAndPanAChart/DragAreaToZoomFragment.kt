@@ -26,7 +26,9 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
@@ -54,7 +56,11 @@ class DragAreaToZoomFragment : ExampleSingleChartBaseFragment() {
                     xyDataSeries<Double, Double> { append(data.xValues, data.yValues) }
                     strokeStyle = SolidPenStyle(0xFF47bde6)
 
-                    sweepAnimation { interpolator = DecelerateInterpolator(); duration = 2000 }
+                    sweepAnimation {
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                    }
                 }
             }
 

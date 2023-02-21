@@ -37,9 +37,11 @@ import com.scichart.examples.R
 import com.scichart.examples.components.SpinnerStringAdapter
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.EnumUtils
 import com.scichart.examples.utils.ItemSelectedListenerBase
 import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
@@ -68,22 +70,38 @@ class LegendFragment : ExampleSingleChartBaseFragment() {
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve A") { append(ds1Points.xValues, ds1Points.yValues) }
                     strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0x47, 0xBD, 0xE6))
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve B") { append(ds2Points.xValues, ds2Points.yValues) }
                     strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0xAE, 0x41, 0x8D))
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve C") { append(ds3Points.xValues, ds3Points.yValues) }
                     strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0x68, 0xBC, 0xA8))
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve D") { append(ds4Points.xValues, ds4Points.yValues) }
                     strokeStyle = SolidPenStyle(ColorUtil.argb(0xFF, 0xE9, 0x70, 0x64))
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

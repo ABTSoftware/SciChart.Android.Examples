@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior.kt
 
 import android.view.animation.DecelerateInterpolator
+import android.view.animation.LinearInterpolator
 import com.scichart.charting.layoutManagers.ChartLayoutState
 import com.scichart.charting.layoutManagers.DefaultLayoutManager
 import com.scichart.charting.layoutManagers.VerticalAxisLayoutStrategy
@@ -31,6 +32,8 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import kotlin.math.max
 
@@ -72,7 +75,11 @@ class VerticallyStackedYAxesFragment: ExampleSingleChartBaseFragment() {
                             }
                         }
 
-                        sweepAnimation { interpolator = DecelerateInterpolator() }
+                        sweepAnimation {
+                            duration = Constant.ANIMATION_DURATION
+                            startDelay = Constant.ANIMATION_START_DELAY
+                            interpolator = DefaultInterpolator.getInterpolator()
+                        }
                     }
                 }
             }

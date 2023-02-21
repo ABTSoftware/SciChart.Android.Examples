@@ -63,5 +63,30 @@
     <color name="blood_oxygenation_color">#FF6495ED</color>
 
 
+    <color name="vivid_sky_blue">#FF50C7E0</color>
+    <color name="vivid_pink">#FFEC0F6C</color>
+    <color name="vivid_teal">#FF30BC9A</color>
+    <color name="vivid_orange">#FFF48420</color>
+    <color name="vivid_blue">#FF364BA0</color>
+    <color name="vivid_purple">#FF882B91</color>
+    <color name="vivid_green">#FF67BDAF</color>
+    <color name="vivid_red">#FFC52E60</color>
+    
+    <color name="dark_indigo">#FF14233C</color>
+    <color name="indigo">#FF264B93</color>
 
+    <color name="muted_sky_blue">#FF83D2F5</color>
+    <color name="muted_pink">#FFDF69A8</color>
+    <color name="muted_teal">#FF7BCAAB</color>
+    <color name="muted_orange">#FFE7C565</color>
+    <color name="muted_blue">#FF537ABD</color>
+    <color name="muted_purple">#FFA16DAE</color>
+    <color name="muted_red">#FFDC7969</color>
+
+    <color name="pale_sky_blue">#FFE4F5FC</color>
+    <color name="pale_sky_pink">#FFEEB3D2</color>
+    <color name="pale_teal">#FFB9E0D4</color>
+    <color name="pale_orange">#FFF1CFB5</color>
+    <color name="pale_blue">#FFB5BEDF</color>
+    <color name="pale_purple">#FFCFB4D5</color>
 </resources>

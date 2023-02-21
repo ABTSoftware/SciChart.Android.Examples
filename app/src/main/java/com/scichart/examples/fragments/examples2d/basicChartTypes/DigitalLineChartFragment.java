@@ -26,28 +26,42 @@ import androidx.annotation.NonNull;
 import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.IAxis;
+import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
+import com.scichart.drawing.common.SolidBrushStyle;
+import com.scichart.drawing.common.SolidPenStyle;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.data.DoubleSeries;
+import com.scichart.examples.data.RandomWalkGenerator;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 
 public class DigitalLineChartFragment extends ExampleSingleChartBaseFragment {
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
-        final IAxis xAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.1, 0.1).withVisibleRange(1, 1.25).build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(0.5, 0.5).withVisibleRange(2.3, 3.3).build();
+        final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().build();
 
-        final DoubleSeries fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
+//        final DoubleSeries fourierSeries = DataManager.getInstance().getFourierSeries(1.0, 0.1, 5000);
+        final DoubleSeries randomWalk = new RandomWalkGenerator(1337).getRandomWalkSeries(25);
+
         final XyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
-        dataSeries.append(fourierSeries.xValues, fourierSeries.yValues);
+        dataSeries.append(randomWalk.xValues, randomWalk.yValues);
+
+        EllipsePointMarker ellipsePointMarker = new EllipsePointMarker();
+        ellipsePointMarker.setSize(25,25);
+        ellipsePointMarker.setFillStyle(new SolidBrushStyle(0xFFEC0F6C));
+        ellipsePointMarker.setStrokeStyle(new SolidPenStyle(0xFFE4F5FC, true, 2f, null));
 
         final FastLineRenderableSeries rSeries = sciChartBuilder.newLineSeries()
                 .withDataSeries(dataSeries)
-                .withStrokeStyle(0xFFe97064, 1f, true)
+                .withStrokeStyle(0xFFEC0F6C, 1f, true)
                 .withIsDigitalLine(true)
+                .withPointMarker(ellipsePointMarker)
                 .build();
 
         UpdateSuspender.using(surface, () -> {
@@ -56,7 +70,7 @@ public class DigitalLineChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), rSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(rSeries).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 }

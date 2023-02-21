@@ -34,6 +34,8 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.R
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 
 @SuppressLint("ClickableViewAccessibility")
@@ -65,7 +67,11 @@ class HitTestDataPointsFragment: ExampleSingleChartBaseFragment(), View.OnTouchL
                         strokeStyle = SolidPenStyle(ColorUtil.Lavender, 2f)
                     }
 
-                    scaleAnimation { interpolator = DecelerateInterpolator() }
+                    scaleAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastMountainRenderableSeries {
                     xyDataSeries<Double, Double>("Mountain Series") {
@@ -74,14 +80,22 @@ class HitTestDataPointsFragment: ExampleSingleChartBaseFragment(), View.OnTouchL
                     areaStyle = SolidBrushStyle(ColorUtil.LightSteelBlue)
                     strokeStyle = SolidPenStyle(ColorUtil.SteelBlue, 2f)
 
-                    scaleAnimation { interpolator = DecelerateInterpolator() }
+                    scaleAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastColumnRenderableSeries {
                     xyDataSeries<Double, Double>("Column Series") {
                         append(xValues, yValues.map { it * 0.5 })
                     }
 
-                    scaleAnimation { interpolator = DecelerateInterpolator() }
+                    scaleAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastCandlestickRenderableSeries {
                     ohlcDataSeries<Double, Double>("Candlestick Series") {
@@ -94,7 +108,12 @@ class HitTestDataPointsFragment: ExampleSingleChartBaseFragment(), View.OnTouchL
                         )
                     }
 
-                    scaleAnimation { interpolator = DecelerateInterpolator(); zeroLine = 0.3 }
+                    scaleAnimation {
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
+                        interpolator = DefaultInterpolator.getInterpolator()
+                        zeroLine = 0.3
+                    }
                 }
             }
         }

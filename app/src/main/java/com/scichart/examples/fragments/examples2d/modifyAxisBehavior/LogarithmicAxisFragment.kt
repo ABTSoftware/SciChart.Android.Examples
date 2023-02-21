@@ -20,6 +20,7 @@
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior.kt
 
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.widget.AdapterView
 import android.widget.CompoundButton
@@ -36,6 +37,7 @@ import com.scichart.examples.data.DataManager
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.ItemSelectedListenerBase
 import com.scichart.examples.utils.ViewSettingsUtil
+import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import com.scichart.examples.utils.widgetgeneration.ImageViewWidget
 import com.scichart.examples.utils.widgetgeneration.Widget
@@ -65,21 +67,33 @@ class LogarithmicAxisFragment : ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(line1Color)
                     ellipsePointMarker { setSize(5); fillStyle = SolidBrushStyle(line1Color) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 100
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve B") { append(ds2Points.xValues, ds2Points.yValues) }
                     strokeStyle = SolidPenStyle(line2Color)
                     ellipsePointMarker { setSize(5); fillStyle = SolidBrushStyle(line2Color) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 600
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Double, Double>("Curve C") { append(ds3Points.xValues, ds3Points.yValues) }
                     strokeStyle = SolidPenStyle(line3Color)
                     ellipsePointMarker { setSize(5); fillStyle = SolidBrushStyle(line3Color) }
 
-                    sweepAnimation { interpolator = DecelerateInterpolator() }
+                    sweepAnimation {
+                        duration = 500
+                        startDelay = 1100
+                        interpolator = DefaultInterpolator.getInterpolator()
+                    }
                 }
             }
 

@@ -34,6 +34,7 @@ import com.scichart.charting.visuals.pointmarkers.TrianglePointMarker;
 import com.scichart.charting.visuals.renderableSeries.XyScatterRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
 import java.util.Random;
@@ -64,10 +65,10 @@ public class ScatterChartFragment extends ExampleSingleChartBaseFragment {
                     .withYAxisDragModifier().withDragMode(AxisDragMode.Pan).build()
                     .build());
 
-            sciChartBuilder.newAnimator(rSeries1).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(rSeries2).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(rSeries3).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
-            sciChartBuilder.newAnimator(rSeries4).withWaveTransformation().withInterpolator(new DecelerateInterpolator()).withDuration(3000).withStartDelay(350).start();
+            sciChartBuilder.newAnimator(rSeries1).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(100).start();
+            sciChartBuilder.newAnimator(rSeries2).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(200).start();
+            sciChartBuilder.newAnimator(rSeries3).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(300).start();
+            sciChartBuilder.newAnimator(rSeries4).withWaveTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(400).start();
         });
     }
 
