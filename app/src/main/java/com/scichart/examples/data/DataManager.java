@@ -48,6 +48,7 @@ public class DataManager {
     private static final String FFT_DATA_PATH = "data/FourierTransform.txt";
     private static final String PRICE_INDU_DAILY_DATA_PATH = "data/INDU_Daily.csv";
     private static final String PRICE_EURUSD_DAILY_DATA_PATH = "data/EURUSD_Daily.csv";
+    private static final String PRICE_AAPL_DAILY_DATA_PATH = "data/AAPL_Daily.csv";
     private static final String LIDAR_DATA_PATH = "data/LIDAR-DSM-2M-TQ38sw/tq3080_DSM_2M.asc";
 
     private DataManager() {
@@ -288,6 +289,26 @@ public class DataManager {
         return result;
     }
 
+    public PriceSeries computeMovingAverageInPriceSeries(PriceSeries prices, int length){
+        final PriceSeries result = new PriceSeries();
+        for (int i = 0; i < prices.size(); i++) {
+            if (i < length) {
+                continue;
+            }
+            result.add(
+                    new PriceBar(
+                            prices.get(i).getDate(),
+                            averageOf(prices.getOpenData(), i - length, i),
+                            averageOf(prices.getHighData(), i - length, i),
+                            averageOf(prices.getLowData(), i - length, i),
+                            averageOf(prices.getCloseData(), i - length, i),
+                            0
+                    )
+            );
+        }
+        return result;
+    }
+
     private double averageOf(List<Double> prices, int from, int to) {
         double result = 0;
         for (int i = from; i < to; i++) {
@@ -302,6 +323,10 @@ public class DataManager {
 
     public PriceSeries getPriceDataEurUsd(Context context) {
         return getPriceBarsFromPath(context, PRICE_EURUSD_DAILY_DATA_PATH, "yyyy.MM.dd");
+    }
+
+    public PriceSeries getPriceAAPL(Context context){
+        return getPriceBarsFromPath(context, PRICE_AAPL_DAILY_DATA_PATH, "yyyy.MM.dd");
     }
 
     @NonNull

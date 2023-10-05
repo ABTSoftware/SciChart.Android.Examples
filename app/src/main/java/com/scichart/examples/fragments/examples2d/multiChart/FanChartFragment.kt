@@ -19,14 +19,15 @@
 
 package com.scichart.examples.fragments.examples2d.multiChart.kt
 
-import android.view.animation.DecelerateInterpolator
 import com.scichart.charting.visuals.SciChartSurface
+import com.scichart.charting.visuals.animations.SweepXyTransformation
+import com.scichart.charting.visuals.renderableSeries.data.XyRenderPassData
 import com.scichart.core.utility.IterableUtil
 import com.scichart.data.model.DoubleRange
-import com.scichart.drawing.utility.ColorUtil.Red
 import com.scichart.drawing.utility.ColorUtil.Transparent
 import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
+import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.interpolator.DefaultInterpolator
 import com.scichart.examples.utils.scichartExtensions.*
 import java.util.*
@@ -58,9 +59,10 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(Transparent)
 
                     sweepAnimation {
-                        duration = 500
-                        startDelay = 600
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
                         interpolator = DefaultInterpolator.getInterpolator()
+                        animateXOnly = true
                     }
                 }
                 fastBandRenderableSeries {
@@ -69,9 +71,10 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(Transparent)
 
                     sweepAnimation {
-                        duration = 500
-                        startDelay = 600
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
                         interpolator = DefaultInterpolator.getInterpolator()
+                        animateXOnly = true
                     }
                 }
                 fastBandRenderableSeries {
@@ -80,9 +83,10 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(Transparent)
 
                     sweepAnimation {
-                        duration = 500
-                        startDelay = 600
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
                         interpolator = DefaultInterpolator.getInterpolator()
+                        animateXOnly = true
                     }
                 }
                 fastLineRenderableSeries {
@@ -90,9 +94,10 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
                     strokeStyle = SolidPenStyle(0xFFe97064)
 
                     sweepAnimation {
-                        duration = 500
-                        startDelay = 100
+                        duration = Constant.ANIMATION_DURATION
+                        startDelay = Constant.ANIMATION_START_DELAY
                         interpolator = DefaultInterpolator.getInterpolator()
+                        animateXOnly = true
                     }
                 }
             }
@@ -159,6 +164,6 @@ class FanChartFragment: ExampleSingleChartBaseFragment() {
         val var2: Double,
         val var1: Double,
         val varMin: Double,
-        val varMax: Double
+        val varMax: Double,
     )
 }

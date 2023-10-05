@@ -26,10 +26,14 @@ import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.modifiers.RubberBandXyZoomModifier;
+import com.scichart.charting.numerics.labelProviders.LabelProviderBase;
 import com.scichart.charting.visuals.SciChartSurface;
+import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.IAxis;
+import com.scichart.charting.visuals.axes.INumericAxis;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
+import com.scichart.core.utility.ComparableUtil;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
 import com.scichart.examples.data.DoubleSeries;
@@ -44,6 +48,43 @@ import com.scichart.examples.utils.widgetgeneration.Widget;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+class RangeDependantLabelProvider extends LabelProviderBase<INumericAxis> {
+
+    RangeDependantLabelProvider() {
+        super(INumericAxis.class);
+    }
+
+    @Override
+    public CharSequence formatLabel(double dataValue) {
+        if (ComparableUtil.toDouble(this.axis.getVisibleRange().getDiff()) > 1000) {
+            return String.format("%.1fK", dataValue / 1000.0);
+        } else {
+            return String.format("%.0f", dataValue);
+        }
+    }
+
+    @Override
+    public CharSequence formatCursorLabel(double dataValue) {
+        return String.format("%.0f", dataValue);
+    }
+
+    @Override
+    public CharSequence formatLabel(Comparable dataValue) {
+        final double doubleValue = ComparableUtil.toDouble(dataValue);
+        return this.formatLabel(doubleValue);
+    }
+
+    @Override
+    public CharSequence formatCursorLabel(Comparable dataValue) {
+        if(dataValue != null){
+            final double doubleValue = ComparableUtil.toDouble(dataValue);
+            return formatCursorLabel(doubleValue);
+        } else {
+            return "";
+        }
+    }
+}
 
 public class DragAreaToZoomFragment extends ExampleSingleChartBaseFragment {
     private RubberBandXyZoomModifier rubberBandXyZoomModifier;
@@ -66,9 +107,11 @@ public class DragAreaToZoomFragment extends ExampleSingleChartBaseFragment {
         surface.setTheme(R.style.SciChart_NavyBlue);
 
         final IAxis xAxis = sciChartBuilder.newNumericAxis().build();
-        final IAxis yAxis = sciChartBuilder.newNumericAxis().withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
+        final IAxis yAxis = sciChartBuilder.newNumericAxis().withLabelProvider(new RangeDependantLabelProvider())
+                .withAutoRangeMode(AutoRange.Always)
+                .withGrowBy(new DoubleRange(0.1d, 0.1d)).build();
 
-        DoubleSeries data = new RandomWalkGenerator(0).setBias(0.0001).getRandomWalkSeries(10000);
+        DoubleSeries data = new RandomWalkGenerator(0).setBias(0.1).getRandomWalkSeries(10000);
         final IXyDataSeries<Double, Double> dataSeries = sciChartBuilder.newXyDataSeries(Double.class, Double.class).build();
         dataSeries.append(data.xValues, data.yValues);
 

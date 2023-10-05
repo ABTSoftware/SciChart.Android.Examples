@@ -26,7 +26,7 @@ import com.scichart.extensions.builders.AnimatorBuilderBase
 import com.scichart.extensions.builders.AnimatorBuilderBase.*
 import com.scichart.extensions.builders.SciChartBuilder
 
-open class SweepAnimator(var interpolator: TimeInterpolator = LinearInterpolator(), var duration: Long = 3000, var startDelay: Long = 350)
+open class SweepAnimator(var interpolator: TimeInterpolator = LinearInterpolator(), var duration: Long = 3000, var startDelay: Long = 350, var animateXOnly: Boolean = false)
 data class ScaleAnimator(var zeroLine: Double = 0.0): SweepAnimator()
 data class WaveAnimator(var zeroLine: Double = 0.0, var durationOfStepData: Float = 0.5f): SweepAnimator()
 data class TranslateAnimator(var offset: Float = 0.0f): SweepAnimator()
@@ -53,7 +53,7 @@ fun <T : SplineBandRenderableSeries> T.sweepAnimation(init: SweepAnimator.() -> 
 fun <TBuilder : RenderPassDataAnimatorBuilder<TBuilder>> sweepAnimation(builder: TBuilder, init: SweepAnimator.() -> Unit) {
     val animator = SweepAnimator().apply(init)
     animator(builder, animator)
-        .withSweepTransformation()
+        .withSweepTransformation(animator.animateXOnly)
         .start()
 }
 // endregion

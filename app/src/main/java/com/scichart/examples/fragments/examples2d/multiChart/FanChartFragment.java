@@ -34,6 +34,7 @@ import com.scichart.core.utility.IterableUtil;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.examples.data.RandomWalkGenerator;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.Constant;
 import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.ArrayList;
@@ -75,10 +76,10 @@ public class FanChartFragment extends ExampleSingleChartBaseFragment {
             Collections.addAll(surface.getRenderableSeries(), projectedVar3, projectedVar2, projectedVar, lineSeries);
             Collections.addAll(surface.getChartModifiers(), sciChartBuilder.newModifierGroupWithDefaultModifiers().build());
 
-            sciChartBuilder.newAnimator(lineSeries).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(100).start();
-            sciChartBuilder.newAnimator(projectedVar).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(600).start();
-            sciChartBuilder.newAnimator(projectedVar2).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(600).start();
-            sciChartBuilder.newAnimator(projectedVar3).withSweepTransformation().withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(500).withStartDelay(600).start();
+            sciChartBuilder.newAnimator(lineSeries).withSweepTransformation(true).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(projectedVar).withSweepTransformation(true).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(projectedVar2).withSweepTransformation(true).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
+            sciChartBuilder.newAnimator(projectedVar3).withSweepTransformation(true).withInterpolator(DefaultInterpolator.getInterpolator()).withDuration(Constant.ANIMATION_DURATION).withStartDelay(Constant.ANIMATION_START_DELAY).start();
         });
     }
 

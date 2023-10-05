@@ -5,7 +5,7 @@
 <!-- Support: support@scichart.com -->
 <!-- Sales:   sales@scichart.com -->
 <!--  -->
-<!-- Large_Trades_Charts.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- Depth_Chart.xml is part of the SCICHART® Examples. Permission is hereby granted -->
 <!-- to modify, create derivative works, distribute and publish any part of this source -->
 <!-- code whether for commercial, private or personal use. -->
 <!--  -->
@@ -15,12 +15,12 @@
 <!--*************************************************************************-->
 
 <ExampleDefinition>
-    <Title>Large Trades Chart</Title>
+    <Title>Depth Chart</Title>
     <IconPath>ic_candles_feature</IconPath>
     <Description>
-        Creates a large trades charts
+        Creates a depth trades charts
     </Description>
-    <FileName>CreateLargeTradesStockChartFragment</FileName>
+    <FileName>DepthChartFragment</FileName>
     <Features>
         <Features>Candlesticks</Features>
     </Features>
