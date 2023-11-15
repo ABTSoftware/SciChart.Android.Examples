@@ -104,8 +104,8 @@
     <style name="SciChart_BerryBlue" parent="SciChart_BaseStyle">
         <!-- Background defaults -->
         <item name="sciChartBackground">@drawable/example_sci_chart_berry_blue_background</item>
-        <item name="legendBackground">@drawable/example_sci_chart_berry_blue_legend_background
-        </item>
+        <item name="legendBackground">@drawable/example_sci_chart_berry_blue_legend_background</item>
+        <item name="isDarkTheme">true</item>
         <item name="axisTooltipBackground">@drawable/example_sci_chart_berry_blue_label_background</item>
 
         <item name="renderableSeriesAreaBorderColor">#102A47</item>
