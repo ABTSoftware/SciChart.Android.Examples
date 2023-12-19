@@ -19,6 +19,7 @@
 
 package com.scichart.examples.fragments.examples2d.createStockCharts;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -37,7 +38,13 @@ import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.CategoryDateAxis;
 import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.renderableSeries.BaseRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.data.XSeriesRenderPassData;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider;
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase;
 import com.scichart.charting.visuals.synchronization.SciChartVerticalGroup;
+import com.scichart.core.model.IntegerValues;
 import com.scichart.core.utility.ListUtil;
 import com.scichart.data.model.DoubleRange;
 import com.scichart.examples.R;
@@ -150,20 +157,27 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment<Exam
             // Add the main OHLC chart
             final OhlcDataSeries<Date, Double> stockPrices = builder.newOhlcDataSeries(Date.class, Double.class).withSeriesName("EUR/USD").build();
             stockPrices.append(prices.getDateData(), prices.getOpenData(), prices.getHighData(), prices.getLowData(), prices.getCloseData());
-            addRenderableSeries(builder.newCandlestickSeries().withDataSeries(stockPrices).withYAxisId(PRICES).build());
+            addRenderableSeries(builder
+                    .newCandlestickSeries()
+                    .withDataSeries(stockPrices)
+                    .withYAxisId(PRICES)
+                    .withStrokeUp(0xFF67BDAF).withFillUpColor(0xFF447487)
+                    .withStrokeDown(0xFFDC7969).withFillDownColor(0x77DC7969)
+                    .build()
+            );
 
             final XyDataSeries<Date, Double> maLow = builder.newXyDataSeries(Date.class, Double.class).withSeriesName("Low Line").build();
             maLow.append(prices.getDateData(), MovingAverage.movingAverage(prices.getCloseData(), 50));
-            addRenderableSeries(builder.newLineSeries().withDataSeries(maLow).withStrokeStyle(0xFFFF3333, 1f).withYAxisId(PRICES).build());
+            addRenderableSeries(builder.newLineSeries().withDataSeries(maLow).withStrokeStyle(0xFFEC0F6C, 1f).withYAxisId(PRICES).build());
 
             final XyDataSeries<Date, Double> maHigh = builder.newXyDataSeries(Date.class, Double.class).withSeriesName("High Line").build();
             maHigh.append(prices.getDateData(), MovingAverage.movingAverage(prices.getCloseData(), 200));
-            addRenderableSeries(builder.newLineSeries().withDataSeries(maHigh).withStrokeStyle(0xFF33DD33, 1f).withYAxisId(PRICES).build());
+            addRenderableSeries(builder.newLineSeries().withDataSeries(maHigh).withStrokeStyle(0xFF50C7E0, 1f).withYAxisId(PRICES).build());
 
             Collections.addAll(annotations,
-                    builder.newAxisMarkerAnnotation().withY1(stockPrices.getYValues().get(stockPrices.getCount() - 1)).withBackgroundColor(0xFFFF3333).withYAxisId(PRICES).build(),
-                    builder.newAxisMarkerAnnotation().withY1(maLow.getYValues().get(maLow.getCount() - 1)).withBackgroundColor(0xFFFF3333).withYAxisId(PRICES).build(),
-                    builder.newAxisMarkerAnnotation().withY1(maHigh.getYValues().get(maHigh.getCount() - 1)).withBackgroundColor(0xFF33DD33).withYAxisId(PRICES).build());
+                    builder.newAxisMarkerAnnotation().withY1(stockPrices.getYValues().get(stockPrices.getCount() - 1)).withBackgroundColor(0xFF67BDAF).withYAxisId(PRICES).build(),
+                    builder.newAxisMarkerAnnotation().withY1(maLow.getYValues().get(maLow.getCount() - 1)).withBackgroundColor(0xFFEC0F6C).withYAxisId(PRICES).build(),
+                    builder.newAxisMarkerAnnotation().withY1(maHigh.getYValues().get(maHigh.getCount() - 1)).withBackgroundColor(0xFF50C7E0).withYAxisId(PRICES).build());
         }
     }
 
@@ -173,10 +187,60 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment<Exam
 
             final XyDataSeries<Date, Double> volumePrices = builder.newXyDataSeries(Date.class, Double.class).withSeriesName(VOLUME).build();
             volumePrices.append(prices.getDateData(), ListUtil.select(prices.getVolumeData(), Long::doubleValue));
-            addRenderableSeries(builder.newColumnSeries().withDataSeries(volumePrices).withYAxisId(VOLUME).build());
+            addRenderableSeries(builder
+                    .newColumnSeries()
+                    .withDataSeries(volumePrices)
+                    .withYAxisId(VOLUME)
+                    .withPaletteProvider(new VolumePaletteProvider(prices))
+                    .build()
+            );
 
             Collections.addAll(annotations,
                     builder.newAxisMarkerAnnotation().withY1(volumePrices.getYValues().get(volumePrices.getCount() - 1)).withYAxisId(VOLUME).build());
+        }
+
+        class VolumePaletteProvider extends PaletteProviderBase<FastColumnRenderableSeries> implements IFillPaletteProvider, IStrokePaletteProvider {
+            private final IntegerValues colors = new IntegerValues();
+            private final int[] desiredColors = new int[]{0xFF67BDAF, 0xFFDC7969};
+
+            private PriceSeries prices;
+
+            protected VolumePaletteProvider(PriceSeries prices) {
+                super(FastColumnRenderableSeries.class);
+                this.prices = prices;
+            }
+
+            @Override
+            public void update() {
+                final XSeriesRenderPassData currentRenderPassData = (XSeriesRenderPassData) renderableSeries.getCurrentRenderPassData();
+
+                final int size = currentRenderPassData.pointsCount();
+                colors.setSize(size);
+
+                final int[] colorsArray = colors.getItemsArray();
+                final double[] indices = currentRenderPassData.xValues.getItemsArray();
+
+                for (int i = 0; i < size; i++) {
+                    final double index = indices[i];
+                    double open = prices.get((int) index).getOpen();
+                    double close = prices.get((int) index).getClose();
+                    if(close - open > 0 ){
+                        colorsArray[i] = desiredColors[0];
+                    } else {
+                        colorsArray[i] = desiredColors[1];
+                    }
+                }
+            }
+
+            @Override
+            public IntegerValues getFillColors() {
+                return colors;
+            }
+
+            @Override
+            public IntegerValues getStrokeColors() {
+                return colors;
+            }
         }
     }
 
@@ -186,7 +250,7 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment<Exam
 
             final XyDataSeries<Date, Double> rsiSeries = builder.newXyDataSeries(Date.class, Double.class).withSeriesName(RSI).build();
             rsiSeries.append(prices.getDateData(), MovingAverage.rsi(prices, 14));
-            addRenderableSeries(builder.newLineSeries().withDataSeries(rsiSeries).withStrokeStyle(0xFFC6E6FF, 1f).withYAxisId(RSI).build());
+            addRenderableSeries(builder.newLineSeries().withDataSeries(rsiSeries).withStrokeStyle(0xFF537ABD, 1f).withYAxisId(RSI).build());
 
             Collections.addAll(annotations,
                     builder.newAxisMarkerAnnotation().withY1(rsiSeries.getYValues().get(rsiSeries.getCount() - 1)).withYAxisId(RSI).build());
@@ -201,15 +265,70 @@ public class CreateMultiPaneStockChartsFragment extends ExampleBaseFragment<Exam
 
             final XyDataSeries<Date, Double> histogramDataSeries = builder.newXyDataSeries(Date.class, Double.class).withSeriesName("Histogram").build();
             histogramDataSeries.append(prices.getDateData(), macdPoints.divergenceValues);
-            addRenderableSeries(builder.newColumnSeries().withDataSeries(histogramDataSeries).withYAxisId(MACD).build());
+            addRenderableSeries(builder
+                    .newColumnSeries()
+                    .withDataSeries(histogramDataSeries)
+                    .withPaletteProvider(new MacdHistogramPaletteProvider())
+                    .withYAxisId(MACD)
+                    .build()
+            );
 
             final XyyDataSeries<Date, Double> macdDataSeries = builder.newXyyDataSeries(Date.class, Double.class).withSeriesName(MACD).build();
             macdDataSeries.append(prices.getDateData(), macdPoints.macdValues, macdPoints.signalValues);
-            addRenderableSeries(builder.newBandSeries().withDataSeries(macdDataSeries).withYAxisId(MACD).build());
+            addRenderableSeries(builder
+                    .newBandSeries()
+                    .withDataSeries(macdDataSeries)
+                    .withYAxisId(MACD)
+                    .withStrokeStyle(0xFF67BDAF).withStrokeY1Style(0xFFDC7969)
+                    .withFillColor(0x77DC7969).withFillY1Color(0x7767BDAF)
+                    .build()
+            );
 
             Collections.addAll(annotations,
                     builder.newAxisMarkerAnnotation().withY1(histogramDataSeries.getYValues().get(histogramDataSeries.getCount() - 1)).withYAxisId(MACD).build(),
                     builder.newAxisMarkerAnnotation().withY1(macdDataSeries.getYValues().get(macdDataSeries.getCount() - 1)).withYAxisId(MACD).build());
+        }
+
+        class MacdHistogramPaletteProvider extends PaletteProviderBase<FastColumnRenderableSeries> implements IFillPaletteProvider, IStrokePaletteProvider {
+            private final IntegerValues colors = new IntegerValues();
+            private final int[] desiredColors = new int[]{0xFF67BDAF, 0xFFDC7969};
+
+            protected MacdHistogramPaletteProvider() {
+                super(FastColumnRenderableSeries.class);
+            }
+
+            @Override
+            public void update() {
+                final XSeriesRenderPassData currentRenderPassData = (XSeriesRenderPassData) renderableSeries.getCurrentRenderPassData();
+
+                final int size = currentRenderPassData.pointsCount();
+                colors.setSize(size);
+
+                final int[] colorsArray = colors.getItemsArray();
+                final double[] indices = currentRenderPassData.xValues.getItemsArray();
+
+                XyDataSeries<Date, Double> dataSeries = (XyDataSeries<Date, Double>) renderableSeries.getDataSeries();
+
+                for (int i = 0; i < size; i++) {
+                    final double index = indices[i];
+                    double value = dataSeries.getYValues().get((int) index);
+                    if(value > 0 ){
+                        colorsArray[i] = desiredColors[0];
+                    } else {
+                        colorsArray[i] = desiredColors[1];
+                    }
+                }
+            }
+
+            @Override
+            public IntegerValues getFillColors() {
+                return colors;
+            }
+
+            @Override
+            public IntegerValues getStrokeColors() {
+                return colors;
+            }
         }
     }
 }

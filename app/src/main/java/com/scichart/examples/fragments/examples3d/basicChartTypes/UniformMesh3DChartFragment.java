@@ -57,13 +57,22 @@ public class UniformMesh3DChartFragment extends ExampleSingleChart3DBaseFragment
         final SurfaceMeshRenderableSeries3D rs = sciChart3DBuilder.newSurfaceMeshSeries3D()
                 .withDataSeries(ds)
                 .withDrawMeshAs(DrawMeshAs.SolidWireframe)
-                .withStroke(0x77228B22)
-                .withContourStroke(0x77228B22)
+                .withMinimum(0)
+                .withMaximum(0.5)
+                .withOpacity(0.9f)
+                .withShininess(0)
+                .withLightingFactor(0)
+                .withHighlight(1)
+                .withStroke(0x77364BA0)
                 .withStrokeThicknes(1f)
+                .withContourStroke(0x77364BA0)
+                .withContourInterval(2f)
+                .withContourOffset(0)
+                .withContourStrokeThickness(2f)
                 .withDrawSkirt(false)
                 .withMeshColorPalette(new GradientColorPalette(
-                        new int[]{0xFF1D2C6B, Blue, Cyan, GreenYellow, Yellow, Red, DarkRed},
-                        new float[]{0, .1f, .3f, .5f, .7f, .9f, 1})
+                        new int[]{0xFF14233C, 0xFF264B93, 0xFF50C7E0, 0xFF67BDAF, 0xFFDC7969, 0xFFF48420, 0xFFEC0F6C},
+                        new float[]{0, .15f, .3f, .5f, .7f, .9f, 1})
                 )
                 .build();
 

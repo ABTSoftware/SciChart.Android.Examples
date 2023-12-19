@@ -28,6 +28,7 @@ import com.scichart.charting3d.visuals.renderableSeries.metadataProviders.PointM
 import com.scichart.core.model.IntegerValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil.*
+import com.scichart.examples.R
 import com.scichart.examples.data.AscData
 import com.scichart.examples.data.DataManager
 import com.scichart.examples.databinding.ExampleSingleChart3dFragmentBinding
@@ -41,6 +42,8 @@ class LidarPointCloudFragment : ShowcaseExampleBaseFragment<ExampleSingleChart3d
     }
 
     override fun initExample(binding: ExampleSingleChart3dFragmentBinding) {
+        binding.surface3d.theme = R.style.SciChart_NavyBlue
+
         val lidarData = DataManager.getInstance().getLidarData(requireContext())
         val pointMetadataProvider = createPointMetadataProvider(MIN, MAX, lidarData)
 
@@ -70,8 +73,11 @@ class LidarPointCloudFragment : ShowcaseExampleBaseFragment<ExampleSingleChart3d
                     }
                     drawMeshAs = SolidWithContours
                     meshColorPalette = GradientColorPalette(
-                        intArrayOf(0xFF1e90FF.toInt(), 0xFF32CD32.toInt(), Orange, Red, Purple),
-                        floatArrayOf(0.0f, 0.2f, 0.5f, 0.7f, 1.0f)
+                        intArrayOf(0xFF14233C.toInt(),
+                            0xFF264B93.toInt(), 0xFF50C7E0.toInt(),
+                            0xFF67BDAF.toInt(), 0xFFDC7969.toInt(), 0xFFF48420.toInt(), 0xFFEC0F6C.toInt()
+                        ),
+                        floatArrayOf(0.0f, 0.15f, 0.3f, 0.5f, 0.7f, 0.9f, 1.0f)
                     )
                     contourStroke = 0xFFF0FFFF.toInt()
                     contourStrokeThickness = 2f

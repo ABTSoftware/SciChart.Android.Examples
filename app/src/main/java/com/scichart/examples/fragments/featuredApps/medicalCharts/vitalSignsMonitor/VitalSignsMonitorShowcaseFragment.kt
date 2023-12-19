@@ -124,6 +124,8 @@ class VitalSignsMonitorShowcaseFragment : ShowcaseExampleBaseFragment<ExampleVit
         val bloodVolumeColor = ContextCompat.getColor(context, R.color.blood_volume_color)
         val bloodOxygenation = ContextCompat.getColor(context, R.color.blood_oxygenation_color)
 
+        binding.surface.theme = R.style.SciChart_NavyBlue
+
         binding.surface.suspendUpdates {
             xAxes { numericAxis {
                 visibleRange = DoubleRange(0.0, 10.0)

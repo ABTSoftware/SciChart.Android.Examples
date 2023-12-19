@@ -81,6 +81,8 @@ public class ECGMonitorFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
+        surface.setTheme(R.style.SciChart_NavyBlue);
+
         UpdateSuspender.using(surface, () -> {
             final IAxis xBottomAxis = sciChartBuilder.newNumericAxis()
                     .withVisibleRange(new DoubleRange(0d, 10d))

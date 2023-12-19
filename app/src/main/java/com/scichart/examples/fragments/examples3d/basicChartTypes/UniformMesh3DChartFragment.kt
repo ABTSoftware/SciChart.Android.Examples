@@ -48,13 +48,26 @@ class UniformMesh3DChartFragment : ExampleSingleChart3DBaseFragment() {
                             }
                         }
                     }
+                    minimum = 0.0
+                    maximum = 0.5
+                    opacity = 0.9f
+                    shininess = 0f
+                    lightingFactor = 0f
+                    highlight = 1f
                     drawMeshAs = SolidWireframe
-                    stroke = 0x77228B22
-                    contourStroke = 0x77228B22
+                    stroke = 0x77364BA0
                     strokeThickness = 1f
+                    contourStroke = 0x77364BA0
+                    contourInterval = 2f
+                    contourOffset = 0f
+                    contourStrokeThickness = 2f
                     drawSkirt = false
                     meshColorPalette = GradientColorPalette(
-                        intArrayOf(0xFF1D2C6B.toInt(), Blue, Cyan, GreenYellow, Yellow, Red, DarkRed),
+                        intArrayOf(0xFF14233C.toInt(),
+                            0xFF264B93.toInt(),
+                            0xFF50C7E0.toInt(),
+                            0xFF67BDAF.toInt(), 0xFFDC7969.toInt(), 0xFFF48420.toInt(), 0xFFEC0F6C.toInt()
+                        ),
                         floatArrayOf(0f, .1f, .3f, .5f, .7f, .9f, 1f)
                     )
                 }

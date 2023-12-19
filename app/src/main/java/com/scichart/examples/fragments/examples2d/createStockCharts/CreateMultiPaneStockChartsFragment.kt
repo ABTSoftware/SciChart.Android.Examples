@@ -22,11 +22,18 @@ package com.scichart.examples.fragments.examples2d.createStockCharts.kt
 import android.view.LayoutInflater
 import android.view.View
 import com.scichart.charting.Direction2D.XDirection
+import com.scichart.charting.model.dataSeries.XyDataSeries
 import com.scichart.charting.modifiers.AxisDragModifierBase.AxisDragMode.Pan
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AutoRange
 import com.scichart.charting.visuals.axes.NumericAxis
+import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
+import com.scichart.charting.visuals.renderableSeries.data.XSeriesRenderPassData
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.IStrokePaletteProvider
+import com.scichart.charting.visuals.renderableSeries.paletteProviders.PaletteProviderBase
 import com.scichart.charting.visuals.synchronization.SciChartVerticalGroup
+import com.scichart.core.model.IntegerValues
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.data.DataManager
@@ -34,8 +41,32 @@ import com.scichart.examples.data.MovingAverage
 import com.scichart.examples.data.PriceSeries
 import com.scichart.examples.databinding.ExampleMultipaneStockChartsFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
-import com.scichart.examples.utils.scichartExtensions.*
-import java.util.*
+import com.scichart.examples.utils.scichartExtensions.SolidBrushStyle
+import com.scichart.examples.utils.scichartExtensions.SolidPenStyle
+import com.scichart.examples.utils.scichartExtensions.annotations
+import com.scichart.examples.utils.scichartExtensions.axis
+import com.scichart.examples.utils.scichartExtensions.axisMarkerAnnotation
+import com.scichart.examples.utils.scichartExtensions.categoryDateAxis
+import com.scichart.examples.utils.scichartExtensions.chartModifiers
+import com.scichart.examples.utils.scichartExtensions.drawable
+import com.scichart.examples.utils.scichartExtensions.fastBandRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastCandlestickRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastColumnRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastLineRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.legendModifier
+import com.scichart.examples.utils.scichartExtensions.modifierGroup
+import com.scichart.examples.utils.scichartExtensions.ohlcDataSeries
+import com.scichart.examples.utils.scichartExtensions.pinchZoomModifier
+import com.scichart.examples.utils.scichartExtensions.renderableSeries
+import com.scichart.examples.utils.scichartExtensions.suspendUpdates
+import com.scichart.examples.utils.scichartExtensions.xAxes
+import com.scichart.examples.utils.scichartExtensions.xAxisDragModifier
+import com.scichart.examples.utils.scichartExtensions.xyDataSeries
+import com.scichart.examples.utils.scichartExtensions.xyyDataSeries
+import com.scichart.examples.utils.scichartExtensions.yAxes
+import com.scichart.examples.utils.scichartExtensions.zoomExtentsModifier
+import com.scichart.examples.utils.scichartExtensions.zoomPanModifier
+import java.util.Date
 
 class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneStockChartsFragmentBinding>() {
     private val verticalGroup = SciChartVerticalGroup()
@@ -77,27 +108,33 @@ class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneS
                         append(prices.dateData, prices.openData, prices.highData, prices.lowData, prices.closeData)
                     }
                     yAxisId = PRICES
+
+                    strokeUpStyle = SolidPenStyle(0xFF67BDAF)
+                    fillUpBrushStyle = SolidBrushStyle(0xFF447487)
+
+                    strokeDownStyle = SolidPenStyle(0xFFDC7969)
+                    fillDownBrushStyle = SolidBrushStyle(0x77DC7969)
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Date, Double>("Low Line") {
                         append(prices.dateData, maLow)
                     }
                     yAxisId = PRICES
-                    strokeStyle = SolidPenStyle(0xFFFF3333)
+                    strokeStyle = SolidPenStyle(0xFFEC0F6C)
                 }
                 fastLineRenderableSeries {
                     xyDataSeries<Date, Double>("High Line") {
                         append(prices.dateData, maHigh)
                     }
                     yAxisId = PRICES
-                    strokeStyle = SolidPenStyle(0xFF33DD33)
+                    strokeStyle = SolidPenStyle(0xFF50C7E0)
                 }
             }
 
             annotations {
-                axisMarkerAnnotation { y1 = prices.closeData.last(); yAxisId = PRICES; background = 0xFFFF3333.drawable() }
-                axisMarkerAnnotation { y1 = maLow.last(); yAxisId = PRICES; background = 0xFFFF3333.drawable() }
-                axisMarkerAnnotation { y1 = maHigh.last(); yAxisId = PRICES; background = 0xFF33DD33.drawable() }
+                axisMarkerAnnotation { y1 = prices.closeData.last(); yAxisId = PRICES; background = 0xFF67BDAF.drawable() }
+                axisMarkerAnnotation { y1 = maLow.last(); yAxisId = PRICES; background = 0xFFEC0F6C.drawable() }
+                axisMarkerAnnotation { y1 = maHigh.last(); yAxisId = PRICES; background = 0xFF50C7E0.drawable() }
             }
         }
     }
@@ -115,6 +152,7 @@ class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneS
                         append(prices.dateData, prices.volumeData.map(Long::toDouble))
                     }
                     yAxisId = VOLUME
+                    paletteProvider = VolumePaletteProvider(prices)
                 }
             }
             annotations {
@@ -137,7 +175,7 @@ class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneS
                         append(prices.dateData, rsi)
                     }
                     yAxisId = RSI
-                    strokeStyle = SolidPenStyle(0xFFC6E6FF)
+                    strokeStyle = SolidPenStyle(0xFF537ABD)
                 }
             }
             annotations {
@@ -160,12 +198,19 @@ class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneS
                         append(prices.dateData, macd.divergenceValues)
                     }
                     yAxisId = MACD
+                    paletteProvider = MacdHistogramPaletteProvider()
                 }
                 fastBandRenderableSeries {
                     xyyDataSeries<Date, Double>(MACD) {
                         append(prices.dateData, macd.macdValues, macd.signalValues)
                     }
                     yAxisId = MACD
+
+                    strokeStyle = SolidPenStyle(0xFF67BDAF)
+                    strokeY1Style = SolidPenStyle(0xFFDC7969)
+
+                    fillBrushStyle = SolidBrushStyle(0x77DC7969)
+                    fillY1BrushStyle = SolidBrushStyle(0x7767BDAF)
                 }
             }
             annotations {
@@ -207,6 +252,77 @@ class CreateMultiPaneStockChartsFragment : ExampleBaseFragment<ExampleMultipaneS
             growBy = if (isMainPane) DoubleRange(0.05, 0.05) else DoubleRange(0.0, 0.0)
         }
     }
+
+
+    internal class VolumePaletteProvider constructor(private val prices: PriceSeries) :
+        PaletteProviderBase<FastColumnRenderableSeries>(FastColumnRenderableSeries::class.java),
+        IFillPaletteProvider, IStrokePaletteProvider {
+        private val colors = IntegerValues()
+        private val desiredColors = intArrayOf(-0x984251, -0x238697)
+        override fun update() {
+            val currentRenderPassData =
+                renderableSeries!!.currentRenderPassData as XSeriesRenderPassData
+            val size = currentRenderPassData.pointsCount()
+            colors.setSize(size)
+            val colorsArray = colors.itemsArray
+            val indices = currentRenderPassData.xValues.itemsArray
+
+            for (i in 0 until size) {
+                val index = indices[i]
+                val open = prices[index.toInt()].open
+                val close = prices[index.toInt()].close
+
+                if (close - open > 0) {
+                    colorsArray[i] = desiredColors[0]
+                } else {
+                    colorsArray[i] = desiredColors[1]
+                }
+            }
+        }
+
+        override fun getFillColors(): IntegerValues {
+            return colors
+        }
+
+        override fun getStrokeColors(): IntegerValues {
+            return colors
+        }
+    }
+
+
+    internal class MacdHistogramPaletteProvider:
+        PaletteProviderBase<FastColumnRenderableSeries>(FastColumnRenderableSeries::class.java),
+        IFillPaletteProvider, IStrokePaletteProvider {
+        private val colors = IntegerValues()
+        private val desiredColors = intArrayOf(-0x984251, -0x238697)
+        override fun update() {
+            val currentRenderPassData =
+                renderableSeries!!.currentRenderPassData as XSeriesRenderPassData
+            val size = currentRenderPassData.pointsCount()
+            colors.setSize(size)
+            val colorsArray = colors.itemsArray
+            val indices = currentRenderPassData.xValues.itemsArray
+            val dataSeries = renderableSeries!!.dataSeries as XyDataSeries<Date, Double>
+            for (i in 0 until size) {
+                val index = indices[i]
+                val value = dataSeries.yValues[index.toInt()]
+                if (value > 0) {
+                    colorsArray[i] = desiredColors[0]
+                } else {
+                    colorsArray[i] = desiredColors[1]
+                }
+            }
+        }
+
+        override fun getFillColors(): IntegerValues {
+            return colors
+        }
+
+        override fun getStrokeColors(): IntegerValues {
+            return colors
+        }
+    }
+
 
     companion object {
         private const val VOLUME = "Volume"

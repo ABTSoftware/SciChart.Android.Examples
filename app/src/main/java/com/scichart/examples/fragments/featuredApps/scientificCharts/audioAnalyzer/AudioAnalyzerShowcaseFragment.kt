@@ -28,6 +28,7 @@ import com.scichart.charting.visuals.axes.AxisAlignment.Left
 import com.scichart.charting.visuals.axes.AxisTitleOrientation.Horizontal
 import com.scichart.charting.visuals.axes.AxisTitlePlacement.Right
 import com.scichart.charting.visuals.axes.AxisTitlePlacement.Top
+import com.scichart.charting.visuals.axes.ScientificNotation
 import com.scichart.charting.visuals.renderableSeries.ColorMap
 import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries
 import com.scichart.charting.visuals.renderableSeries.data.XyRenderPassData
@@ -39,6 +40,7 @@ import com.scichart.core.model.IntegerValues
 import com.scichart.core.utility.NumberUtil
 import com.scichart.data.model.DoubleRange
 import com.scichart.drawing.utility.ColorUtil.*
+import com.scichart.examples.R
 import com.scichart.examples.data.Radix2FFT
 import com.scichart.examples.databinding.ExampleAudioAnalyzerFragmentBinding
 import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment
@@ -53,6 +55,7 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
     private val spectrogramValues = DoubleValues(fftValuesCount)
 
     private val audioDS = XyDataSeries<Long, Short>().apply { fifoCapacity = AUDIO_STREAM_BUFFER_SIZE }
+    private val historyDS = XyDataSeries<Long, Short>().apply { fifoCapacity = AUDIO_STREAM_BUFFER_SIZE * 200 }
     private val fftDS = XyDataSeries<Double, Double>().apply { fifoCapacity = fftSize }
     private val spectrogramDS = UniformHeatmapDataSeries<Long, Long, Double>(fftSize, fftCount)
 
@@ -61,12 +64,17 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
     }
 
     override fun initExample(binding: ExampleAudioAnalyzerFragmentBinding) {
+        binding.audioStreamChart.theme = R.style.SciChart_NavyBlue;
+        binding.fftChart.theme = R.style.SciChart_NavyBlue;
+        binding.spectrogramChart.theme = R.style.SciChart_NavyBlue;
+
         initAudioStreamChart(binding.audioStreamChart)
         initFFTChart(binding.fftChart)
         initSpectrogramChart(binding.spectrogramChart)
 
         dataProvider.data.doOnNext { audioData: AudioData ->
             audioDS.append(audioData.xData, audioData.yData)
+            historyDS.append(audioData.xData, audioData.yData)
 
             fft.run(audioData.yData, fftData)
             fftData.setSize(fftSize)
@@ -84,17 +92,32 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
 
     private fun initAudioStreamChart(surface: SciChartSurface) {
         surface.suspendUpdates {
-            xAxes { numericAxis {
-                autoRange = Always
-                drawLabels = false
-                drawMajorBands = false
-                drawMinorTicks = false
-                drawMajorTicks = false
-                drawMinorGridLines = false
-                drawMajorGridLines = false
-            }}
+            xAxes {
+                numericAxis {
+                    axisId = "audio"
+                    autoRange = Always
+                    drawLabels = false
+                    drawMajorBands = false
+                    drawMinorTicks = false
+                    drawMajorTicks = false
+                    drawMinorGridLines = false
+                    drawMajorGridLines = false
+                }
+                numericAxis {
+                    axisId = "history"
+                    autoRange = Always
+                    drawLabels = false
+                    drawMajorBands = false
+                    drawMinorTicks = false
+                    drawMajorTicks = false
+                    drawMinorGridLines = false
+                    drawMajorGridLines = false
+                }
+
+            }
             yAxes { numericAxis {
-                visibleRange = DoubleRange(Short.MIN_VALUE.toDouble(), Short.MAX_VALUE.toDouble())
+                visibleRange = DoubleRange(-2048.0,2048.0)
+//                visibleRange = DoubleRange(Short.MIN_VALUE.toDouble(), Short.MAX_VALUE.toDouble())
                 drawLabels = false
                 drawMajorBands = false
                 drawMinorTicks = false
@@ -104,8 +127,14 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
             }}
             renderableSeries {
                 fastLineRenderableSeries {
+                    xAxisId = "history"
+                    dataSeries = historyDS
+                    strokeStyle = SolidPenStyle(0xFF1B89AA)
+                }
+                splineLineRenderableSeries {
+                    xAxisId = "audio"
                     dataSeries = audioDS
-                    strokeStyle = SolidPenStyle(Grey)
+                    strokeStyle = SolidPenStyle(0xFF4FBEE6)
                 }
             }
         }
@@ -113,9 +142,12 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
 
     private fun initFFTChart(surface: SciChartSurface) {
         surface.suspendUpdates {
-            xAxes { numericAxis {
+            xAxes { logarithmicAxis {
+                logarithmicBase = 10.0
+                textFormatting = "#"
+                scientificNotation = ScientificNotation.None
                 drawMajorBands = false
-                maxAutoTicks = 5
+                maxAutoTicks = 4
                 axisTitle = "Hz"
                 axisTitlePlacement = Right
                 axisTitleOrientation = Horizontal
@@ -132,13 +164,13 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
                 axisTitleOrientation = Horizontal
             }}
             renderableSeries {
-                fastColumnRenderableSeries {
+                fastMountainRenderableSeries {
                     dataSeries = fftDS.apply {
                         for (i in 0 until fftSize) {
-                            append(i * hzPerDataPoint, 0.0)
+                            append((i+1) * hzPerDataPoint, 0.0)
                         }
                     }
-                    paletteProvider = FFTPaletteProvider()
+                    strokeStyle = SolidPenStyle(0xFF36B8E6, 1f)
                     zeroLineY = -30.0
                 }
             }
@@ -177,7 +209,10 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
                     minimum = -30.0
                     maximum = 70.0
                     colorMap = ColorMap(
-                        intArrayOf(Transparent, DarkBlue, Purple, Red, Yellow, White),
+                        intArrayOf(0xFF000000.toInt(),
+                            0xFF000000.toInt(),
+                            0xFF800080.toInt(), 0xFFFF0000.toInt(), 0xFFFFFF00.toInt(), 0xFFFFFFFF.toInt()
+                        ),
                         floatArrayOf(0f, 0.0001f, 0.25f, 0.50f, 0.75f, 1f)
                     )
                 }
@@ -244,7 +279,8 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
     }
 
     companion object {
-        private const val AUDIO_STREAM_BUFFER_SIZE = 500000
+        private const val HISTORY_AUDIO_STREAM_BUFFER_SIZE = 500000
+        private const val AUDIO_STREAM_BUFFER_SIZE = 2048
         private const val MAX_FREQUENCY = 10000
 
         private val dataProvider = createDateProvider()
@@ -253,7 +289,7 @@ class AudioAnalyzerShowcaseFragment : ShowcaseExampleBaseFragment<ExampleAudioAn
 
         private val hzPerDataPoint = sampleRate.toDouble() / bufferSize
         private val fftSize = (MAX_FREQUENCY / hzPerDataPoint).toInt()
-        private val fftCount = AUDIO_STREAM_BUFFER_SIZE / bufferSize
+        private val fftCount = HISTORY_AUDIO_STREAM_BUFFER_SIZE / bufferSize
         private val fftValuesCount = fftSize * fftCount
         private val fftOffsetValueCount = fftValuesCount - fftSize
 

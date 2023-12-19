@@ -144,6 +144,7 @@ public class VitalSignsMonitorShowcaseFragment extends ShowcaseExampleBaseFragme
         final int bloodOxygenation = ContextCompat.getColor(context, R.color.blood_oxygenation_color);
 
         final SciChartSurface surface = binding.surface;
+        surface.setTheme(R.style.SciChart_NavyBlue);
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);
             Collections.addAll(surface.getYAxes(),

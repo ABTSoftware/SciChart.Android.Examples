@@ -37,6 +37,7 @@ import com.scichart.charting3d.visuals.renderableSeries.scatter.ScatterRenderabl
 import com.scichart.charting3d.visuals.renderableSeries.surfaceMesh.SurfaceMeshRenderableSeries3D;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.IntegerValues;
+import com.scichart.examples.R;
 import com.scichart.examples.data.AscData;
 import com.scichart.examples.data.DataManager;
 import com.scichart.examples.databinding.ExampleSingleChart3dFragmentBinding;
@@ -63,6 +64,8 @@ public class LidarPointCloudFragment extends ShowcaseExampleBaseFragment<Example
 
     @Override
     protected void initExample(ExampleSingleChart3dFragmentBinding binding) {
+        binding.surface3d.setTheme(R.style.SciChart_NavyBlue);
+
         final NumericAxis3D xAxis = sciChart3DBuilder.newNumericAxis3D().withAxisTitle("X Distance (metres)").withTextFormatting("0m").build();
         final NumericAxis3D yAxis = sciChart3DBuilder.newNumericAxis3D().withAxisTitle("Height (metres)").withTextFormatting("0m").withVisibleRange(MIN, MAX).build();
         final NumericAxis3D zAxis = sciChart3DBuilder.newNumericAxis3D().withAxisTitle("Y Distance (metres)").withTextFormatting("0m").build();
@@ -74,8 +77,8 @@ public class LidarPointCloudFragment extends ShowcaseExampleBaseFragment<Example
         final SurfaceMeshRenderableSeries3D surfaceMeshSeries = sciChart3DBuilder.newSurfaceMeshSeries3D()
                 .withDrawMeshAs(DrawMeshAs.SolidWithContours)
                 .withMeshColorPalette(new GradientColorPalette(
-                        new int[]{0xFF1e90FF, 0xFF32CD32, Orange, Red, Purple},
-                        new float[]{0.0f, 0.2f, 0.5f, 0.7f, 1.0f})
+                        new int[]{0xFF14233C, 0xFF264B93, 0xFF50C7E0, 0xFF67BDAF, 0xFFDC7969, 0xFFF48420, 0xFFEC0F6C},
+                        new float[]{0.0f, 0.15f, 0.3f, 0.5f, 0.7f, 0.9f, 1.0f})
                 )
                 .withMeshPaletteMode(MeshPaletteMode.HeightMapInterpolated)
                 .withContourStroke(0xFFF0FFFF)

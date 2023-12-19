@@ -29,11 +29,14 @@ import com.scichart.charting.visuals.axes.AutoRange;
 import com.scichart.charting.visuals.axes.AxisAlignment;
 import com.scichart.charting.visuals.axes.AxisTitleOrientation;
 import com.scichart.charting.visuals.axes.AxisTitlePlacement;
+import com.scichart.charting.visuals.axes.LogarithmicNumericAxis;
 import com.scichart.charting.visuals.axes.NumericAxis;
+import com.scichart.charting.visuals.axes.ScientificNotation;
 import com.scichart.charting.visuals.renderableSeries.ColorMap;
-import com.scichart.charting.visuals.renderableSeries.FastColumnRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.FastMountainRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.FastUniformHeatmapRenderableSeries;
+import com.scichart.charting.visuals.renderableSeries.SplineLineRenderableSeries;
 import com.scichart.charting.visuals.renderableSeries.data.ISeriesRenderPassData;
 import com.scichart.charting.visuals.renderableSeries.data.XyRenderPassData;
 import com.scichart.charting.visuals.renderableSeries.paletteProviders.IFillPaletteProvider;
@@ -43,6 +46,8 @@ import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.core.model.DoubleValues;
 import com.scichart.core.model.IntegerValues;
 import com.scichart.core.utility.NumberUtil;
+import com.scichart.drawing.common.SolidPenStyle;
+import com.scichart.examples.R;
 import com.scichart.examples.data.Radix2FFT;
 import com.scichart.examples.databinding.ExampleAudioAnalyzerFragmentBinding;
 import com.scichart.examples.fragments.base.ShowcaseExampleBaseFragment;
@@ -51,7 +56,8 @@ import static com.scichart.drawing.utility.ColorUtil.*;
 
 public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<ExampleAudioAnalyzerFragmentBinding> {
 
-    private static final int AUDIO_STREAM_BUFFER_SIZE = 500000;
+    private static final int HISTORY_AUDIO_STREAM_BUFFER_SIZE = 500000;
+    private static final int AUDIO_STREAM_BUFFER_SIZE = 2048;
     private static final int MAX_FREQUENCY = 10000;
 
     private final IAudioAnalyzerDataProvider dataProvider = createDateProvider();
@@ -63,7 +69,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
 
     private final double hzPerDataPoint = (double)sampleRate / bufferSize;
     private final int fftSize = (int)(MAX_FREQUENCY / hzPerDataPoint);
-    private final int fftCount = AUDIO_STREAM_BUFFER_SIZE / bufferSize;
+    private final int fftCount = HISTORY_AUDIO_STREAM_BUFFER_SIZE / bufferSize;
     private final int fftValuesCount = fftSize * fftCount;
     private final int fftOffsetValueCount = fftValuesCount - fftSize;
 
@@ -71,6 +77,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
     private final DoubleValues spectrogramValues = new DoubleValues(fftValuesCount);
 
     private final XyDataSeries<Long, Short> audioDS = new XyDataSeries<>(Long.class, Short.class);
+    private final XyDataSeries<Long, Short> historyDS = new XyDataSeries<>(Long.class, Short.class);
     private final XyDataSeries<Double, Double> fftDS = new XyDataSeries<>(Double.class, Double.class);
     private final UniformHeatmapDataSeries<Long, Long, Double> spectrogramDS = new UniformHeatmapDataSeries<>(Long.class, Long.class, Double.class, fftSize, fftCount);
 
@@ -82,12 +89,17 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
 
     @Override
     protected void initExample(@NonNull ExampleAudioAnalyzerFragmentBinding binding) {
+        binding.audioStreamChart.setTheme(R.style.SciChart_NavyBlue);
+        binding.fftChart.setTheme(R.style.SciChart_NavyBlue);
+        binding.spectrogramChart.setTheme(R.style.SciChart_NavyBlue);
+
         initAudioStreamChart(binding.audioStreamChart);
         initFFTChart(binding.fftChart);
         initSpectrogramChart(binding.spectrogramChart);
 
         dataProvider.getData().doOnNext(audioData -> {
             audioDS.append(audioData.xData, audioData.yData);
+            historyDS.append(audioData.xData, audioData.yData);
 
             fft.run(audioData.yData, fftData);
             fftData.setSize(fftSize);
@@ -104,7 +116,19 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
     }
 
     private void initAudioStreamChart(SciChartSurface surface) {
+        final NumericAxis xAudioAxis = sciChartBuilder.newNumericAxis()
+                .withAxisId("audio")
+                .withAutoRangeMode(AutoRange.Always)
+                .withDrawLabels(false)
+                .withDrawMinorTicks(false)
+                .withDrawMajorTicks(false)
+                .withDrawMajorBands(false)
+                .withDrawMinorGridLines(false)
+                .withDrawMajorGridLines(false)
+                .build();
+
         final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
+                .withAxisId("history")
                 .withAutoRangeMode(AutoRange.Always)
                 .withDrawLabels(false)
                 .withDrawMinorTicks(false)
@@ -115,7 +139,8 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
                 .build();
 
         final NumericAxis yAxis = sciChartBuilder.newNumericAxis()
-                .withVisibleRange(Short.MIN_VALUE, Short.MAX_VALUE)
+                .withVisibleRange(-2048, 2048)
+//                .withVisibleRange(Short.MIN_VALUE, Short.MAX_VALUE)
                 .withDrawLabels(false)
                 .withDrawMinorTicks(false)
                 .withDrawMajorTicks(false)
@@ -125,22 +150,40 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
                 .build();
 
         audioDS.setFifoCapacity(AUDIO_STREAM_BUFFER_SIZE);
+        historyDS.setFifoCapacity(AUDIO_STREAM_BUFFER_SIZE * 200);
 
-        final FastLineRenderableSeries rs = sciChartBuilder.newLineSeries().withDataSeries(audioDS)
-                .withStrokeStyle(Grey, 1f)
+        final SplineLineRenderableSeries audioRS = sciChartBuilder
+                .newSplineLineSeries()
+                .withDataSeries(audioDS)
+                .withXAxisId("audio")
+                .withStrokeStyle(0xFF4FBEE6, 2f)
                 .build();
+
+        final FastLineRenderableSeries historyRS = sciChartBuilder
+                .newLineSeries()
+                .withDataSeries(historyDS)
+                .withOpacity(0.5f)
+                .withXAxisId("history")
+                .withStrokeStyle(0xFF1B89AA, 1f)
+                .build();
+
 
         UpdateSuspender.using(surface, () -> {
             surface.getXAxes().add(xAxis);
+            surface.getXAxes().add(xAudioAxis);
             surface.getYAxes().add(yAxis);
-            surface.getRenderableSeries().add(rs);
+            surface.getRenderableSeries().add(audioRS);
+            surface.getRenderableSeries().add(historyRS);
         });
     }
 
     private void initFFTChart(SciChartSurface surface) {
-        final NumericAxis xAxis = sciChartBuilder.newNumericAxis()
+        final LogarithmicNumericAxis xAxis = sciChartBuilder.newLogarithmicNumericAxis()
+                .withLogarithmicBase(10)
+                .withTextFormatting("#")
+                .withScientificNotation(ScientificNotation.None)
                 .withDrawMajorBands(false)
-                .withMaxAutoTicks(5)
+                .withMaxAutoTicks(4)
                 .withAxisTitle("Hz")
                 .withAxisTitlePlacement(AxisTitlePlacement.Right)
                 .withAxisTitleOrientation(AxisTitleOrientation.Horizontal)
@@ -160,12 +203,13 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
 
         fftDS.setFifoCapacity(fftSize);
         for (int i = 0; i < fftSize; i++) {
-            fftDS.append(i * hzPerDataPoint, 0d);
+            fftDS.append((i+1) * hzPerDataPoint, 0d);
         }
 
-        final FastColumnRenderableSeries rs = sciChartBuilder.newColumnSeries()
+        final FastMountainRenderableSeries rs = sciChartBuilder.newMountainSeries()
                 .withDataSeries(fftDS)
-                .withPaletteProvider(new FFTPaletteProvider())
+                .withStrokeStyle(new SolidPenStyle(0xFF36B8E6, true, 3f, null))
+//                .withPaletteProvider(new FFTPaletteProvider())
                 .withZeroLine(-30) // set zero line equal to VisibleRange.Min
                 .build();
 
@@ -208,7 +252,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
                 .withMinimum(-30)
                 .withMaximum(70)
                 .withColorMap(new ColorMap(
-                        new int[]{Transparent, DarkBlue, Purple, Red, Yellow, White},
+                        new int[]{0xFF000000, 0xFF000000, 0xFF800080, 0xFFFF0000, 0xFFFFFF00, 0xFFFFFFFF},
                         new float[]{0f, 0.0001f, 0.25f, 0.50f, 0.75f, 1f}
                 )).build();
 
@@ -228,7 +272,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
         }
     }
 
-    private static class FFTPaletteProvider extends PaletteProviderBase<FastColumnRenderableSeries> implements IFillPaletteProvider, IStrokePaletteProvider {
+    private static class FFTPaletteProvider extends PaletteProviderBase<FastMountainRenderableSeries> implements IFillPaletteProvider, IStrokePaletteProvider {
         private final IntegerValues colors = new IntegerValues();
 
         private final int minColor = Green;
@@ -249,7 +293,7 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
         private final int diffBlue = maxColorBlue - minColorBlue;
 
         FFTPaletteProvider() {
-            super(FastColumnRenderableSeries.class);
+            super(FastMountainRenderableSeries.class);
         }
 
         @Override
@@ -284,11 +328,24 @@ public class AudioAnalyzerShowcaseFragment extends ShowcaseExampleBaseFragment<E
                 final double yValue = yItems[i];
                 final double fraction = (yValue - min) / diff;
 
+//                int color;
+//                if(fraction == 0.0){
+//                    color = 0xFF36B8E6;
+//                } else if(fraction <= 0.001){
+//                    color = 0xFF5D8CC2;
+//                } else if(fraction <= 0.01){
+//                    color = 0xFF8166A2;
+//                } else if(fraction <= 0.1){
+//                    color = 0xFFAE418C;
+//                } else {
+//                    color = 0xFFCA5B79;
+//                }
                 final int red = lerp(minColorRed, diffRed, fraction);
                 final int green = lerp(minColorGreen, diffGreen, fraction);
                 final int blue = lerp(minColorBlue, diffBlue, fraction);
 
                 colorItems[i] = rgb(red, green, blue);
+//                colorItems[i] = color;
             }
         }
 
