@@ -84,7 +84,7 @@ public class CreateAnnotationsDynamicallyFragment extends ExampleBaseFragment<Ex
         annotationFactory.setFactoryForAnnotationType(DefaultAnnotationFactory.BOX_ANNOTATION, (parentSurface, annotationType) -> sciChartBuilder.newBoxAnnotation().withBackgroundColor(0x6600cc00).build());
         annotationFactory.setFactoryForAnnotationType(DefaultAnnotationFactory.CUSTOM_ANNOTATION, (parentSurface, annotationType) -> {
             final ImageView annotationContent = new ImageView(getActivity());
-            annotationContent.setImageDrawable(getResources().getDrawable(R.drawable.example_scichartlogo));
+            annotationContent.setImageDrawable(getResources().getDrawable(R.drawable.app_name_with_logo));
             return sciChartBuilder.newCustomAnnotation().withContent(annotationContent).build();
         });
         annotationFactory.setFactoryForAnnotationType(DefaultAnnotationFactory.TEXT_ANNOTATION, (parentSurface, annotationType) -> sciChartBuilder.newTextAnnotation().withText("!!! Your text here !!!").build());

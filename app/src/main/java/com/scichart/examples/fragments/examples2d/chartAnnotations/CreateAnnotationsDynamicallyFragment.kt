@@ -61,7 +61,7 @@ class CreateAnnotationsDynamicallyFragment : ExampleBaseFragment<ExampleCreateAn
                 setFactoryForAnnotationType(BOX_ANNOTATION) { _, _ -> sciChartBuilder.newBoxAnnotation().withBackgroundColor(0x6600cc00).build() }
                 setFactoryForAnnotationType(CUSTOM_ANNOTATION) { _, _ ->
                     val annotationContent = ImageView(activity)
-                    annotationContent.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.example_scichartlogo, null))
+                    annotationContent.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.app_name_with_logo, null))
                     sciChartBuilder.newCustomAnnotation().withContent(annotationContent).build()
                 }
                 setFactoryForAnnotationType(TEXT_ANNOTATION) { _, _ -> sciChartBuilder.newTextAnnotation().withText("!!! Your text here !!!").build() }
