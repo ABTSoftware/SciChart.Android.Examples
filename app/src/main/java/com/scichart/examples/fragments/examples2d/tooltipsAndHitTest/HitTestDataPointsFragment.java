@@ -22,13 +22,11 @@ package com.scichart.examples.fragments.examples2d.tooltipsAndHitTest;
 
 import android.annotation.SuppressLint;
 import android.graphics.PointF;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.scichart.charting.model.dataSeries.IOhlcDataSeries;
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
@@ -52,10 +50,11 @@ import com.scichart.examples.utils.Constant;
 import com.scichart.examples.utils.interpolator.DefaultInterpolator;
 
 import java.util.Collections;
+import java.util.Locale;
 
 @SuppressLint("ClickableViewAccessibility")
 public class HitTestDataPointsFragment extends ExampleSingleChartBaseFragment implements View.OnTouchListener {
-    private Toast toast;
+    private AlertDialog alertDialog;
 
     private final PointF touchPoint = new PointF();
     private final HitTestInfo hitTestInfo = new HitTestInfo();
@@ -136,22 +135,43 @@ public class HitTestDataPointsFragment extends ExampleSingleChartBaseFragment im
         touchPoint.set(event.getX(), event.getY());
         surface.translatePoint(touchPoint, surface.getRenderableSeriesArea());
 
+        boolean hasHitAnySeries = false;
+
         final StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(String.format("Touch at: (%.1f, %.1f)", touchPoint.x, touchPoint.y));
-
+        stringBuilder.append(String.format(Locale.getDefault(),"Touch at: (%.1f, %.1f)", touchPoint.x, touchPoint.y));
+        stringBuilder.append("\n \nRenderable Series hit:");
         for (IRenderableSeries renderableSeries : surface.getRenderableSeries()) {
             renderableSeries.hitTest(hitTestInfo, touchPoint.x, touchPoint.y, 30);
 
-            stringBuilder.append(String.format("\n%s - %s", renderableSeries.getClass().getSimpleName(), Boolean.toString(hitTestInfo.isHit)));
+//            stringBuilder.append(String.format("\n%s - %s", renderableSeries.getClass().getSimpleName(), Boolean.toString(hitTestInfo.isHit)));
+            if(hitTestInfo.isHit){
+                hasHitAnySeries = true;
+                stringBuilder.append(
+                        String.format(
+                            Locale.getDefault(),
+                            "\n\n%s at index %d",
+                            renderableSeries.getClass().getSimpleName(),
+                            hitTestInfo.dataSeriesIndex
+                        )
+                );
+            }
+        }
+        if(!hasHitAnySeries){
+            stringBuilder.append("\n\nNo hit registered on a renderableSeries");
         }
 
-        if(toast != null) toast.cancel();
+        if(alertDialog != null && alertDialog.isShowing()){
+            return true;
+        }
 
-        toast = Toast.makeText(getActivity(), null, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-        toast.setText(stringBuilder.toString());
-        toast.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity(), R.style.SciChart_ExportProgressDialogStyle);
+
+        builder.setTitle("Hit Test");
+        builder.setMessage(stringBuilder.toString());
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
+        alertDialog = builder.create();
+        alertDialog.show();
 
         return true;
     }

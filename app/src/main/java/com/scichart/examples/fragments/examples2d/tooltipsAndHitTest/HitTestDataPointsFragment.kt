@@ -20,12 +20,11 @@
 package com.scichart.examples.fragments.examples2d.tooltipsAndHitTest.kt
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.graphics.PointF
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.DecelerateInterpolator
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.axes.AxisAlignment.Bottom
 import com.scichart.charting.visuals.axes.AxisAlignment.Left
@@ -36,11 +35,27 @@ import com.scichart.examples.R
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment
 import com.scichart.examples.utils.Constant
 import com.scichart.examples.utils.interpolator.DefaultInterpolator
-import com.scichart.examples.utils.scichartExtensions.*
+import com.scichart.examples.utils.scichartExtensions.SolidBrushStyle
+import com.scichart.examples.utils.scichartExtensions.SolidPenStyle
+import com.scichart.examples.utils.scichartExtensions.ellipsePointMarker
+import com.scichart.examples.utils.scichartExtensions.fastCandlestickRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastColumnRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastLineRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastMountainRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.numericAxis
+import com.scichart.examples.utils.scichartExtensions.ohlcDataSeries
+import com.scichart.examples.utils.scichartExtensions.renderableSeries
+import com.scichart.examples.utils.scichartExtensions.scaleAnimation
+import com.scichart.examples.utils.scichartExtensions.setSize
+import com.scichart.examples.utils.scichartExtensions.suspendUpdates
+import com.scichart.examples.utils.scichartExtensions.xAxes
+import com.scichart.examples.utils.scichartExtensions.xyDataSeries
+import com.scichart.examples.utils.scichartExtensions.yAxes
+import java.util.Locale
 
 @SuppressLint("ClickableViewAccessibility")
 class HitTestDataPointsFragment: ExampleSingleChartBaseFragment(), View.OnTouchListener {
-    private var toast: Toast? = null
+    private var alertDialog: AlertDialog? = null
 
     private val touchPoint = PointF()
     private val hitTestInfo = HitTestInfo()
@@ -124,25 +139,51 @@ class HitTestDataPointsFragment: ExampleSingleChartBaseFragment(), View.OnTouchL
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         val surface = v as SciChartSurface
 
+        var hasHitAnySeries = false
+
         event?.run { touchPoint.set(x, y) }
         surface.translatePoint(touchPoint, surface.renderableSeriesArea)
 
         val stringBuilder = StringBuilder()
 
-        stringBuilder.append(String.format("Touch at: (%.1f, %.1f)", touchPoint.x, touchPoint.y))
+        stringBuilder.append(String.format(Locale.getDefault(),"Touch at: (%.1f, %.1f)", touchPoint.x, touchPoint.y))
+        stringBuilder.append("\n \nRenderable Series hit:")
 
         for (renderableSeries in surface.renderableSeries) {
             renderableSeries.hitTest(hitTestInfo, touchPoint.x, touchPoint.y, 30f)
-            stringBuilder.append(String.format("\n%s - %s", renderableSeries.javaClass.simpleName, java.lang.Boolean.toString(hitTestInfo.isHit)))
+//            stringBuilder.append(String.format("\n%s - %s", renderableSeries.javaClass.simpleName, java.lang.Boolean.toString(hitTestInfo.isHit)))
+            //            stringBuilder.append(String.format("\n%s - %s", renderableSeries.getClass().getSimpleName(), Boolean.toString(hitTestInfo.isHit)));
+            if (hitTestInfo.isHit) {
+                hasHitAnySeries = true
+                stringBuilder.append(
+                    String.format(
+                        Locale.getDefault(),
+                        "\n\n%s at index %d",
+                        renderableSeries.javaClass.simpleName,
+                        hitTestInfo.dataSeriesIndex
+                    )
+                )
+            }
         }
 
-        toast?.run { cancel() }
-
-        toast = Toast.makeText(activity, null, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.TOP or Gravity.CENTER, 0, 0)
-            setText(stringBuilder.toString())
-            show()
+        if (!hasHitAnySeries) {
+            stringBuilder.append("\n\nNo hit registered on a renderableSeries")
         }
+
+        if (alertDialog?.isShowing() == true) {
+            return true
+        }
+
+        val builder =
+            AlertDialog.Builder(requireActivity(), R.style.SciChart_ExportProgressDialogStyle)
+
+        builder.setTitle("Hit Test")
+        builder.setMessage(stringBuilder.toString())
+        builder.setPositiveButton(
+            "OK"
+        ) { dialog: DialogInterface, which: Int -> dialog.dismiss() }
+        alertDialog = builder.create()
+        alertDialog?.show()
 
         return true
     }
