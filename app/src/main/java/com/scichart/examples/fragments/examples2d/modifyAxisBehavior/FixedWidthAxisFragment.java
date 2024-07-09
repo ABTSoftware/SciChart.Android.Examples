@@ -19,20 +19,37 @@
 
 package com.scichart.examples.fragments.examples2d.modifyAxisBehavior;
 
+import android.app.Dialog;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.SeekBar;
+
 import androidx.annotation.NonNull;
 
 import com.scichart.charting.model.dataSeries.IXyDataSeries;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.axes.AutoRange;
+import com.scichart.charting.visuals.axes.AxisAlignment;
+import com.scichart.charting.visuals.axes.AxisTickLabelStyle;
 import com.scichart.charting.visuals.axes.NumericAxis;
 import com.scichart.charting.visuals.pointmarkers.EllipsePointMarker;
 import com.scichart.charting.visuals.pointmarkers.IPointMarker;
 import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
 import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
+import com.scichart.examples.R;
 import com.scichart.examples.fragments.base.ExampleSingleChartBaseFragment;
+import com.scichart.examples.utils.ItemSelectedListenerBase;
+import com.scichart.examples.utils.SeekBarChangeListenerBase;
+import com.scichart.examples.utils.ViewSettingsUtil;
+import com.scichart.examples.utils.widgetgeneration.ImageViewWidget;
+import com.scichart.examples.utils.widgetgeneration.Widget;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -41,7 +58,7 @@ import java.util.concurrent.TimeUnit;
 public class FixedWidthAxisFragment extends ExampleSingleChartBaseFragment {
 
     private final static int FIFO_CAPACITY = 50;
-    private final static long TIME_INTERVAL = 30;
+    private final static long TIME_INTERVAL = 500;
 
     private final IXyDataSeries<Double, Double> ds1 = sciChartBuilder.newXyDataSeries(Double.class, Double.class).withFifoCapacity(FIFO_CAPACITY).build();
     private final ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
@@ -50,6 +67,22 @@ public class FixedWidthAxisFragment extends ExampleSingleChartBaseFragment {
     private Double index = 0.0;
     private Double value = 0.0;
     private Boolean isIncreasing = true;
+
+    private int yAxisAlignment = 0;
+    private int xAxisAlignment = 0;
+
+    private int xAxisSize = 200;
+    private int yAxisSize = 200;
+    private NumericAxis xAxis;
+    private NumericAxis yAxis;
+
+    @NonNull
+    @Override
+    public List<Widget> getToolbarItems() {
+        return new ArrayList<Widget>() {{
+            add(new ImageViewWidget.Builder().setId(R.drawable.example_toolbar_settings).setListener(v -> openSettingsDialog()).build());
+        }};
+    }
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
@@ -64,9 +97,19 @@ public class FixedWidthAxisFragment extends ExampleSingleChartBaseFragment {
                 .withDataSeries(ds1)
                 .build();
 
-        NumericAxis xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
-        NumericAxis yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
-        yAxis.setFixedSize(200);
+        xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
+        xAxis.setFixedSize(xAxisSize);
+        xAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                Gravity.TOP,
+                0,0,0,0
+        ));
+
+        yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
+        yAxis.setFixedSize(yAxisSize);
+        yAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                Gravity.LEFT,
+                0,0,0,0
+        ));
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);
@@ -96,5 +139,98 @@ public class FixedWidthAxisFragment extends ExampleSingleChartBaseFragment {
             value -= 1.0;
         }
     };
+
+    private void openSettingsDialog() {
+        final Dialog dialog = ViewSettingsUtil.createSettingsPopup(getActivity(), R.layout.example_fixed_width_popup_layout);
+
+        // For X Axis
+        ViewSettingsUtil.setUpSpinner(dialog, R.id.xAxisAlignmentSelector, R.array.x_axis_alignment_list, xAxisAlignment, new ItemSelectedListenerBase() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                UpdateSuspender.using(binding.surface, ()->{
+                    switch (position) {
+                        case 0:
+                            xAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                                    Gravity.TOP,
+                                    0,0,0,0
+                            ));
+                            xAxisAlignment = 0;
+                            break;
+                        case 1:
+                            xAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                                    Gravity.CENTER,
+                                    0,0,0,0
+                            ));
+                            xAxisAlignment = 1;
+                            break;
+                        case 2:
+                            xAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                                    Gravity.BOTTOM,
+                                    0,0,0,0
+                            ));
+                            xAxisAlignment = 2;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+        });
+        ViewSettingsUtil.setUpSeekBar(dialog, R.id.x_axis_width_seek_bar, xAxisSize, new SeekBarChangeListenerBase() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                UpdateSuspender.using(binding.surface, ()->{
+                    xAxis.setFixedSize(progress);
+                    xAxisSize = progress;
+                });
+            }
+        });
+
+        // For Y Axis
+        ViewSettingsUtil.setUpSpinner(dialog, R.id.yAxisAlignmentSelector, R.array.y_axis_alignment_list, yAxisAlignment, new ItemSelectedListenerBase() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                UpdateSuspender.using(binding.surface, ()->{
+                    switch (position) {
+                        case 0:
+                            yAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                                    Gravity.LEFT,
+                                    0,0,0,0
+                            ));
+                            yAxisAlignment = 0;
+                            break;
+                        case 1:
+                            yAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                                    Gravity.CENTER,
+                                    0,0,0,0
+                            ));
+                            yAxisAlignment = 1;
+                            break;
+                        case 2:
+                            yAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
+                                    Gravity.RIGHT,
+                                    0,0,0,0
+                            ));
+                            yAxisAlignment = 2;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
+        });
+        ViewSettingsUtil.setUpSeekBar(dialog, R.id.y_axis_width_seek_bar, yAxisSize, new SeekBarChangeListenerBase() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                UpdateSuspender.using(binding.surface, ()->{
+                    yAxis.setFixedSize(progress);
+                    yAxisSize = progress;
+                });
+            }
+        });
+
+
+        dialog.show();
+    }
 
 }
