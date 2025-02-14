@@ -28,11 +28,14 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.AnnotationCoordinateMode;
+import com.scichart.charting.visuals.annotations.AnnotationSurfaceEnum;
+import com.scichart.charting.visuals.annotations.ContentModeEnum;
 import com.scichart.charting.visuals.annotations.HorizontalAnchorPoint;
 import com.scichart.charting.visuals.annotations.LabelPlacement;
 import com.scichart.charting.visuals.annotations.VerticalAnchorPoint;
@@ -82,6 +85,14 @@ public class AnnotationsAreEasyFragment extends ExampleSingleChartBaseFragment {
                             .withVerticalAnchorPoint(VerticalAnchorPoint.Center)
                             .withText("Create \n Watermarks")
                             .withTextGravity(Gravity.CENTER)
+                            .build(),
+
+                    // Image annotation
+                    sciChartBuilder.newImageAnnotation()
+                            .withImage(R.drawable.image_annotation_bird)
+                            .withContentMode(ImageView.ScaleType.FIT_START)
+                            .withAnnotationSurface(AnnotationSurfaceEnum.BelowChart)
+                            .withPosition(0d, 0d, 7d, 4d)
                             .build(),
 
                     // Text annotations

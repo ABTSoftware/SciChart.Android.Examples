@@ -67,35 +67,31 @@ public class AxisRotationFragment extends ExampleSingleChartBaseFragment {
 
     @Override
     protected void initExample(@NonNull SciChartSurface surface) {
-        AxisTickLabelStyle rightStyle = new AxisTickLabelStyle(
-                Gravity.RIGHT,
-                0,0,0,0
-        );
 
         final DateAxis xTopAxis = sciChartBuilder.newDateAxis()
                 .withAxisAlignment(AxisAlignment.Top)
                 .withAxisId(X_TOP_AXIS)
                 .withTextColor(0xFF279B27)
+                .withAxisTickLabelStyle(Gravity.RIGHT, 0,0,0,0)
+                .withAxisLabelRotation(30)
                 .build();
-        xTopAxis.setAxisTickLabelStyle(rightStyle);
         xTopAxis.setAutoTicks(false);
         xTopAxis.setMajorDelta(new Date(20L * 24L * 60L * 60L * 1000L));
         xTopAxis.setMinorDelta(new Date(5L * 24L * 60L * 60L * 1000L));
         xTopAxis.setIsLabelCullingEnabled(false);
         xTopAxis.setAutoFitMarginalLabels(false);
-        xTopAxis.setAxisLabelRotation(30);
 
         final DateAxis xBottomAxis = sciChartBuilder.newDateAxis()
                 .withAxisAlignment(AxisAlignment.Bottom)
                 .withAxisId(X_BOTTOM_AXIS)
                 .withTextColor(0xFFFF1919)
+                .withAxisLabelRotation(90)
                 .build();
         xBottomAxis.setAutoTicks(false);
         xBottomAxis.setMajorDelta(new Date(10L * 24L * 60L * 60L * 1000L));
         xBottomAxis.setMinorDelta(new Date(5L * 24L * 60L * 60L * 1000L));
         xBottomAxis.setAutoFitMarginalLabels(false);
         xBottomAxis.setIsLabelCullingEnabled(false);
-        xBottomAxis.setAxisLabelRotation(90);
 
         final NumericAxis yLeftAxis = sciChartBuilder.newNumericAxis()
                 .withGrowBy(new DoubleRange(0.1d, 0.1d))
@@ -103,8 +99,8 @@ public class AxisRotationFragment extends ExampleSingleChartBaseFragment {
                 .withAxisId(Y_LEFT_AXIS)
                 .withTextFormatting("#.0")
                 .withTextColor(0xFFFC9C29)
+                .withAxisLabelRotation(45)
                 .build();
-        yLeftAxis.setAxisLabelRotation(45);
 
         final NumericAxis yRightAxis = sciChartBuilder.newNumericAxis()
                 .withGrowBy(new DoubleRange(0.1d, 0.1d))
@@ -112,8 +108,8 @@ public class AxisRotationFragment extends ExampleSingleChartBaseFragment {
                 .withAxisId(Y_RIGHT_AXIS)
                 .withTextFormatting("#.0")
                 .withTextColor(0xFF4083B7)
+                .withAxisLabelRotation(90)
                 .build();
-        yRightAxis.setAxisLabelRotation(90);
 
         final IXyDataSeries<Date, Double> ds1 = sciChartBuilder.newXyDataSeries(Date.class, Double.class).withSeriesName("Red line").build();
         final IXyDataSeries<Date, Double> ds2 = sciChartBuilder.newXyDataSeries(Date.class, Double.class).withSeriesName("Green line").build();

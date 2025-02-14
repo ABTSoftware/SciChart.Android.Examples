@@ -23,6 +23,7 @@ import android.content.Context
 import android.graphics.*
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.annotations.*
 import com.scichart.data.model.DoubleRange
@@ -62,6 +63,15 @@ class AnnotationsAreEasyFragment : ExampleSingleChartBaseFragment() {
                     text = "Create \n Watermarks"
                     textGravity = Gravity.CENTER
                 }
+
+                // Image annotation
+                imageAnnotation {
+                    image = R.drawable.image_annotation_bird
+                    setContentMode(ImageView.ScaleType.FIT_START)
+                    annotationSurface = AnnotationSurfaceEnum.BelowChart
+                    x1 = 0; y1 = 0; x2 = 7; y2 = 4
+                }
+
                 // Text annotations
                 textAnnotation {
                     x1 = 0.3; y1 = 9.7

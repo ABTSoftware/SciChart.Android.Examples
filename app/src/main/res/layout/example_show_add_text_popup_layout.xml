@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2024. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- example_show_add_text_popup_layout.xml is part of SCICHART®, High Performance Scientific Charts -->
+<!-- For full terms and conditions of the license, see http://www.scichart.com/scichart-eula/ -->
+<!--  -->
+<!-- This source code is protected by international copyright law. Unauthorized -->
+<!-- reproduction, reverse-engineering, or distribution of all or any portion of -->
+<!-- this source code is strictly prohibited. -->
+<!--  -->
+<!-- This source code contains confidential and proprietary trade secrets of -->
+<!-- SciChart Ltd., and should at no time be copied, transferred, sold, -->
+<!-- distributed or made available without express written permission. -->
+<!--*************************************************************************-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+
+   android:background="@drawable/example_popup_background"
+    tools:ignore="MissingDefaultResource"> <!-- Set background color here -->
+
+    <EditText
+        android:id="@+id/editTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:hint="Enter text"
+
+        android:textColorHint="@android:color/white"
+        android:lineSpacingExtra="8dp"
+        android:textColor="@android:color/white" /> <!-- Set text color here -->
+
+</LinearLayout>

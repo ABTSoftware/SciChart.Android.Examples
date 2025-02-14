@@ -332,6 +332,8 @@
     <string name="spo2">SPO<small><small><small><sub>2</sub></small></small></small></string>
     <string name="spoInfo">71-\nRESP</string>
     <string name="heart_icon_description">heart icon</string>
+    <string name="dynamic_line_annotation_helper_text">The line has a label that you can touch to edit,\nwhich is only shown when the line is selected.\nPress the Add Line button to create your own line.</string>
+    <string name="description">Description</string>
     <!-- end: ECG showcase example -->
 
 </resources>

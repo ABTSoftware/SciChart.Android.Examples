@@ -191,4 +191,10 @@
         <item name="android:windowMinWidthMajor">80%</item>
         <item name="android:windowMinWidthMinor">80%</item>
     </style>
+
+    <style name="SciChart_Image_Annotation" parent="SciChart_NavyBlue">
+        <!-- Background defaults -->
+        <item name="sciChartBackground">@drawable/bg_image_annotations</item>
+
+    </style>
 </resources>

@@ -37,9 +37,9 @@ class AddPointsPerformanceChartFragment: ExampleBaseFragment<ExampleAddPointsPer
     }
 
     override fun initExample(binding: ExampleAddPointsPerformanceFragmentBinding) {
-        binding.append10k.setOnClickListener { onAppendPoints(10000) }
-        binding.append100k.setOnClickListener { onAppendPoints(10000) }
-        binding.appendMLN.setOnClickListener { onAppendPoints(1000000) }
+        binding.append10k.setOnClickListener { onAppendPoints(10_000) }
+        binding.append100k.setOnClickListener { onAppendPoints(100_000) }
+        binding.appendMLN.setOnClickListener { onAppendPoints(1_000_000) }
         binding.reset.setOnClickListener { onReset() }
 
         binding.surface.suspendUpdates {

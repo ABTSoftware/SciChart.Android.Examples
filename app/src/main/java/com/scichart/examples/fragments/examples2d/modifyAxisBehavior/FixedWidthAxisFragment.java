@@ -97,19 +97,19 @@ public class FixedWidthAxisFragment extends ExampleSingleChartBaseFragment {
                 .withDataSeries(ds1)
                 .build();
 
-        xAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
-        xAxis.setFixedSize(xAxisSize);
-        xAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
-                Gravity.TOP,
-                0,0,0,0
-        ));
+        xAxis = sciChartBuilder
+                .newNumericAxis()
+                .withAutoRangeMode(AutoRange.Always)
+                .withAxisTickLabelStyle(Gravity.TOP, 0,0,0,0)
+                .withFixedSize(xAxisSize)
+                .build();
 
-        yAxis = sciChartBuilder.newNumericAxis().withAutoRangeMode(AutoRange.Always).build();
-        yAxis.setFixedSize(yAxisSize);
-        yAxis.setAxisTickLabelStyle(new AxisTickLabelStyle(
-                Gravity.LEFT,
-                0,0,0,0
-        ));
+        yAxis = sciChartBuilder
+                .newNumericAxis()
+                .withAutoRangeMode(AutoRange.Always)
+                .withAxisTickLabelStyle(Gravity.LEFT, 0,0,0,0)
+                .withFixedSize(yAxisSize)
+                .build();
 
         UpdateSuspender.using(surface, () -> {
             Collections.addAll(surface.getXAxes(), xAxis);

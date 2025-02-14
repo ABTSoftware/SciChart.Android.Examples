@@ -1,0 +1,28 @@
+<!--*************************************************************************-->
+<!-- SCICHART® Copyright SciChart Ltd. 2011-2017. All rights reserved. -->
+<!--   -->
+<!-- Web: http://www.scichart.com -->
+<!-- Support: support@scichart.com -->
+<!-- Sales:   sales@scichart.com -->
+<!--  -->
+<!-- Selectable_Annotation_with_Editable_label.xml is part of the SCICHART® Examples. Permission is hereby granted -->
+<!-- to modify, create derivative works, distribute and publish any part of this source -->
+<!-- code whether for commercial, private or personal use. -->
+<!--  -->
+<!-- The SCICHART® examples are distributed in the hope that they will be useful, but -->
+<!-- without any warranty. It is provided "AS IS" without warranty of any kind, either -->
+<!-- expressed or implied. -->
+<!--*************************************************************************-->
+
+<ExampleDefinition>
+    <Title>Selectable Annotation with Editable label</Title>
+    <IconPath>ic_annotations_feature</IconPath>
+    <Description>
+        Demonstrates the Modifiers API to create Line with label Annotations dynamically.
+    </Description>
+    <FileName>SelectableAnnotationWithEditableLabelFragment</FileName>
+    <Features>
+        <Features>Annotations</Features>
+    </Features>
+    <IsVisible>true</IsVisible>
+</ExampleDefinition>

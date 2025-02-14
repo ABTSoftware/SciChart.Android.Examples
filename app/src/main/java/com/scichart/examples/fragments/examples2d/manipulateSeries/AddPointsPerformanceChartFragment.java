@@ -52,7 +52,7 @@ public class AddPointsPerformanceChartFragment extends ExampleBaseFragment<Examp
     @Override
     protected void initExample(ExampleAddPointsPerformanceFragmentBinding binding) {
         binding.append10k.setOnClickListener(v -> onAppendPoints(10_000));
-        binding.append100k.setOnClickListener(v -> onAppendPoints(100_00));
+        binding.append100k.setOnClickListener(v -> onAppendPoints(100_000));
         binding.appendMLN.setOnClickListener(v -> onAppendPoints(1_000_000));
         binding.reset.setOnClickListener(v -> onReset());
 

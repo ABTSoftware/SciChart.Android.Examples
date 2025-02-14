@@ -204,6 +204,7 @@ fun SciChartSurface.annotations(init: CollectionContext<IAnnotation>.() -> Unit)
     CollectionContext<IAnnotation>(annotations, context).init()
 }
 fun <T : IAnnotation> CollectionContext<IAnnotation>.annotation(annotation: T) { collection.add(annotation) }
+fun CollectionContext<IAnnotation>.imageAnnotation(init: ImageAnnotation.() -> Unit) = collection.add(ImageAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.textAnnotation(init: TextAnnotation.() -> Unit) = collection.add(TextAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.axisMarkerAnnotation(init: AxisMarkerAnnotation.() -> Unit) = collection.add(AxisMarkerAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.lineAnnotation(init: LineAnnotation.() -> Unit) = collection.add(LineAnnotation(context).apply(init))

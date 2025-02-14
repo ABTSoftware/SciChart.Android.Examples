@@ -27,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -163,6 +164,8 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
     private List<Widget> getAppWideWidgets() {
         ArrayList<Widget> widgets = new ArrayList<>();
 
+        widgets.add(new ImageViewWidget.Builder().setId(R.drawable.baseline_info_24).setListener(v -> openDescriptionInfoDialog()).build());
+
         widgets.add(new ImageViewWidget.Builder().setId(R.drawable.example_toolbar_show_code).setListener(v -> {
             final Module module = SciChartApp.getInstance().getModule();
             final String githubLink = module.getGitHubLink(example);
@@ -173,7 +176,17 @@ public abstract class ExampleActivityBase extends AppCompatActivity {
 
         widgets.add(new ImageViewWidget.Builder().setId(R.drawable.ic_build_white_48px).setListener(v -> openDevModeSettingsDialog()).build());
 
+
         return widgets;
+    }
+
+    private void openDescriptionInfoDialog() {
+        final Dialog dialog = ViewSettingsUtil.createSettingsPopup(this, R.layout.example_description_info_popup_layout);
+
+        TextView description = dialog.findViewById(R.id.description_body);
+        description.setText(example.description);
+
+        dialog.show();
     }
 
     private void openDevModeSettingsDialog() {
