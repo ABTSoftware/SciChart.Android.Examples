@@ -19,16 +19,20 @@
 
 package com.scichart.examples.demo;
 
-import android.test.InstrumentationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
 import junit.framework.Assert;
 
+import org.junit.runner.RunWith;
+
 import java.util.List;
 
-public class ExampleLoaderTests extends InstrumentationTestCase {
+@RunWith(AndroidJUnit4.class)
+public class ExampleLoaderTests {
 
     public void testParseAllExamplesWithoutException() {
-        final ExampleLoader exampleLoader = new ExampleLoader(getInstrumentation().getTargetContext());
+        final ExampleLoader exampleLoader = new ExampleLoader(InstrumentationRegistry.getInstrumentation().getTargetContext());
         final List<String> xmlPaths = exampleLoader.discoverAllXmlFiles();
         Assert.assertNotSame(xmlPaths.size(), 0);
         for (String xmlPath : xmlPaths) {
