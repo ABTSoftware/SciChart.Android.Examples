@@ -269,7 +269,6 @@ public class SelectableAnnotationWithEditableLabelFragment extends ExampleBaseFr
     @Override
     public void onAnnotationCreated(IAnnotation newAnnotation) {
         if (newAnnotation instanceof LineAnnotation) {
-            Log.d("SciChart", "MinY: " + ((LineAnnotation) newAnnotation).getY1() + ", MaxY: " + ((LineAnnotation) newAnnotation).getY1());
             String initialText = "+ Add text";
             TextAnnotation textAnnotation = addPlaceholderText((LineAnnotation) newAnnotation,initialText);
             lineToTextMap.put((LineAnnotation) newAnnotation, textAnnotation);
@@ -283,13 +282,11 @@ public class SelectableAnnotationWithEditableLabelFragment extends ExampleBaseFr
                     selectedAnnotation = annotation;
                     lineToTextMap.get(annotation).isActivated();
                     lineToTextMap.get(annotation).setIsHidden(false);
-                    Log.d("New Annotation", "Yes it is activated");
                 }
 
                 @Override
                 public void onUnselected(IAnnotation annotation) {
                     lineToTextMap.get(annotation).setIsHidden(true);
-                    Log.d("New Annotation", "Yes it is hidden");
                 }
             });
 
@@ -299,7 +296,6 @@ public class SelectableAnnotationWithEditableLabelFragment extends ExampleBaseFr
                     if (annotation instanceof LineAnnotation) {
                         // Example: Log the drag start
                         newAnnotation.setIsEditable(false);
-                        Log.d("SciChart", "Drag started for LineAnnotation");
                     }
                 }
 

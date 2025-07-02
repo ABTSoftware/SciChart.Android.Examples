@@ -131,8 +131,6 @@ class RealTimeMinMaxAnnotationFragment : ExampleSingleChartBaseFragment() {
             val maxX = ds1.xValues[maxIndex]
             val minAnnotationY = minY - (maxY - minY) * 0.02// Move min annotation higher by 5% of the range
             val maxAnnotationY = maxY + (maxY - minY) * 0.02
-            // Log values to debug
-            Log.d("SciChart", "Min: x=$minX, y=$minY, Max: x=$maxX, y=$maxY")
 
             minAnnotation.text = String.format("Min: %.2f", minY)
             minAnnotation.x1 = minX

@@ -270,12 +270,10 @@ class SelectableAnnotationWithEditableLabelFragment : ExampleBaseFragment<Fragme
 
                     lineToTextMap[annotation]?.setIsHidden(false)
 
-                    Log.d("New Anonation", "Yes it is activeted")
                 }
 
                 override fun onUnselected(p0: IAnnotation) {
                     lineToTextMap[p0]?.setIsHidden(true)
-                    Log.d("New Anonation", "Yes it is isHidden")
 
                 }
             })
@@ -287,7 +285,6 @@ class SelectableAnnotationWithEditableLabelFragment : ExampleBaseFragment<Fragme
                     if (annotation is LineAnnotation) {
                         // Example: Log the drag start
                         newAnnotation.setIsEditable(false)
-                        Log.d("SciChart", "Drag started for LineAnnotation")
                     }
                 }
 
