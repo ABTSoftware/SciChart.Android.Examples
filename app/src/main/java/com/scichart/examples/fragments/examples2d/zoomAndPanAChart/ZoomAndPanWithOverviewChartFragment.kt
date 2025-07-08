@@ -38,6 +38,7 @@ import com.scichart.data.model.DoubleRange
 import com.scichart.data.model.ISciList
 import com.scichart.drawing.utility.ColorUtil
 import com.scichart.examples.data.DataManager
+import com.scichart.examples.data.RandomWalkGenerator
 import com.scichart.examples.databinding.ExampleZoomAndPanWithOverviewChartFragmentBinding
 import com.scichart.examples.fragments.base.ExampleBaseFragment
 import com.scichart.examples.utils.scichartExtensions.OhlcDataSeries
@@ -48,7 +49,9 @@ import com.scichart.examples.utils.scichartExtensions.chartModifiers
 import com.scichart.examples.utils.scichartExtensions.dateAxis
 import com.scichart.examples.utils.scichartExtensions.defaultModifiers
 import com.scichart.examples.utils.scichartExtensions.fastCandlestickRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastColumnRenderableSeries
 import com.scichart.examples.utils.scichartExtensions.fastLineRenderableSeries
+import com.scichart.examples.utils.scichartExtensions.fastMountainRenderableSeries
 import com.scichart.examples.utils.scichartExtensions.indexDateAxis
 import com.scichart.examples.utils.scichartExtensions.numericAxis
 import com.scichart.examples.utils.scichartExtensions.pinchZoomModifier
@@ -65,46 +68,37 @@ import java.util.Locale
 
 class ZoomAndPanWithOverviewChartFragment : ExampleBaseFragment<ExampleZoomAndPanWithOverviewChartFragmentBinding>() {
 
-    val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.US)
-
     override fun inflateBinding(inflater: LayoutInflater): ExampleZoomAndPanWithOverviewChartFragmentBinding {
         return ExampleZoomAndPanWithOverviewChartFragmentBinding.inflate(inflater)
     }
 
     override fun initExample(binding: ExampleZoomAndPanWithOverviewChartFragmentBinding) {
 
-        val historicalData = OhlcDataSeries<Date, Double>()
-        val movingAverageData = XyDataSeries<Date, Double>()
-        val localMinMaxData = XyDataSeries<Date, Double>()
 
-        val priceSeries = DataManager.getInstance().getPriceAAPL(activity)
-        val movingAverages = DataManager.getInstance().computeMovingAverageInPriceSeries(priceSeries, 14)
+        val randomWalkGenerator1 = RandomWalkGenerator()
+        val data1 = randomWalkGenerator1.getRandomWalkSeries(POINTS_COUNT)
 
-        val size = priceSeries.size
-        val dateData = priceSeries.dateData
+        val randomWalkGenerator2 = RandomWalkGenerator()
+        val data2 = randomWalkGenerator2.getRandomWalkSeries(POINTS_COUNT)
 
-        historicalData.append(dateData, priceSeries.openData, priceSeries.highData, priceSeries.lowData, priceSeries.closeData)
-        movingAverageData.append(movingAverages.dateData, movingAverages.closeData)
+        val randomWalkGenerator3 = RandomWalkGenerator()
+        val data3 = randomWalkGenerator3.getRandomWalkSeries(POINTS_COUNT)
 
-        // append local min and max values
-        try {
-            localMinMaxData.append(dateFormat.parse("2023.01.03"), 124.17)
-            localMinMaxData.append(dateFormat.parse("2023.02.03"), 157.38)
-            localMinMaxData.append(dateFormat.parse("2023.03.02"), 143.90)
-            localMinMaxData.append(dateFormat.parse("2023.03.06"), 156.30)
-            localMinMaxData.append(dateFormat.parse("2023.03.13"), 147.70)
-            localMinMaxData.append(dateFormat.parse("2023.03.22"), 162.14)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        val ds1 = XyDataSeries<Double, Double>()
+        ds1.seriesName = "Line Series"
+        ds1.append(data1.xValues, data1.yValues)
 
-        val indexDataProvider: IIndexDataProvider = DataSeriesIndexDataProvider(historicalData)
+        val ds2 = XyDataSeries<Double, Double>()
+        ds2.seriesName = "Mountain Series"
+        ds2.append(data2.xValues, data2.yValues)
+
+        val ds3 = XyDataSeries<Double, Double>()
+        ds3.seriesName = "Column Series"
+        ds3.append(data3.xValues, data3.yValues)
 
         binding.surface.suspendUpdates {
             xAxes {
-                indexDateAxis {
-                    visibleRange = DateRange(dateData[size - 30], dateData[size - 1])
-                    setIndexDataProvider(indexDataProvider)
+                numericAxis {
                 }
             }
             yAxes {
@@ -112,57 +106,28 @@ class ZoomAndPanWithOverviewChartFragment : ExampleBaseFragment<ExampleZoomAndPa
                 }
             }
             renderableSeries {
-                fastCandlestickRenderableSeries {
-                    dataSeries = historicalData
-
-                    strokeUpStyle = SolidPenStyle(0xFF00AA00)
-                    fillUpBrushStyle = SolidBrushStyle(0xAA00AA00)
-                    strokeDownStyle = SolidPenStyle(0xFFFF0000)
-                    fillDownBrushStyle = SolidBrushStyle(0xAAFF0000)
-
+                fastLineRenderableSeries {
+                    dataSeries = ds1
+                    strokeStyle = SolidPenStyle(0xFFFF70FF)
                 }
 
-                fastLineRenderableSeries {
-                    dataSeries = movingAverageData
-                    strokeStyle = SolidPenStyle(0xFFF48420)
+                fastMountainRenderableSeries {
+                    dataSeries = ds2
+                    strokeStyle = SolidPenStyle(0xFFe9Fe64)
                 }
 
-                fastLineRenderableSeries {
-                    dataSeries = localMinMaxData
-                    strokeStyle = SolidPenStyle(0xFF50C7E0)
-
+                fastColumnRenderableSeries {
+                    dataSeries = ds3
+                    strokeStyle = SolidPenStyle(0xFFe97064)
+                    fillBrushStyle = SolidBrushStyle(0xFFe97064)
                 }
 
             }
             chartModifiers { defaultModifiers() }
         }
-        binding.overview.setOverviewTransformation(object : ISciChartOverviewTransformation{
-            override fun transformRenderableSeries(renderableSeries: IRenderableSeries): IRenderableSeries? {
-                if(renderableSeries is FastCandlestickRenderableSeries){
-                    val ohlcData = renderableSeries.dataSeries as? OhlcDataSeries<*, *>
-
-                    // Build new XyDataSeries from Date and Close
-                    val xValues = ohlcData?.xValues
-                    val closeValues = ohlcData?.closeValues
-
-                    val lineData = XyDataSeries<Date, Double>().apply {
-                        for (i in 0 until (ohlcData?.count ?: 0)) {
-                            append(xValues?.get(i) as Date, closeValues?.get(i) as Double)
-
-                        }
-                    }
-
-                    val lineSeries = FastLineRenderableSeries().apply {
-                        dataSeries = lineData
-//                        dataSeries = renderableSeries
-                        strokeStyle = SolidPenStyle(0xFF00AA00)
-                    }
-                    return lineSeries
-                } else {
-                    return null
-                }
-            }
-        })
+        binding.overview.setOverviewTransformation { renderableSeries ->
+            return@setOverviewTransformation renderableSeries
+        }
         binding.overview.parentSurface = binding.surface
         binding.overview.setGrips(generateGrip(), generateGrip());
 
@@ -174,5 +139,9 @@ class ZoomAndPanWithOverviewChartFragment : ExampleBaseFragment<ExampleZoomAndPa
             .withVerticalGravity(Gravity.CENTER_VERTICAL)
             .withStroke(7f, ColorUtil.Grey)
             .build()
+    }
+
+    companion object {
+        private const val POINTS_COUNT = 1500
     }
 }
