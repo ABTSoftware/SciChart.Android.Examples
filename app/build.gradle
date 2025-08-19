@@ -24,8 +24,8 @@ def apkVersionCode = APK_VERSION_CODE != '' ? APK_VERSION_CODE.toInteger() : roo
 def apkVersionName = APK_VERSION_NAME != '' ? APK_VERSION_NAME : rootProject.ext.versionName
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
     defaultConfig {
         applicationId "com.scichart.examples"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -92,13 +92,13 @@ repositories {
 
 dependencies {
 //@BEGINDEPENDS
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.6.1.4887', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.6.1.4887', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.6.1.4887', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.6.1.4887', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.6.1.4887', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.6.1.4887', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.6.1.4887', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.6.1-nightly.4893', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.6.1-nightly.4893', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.6.1-nightly.4893', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.6.1-nightly.4893', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.6.1-nightly.4893', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.6.1-nightly.4893', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.6.1-nightly.4893', ext: 'aar')
 //@ENDDEPENDS
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
