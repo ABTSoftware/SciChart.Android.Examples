@@ -49,7 +49,7 @@ The SciChart Android Examples suite contain developer example code in Java to he
 ![SciChart Android Examples Suite](https://www.scichart.com/wp-content/uploads/2020/02/android-main-page-examples-min-1.png)
 
 ### SciChart Licensing
-To run the SciChart Android examples or use SciChart in your own applications, you need to set a runtime license key. You can obtain a license key by following the instructions in our [SciChart Android Licensing ](https://www.scichart.com/licensing-scichart-android/) documentation.
+To use SciChart in your own applications, you need to set a runtime license key. You can obtain a license key by following the instructions in our [SciChart Android Licensing ](https://www.scichart.com/licensing-scichart-android/) documentation.
 
 Once you have your license key, you should set it in your `Application` class before any SciChart surfaces are created. For example, in `SciChartApp.java`:
 
