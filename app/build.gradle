@@ -92,13 +92,13 @@ repositories {
 
 dependencies {
 //@BEGINDEPENDS
-    implementation (group: 'com.scichart.library', name: 'core', version: '4.7.1.4908', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.7.1.4908', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'data', version: '4.7.1.4908', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting', version: '4.7.1.4908', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.7.1.4908', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.7.1.4908', ext: 'aar')
-    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.7.1.4908', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'core', version: '4.8.0-nightly.4912', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'drawing', version: '4.8.0-nightly.4912', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'data', version: '4.8.0-nightly.4912', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting', version: '4.8.0-nightly.4912', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'charting3d', version: '4.8.0-nightly.4912', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions', version: '4.8.0-nightly.4912', ext: 'aar')
+    implementation (group: 'com.scichart.library', name: 'extensions3d', version: '4.8.0-nightly.4912', ext: 'aar')
 //@ENDDEPENDS
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'

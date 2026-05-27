@@ -32,6 +32,9 @@ import com.scichart.charting.modifiers.*
 import com.scichart.charting.visuals.SciChartSurface
 import com.scichart.charting.visuals.SciPieChartSurface
 import com.scichart.charting.visuals.annotations.*
+import com.scichart.charting.visuals.annotations.tradingAnnotations.PitchforkAnnotation
+import com.scichart.charting.visuals.annotations.tradingAnnotations.XabcdAnnotation
+import com.scichart.charting.visuals.annotations.tradingAnnotations.FreehandDrawingAnnotation
 import com.scichart.charting.visuals.axes.*
 import com.scichart.charting.visuals.legend.SciChartLegend
 import com.scichart.charting.visuals.pointmarkers.*
@@ -213,6 +216,10 @@ fun CollectionContext<IAnnotation>.boxAnnotation(init: BoxAnnotation.() -> Unit)
 fun CollectionContext<IAnnotation>.customAnnotation(init: CustomAnnotation.() -> Unit) = collection.add(CustomAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.horizontalLineAnnotation(init: HorizontalLineAnnotation.() -> Unit) = collection.add(HorizontalLineAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.verticalLineAnnotation(init: VerticalLineAnnotation.() -> Unit) = collection.add(VerticalLineAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.extendedLineAnnotation(init: ExtendedLineAnnotation.() -> Unit) = collection.add(ExtendedLineAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.xabcdAnnotation(init: XabcdAnnotation.() -> Unit) = collection.add(XabcdAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.pitchforkAnnotation(init: PitchforkAnnotation.() -> Unit) = collection.add(PitchforkAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.freehandDrawingAnnotation(init: FreehandDrawingAnnotation.() -> Unit) = collection.add(FreehandDrawingAnnotation(context).apply(init))
 
 fun LineAnnotationWithLabelsBase.annotationLabels(init: CollectionContext<AnnotationLabel>.() -> Unit) {
     CollectionContext<AnnotationLabel>(annotationLabels, context).init()
