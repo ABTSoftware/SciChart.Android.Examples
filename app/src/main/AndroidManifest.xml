@@ -91,6 +91,16 @@
             android:name=".ExceptionActivity"
             android:theme="@style/Theme_Dialog" />
 
+        <activity
+            android:name=".fragments.examples3d.aTest.Chart3DTest2Activity"
+            android:label="Second 3D Chart"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".fragments.examples3d.aTest.kt.Chart3DTest2Activity"
+            android:label="Second 3D Chart"
+            android:theme="@style/AppTheme" />
+
         <provider
             android:name=".demo.SciChartFilesProvider"
             android:authorities="com.scichart.examples.demo.SciChartFilesProvider"
