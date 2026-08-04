@@ -106,20 +106,20 @@ class RealTimeMinMaxAnnotationFragment : ExampleSingleChartBaseFragment() {
         schedule = scheduledExecutorService.scheduleWithFixedDelay(insertRunnable, 0, TIME_INTERVAL, TimeUnit.MILLISECONDS)
     }
 
-    var t = 0.0
+    var time = 0.0
     private val insertRunnable = Runnable {
         if (!isRunning) return@Runnable
 
         binding.surface.suspendUpdates {
-            val y1 = 3.0 * sin(2 * Math.PI * 1.4 * t) + random.nextDouble() * 0.5
-            val y2 = 2.0 * cos(2 * Math.PI * 0.8 * t) + random.nextDouble() * 0.5
-            val y3 = sin(2 * Math.PI * 2.2 * t) + random.nextDouble() * 0.5
-            val y4 = sin(2 * Math.PI * 2.2 * t) + random.nextDouble() * 0.5
-            ds1.append(t, y1+y2+y3+y4)
+            val y1 = 3.0 * sin(2 * Math.PI * 1.4 * time) + random.nextDouble() * 0.5
+            val y2 = 2.0 * cos(2 * Math.PI * 0.8 * time) + random.nextDouble() * 0.5
+            val y3 = sin(2 * Math.PI * 2.2 * time) + random.nextDouble() * 0.5
+            val y4 = sin(2 * Math.PI * 2.2 * time) + random.nextDouble() * 0.5
+            ds1.append(time, y1+y2+y3+y4)
 
 
-            t += ONE_OVER_TIME_INTERVAL
-            if (t > VISIBLE_RANGE_MAX) {
+            time += ONE_OVER_TIME_INTERVAL
+            if (time > VISIBLE_RANGE_MAX) {
                 xVisibleRange.setMinMax(xVisibleRange.min + ONE_OVER_TIME_INTERVAL, xVisibleRange.max + ONE_OVER_TIME_INTERVAL)
             }
             // Update annotations with new min and max values
@@ -153,7 +153,7 @@ class RealTimeMinMaxAnnotationFragment : ExampleSingleChartBaseFragment() {
         isRunning = false
 
         outState.run {
-            putDouble("time", t)
+            putDouble("time", time)
             putParcelable("xValues1", ds1.xValues)
             putParcelable("yValues1", ds1.yValues)
 
@@ -164,7 +164,7 @@ class RealTimeMinMaxAnnotationFragment : ExampleSingleChartBaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         savedInstanceState?.run {
-            t = getDouble("time")
+            time = getDouble("time")
             val xValues1: ISciList<Double> = getParcelable("xValues1")!!
             val yValues1: ISciList<Double> = getParcelable("yValues1")!!
             ds1.append(xValues1, yValues1)

@@ -93,18 +93,18 @@ class PinchZoomOnRealtimeChartFragment : ExampleSingleChartBaseFragment() {
         schedule = scheduledExecutorService.scheduleWithFixedDelay(insertRunnable, 0, TIME_INTERVAL, TimeUnit.MILLISECONDS)
     }
 
-    var t = 0.0
+    var time = 0.0
     private val insertRunnable = Runnable {
         binding.surface.suspendUpdates {
-            val y1 = 3.0 * sin(2 * Math.PI * 1.4 * t * 0.02)
-            val y2 = 2.0 * cos(2 * Math.PI * 0.8 * t * 0.02)
-            val y3 = sin(2 * Math.PI * 2.2 * t * 0.02)
+            val y1 = 3.0 * sin(2 * Math.PI * 1.4 * time * 0.02)
+            val y2 = 2.0 * cos(2 * Math.PI * 0.8 * time * 0.02)
+            val y3 = sin(2 * Math.PI * 2.2 * time * 0.02)
 
-            ds1.append(t, y1)
-            ds2.append(t, y2)
-            ds3.append(t, y3)
+            ds1.append(time, y1)
+            ds2.append(time, y2)
+            ds3.append(time, y3)
 
-            t += TIME_INTERVAL / 1000.0
+            time += TIME_INTERVAL / 1000.0
 
             if (binding.surface.gestureState == GestureState.INTERACTED) {
                 UpdateSuspender.using(binding.surface) {
@@ -138,7 +138,7 @@ class PinchZoomOnRealtimeChartFragment : ExampleSingleChartBaseFragment() {
         super.onSaveInstanceState(outState)
 
         outState.run {
-            putDouble("time", t)
+            putDouble("time", time)
             putParcelable("xValues1", ds1.xValues)
             putParcelable("yValues1", ds1.yValues)
             putParcelable("xValues2", ds2.xValues)
@@ -152,7 +152,7 @@ class PinchZoomOnRealtimeChartFragment : ExampleSingleChartBaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         savedInstanceState?.run {
-            t = getDouble("time")
+            time = getDouble("time")
             val xValues1: ISciList<Double> = getParcelable("xValues1")!!
             val yValues1: ISciList<Double> = getParcelable("yValues1")!!
             val xValues2: ISciList<Double> = getParcelable("xValues2")!!
