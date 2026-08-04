@@ -221,6 +221,7 @@ class CreateRealTimeTickingStockChartFragment: ExampleBaseFragment<ExampleRealTi
         const val STROKE_THICKNESS = 1.5f
     }
 
+    @Suppress("UNCHECKED_CAST")
     private class OverviewPrototype(val parentSurface: SciChartSurface, fakeOverviewSurface: SciChartSurface) {
         private val leftBox = generateBoxAnnotation(R.drawable.example_grayed_out_box_annotation_background)
         private val rightBox = generateBoxAnnotation(R.drawable.example_grayed_out_box_annotation_background)
@@ -228,13 +229,13 @@ class CreateRealTimeTickingStockChartFragment: ExampleBaseFragment<ExampleRealTi
         private val leftLineGrip = generateVerticalLine()
         private val rightLineGrip = generateVerticalLine()
 
-        private val parentXAxisVisibleRange: IRange<*>
-        private lateinit var overviewXAxisVisibleRange: IRange<*>
+        private val parentXAxisVisibleRange: IRange<Double>
+        private lateinit var overviewXAxisVisibleRange: IRange<Double>
         val overviewDataSeries = XyDataSeries<Date, Double>().apply { acceptsUnsortedData = true }
 
         init {
             val parentXAxis = parentSurface.xAxes[0]
-            parentXAxisVisibleRange = parentXAxis.visibleRange
+            parentXAxisVisibleRange = parentXAxis.visibleRange as IRange<Double>
 
             parentXAxis.setVisibleRangeChangeListener { _, _, newRange, _ ->
                 val newMin = newRange.minAsDouble
@@ -276,7 +277,7 @@ class CreateRealTimeTickingStockChartFragment: ExampleBaseFragment<ExampleRealTi
                     visibility = GONE
                     growBy = DoubleRange(0.0, 0.1)
 
-                    overviewXAxisVisibleRange = this.visibleRange
+                    overviewXAxisVisibleRange = this.visibleRange as IRange<Double>
                     removeAxisGridLines(this)
                 }}
                 yAxes { numericAxis {

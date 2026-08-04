@@ -23,11 +23,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.8.2'
+        classpath 'com.android.tools.build:gradle:9.1.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
     }
 }
 
@@ -38,8 +36,8 @@ java {
 
 ext {
     minSdkVersion = project.hasProperty('minSdkVersion') ? project.getProperty('minSdkVersion') : 21
-    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 35
-    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '35.0.0'
+    compileSdkVersion = project.hasProperty('compileSdkVersion') ? project.getProperty('compileSdkVersion') : 37
+    buildToolsVersion = project.hasProperty('buildToolsVersion') ? project.getProperty('buildToolsVersion') : '37.0.0'
     ndkVersion = project.hasProperty('ndkVersion') ? project.getProperty('ndkVersion') : '28.0.13004108'
 
     androidxAnnotationVersion = project.hasProperty('androidxAnnotationVersion') ? project.getProperty('androidxAnnotationVersion') : '1.1.0'
@@ -50,8 +48,8 @@ ext {
     junitTestRunnerVersion = '1.2.1'
     testRunnerVersion = '1.6.2'
     testRulesVersion = '1.6.1'
-    hamcrestVersion = '2.2'
-    mockitoVersion = '5.16.0'
+    hamcrestVersion = '3.0'
+    mockitoVersion = '5.23.0'
     robolectricVersion = '4.7.3'
     androidTestCore = '1.1.0'
 

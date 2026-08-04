@@ -61,21 +61,19 @@ public class ExceptionActivity extends Activity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sendAnEmailButton:
-                final Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "" });
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.exception_stack_trace));
-                intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message + "<br />" + stackTraceMessage));
-                startActivity(intent);
-                break;
-            case R.id.copyToClipboardButton:
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("Copied Text", Html.fromHtml(message + "<br />" + stackTraceMessage));
-                clipboard.setPrimaryClip(clip);
-                Toast.makeText(this, getResources().getString(R.string.exception_clipboard_message), Toast.LENGTH_SHORT).show();
-                break;
+        final int id = view.getId();
+        if (id == R.id.sendAnEmailButton) {
+            final Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "" });
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.exception_stack_trace));
+            intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message + "<br />" + stackTraceMessage));
+            startActivity(intent);
+        } else if (id == R.id.copyToClipboardButton) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Copied Text", Html.fromHtml(message + "<br />" + stackTraceMessage));
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, getResources().getString(R.string.exception_clipboard_message), Toast.LENGTH_SHORT).show();
         }
     }
 }
