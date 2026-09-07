@@ -123,6 +123,9 @@
         <item>XabcdAnnotation</item>
         <item>PitchforkAnnotation</item>
         <item>ExtendedLineAnnotation</item>
+        <item>FibonacciRetracementAnnotation</item>
+        <item>MeasureAnnotation</item>
+        <item>StopLossTakeProfitAnnotation</item>
     </string-array>
 
     <string name="legend_orientation">Legend orientation:</string>

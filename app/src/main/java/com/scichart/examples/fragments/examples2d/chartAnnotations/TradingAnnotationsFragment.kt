@@ -24,7 +24,9 @@ import android.view.View
 import android.widget.AdapterView
 import com.scichart.charting.modifiers.*
 import com.scichart.charting.visuals.annotations.IAnnotation
+import com.scichart.charting.visuals.annotations.tradingAnnotations.FibonacciRetracementAnnotation
 import com.scichart.charting.visuals.annotations.tradingAnnotations.models.ComparablePoint
+import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries
 import com.scichart.data.model.DoubleRange
 import com.scichart.examples.R
 import com.scichart.examples.components.SpinnerStringAdapter
@@ -40,6 +42,13 @@ class TradingAnnotationsFragment : ExampleBaseFragment<ExampleTradingAnnotations
     private val xabcdModifier = XabcdAnnotationCreationModifier()
     private val pitchforkModifier = PitchforkAnnotationCreationModifier()
     private val extendedLineModifier = ExtendedLineAnnotationCreationModifier()
+    private val fibonacciModifier = FibonacciRetracementAnnotationCreationModifier().apply {
+        setLabelPlacement(FibonacciRetracementAnnotation.LabelPlacement.CENTER)
+        setLabelVerticalPosition(FibonacciRetracementAnnotation.LabelVerticalPosition.ABOVE)
+        setLabelFormat(FibonacciRetracementAnnotation.LabelFormat.RATIO)
+    }
+    private val measureModifier = MeasureAnnotationCreationModifier()
+    private val stopLossTakeProfitModifier = StopLossTakeProfitAnnotationCreationModifier()
 
     override fun inflateBinding(inflater: LayoutInflater): ExampleTradingAnnotationsFragmentBinding {
         return ExampleTradingAnnotationsFragmentBinding.inflate(inflater)
@@ -55,6 +64,9 @@ class TradingAnnotationsFragment : ExampleBaseFragment<ExampleTradingAnnotations
                         0 -> xabcdModifier.isEnabled = true
                         1 -> pitchforkModifier.isEnabled = true
                         2 -> extendedLineModifier.isEnabled = true
+                        3 -> fibonacciModifier.isEnabled = true
+                        4 -> measureModifier.isEnabled = true
+                        5 -> stopLossTakeProfitModifier.isEnabled = true
                     }
                 }
             }
@@ -63,8 +75,12 @@ class TradingAnnotationsFragment : ExampleBaseFragment<ExampleTradingAnnotations
         xabcdModifier.setAnnotationCreationListener(this)
         pitchforkModifier.setAnnotationCreationListener(this)
         extendedLineModifier.setAnnotationCreationListener(this)
+        fibonacciModifier.setAnnotationCreationListener(this)
+        measureModifier.setAnnotationCreationListener(this)
+        stopLossTakeProfitModifier.setAnnotationCreationListener(this)
 
         val surface = binding.surface
+        lateinit var candlestickSeries: FastCandlestickRenderableSeries
         surface.suspendUpdates {
             xAxes { categoryDateAxis { } }
             yAxes { numericAxis { visibleRange = DoubleRange(30.0, 37.0) } }
@@ -77,6 +93,7 @@ class TradingAnnotationsFragment : ExampleBaseFragment<ExampleTradingAnnotations
                         append(data.dateData, data.openData, data.highData, data.lowData, data.closeData)
                     }
                     opacity = 0.4f
+                    candlestickSeries = this
                 }
             }
             annotations {
@@ -101,13 +118,42 @@ class TradingAnnotationsFragment : ExampleBaseFragment<ExampleTradingAnnotations
                     x2 = 90; y2 = 33.7
                     setIsEditable(true)
                 }
+                fibonacciRetracementAnnotation {
+                    initialBasePoints.add(ComparablePoint(140, 30.4))
+                    initialBasePoints.add(ComparablePoint(160, 32.2))
+                    levels = listOf(0.0, 0.236, 0.382, 0.5, 0.618, 0.786, 1.0, 1.272, 1.618).reversed()
+                    setIsEditable(true)
+                }
+                measureAnnotation {
+                    initialBasePoints.add(ComparablePoint(180, 30.6))
+                    initialBasePoints.add(ComparablePoint(195, 32.1))
+                    setSnapSeries(candlestickSeries)
+                    setIsEditable(true)
+                }
+                stopLossTakeProfitAnnotation {
+                    initialBasePoints.add(ComparablePoint(165, 33.0))
+                    initialBasePoints.add(ComparablePoint(175, 34.2))
+                    strokeDashArray = floatArrayOf(6f, 3f)
+                    setIsEditable(true)
+                }
+                stopLossTakeProfitAnnotation {
+                    initialBasePoints.add(ComparablePoint(165, 36.5))
+                    initialBasePoints.add(ComparablePoint(175, 35.3))
+                    strokeDashArray = floatArrayOf(6f, 3f)
+                    setIsEditable(true)
+                }
             }
             chartModifiers {
                 modifier(xabcdModifier)
                 modifier(pitchforkModifier)
                 modifier(extendedLineModifier)
+                modifier(fibonacciModifier)
+                modifier(measureModifier)
+                modifier(stopLossTakeProfitModifier)
             }
         }
+
+        measureModifier.setSnapSeries(candlestickSeries)
 
         disableAllModifiers()
         xabcdModifier.isEnabled = true
@@ -127,6 +173,9 @@ class TradingAnnotationsFragment : ExampleBaseFragment<ExampleTradingAnnotations
         xabcdModifier.isEnabled = false
         pitchforkModifier.isEnabled = false
         extendedLineModifier.isEnabled = false
+        fibonacciModifier.isEnabled = false
+        measureModifier.isEnabled = false
+        stopLossTakeProfitModifier.isEnabled = false
     }
 
     override fun onAnnotationCreated(newAnnotation: IAnnotation) {

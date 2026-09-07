@@ -35,6 +35,9 @@ import com.scichart.charting.visuals.annotations.*
 import com.scichart.charting.visuals.annotations.tradingAnnotations.PitchforkAnnotation
 import com.scichart.charting.visuals.annotations.tradingAnnotations.XabcdAnnotation
 import com.scichart.charting.visuals.annotations.tradingAnnotations.FreehandDrawingAnnotation
+import com.scichart.charting.visuals.annotations.tradingAnnotations.FibonacciRetracementAnnotation
+import com.scichart.charting.visuals.annotations.tradingAnnotations.MeasureAnnotation
+import com.scichart.charting.visuals.annotations.tradingAnnotations.StopLossTakeProfitAnnotation
 import com.scichart.charting.visuals.axes.*
 import com.scichart.charting.visuals.legend.SciChartLegend
 import com.scichart.charting.visuals.pointmarkers.*
@@ -219,6 +222,9 @@ fun CollectionContext<IAnnotation>.verticalLineAnnotation(init: VerticalLineAnno
 fun CollectionContext<IAnnotation>.extendedLineAnnotation(init: ExtendedLineAnnotation.() -> Unit) = collection.add(ExtendedLineAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.xabcdAnnotation(init: XabcdAnnotation.() -> Unit) = collection.add(XabcdAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.pitchforkAnnotation(init: PitchforkAnnotation.() -> Unit) = collection.add(PitchforkAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.fibonacciRetracementAnnotation(init: FibonacciRetracementAnnotation.() -> Unit) = collection.add(FibonacciRetracementAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.measureAnnotation(init: MeasureAnnotation.() -> Unit) = collection.add(MeasureAnnotation(context).apply(init))
+fun CollectionContext<IAnnotation>.stopLossTakeProfitAnnotation(init: StopLossTakeProfitAnnotation.() -> Unit) = collection.add(StopLossTakeProfitAnnotation(context).apply(init))
 fun CollectionContext<IAnnotation>.freehandDrawingAnnotation(init: FreehandDrawingAnnotation.() -> Unit) = collection.add(FreehandDrawingAnnotation(context).apply(init))
 
 fun LineAnnotationWithLabelsBase.annotationLabels(init: CollectionContext<AnnotationLabel>.() -> Unit) {

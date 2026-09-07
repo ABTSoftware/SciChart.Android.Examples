@@ -28,15 +28,22 @@ import androidx.annotation.NonNull;
 import com.scichart.charting.model.AnnotationCollection;
 import com.scichart.charting.model.dataSeries.OhlcDataSeries;
 import com.scichart.charting.modifiers.ExtendedLineAnnotationCreationModifier;
+import com.scichart.charting.modifiers.FibonacciRetracementAnnotationCreationModifier;
+import com.scichart.charting.modifiers.MeasureAnnotationCreationModifier;
 import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.modifiers.OnAnnotationCreatedListener;
 import com.scichart.charting.modifiers.PitchforkAnnotationCreationModifier;
+import com.scichart.charting.modifiers.StopLossTakeProfitAnnotationCreationModifier;
 import com.scichart.charting.modifiers.XabcdAnnotationCreationModifier;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.ExtendedLineAnnotation;
 import com.scichart.charting.visuals.annotations.IAnnotation;
+import com.scichart.charting.visuals.annotations.tradingAnnotations.FibonacciRetracementAnnotation;
+import com.scichart.charting.visuals.annotations.tradingAnnotations.MeasureAnnotation;
 import com.scichart.charting.visuals.annotations.tradingAnnotations.PitchforkAnnotation;
+import com.scichart.charting.visuals.annotations.tradingAnnotations.StopLossTakeProfitAnnotation;
 import com.scichart.charting.visuals.annotations.tradingAnnotations.XabcdAnnotation;
+import com.scichart.charting.visuals.renderableSeries.FastCandlestickRenderableSeries;
 import com.scichart.examples.R;
 import com.scichart.examples.components.SpinnerStringAdapter;
 import com.scichart.examples.data.MarketDataService;
@@ -46,6 +53,7 @@ import com.scichart.examples.fragments.base.ExampleBaseFragment;
 import com.scichart.examples.utils.ItemSelectedListenerBase;
 
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
@@ -54,6 +62,9 @@ public class TradingAnnotationsFragment extends ExampleBaseFragment<ExampleTradi
     private final XabcdAnnotationCreationModifier xabcdModifier = new XabcdAnnotationCreationModifier();
     private final PitchforkAnnotationCreationModifier pitchforkModifier = new PitchforkAnnotationCreationModifier();
     private final ExtendedLineAnnotationCreationModifier extendedLineModifier = new ExtendedLineAnnotationCreationModifier();
+    private final FibonacciRetracementAnnotationCreationModifier fibonacciModifier = new FibonacciRetracementAnnotationCreationModifier();
+    private final MeasureAnnotationCreationModifier measureModifier = new MeasureAnnotationCreationModifier();
+    private final StopLossTakeProfitAnnotationCreationModifier stopLossTakeProfitModifier = new StopLossTakeProfitAnnotationCreationModifier();
 
     @NonNull
     @Override
@@ -72,6 +83,9 @@ public class TradingAnnotationsFragment extends ExampleBaseFragment<ExampleTradi
                     case 0: xabcdModifier.setIsEnabled(true); break;
                     case 1: pitchforkModifier.setIsEnabled(true); break;
                     case 2: extendedLineModifier.setIsEnabled(true); break;
+                    case 3: fibonacciModifier.setIsEnabled(true); break;
+                    case 4: measureModifier.setIsEnabled(true); break;
+                    case 5: stopLossTakeProfitModifier.setIsEnabled(true); break;
                 }
             }
         });
@@ -100,26 +114,69 @@ public class TradingAnnotationsFragment extends ExampleBaseFragment<ExampleTradi
                 .withIsEditable(true)
                 .build();
 
+        final ArrayList<Double> fibonacciLevels = new ArrayList<>();
+        Collections.addAll(fibonacciLevels, 0.0, 0.236, 0.382, 0.5, 0.618, 0.764, 1.0);
+
+        final FibonacciRetracementAnnotation fibonacciRetracementAnnotation = sciChartBuilder.newFibonacciRetracementAnnotation()
+                .withBasePoint(140, 30.4)
+                .withBasePoint(160, 32.2)
+                .withLevels(fibonacciLevels)
+                .withLabelPlacement(FibonacciRetracementAnnotation.LabelPlacement.CENTER)
+                .withLabelVerticalPosition(FibonacciRetracementAnnotation.LabelVerticalPosition.ABOVE)
+                .withLabelFormat(FibonacciRetracementAnnotation.LabelFormat.RATIO)
+                .withIsEditable(true)
+                .build();
+
         final OhlcDataSeries<Date, Double> dataSeries = sciChartBuilder.newOhlcDataSeries(Date.class, Double.class).build();
         final MarketDataService marketDataService = new MarketDataService(Calendar.getInstance().getTime(), 5, 5);
         final PriceSeries data = marketDataService.getHistoricalData(200);
 
         dataSeries.append(data.getDateData(), data.getOpenData(), data.getHighData(), data.getLowData(), data.getCloseData());
 
+        final FastCandlestickRenderableSeries candlestickSeries = sciChartBuilder.newCandlestickSeries().withDataSeries(dataSeries).withOpacity(0.4f).build();
+
+        final MeasureAnnotation measureAnnotation = sciChartBuilder.newMeasureAnnotation()
+                .withBasePoint(180, 30.6)
+                .withBasePoint(195, 32.1)
+                .withSnapSeries(candlestickSeries)
+                .withIsEditable(true)
+                .build();
+
+        final StopLossTakeProfitAnnotation takeProfitAnnotation = sciChartBuilder.newStopLossTakeProfitAnnotation()
+                .withBasePoint(165, 33.0)
+                .withBasePoint(175, 34.2)
+                .withStrokeDashArray(new float[]{6f, 3f})
+                .withIsEditable(true)
+                .build();
+
+        final StopLossTakeProfitAnnotation stopLossAnnotation = sciChartBuilder.newStopLossTakeProfitAnnotation()
+                .withBasePoint(165, 36.5)
+                .withBasePoint(175, 35.3)
+                .withStrokeDashArray(new float[]{6f, 3f})
+                .withIsEditable(true)
+                .build();
+
         final SciChartSurface surface = binding.surface;
-        Collections.addAll(surface.getRenderableSeries(), sciChartBuilder.newCandlestickSeries().withDataSeries(dataSeries).withOpacity(0.4f).build());
+        Collections.addAll(surface.getRenderableSeries(), candlestickSeries);
         Collections.addAll(surface.getXAxes(), sciChartBuilder.newCategoryDateAxis().build());
         Collections.addAll(surface.getYAxes(), sciChartBuilder.newNumericAxis().withVisibleRange(30d, 37d).build());
-        Collections.addAll(surface.getAnnotations(), xabcdAnnotation, pitchforkAnnotation, extendedLineAnnotation);
+        Collections.addAll(surface.getAnnotations(), xabcdAnnotation, pitchforkAnnotation, extendedLineAnnotation, fibonacciRetracementAnnotation, measureAnnotation, takeProfitAnnotation, stopLossAnnotation);
 
         xabcdModifier.setAnnotationCreationListener(this);
         pitchforkModifier.setAnnotationCreationListener(this);
         extendedLineModifier.setAnnotationCreationListener(this);
+        fibonacciModifier.setAnnotationCreationListener(this);
+        fibonacciModifier.setLabelPlacement(FibonacciRetracementAnnotation.LabelPlacement.CENTER);
+        fibonacciModifier.setLabelVerticalPosition(FibonacciRetracementAnnotation.LabelVerticalPosition.ABOVE);
+        fibonacciModifier.setLabelFormat(FibonacciRetracementAnnotation.LabelFormat.RATIO);
+        measureModifier.setAnnotationCreationListener(this);
+        measureModifier.setSnapSeries(candlestickSeries);
+        stopLossTakeProfitModifier.setAnnotationCreationListener(this);
 
         disableAllModifiers();
         xabcdModifier.setIsEnabled(true);
 
-        surface.getChartModifiers().add(new ModifierGroup(xabcdModifier, pitchforkModifier, extendedLineModifier));
+        surface.getChartModifiers().add(new ModifierGroup(xabcdModifier, pitchforkModifier, extendedLineModifier, fibonacciModifier, measureModifier, stopLossTakeProfitModifier));
 
         binding.deleteAnnotation.setOnClickListener(v -> {
             final AnnotationCollection annotations = surface.getAnnotations();
@@ -136,6 +193,9 @@ public class TradingAnnotationsFragment extends ExampleBaseFragment<ExampleTradi
         xabcdModifier.setIsEnabled(false);
         pitchforkModifier.setIsEnabled(false);
         extendedLineModifier.setIsEnabled(false);
+        fibonacciModifier.setIsEnabled(false);
+        measureModifier.setIsEnabled(false);
+        stopLossTakeProfitModifier.setIsEnabled(false);
     }
 
     @Override
